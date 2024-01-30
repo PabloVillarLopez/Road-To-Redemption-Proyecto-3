@@ -4,8 +4,9 @@ public class BasicCharacterController : MonoBehaviour
 {
     // Public variables
     public float speed = 5f; // Movement speed
-    public Transform character; // Personaje
-    public GameObject player; // Jugador
+    public Transform target;
+    public Transform character;
+    public GameObject player;
 
     // Private variables
     private CharacterController controller; // Reference to the CharacterController
@@ -19,14 +20,14 @@ public class BasicCharacterController : MonoBehaviour
     // Update method, called every frame
     void Update()
     {
-        // Calculate movement direction based on mouse position
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        Vector3 moveDirection = mousePosition - character.position;
-        moveDirection.y = 0f; // Ensure movement is only in the horizontal plane
-        moveDirection.Normalize(); // Normalize the direction vector
+        // Get horizontal and vertical movement input
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        // Calculate movement direction based on input and speed
+        Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized * speed;
 
         // Apply movement to the CharacterController
-        controller.Move(moveDirection * speed * Time.deltaTime);
+        controller.Move(moveDirection * Time.deltaTime);
     }
 }
