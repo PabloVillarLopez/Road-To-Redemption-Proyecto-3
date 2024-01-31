@@ -3403,7 +3403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   catastrophes: 0
   waterContamination: 0
-  contaminationSpeed: 0.001
+  contaminationSpeed: 10
   phases: 0
   money: 1000
   moneyText: {fileID: 276365045}
