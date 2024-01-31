@@ -5,6 +5,8 @@ public class MouseLook : MonoBehaviour
     // Public variables
     public float Sensitivity = 700;
     public Transform playerBody;
+    public Transform orientation;
+    public Transform player;
     public float smoothing = 0.7f; // Smoothing factor for rotation
 
     // Private variables
@@ -33,5 +35,11 @@ public class MouseLook : MonoBehaviour
 
         // Apply smoothed rotation on both axes to the player's body
         playerBody.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+
+        //Apply rotation also in orientation
+        orientation.localRotation = Quaternion.Euler(0, yRotation, 0);
+
+        //Rotate also the player body
+        player.localRotation = Quaternion.Euler(0, yRotation, 0);
     }
 }
