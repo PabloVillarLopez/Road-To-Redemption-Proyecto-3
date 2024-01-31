@@ -1,20 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PipelineForeground : MonoBehaviour
 {
     //Script for placing pipelines in the foreground, in the first plane
 
     #region Camera Variables
-
+    [Header("Camera Variables")]
     public GameObject playerCamera;
     public GameObject pipelineCamera;
     private bool pipelineCameraActive;
     private bool playerEnteredInPipelineArea;
-    public GameObject RotatePipelineUI;
-
+    
     #endregion Camera Variables
+
+    #region Rotate Pipelines Variables
+
+    [Header("Rotate Pipeline Variables")]
+    public GameObject RotatePipelineUI;
+    private float rotationAddedX;
+    private float rotationAddedY;
+
+    #endregion Rotate Pipelines Variables
+
+    #region Open and Close Water Flow Variables
+
+    [Header("Open and Close Water Flow Variables")]
+    public bool isWaterFlowingInThisPipeline;
+    public GameObject openWaterFlowButton;
+    public GameObject closeWaterFlowButton;
+    public TextMeshProUGUI waterFlowStatusText;
+
+    #endregion Open and Close Water Flow Variables
+
+    #region Awake
 
     private void Awake()
     {
@@ -23,11 +44,22 @@ public class PipelineForeground : MonoBehaviour
         RotatePipelineUI.SetActive(false);
     }
 
+    #endregion Awake
+
+    #region Start
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rotationAddedX = transform.rotation.x;
+        rotationAddedY = transform.rotation.y;
+
+        ShowCorrectWaterFlowButton();
     }
+
+    #endregion Start
+
+    #region Update
 
     // Update is called once per frame
     void Update()
@@ -40,9 +72,11 @@ public class PipelineForeground : MonoBehaviour
         }
     }
 
+    #endregion Update
+
     //To detect if the player is inside the pipeline range 
     #region Triggers
-    
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -100,27 +134,88 @@ public class PipelineForeground : MonoBehaviour
 
     #endregion Pipeline Camera
 
+    //To rotate the pipelines
     #region RotatePipeline
 
     public void RotateRightX()
     {
         //gameObject.transform.localRotation += Quaternion.Euler(45f, 0, 0);
+        rotationAddedY += 45f;
+        transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
     }
 
     public void RotateLeftX()
     {
-
+        rotationAddedY += 45f;
+        transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
     }
 
     public void RotateUpwards()
     {
-
+        rotationAddedX += 45f;
+        transform.rotation = Quaternion.Euler(rotationAddedX, transform.rotation.y, transform.rotation.z);
     }
 
     public void RotateDownwards()
     {
-
+        rotationAddedX -= 45f;
+        transform.rotation = Quaternion.Euler(rotationAddedX, transform.rotation.y, transform.rotation.z);
     }
 
     #endregion RotatePipeline
+
+    //To open and close the water flow, if open water flows through the pipeline
+    #region Open and Close Water Flow
+
+    public void OpenWaterFlow()
+    {
+        isWaterFlowingInThisPipeline = true;
+
+        ShowCorrectWaterFlowButton();
+    }
+
+    public void CloseWaterFlow()
+    {
+        isWaterFlowingInThisPipeline = false;
+
+        ShowCorrectWaterFlowButton();
+    }
+
+    #endregion Open and Close Water Flow
+
+    //Pipeline UI
+    #region Water Flow UI
+
+    private void ShowWaterFlowStatus()
+    {
+        if (isWaterFlowingInThisPipeline)
+        {
+            waterFlowStatusText.text = "Status: Water Flowing";
+        }
+        else
+        {
+            waterFlowStatusText.text = "Status: Water not Flowing";
+        }
+    }
+
+    private void ShowCorrectWaterFlowButton()
+    {
+        if (isWaterFlowingInThisPipeline)
+        {
+            closeWaterFlowButton.SetActive(true);
+            openWaterFlowButton.SetActive(false);
+        }
+        else
+        {
+            closeWaterFlowButton.SetActive(false);
+            openWaterFlowButton.SetActive(true);
+        }
+
+        ShowWaterFlowStatus();
+    }
+
+    #endregion Water Flow UI
+
+
+
 }
