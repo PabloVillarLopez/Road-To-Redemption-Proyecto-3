@@ -35,6 +35,37 @@ public class PipelineForeground : MonoBehaviour
 
     #endregion Open and Close Water Flow Variables
 
+    #region Catastrophes Events Reference Variable
+    
+    [Header("Reference for Catastrophes")]
+    public MiniGameManager gameManager;
+
+    #endregion Catastrophes Events Reference Variable
+
+    #region Types of Pipeline
+
+    public enum PipelineType
+    {
+        FILTER,
+        HIGHSPEED,
+        REDIRECTION
+    }
+
+    [Header("Type of Pipeline")]
+    public PipelineType pipelineType;
+
+    #endregion Types of Pipeline
+
+    #region Number of Movements
+
+    [Header("Movements")]
+    public static int maxNumOfMovements;
+    public int currentNumOfMovements;
+    public int remainingMovements;
+    public TextMeshProUGUI numOfMovementsText;
+
+    #endregion Number of Movements
+
     #region Awake
 
     private void Awake()
@@ -55,6 +86,8 @@ public class PipelineForeground : MonoBehaviour
         rotationAddedY = transform.rotation.y;
 
         ShowCorrectWaterFlowButton();
+
+        maxNumOfMovements = 5;
     }
 
     #endregion Start
@@ -70,6 +103,21 @@ public class PipelineForeground : MonoBehaviour
         {
             PipelineCamera();
         }
+
+        remainingMovements = (maxNumOfMovements - currentNumOfMovements);
+        if (remainingMovements > 1)
+        {
+            numOfMovementsText.text = "Remaining Movements: " + remainingMovements;
+        }
+        else if (remainingMovements == 1)
+        {
+            numOfMovementsText.text = "Remaining Movement: " + remainingMovements;
+        }
+        else if (remainingMovements <= 0)
+        {
+            numOfMovementsText.text = "Remaining Movements: " + remainingMovements + " . No Remaining Movements";
+        }
+        
     }
 
     #endregion Update
@@ -130,6 +178,7 @@ public class PipelineForeground : MonoBehaviour
         RotatePipelineUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        StartCoroutine(gameManager.ContaminationTransition());
     }
 
     #endregion Pipeline Camera
@@ -139,27 +188,46 @@ public class PipelineForeground : MonoBehaviour
 
     public void RotateRightX()
     {
-        //gameObject.transform.localRotation += Quaternion.Euler(45f, 0, 0);
-        rotationAddedY += 45f;
-        transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
+        if (currentNumOfMovements < maxNumOfMovements)
+        {
+            rotationAddedY += 45f;
+            transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
+            currentNumOfMovements++;
+        }
+        
     }
 
     public void RotateLeftX()
     {
-        rotationAddedY += 45f;
-        transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
+        if (currentNumOfMovements < maxNumOfMovements)
+        {
+            rotationAddedY += 45f;
+            transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
+            currentNumOfMovements++;
+        }
+        
     }
 
     public void RotateUpwards()
     {
-        rotationAddedX += 45f;
-        transform.rotation = Quaternion.Euler(rotationAddedX, transform.rotation.y, transform.rotation.z);
+        if (currentNumOfMovements < maxNumOfMovements)
+        {
+            rotationAddedX += 45f;
+            transform.rotation = Quaternion.Euler(rotationAddedX, transform.rotation.y, transform.rotation.z);
+            currentNumOfMovements++;
+        }
+        
     }
 
     public void RotateDownwards()
     {
-        rotationAddedX -= 45f;
-        transform.rotation = Quaternion.Euler(rotationAddedX, transform.rotation.y, transform.rotation.z);
+        if (currentNumOfMovements < maxNumOfMovements)
+        {
+            rotationAddedX -= 45f;
+            transform.rotation = Quaternion.Euler(rotationAddedX, transform.rotation.y, transform.rotation.z);
+            currentNumOfMovements++;
+        }
+        
     }
 
     #endregion RotatePipeline
@@ -215,7 +283,5 @@ public class PipelineForeground : MonoBehaviour
     }
 
     #endregion Water Flow UI
-
-
 
 }
