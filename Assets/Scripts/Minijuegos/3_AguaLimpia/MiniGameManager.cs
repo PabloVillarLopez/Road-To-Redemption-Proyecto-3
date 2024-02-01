@@ -42,6 +42,8 @@ public class MiniGameManager : MonoBehaviour
     void Start()
     {
         SelectPipeline();
+
+        StartCoroutine(ContaminationTransition());
     }
 
     // Update is called once per frame
@@ -56,7 +58,7 @@ public class MiniGameManager : MonoBehaviour
 
         CheckSelectedPipeline();
 
-        waterContamination = Mathf.Lerp(0f, 1f, contaminationSpeed);
+        //waterContamination = Mathf.Lerp(0.5f, 1f, contaminationSpeed);
     }
 
     void SelectPipeline()
@@ -137,6 +139,21 @@ public class MiniGameManager : MonoBehaviour
         {
             SelectPipeline();
         }
+    }
+
+    public IEnumerator ContaminationTransition()
+    {
+        float elapsedTime = 0;
+
+        while (elapsedTime < contaminationSpeed)
+        {
+            elapsedTime += Time.deltaTime;
+
+            waterContamination = Mathf.Lerp(0f, 1f, elapsedTime / contaminationSpeed);
+            yield return null;
+        }
+
+        //StartCoroutine(ContaminationTransition());
     }
 }
 
