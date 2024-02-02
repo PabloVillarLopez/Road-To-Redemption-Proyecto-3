@@ -88,6 +88,26 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Pipeline Reference
 
+    #region UI References
+
+    [Header("UI References")]
+    [Space]
+    public GameObject RotateUI;
+    public GameObject SelectUI;
+    public GameObject waterOpenAndCloseUI;
+
+    #endregion UI References
+
+    #region Rotate UI Buttons Variables
+    [Header("Rotate Buttons")]
+    [Space]
+    public Button leftRotateButton;
+    public Button rightRotateButton;
+    public Button upRotateButton;
+    public Button downRotateButton;
+
+    #endregion Rotate UI Buttons Variables
+
     #region Start
 
     // Start is called before the first frame update
@@ -142,7 +162,8 @@ public class MiniGameManager : MonoBehaviour
                     StopAllCoroutines();
                     StartCoroutine(DecontaminationTransition());
                 }
-                
+
+                ManageUIPipelineType();
             }
             else
             {
@@ -294,5 +315,41 @@ public class MiniGameManager : MonoBehaviour
     #endregion Manage Points According to the DifficultyLevel
 
     #endregion Difficulty Levels
+
+    #region Manage UI Depending On Pipeline Type
+
+    private void ManageUIPipelineType()
+    {
+        switch (pipelineActive.pipelineType)
+        {
+            case PipelineForeground.PipelineType.FILTER:
+                RotateUI.SetActive(false);
+                waterOpenAndCloseUI.SetActive(false);
+                SelectUI.SetActive(true);
+                //SelectUI.transform.position = new Vector3(SelectUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
+                break;
+            case PipelineForeground.PipelineType.HIGHSPEED:
+                RotateUI.SetActive(false);
+                waterOpenAndCloseUI.SetActive(true);
+                //SelectUI.SetActive(false);
+                //waterOpenAndCloseUI.transform.position = new Vector3(waterOpenAndCloseUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
+                break;
+            case PipelineForeground.PipelineType.REDIRECTION:
+                RotateUI.SetActive(true);
+                waterOpenAndCloseUI.SetActive(false);
+                leftRotateButton.onClick.AddListener(pipelineActive.RotateLeftX);
+                rightRotateButton.onClick.AddListener(pipelineActive.RotateRightX);
+                upRotateButton.onClick.AddListener(pipelineActive.RotateUpwards);
+                downRotateButton.onClick.AddListener(pipelineActive.RotateDownwards);
+
+                //SelectUI.SetActive(false);
+                //RotateUI.transform.position = new Vector3(RotateUI.transform.position.x + 160, RotateUI.transform.position.y, RotateUI.transform.position.z);
+                break;
+            default:
+                break;
+        }
+    }
+
+    #endregion Manage UI Depending on Pipeline Type
 }
 
