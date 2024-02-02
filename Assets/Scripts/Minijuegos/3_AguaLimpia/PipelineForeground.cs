@@ -8,9 +8,9 @@ public class PipelineForeground : MonoBehaviour
     //Script for placing pipelines in the foreground, in the first plane
 
     #region Camera Variables
-    [Header("Camera Variables")]
-    public GameObject playerCamera;
-    public GameObject pipelineCamera;
+    //[Header("Camera Variables")]
+    private GameObject playerCamera;
+    private GameObject pipelineCamera;
     private bool pipelineCameraActive;
     private bool playerEnteredInPipelineArea;
     
@@ -18,8 +18,8 @@ public class PipelineForeground : MonoBehaviour
 
     #region Rotate Pipelines Variables
 
-    [Header("Rotate Pipeline Variables")]
-    public GameObject RotatePipelineUI;
+    //[Header("Rotate Pipeline Variables")]
+    private GameObject RotatePipelineUI;
     private float rotationAddedX;
     private float rotationAddedY;
 
@@ -28,21 +28,22 @@ public class PipelineForeground : MonoBehaviour
     #region Open and Close Water Flow Variables
 
     [Header("Open and Close Water Flow Variables")]
+    [Space]
     public bool isWaterFlowingInThisPipeline;
-    public GameObject openWaterFlowButton;
-    public GameObject closeWaterFlowButton;
-    public TextMeshProUGUI waterFlowStatusText;
+    private GameObject openWaterFlowButton;
+    private GameObject closeWaterFlowButton;
+    private TextMeshProUGUI waterFlowStatusText;
 
     #endregion Open and Close Water Flow Variables
 
     #region Catastrophes Events Reference Variable
     
-    [Header("Reference for Catastrophes")]
-    public MiniGameManager gameManager;
+    //[Header("Reference for Catastrophes")]
+    private MiniGameManager gameManager;
 
     #endregion Catastrophes Events Reference Variable
 
-    #region Types of Pipeline
+    #region Types of Pipeline Variables
 
     public enum PipelineType
     {
@@ -53,26 +54,39 @@ public class PipelineForeground : MonoBehaviour
 
     [Header("Type of Pipeline")]
     public PipelineType pipelineType;
+    public float decontaminationSpeed;
 
-    #endregion Types of Pipeline
+    #endregion Types of Pipeline Variables
 
-    #region Number of Movements
+    #region Number of Movements Variables
 
-    [Header("Movements")]
+    //[Header("Movements")]
     public static int maxNumOfMovements;
-    public int currentNumOfMovements;
-    public int remainingMovements;
-    public TextMeshProUGUI numOfMovementsText;
+    private int currentNumOfMovements;
+    private int remainingMovements;
+    private TextMeshProUGUI numOfMovementsText;
 
-    #endregion Number of Movements
+    #endregion Number of Movements Variables
+
+    #region Verify Pipeline Correct Rotation
+
+    [Header("Verify Pipeline Correct Rotation")]
+    public Quaternion correctRotation;
+    public bool pipelineInCorrecRotation;
+
+    #endregion Verify Pipeline Correct Rotation
 
     #region Awake
 
     private void Awake()
     {
-        playerCamera.SetActive(true);
-        pipelineCamera.SetActive(false);
-        RotatePipelineUI.SetActive(false);
+        playerCamera = GameObject.Find("Charapter");
+        pipelineCamera = GameObject.Find("PipelineCamera");
+        RotatePipelineUI = GameObject.Find("RotatePipelineUI");
+        openWaterFlowButton = GameObject.Find("OpenWaterFlowButton");
+        closeWaterFlowButton = GameObject.Find("CloseWaterFlowButton");
+        waterFlowStatusText = GameObject.Find("Water Flow Status Text").GetComponent<TextMeshProUGUI>();
+        numOfMovementsText = GameObject.Find("RemainingMovementsText").GetComponent<TextMeshProUGUI>();
     }
 
     #endregion Awake
@@ -82,6 +96,15 @@ public class PipelineForeground : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        
+        gameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
+        
+
+        playerCamera.SetActive(true);
+        pipelineCamera.SetActive(false);
+        RotatePipelineUI.SetActive(false);
+
         rotationAddedX = transform.rotation.x;
         rotationAddedY = transform.rotation.y;
 
@@ -104,20 +127,8 @@ public class PipelineForeground : MonoBehaviour
             PipelineCamera();
         }
 
-        remainingMovements = (maxNumOfMovements - currentNumOfMovements);
-        if (remainingMovements > 1)
-        {
-            numOfMovementsText.text = "Remaining Movements: " + remainingMovements;
-        }
-        else if (remainingMovements == 1)
-        {
-            numOfMovementsText.text = "Remaining Movement: " + remainingMovements;
-        }
-        else if (remainingMovements <= 0)
-        {
-            numOfMovementsText.text = "Remaining Movements: " + remainingMovements + " . No Remaining Movements";
-        }
-        
+
+        HandleRemaingingMovements();
     }
 
     #endregion Update
@@ -179,6 +190,13 @@ public class PipelineForeground : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         StartCoroutine(gameManager.ContaminationTransition());
+
+        /*if (pipelineType == PipelineType.FILTER)
+        {
+            StartCoroutine(ContaminationTransition());
+        }*/
+
+        //TypeOfPipelineFunctionality();
     }
 
     #endregion Pipeline Camera
@@ -193,8 +211,9 @@ public class PipelineForeground : MonoBehaviour
             rotationAddedY += 45f;
             transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
             currentNumOfMovements++;
+
+            DecreaseOrIncreasePointsOnWrongOrRightRotation();
         }
-        
     }
 
     public void RotateLeftX()
@@ -204,8 +223,9 @@ public class PipelineForeground : MonoBehaviour
             rotationAddedY += 45f;
             transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
             currentNumOfMovements++;
+
+            DecreaseOrIncreasePointsOnWrongOrRightRotation();
         }
-        
     }
 
     public void RotateUpwards()
@@ -215,8 +235,9 @@ public class PipelineForeground : MonoBehaviour
             rotationAddedX += 45f;
             transform.rotation = Quaternion.Euler(rotationAddedX, transform.rotation.y, transform.rotation.z);
             currentNumOfMovements++;
+
+            DecreaseOrIncreasePointsOnWrongOrRightRotation();
         }
-        
     }
 
     public void RotateDownwards()
@@ -226,8 +247,9 @@ public class PipelineForeground : MonoBehaviour
             rotationAddedX -= 45f;
             transform.rotation = Quaternion.Euler(rotationAddedX, transform.rotation.y, transform.rotation.z);
             currentNumOfMovements++;
+
+            DecreaseOrIncreasePointsOnWrongOrRightRotation();
         }
-        
     }
 
     #endregion RotatePipeline
@@ -284,4 +306,110 @@ public class PipelineForeground : MonoBehaviour
 
     #endregion Water Flow UI
 
+    //To handle the remainging movements text
+    #region Handle Remaining Movements Text
+
+    private void HandleRemaingingMovements()
+    {
+        if (!RotatePipelineUI.activeInHierarchy)
+        {
+            if (remainingMovements > 1)
+            {
+                numOfMovementsText.text = "Remaining Movements: " + remainingMovements;
+            }
+            else if (remainingMovements == 1)
+            {
+                numOfMovementsText.text = "Remaining Movement: " + remainingMovements;
+            }
+            else if (remainingMovements <= 0)
+            {
+                numOfMovementsText.text = "Remaining Movements: " + remainingMovements + " . No Remaining Movements";
+            }
+        }
+
+        remainingMovements = (maxNumOfMovements - currentNumOfMovements);
+        
+    }
+
+    #endregion Handle Remainging Movements Text
+
+    //To punish decreasing points wrong movements and to reward good movements increasing points
+    #region Decrease or Increase Points On Wrong Or Right Rotation
+
+    public void DecreaseOrIncreasePointsOnWrongOrRightRotation()
+    {
+        switch (gameManager.difficultyLevel)
+        {
+            case MiniGameManager.DifficultyLevel.EASY:
+                if (transform.rotation == correctRotation)
+                {
+                    pipelineInCorrecRotation = true;
+                    gameManager.points += 10;
+                    //gameManager.pointsCanIncrease = false;
+                }
+                break;
+            case MiniGameManager.DifficultyLevel.INTERMEDIATE:
+
+                if (transform.rotation != correctRotation)
+                {
+                    gameManager.points -= 1;
+                }
+                else if (transform.rotation == correctRotation)
+                {
+                    pipelineInCorrecRotation = true;
+                    gameManager.points += 5;
+                    //gameManager.pointsCanIncrease = false;
+                }
+                break;
+            case MiniGameManager.DifficultyLevel.HARD:
+                gameManager.points = 1000;
+
+                if (transform.rotation != correctRotation)
+                {
+                    gameManager.points -= 10;
+                }
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    #endregion Decrease or Increase Points On Wrong Or Right Rotation
+
+    #region Different Type of Pipeline Functionality
+
+    private void TypeOfPipelineFunctionality()
+    {
+        switch (pipelineType)
+        {
+            case PipelineType.FILTER:
+                StartCoroutine(ContaminationTransition());
+                break;
+            case PipelineType.HIGHSPEED:
+                break;
+            case PipelineType.REDIRECTION:
+                break;
+            default:
+                break;
+        }
+    }
+
+    public IEnumerator ContaminationTransition()
+    {
+
+        float elapsedTime = 0;
+
+        while (elapsedTime < decontaminationSpeed)
+        {
+            elapsedTime += Time.deltaTime;
+
+            gameManager.waterContamination = Mathf.Lerp(gameManager.waterContamination, 0f, elapsedTime / decontaminationSpeed);
+            yield return null;
+        }
+
+        //StartCoroutine(ContaminationTransition());
+    }
+
+    #endregion Different Type of Pipeline Functionality
 }

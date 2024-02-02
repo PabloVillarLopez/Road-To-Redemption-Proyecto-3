@@ -21,6 +21,7 @@ public class MiniGameManager : MonoBehaviour
     public Catastrophes catastrophes;
     public float waterContamination;
     public float contaminationSpeed;
+    public float decontaminationSpeed;
     public Slider contaminationSlider;
 
     #endregion Type of Catastrophes and Catastrophes Variables
@@ -44,6 +45,8 @@ public class MiniGameManager : MonoBehaviour
     public int money = 1000;
     public TextMeshProUGUI moneyText;
     public int points;
+    public bool pointsCanIncrease;
+    public bool pointsCanDecrease;
 
     #endregion Resources
 
@@ -79,6 +82,12 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Difficulty Levels Variables
 
+    #region Pipeline Reference
+
+    public PipelineForeground pipelineActive;
+
+    #endregion Pipeline Reference
+
     #region Start
 
     // Start is called before the first frame update
@@ -112,6 +121,7 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Update
 
+    //To select different types of pipelines
     #region Select Pipeline Types
 
     void SelectPipeline()
@@ -125,6 +135,14 @@ public class MiniGameManager : MonoBehaviour
                 pipeline.SetActive(true);
                 pipelinesIcons[i].gameObject.SetActive(true);
                 pipeline.gameObject.transform.position = pipelines[0].transform.position;
+                pipelineActive = pipeline.GetComponent<PipelineForeground>();
+
+                if (pipelineActive.pipelineType == PipelineForeground.PipelineType.FILTER)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(DecontaminationTransition());
+                }
+                
             }
             else
             {
@@ -196,6 +214,7 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Select Pipeline Types
 
+    //For the transition from no contamination to totally contaminated
     #region Contamination Transition
 
     public IEnumerator ContaminationTransition()
@@ -213,8 +232,25 @@ public class MiniGameManager : MonoBehaviour
         //StartCoroutine(ContaminationTransition());
     }
 
+    public IEnumerator DecontaminationTransition()
+    {
+        float elapsedTime2 = 0;
+
+        while (elapsedTime2 < contaminationSpeed && waterContamination >= 0)
+        {
+            elapsedTime2 += Time.deltaTime;
+            float previousWaterContamination = waterContamination;
+
+            waterContamination = Mathf.Lerp(previousWaterContamination, 0f, elapsedTime2 / decontaminationSpeed);
+            yield return null;
+        }
+
+        //StartCoroutine(ContaminationTransition());
+    }
+
     #endregion Contamination Transition
 
+    //Adjustments for Difficulty Levels
     #region Difficulty Levels
 
     public void EasyLevel()
@@ -242,10 +278,13 @@ public class MiniGameManager : MonoBehaviour
         switch (difficultyLevel)
         {
             case DifficultyLevel.EASY:
+                pointsCanIncrease = true;
                 break;
             case DifficultyLevel.INTERMEDIATE:
+                pointsCanIncrease = true;
                 break;
             case DifficultyLevel.HARD:
+                pointsCanDecrease = true;
                 break;
             default:
                 break;

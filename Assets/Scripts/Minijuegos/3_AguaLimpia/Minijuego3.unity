@@ -2961,6 +2961,7 @@ GameObject:
   - component: {fileID: 1186455351}
   - component: {fileID: 1186455350}
   - component: {fileID: 1186455349}
+  - component: {fileID: 1186455353}
   m_Layer: 0
   m_Name: Pipeline2
   m_TagString: Untagged
@@ -3054,6 +3055,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1186455353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186455348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf58b176b51b3c40ab271337cea1033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWaterFlowingInThisPipeline: 1
+  pipelineType: 0
+  decontaminationSpeed: 50
+  correctRotation: {x: 0, y: 0, z: 0, w: 0}
+  pipelineInCorrecRotation: 0
 --- !u!1 &1272302576
 GameObject:
   m_ObjectHideFlags: 0
@@ -4583,21 +4601,26 @@ MonoBehaviour:
   catastrophes: 0
   waterContamination: 0
   contaminationSpeed: 25
+  decontaminationSpeed: 200
+  contaminationSlider: {fileID: 1342607463}
   phases: 0
   money: 1000
   moneyText: {fileID: 276365045}
   points: 0
+  pointsCanIncrease: 0
+  pointsCanDecrease: 0
   pipelines:
   - {fileID: 2052377793}
   - {fileID: 1186455348}
-  pipeline1CorrectPlaced: 0
-  selectedPipeline: 0
   pipelinesIcons:
   - {fileID: 777308486}
   - {fileID: 1525367957}
+  pipeline1CorrectPlaced: 0
+  selectedPipeline: 0
   selectedPipelineIcon: 0
   previousPipeline: 0
-  contaminationSlider: {fileID: 1342607463}
+  difficultyLevel: 0
+  pipelineActive: {fileID: 0}
 --- !u!4 &1569969056
 Transform:
   m_ObjectHideFlags: 0
@@ -6221,24 +6244,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf58b176b51b3c40ab271337cea1033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 2100422328}
-  pipelineCamera: {fileID: 728516415}
-  RotatePipelineUI: {fileID: 177345900}
   isWaterFlowingInThisPipeline: 0
-  openWaterFlowButton: {fileID: 747383693}
-  closeWaterFlowButton: {fileID: 1831760018}
-  waterFlowStatusText: {fileID: 1298584778}
-  gameManager: {fileID: 1569969055}
-  pipelineType: 0
-  currentNumOfMovements: 0
-  remainingMovements: 0
-  numOfMovementsText: {fileID: 1945489581}
---- !u!1 &2100422328 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5293572245706337200, guid: 2a3f55401f8a98c4b8e65eaa4233997b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1339919553}
-  m_PrefabAsset: {fileID: 0}
+  pipelineType: 1
+  decontaminationSpeed: 50
+  correctRotation: {x: 0, y: 0, z: 0, w: 1}
+  pipelineInCorrecRotation: 0
 --- !u!4 &2100422335 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5060776121672979082, guid: 2a3f55401f8a98c4b8e65eaa4233997b,
