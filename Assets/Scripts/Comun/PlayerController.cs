@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
 
     #endregion Movement Variables
 
+    #region Variable for camera changes
+    public static bool playerEnteredInPipelineArea;
+
+    #endregion Variable for camera changes
+
     #region Start
     // Start is called before the first frame update
     void Start()
@@ -77,7 +82,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-        #endregion Max Speed Control
+    #endregion Max Speed Control
 
     #endregion Movement
+
+    //To detect if the player is inside the pipeline range 
+    #region Triggers
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Pipeline"))
+        {
+            playerEnteredInPipelineArea = true;
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Pipeline"))
+        {
+            playerEnteredInPipelineArea = false;
+
+        }
+    }
+
+    #endregion Triggers
 }
