@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     #region Variable for camera changes
     public static bool playerEnteredInPipelineArea;
+    public static bool playerEnteredInObjectClueArea;
 
     #endregion Variable for camera changes
 
@@ -95,7 +96,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Pipeline"))
         {
             playerEnteredInPipelineArea = true;
+        }
 
+        if (other.gameObject.CompareTag("JusticeClue"))
+        {
+            playerEnteredInObjectClueArea = true;
         }
     }
 
@@ -104,7 +109,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Pipeline"))
         {
             playerEnteredInPipelineArea = false;
+        }
 
+        if (other.gameObject.CompareTag("JusticeClue"))
+        {
+            playerEnteredInObjectClueArea = false;
         }
     }
 
