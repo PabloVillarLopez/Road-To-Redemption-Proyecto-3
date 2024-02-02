@@ -6,6 +6,15 @@ using UnityEngine.UI;
 
 public class MiniGameManager : MonoBehaviour
 {
+    #region Camera Variables
+    //[Header("Camera Variables")]
+    private GameObject playerCamera;
+    private GameObject pipelineCamera;
+    private bool pipelineCameraActive;
+    private GameObject RotatePipelineUI;
+
+    #endregion Camera Variables
+
     #region Type of Catastrophes and Catastrophes Variables
 
     public enum Catastrophes
@@ -95,6 +104,7 @@ public class MiniGameManager : MonoBehaviour
     public GameObject RotateUI;
     public GameObject SelectUI;
     public GameObject waterOpenAndCloseUI;
+    public GameObject decontaminationUI;
 
     #endregion UI References
 
@@ -105,14 +115,47 @@ public class MiniGameManager : MonoBehaviour
     public Button rightRotateButton;
     public Button upRotateButton;
     public Button downRotateButton;
+    private bool canAddRotateToButton = true;
 
     #endregion Rotate UI Buttons Variables
+
+    #region Click to decontaminate Variable
+
+    public int clickToDecontaminateCount;
+
+    #endregion Click to decontaminate Variable
+
+    #region Number of Movements Variables
+
+    //[Header("Movements")]
+    [HideInInspector]
+    public int maxNumOfMovements;
+    [HideInInspector]
+    public int currentNumOfMovements;
+    [HideInInspector]
+    public int remainingMovements;
+    private TextMeshProUGUI numOfMovementsText;
+
+    #endregion Number of Movements Variables
+
+    private void Awake()
+    {
+        playerCamera = GameObject.Find("Charapter");
+        pipelineCamera = GameObject.Find("PipelineCamera");
+        RotatePipelineUI = GameObject.Find("RotatePipelineUI");
+        numOfMovementsText = GameObject.Find("RemainingMovementsText").GetComponent<TextMeshProUGUI>();
+    }
 
     #region Start
 
     // Start is called before the first frame update
     void Start()
     {
+        playerCamera.SetActive(true);
+        pipelineCamera.SetActive(false);
+        RotatePipelineUI.SetActive(false);
+        maxNumOfMovements = 5;
+
         SelectPipeline();
 
         //StartCoroutine(ContaminationTransition());
@@ -125,6 +168,15 @@ public class MiniGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ComeBackToPlayerCamera();
+
+        if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInPipelineArea)
+        {
+            PipelineCamera();
+        }
+
+        HandleRemaingingMovements();
+
         if (pipelines[0].transform.rotation.x == 90f)
         {
             pipeline1CorrectPlaced = true;
@@ -156,12 +208,6 @@ public class MiniGameManager : MonoBehaviour
                 pipelinesIcons[i].gameObject.SetActive(true);
                 pipeline.gameObject.transform.position = pipelines[0].transform.position;
                 pipelineActive = pipeline.GetComponent<PipelineForeground>();
-
-                if (pipelineActive.pipelineType == PipelineForeground.PipelineType.FILTER)
-                {
-                    StopAllCoroutines();
-                    StartCoroutine(DecontaminationTransition());
-                }
 
                 ManageUIPipelineType();
             }
@@ -276,19 +322,19 @@ public class MiniGameManager : MonoBehaviour
 
     public void EasyLevel()
     {
-        PipelineForeground.maxNumOfMovements = 10;
+        maxNumOfMovements = 10;
         difficultyLevel = DifficultyLevel.EASY;
     }
 
     public void IntermediateLevel()
     {
-        PipelineForeground.maxNumOfMovements = 7;
+        maxNumOfMovements = 7;
         difficultyLevel = DifficultyLevel.INTERMEDIATE;
     }
 
     public void HardLevel()
     {
-        PipelineForeground.maxNumOfMovements = 5;
+        maxNumOfMovements = 5;
         difficultyLevel = DifficultyLevel.HARD;
     }
 
@@ -326,21 +372,30 @@ public class MiniGameManager : MonoBehaviour
                 RotateUI.SetActive(false);
                 waterOpenAndCloseUI.SetActive(false);
                 SelectUI.SetActive(true);
+                decontaminationUI.SetActive(true);
                 //SelectUI.transform.position = new Vector3(SelectUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
                 break;
             case PipelineForeground.PipelineType.HIGHSPEED:
                 RotateUI.SetActive(false);
                 waterOpenAndCloseUI.SetActive(true);
+                decontaminationUI.SetActive(false);
                 //SelectUI.SetActive(false);
                 //waterOpenAndCloseUI.transform.position = new Vector3(waterOpenAndCloseUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
                 break;
             case PipelineForeground.PipelineType.REDIRECTION:
                 RotateUI.SetActive(true);
                 waterOpenAndCloseUI.SetActive(false);
-                leftRotateButton.onClick.AddListener(pipelineActive.RotateLeftX);
-                rightRotateButton.onClick.AddListener(pipelineActive.RotateRightX);
-                upRotateButton.onClick.AddListener(pipelineActive.RotateUpwards);
-                downRotateButton.onClick.AddListener(pipelineActive.RotateDownwards);
+                decontaminationUI.SetActive(false);
+
+                if (canAddRotateToButton)
+                {
+                    leftRotateButton.onClick.AddListener(pipelineActive.RotateLeftX);
+                    rightRotateButton.onClick.AddListener(pipelineActive.RotateRightX);
+                    upRotateButton.onClick.AddListener(pipelineActive.RotateUpwards);
+                    downRotateButton.onClick.AddListener(pipelineActive.RotateDownwards);
+                    canAddRotateToButton = false;
+                }
+                
 
                 //SelectUI.SetActive(false);
                 //RotateUI.transform.position = new Vector3(RotateUI.transform.position.x + 160, RotateUI.transform.position.y, RotateUI.transform.position.z);
@@ -351,5 +406,93 @@ public class MiniGameManager : MonoBehaviour
     }
 
     #endregion Manage UI Depending on Pipeline Type
+
+    #region Click Button 5 times to decontaminate
+
+    public void ClickToDecontaminate()
+    {
+        clickToDecontaminateCount++;
+
+        if (clickToDecontaminateCount >= 5)
+        {
+            StopAllCoroutines();
+            StartCoroutine(DecontaminationTransition());
+            clickToDecontaminateCount = 0;
+        }
+    }
+
+    #endregion Click Button 5 times to decontaminate
+
+    //To come back to the player camera
+    #region Player Camera 
+
+    private void ComeBackToPlayerCamera()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && pipelineCameraActive)
+        {
+            playerCamera.SetActive(true);
+            pipelineCamera.SetActive(false);
+            pipelineCameraActive = false;
+            RotatePipelineUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+    }
+
+    #endregion Player Camera
+
+    //To place in the foreground the pipeline by activating the pipelinecamera and deactivating the player camera
+    #region Pipeline Camera
+
+    private void PipelineCamera()
+    {
+        playerCamera.SetActive(false);
+        pipelineCamera.transform.position = pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+        pipelineCamera.SetActive(true);
+        pipelineCameraActive = true;
+        RotatePipelineUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        StartCoroutine(ContaminationTransition());
+
+        /*if (pipelineType == PipelineType.FILTER)
+        {
+            StartCoroutine(ContaminationTransition());
+        }*/
+
+        //TypeOfPipelineFunctionality();
+    }
+
+    #endregion Pipeline Camera
+
+    //To handle the remainging movements text
+    #region Handle Remaining Movements Text
+
+    private void HandleRemaingingMovements()
+    {
+        remainingMovements = (maxNumOfMovements - currentNumOfMovements);
+
+        if (RotatePipelineUI.activeInHierarchy)
+        {
+            if (remainingMovements > 1)
+            {
+                numOfMovementsText.text = "Remaining Movements: " + remainingMovements;
+            }
+            else if (remainingMovements == 1)
+            {
+                numOfMovementsText.text = "Remaining Movement: " + remainingMovements;
+            }
+            else if (remainingMovements <= 0)
+            {
+                numOfMovementsText.text = "Remaining Movements: " + remainingMovements + " . No Remaining Movements";
+            }
+        }
+
+
+
+    }
+
+    #endregion Handle Remainging Movements Text
 }
 
