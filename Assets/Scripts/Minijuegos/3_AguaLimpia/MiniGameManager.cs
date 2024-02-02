@@ -64,7 +64,7 @@ public class MiniGameManager : MonoBehaviour
     [Header("Verify Pipelines Correct Position")]
     public GameObject[] pipelines;
     public GameObject[] pipelinesIcons;
-    public bool pipeline1CorrectPlaced;
+    public int pipelinesInCorrectPlace;
 
     #endregion Verify Pipelines Correct Position Variables
 
@@ -177,10 +177,10 @@ public class MiniGameManager : MonoBehaviour
 
         HandleRemaingingMovements();
 
-        if (pipelines[0].transform.rotation.x == 90f)
+        /*if (pipelines[0].GetComponent<PipelineForeground>().pipelineInCorrecRotation transform.rotation.x == 90f)
         {
             pipeline1CorrectPlaced = true;
-        }
+        }*/
 
         moneyText.text = "Money: " + money;
 
@@ -494,5 +494,52 @@ public class MiniGameManager : MonoBehaviour
     }
 
     #endregion Handle Remainging Movements Text
+
+    #region Handle MiniGame Phases
+
+    public void HandleMinigamePhases()
+    {
+        switch (phases)
+        {
+            case Phases.TREATMENTPLANT:
+
+                for (int i = 0; i < pipelines.Length; i++)
+                {
+                    if (pipelines[i].GetComponent<PipelineForeground>().pipelineInCorrecRotation)
+                    {
+                        if (pipelinesInCorrectPlace >= 0 && pipelinesInCorrectPlace <= 3)
+                        {
+                            pipelinesInCorrectPlace++;
+                        }
+                        
+                    }
+                }
+
+                if (pipelinesInCorrectPlace >= 3) // &&waterContaminationCleaned == 1 && bacteriaCleaned == 1
+                {
+                    phases = Phases.TOWN;
+                }
+
+                break;
+            case Phases.TOWN:
+                for (int i = 0; i < pipelines.Length; i++)
+                {
+                    if (pipelines[i].GetComponent<PipelineForeground>().pipelineInCorrecRotation)
+                    {
+                        if (pipelinesInCorrectPlace >= 0 && pipelinesInCorrectPlace <= 3)
+                        {
+                            pipelinesInCorrectPlace++;
+                        }
+
+                    }
+                }
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    #endregion Handle MiniGame Phases
 }
 

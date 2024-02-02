@@ -3194,7 +3194,7 @@ MonoBehaviour:
   isWaterFlowingInThisPipeline: 1
   pipelineType: 0
   decontaminationSpeed: 50
-  correctRotation: {x: 0, y: 0, z: 0, w: 0}
+  correctRotation: {x: 0, y: 0, z: 0}
   pipelineInCorrecRotation: 0
 --- !u!1 &1272302576
 GameObject:
@@ -4539,7 +4539,7 @@ MonoBehaviour:
   isWaterFlowingInThisPipeline: 1
   pipelineType: 2
   decontaminationSpeed: 50
-  correctRotation: {x: 0, y: 0, z: 0, w: 0}
+  correctRotation: {x: 0, y: 0, z: 0}
   pipelineInCorrecRotation: 0
 --- !u!65 &1468608477
 BoxCollider:
@@ -6763,7 +6763,7 @@ MonoBehaviour:
   isWaterFlowingInThisPipeline: 0
   pipelineType: 1
   decontaminationSpeed: 50
-  correctRotation: {x: 0, y: 0, z: 0, w: 1}
+  correctRotation: {x: 0, y: 0, z: 0}
   pipelineInCorrecRotation: 0
 --- !u!4 &2100422335 stripped
 Transform:

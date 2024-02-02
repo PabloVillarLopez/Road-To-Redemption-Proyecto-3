@@ -51,7 +51,7 @@ public class PipelineForeground : MonoBehaviour
     #region Verify Pipeline Correct Rotation
 
     [Header("Verify Pipeline Correct Rotation")]
-    public Quaternion correctRotation;
+    public Vector3 correctRotation;
     public bool pipelineInCorrecRotation;
 
     #endregion Verify Pipeline Correct Rotation
@@ -111,7 +111,7 @@ public class PipelineForeground : MonoBehaviour
     {
         if (gameManager.currentNumOfMovements < gameManager.maxNumOfMovements)
         {
-            rotationAddedY += 45f;
+            rotationAddedY -= 45f;
             transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
             gameManager.currentNumOfMovements++;
 
@@ -205,8 +205,11 @@ public class PipelineForeground : MonoBehaviour
         switch (gameManager.difficultyLevel)
         {
             case MiniGameManager.DifficultyLevel.EASY:
-                if (transform.rotation == correctRotation)
+                Debug.Log("Rotación tubería: " + rotationAddedX + ", " + rotationAddedY);
+                Debug.Log("Rotación correcta: " + correctRotation);
+                if (rotationAddedX == correctRotation.x && rotationAddedY == correctRotation.y)
                 {
+                    Debug.Log("Aquí llego");
                     pipelineInCorrecRotation = true;
                     gameManager.points += 10;
                     //gameManager.pointsCanIncrease = false;
@@ -214,11 +217,11 @@ public class PipelineForeground : MonoBehaviour
                 break;
             case MiniGameManager.DifficultyLevel.INTERMEDIATE:
 
-                if (transform.rotation != correctRotation)
+                if (rotationAddedX != correctRotation.x || rotationAddedY != correctRotation.y)
                 {
                     gameManager.points -= 1;
                 }
-                else if (transform.rotation == correctRotation)
+                else if (rotationAddedX == correctRotation.x && rotationAddedY == correctRotation.y)
                 {
                     pipelineInCorrecRotation = true;
                     gameManager.points += 5;
@@ -228,7 +231,7 @@ public class PipelineForeground : MonoBehaviour
             case MiniGameManager.DifficultyLevel.HARD:
                 gameManager.points = 1000;
 
-                if (transform.rotation != correctRotation)
+                if (rotationAddedX == correctRotation.x && rotationAddedY == correctRotation.y)
                 {
                     gameManager.points -= 10;
                 }
