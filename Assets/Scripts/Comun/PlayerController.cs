@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour
 
     #region Variable for camera changes
     public static bool playerEnteredInPipelineArea;
-    public static bool playerEnteredInObjectClueArea;
+    public static bool playerEnteredInObjectClue1Area;
+    public static bool playerEnteredInObjectClue2Area;
+    public static bool playerEnteredInObjectClue3Area;
 
     #endregion Variable for camera changes
 
@@ -98,9 +100,19 @@ public class PlayerController : MonoBehaviour
             playerEnteredInPipelineArea = true;
         }
 
-        if (other.gameObject.CompareTag("JusticeClue"))
+        if (other.gameObject.CompareTag("JusticeClue1"))
         {
-            playerEnteredInObjectClueArea = true;
+            playerEnteredInObjectClue1Area = true;
+        }
+
+        if (other.gameObject.CompareTag("JusticeClue2"))
+        {
+            playerEnteredInObjectClue2Area = true;
+        }
+
+        if (other.gameObject.CompareTag("JusticeClue3"))
+        {
+            playerEnteredInObjectClue3Area = true;
         }
     }
 
@@ -111,9 +123,19 @@ public class PlayerController : MonoBehaviour
             playerEnteredInPipelineArea = false;
         }
 
-        if (other.gameObject.CompareTag("JusticeClue"))
+        if (other.gameObject.CompareTag("JusticeClue1"))
         {
-            playerEnteredInObjectClueArea = false;
+            playerEnteredInObjectClue1Area = false;
+        }
+
+        if (other.gameObject.CompareTag("JusticeClue2"))
+        {
+            playerEnteredInObjectClue2Area = false;
+        }
+
+        if (other.gameObject.CompareTag("JusticeClue3"))
+        {
+            playerEnteredInObjectClue3Area = false;
         }
     }
 

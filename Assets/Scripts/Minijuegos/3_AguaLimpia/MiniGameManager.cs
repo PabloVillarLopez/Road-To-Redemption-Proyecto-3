@@ -138,6 +138,8 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Number of Movements Variables
 
+    #region Awake
+
     private void Awake()
     {
         playerCamera = GameObject.Find("Charapter");
@@ -145,6 +147,8 @@ public class MiniGameManager : MonoBehaviour
         RotatePipelineUI = GameObject.Find("RotatePipelineUI");
         numOfMovementsText = GameObject.Find("RemainingMovementsText").GetComponent<TextMeshProUGUI>();
     }
+
+    #endregion Awake
 
     #region Start
 
@@ -362,6 +366,7 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Difficulty Levels
 
+    //To hide and show UI depending on the pipeline type
     #region Manage UI Depending On Pipeline Type
 
     private void ManageUIPipelineType()
@@ -407,6 +412,7 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Manage UI Depending on Pipeline Type
 
+    //To decontaminate the water
     #region Click Button 5 times to decontaminate
 
     public void ClickToDecontaminate()
@@ -495,6 +501,7 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Handle Remainging Movements Text
 
+    //To handle the minigame phases
     #region Handle MiniGame Phases
 
     public void HandleMinigamePhases()

@@ -6,6 +6,9 @@ TagManager:
   tags:
   - CatchAble
   - Pipeline
+  - JusticeClue1
+  - JusticeClue2
+  - JusticeClue3
   layers:
   - Default
   - TransparentFX
