@@ -19,10 +19,9 @@ public class MiniGameManager : MonoBehaviour
 
     public enum Catastrophes
     {
+        NONE,
         WATERLEAK,
         BACTERIA,
-        LOWPH,
-        HIGHPH,
         HIGHCONTAMINATION
     }
 
@@ -32,6 +31,34 @@ public class MiniGameManager : MonoBehaviour
     public float contaminationSpeed;
     public float decontaminationSpeed;
     public Slider contaminationSlider;
+    public float bacteriaContamination;
+    public float bacteriaContaminationSpeed;
+    public float bacteriaDecontaminationSpeed;
+    public float waterLeak;
+    public float waterMoreLeakSpeed;
+    public float waterLessLeakSpeed;
+    public Slider bacteriaSlider;
+    public Slider waterLeakSlider;
+
+    public bool isWaterLeakCatastropheStarted;
+    public bool isBacteriaCatastropheStarted;
+    public bool isContaminationCatastropheStarted;
+
+    public bool catastrophesCanStart;
+    private bool catastropheTransitionStarted;
+
+    private IEnumerator contaminationTransitionCoroutine;
+    private bool contaminationCoroutineRunning;
+    private IEnumerator bacteriaTransitionCoroutine;
+    private bool bacteriaCoroutineRunning;
+
+    public Button BacteriaContaminationButton;
+    public Button DecontaminationButton;
+
+    [HideInInspector]
+    public IEnumerator waterLeakTransitionCoroutine;
+    [HideInInspector]
+    public bool waterLeakCoroutineRunning;
 
     #endregion Type of Catastrophes and Catastrophes Variables
 
@@ -45,6 +72,10 @@ public class MiniGameManager : MonoBehaviour
 
     [Header("Minigame Phases")]
     public Phases phases;
+
+    public int decontaminationCount;
+    public int bacteriaCleanedCount;
+    public int waterLeakedSolvedCount;
 
     #endregion Minigame Phases
 
@@ -122,6 +153,7 @@ public class MiniGameManager : MonoBehaviour
     #region Click to decontaminate Variable
 
     public int clickToDecontaminateCount;
+    public int clickToDecontaminateBacteriaCount;
 
     #endregion Click to decontaminate Variable
 
@@ -162,6 +194,10 @@ public class MiniGameManager : MonoBehaviour
 
         SelectPipeline();
 
+        contaminationTransitionCoroutine = ContaminationTransition();
+        bacteriaTransitionCoroutine = BacteriaContaminationTransition();
+        waterLeakTransitionCoroutine = WaterLeakMoreTransition();
+
         //StartCoroutine(ContaminationTransition());
     }
 
@@ -193,6 +229,15 @@ public class MiniGameManager : MonoBehaviour
         //waterContamination = Mathf.Lerp(0.5f, 1f, contaminationSpeed);
 
         contaminationSlider.value = waterContamination;
+        bacteriaSlider.value = bacteriaContamination;
+        waterLeakSlider.value = waterLeak;
+
+        if (!catastropheTransitionStarted)
+        {
+            StartCoroutine(CatastrophesTransition());
+        }
+
+        HandleCatastrophes();
     }
 
     #endregion Update
@@ -285,14 +330,15 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Select Pipeline Types
 
-    //For the transition from no contamination to totally contaminated
+    //For the transition from no contamination to totally contaminated and inverse
     #region Contamination Transition
 
     public IEnumerator ContaminationTransition()
     {
         float elapsedTime = 0;
+        contaminationCoroutineRunning = true;
 
-        while (elapsedTime < contaminationSpeed)
+        while (elapsedTime < contaminationSpeed && contaminationCoroutineRunning)
         {
             elapsedTime += Time.deltaTime;
 
@@ -313,13 +359,92 @@ public class MiniGameManager : MonoBehaviour
             float previousWaterContamination = waterContamination;
 
             waterContamination = Mathf.Lerp(previousWaterContamination, 0f, elapsedTime2 / decontaminationSpeed);
+            
+            yield return null;
+        }
+
+        decontaminationCount++;
+        //StartCoroutine(ContaminationTransition());
+    }
+
+    #endregion Contamination Transition
+
+    //For the transition from no bacteria to bacteria contamination and inverse
+    #region Bacteria Transition
+
+    public IEnumerator BacteriaContaminationTransition()
+    {
+        float elapsedTime3 = 0;
+        bacteriaCoroutineRunning = true;
+
+        while (elapsedTime3 < bacteriaContaminationSpeed && bacteriaCoroutineRunning)
+        {
+            elapsedTime3 += Time.deltaTime;
+
+            bacteriaContamination = Mathf.Lerp(0f, 1f, elapsedTime3 / bacteriaContaminationSpeed);
             yield return null;
         }
 
         //StartCoroutine(ContaminationTransition());
     }
 
-    #endregion Contamination Transition
+    public IEnumerator BacteriaDecontaminationTransition()
+    {
+        float elapsedTime4 = 0;
+
+        while (elapsedTime4 < bacteriaDecontaminationSpeed)
+        {
+            elapsedTime4 += Time.deltaTime;
+            float previousBacteriaContamination = bacteriaContamination;
+
+            bacteriaContamination = Mathf.Lerp(previousBacteriaContamination, 0f, elapsedTime4 / bacteriaDecontaminationSpeed);
+            
+            yield return null;
+        }
+
+        bacteriaCleanedCount++;
+        //StartCoroutine(ContaminationTransition());
+    }
+
+    #endregion Bacteria Transition
+
+    //For the transition from no water leak to water leak and inverse
+    #region WaterLeak Transition
+
+    public IEnumerator WaterLeakMoreTransition()
+    {
+        float elapsedTime5 = 0;
+        waterLeakCoroutineRunning = true;
+
+        while (elapsedTime5 < waterMoreLeakSpeed && waterLeakCoroutineRunning)
+        {
+            elapsedTime5 += Time.deltaTime;
+
+            waterLeak = Mathf.Lerp(0f, 1f, elapsedTime5 / waterMoreLeakSpeed);
+            yield return null;
+        }
+
+        //StartCoroutine(ContaminationTransition());
+    }
+
+    public IEnumerator WaterLeakLessTransition()
+    {
+        float elapsedTime6 = 0;
+
+        while (elapsedTime6 < contaminationSpeed && waterContamination >= 0)
+        {
+            elapsedTime6 += Time.deltaTime;
+            float previousWaterLeak = waterLeak;
+
+            waterLeak = Mathf.Lerp(previousWaterLeak, 0f, elapsedTime6 / waterLessLeakSpeed);
+            waterLeakedSolvedCount++;
+            yield return null;
+        }
+
+        //StartCoroutine(ContaminationTransition());
+    }
+
+    #endregion WaterLeak Transition
 
     //Adjustments for Difficulty Levels
     #region Difficulty Levels
@@ -421,9 +546,23 @@ public class MiniGameManager : MonoBehaviour
 
         if (clickToDecontaminateCount >= 5)
         {
-            StopAllCoroutines();
+            contaminationCoroutineRunning = false;
+            StopCoroutine(contaminationTransitionCoroutine);
             StartCoroutine(DecontaminationTransition());
             clickToDecontaminateCount = 0;
+        }
+    }
+
+    public void ClickToCleanBacteria()
+    {
+        clickToDecontaminateBacteriaCount++;
+
+        if (clickToDecontaminateBacteriaCount >= 5)
+        {
+            bacteriaCoroutineRunning = false;
+            StopCoroutine(bacteriaTransitionCoroutine);
+            StartCoroutine(BacteriaDecontaminationTransition());
+            clickToDecontaminateBacteriaCount = 0;
         }
     }
 
@@ -440,6 +579,7 @@ public class MiniGameManager : MonoBehaviour
             pipelineCamera.SetActive(false);
             pipelineCameraActive = false;
             RotatePipelineUI.SetActive(false);
+            catastrophesCanStart = false;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -458,9 +598,9 @@ public class MiniGameManager : MonoBehaviour
         pipelineCamera.SetActive(true);
         pipelineCameraActive = true;
         RotatePipelineUI.SetActive(true);
+        catastrophesCanStart = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        StartCoroutine(ContaminationTransition());
 
         /*if (pipelineType == PipelineType.FILTER)
         {
@@ -522,7 +662,7 @@ public class MiniGameManager : MonoBehaviour
                     }
                 }
 
-                if (pipelinesInCorrectPlace >= 3) // &&waterContaminationCleaned == 1 && bacteriaCleaned == 1
+                if (pipelinesInCorrectPlace >= 3 && decontaminationCount == 1 && bacteriaCleanedCount == 1)
                 {
                     phases = Phases.TOWN;
                 }
@@ -533,7 +673,7 @@ public class MiniGameManager : MonoBehaviour
                 {
                     if (pipelines[i].GetComponent<PipelineForeground>().pipelineInCorrecRotation)
                     {
-                        if (pipelinesInCorrectPlace >= 0 && pipelinesInCorrectPlace <= 3)
+                        if (pipelinesInCorrectPlace >= 0 && pipelinesInCorrectPlace <= 7)
                         {
                             pipelinesInCorrectPlace++;
                         }
@@ -548,5 +688,90 @@ public class MiniGameManager : MonoBehaviour
     }
 
     #endregion Handle MiniGame Phases
+
+    #region Handle Catastrophes
+
+    private void HandleCatastrophes()
+    {
+        switch (catastrophes)
+        {
+            case Catastrophes.NONE:
+                BacteriaContaminationButton.gameObject.SetActive(false);
+                break;
+
+            case Catastrophes.WATERLEAK:
+                BacteriaContaminationButton.gameObject.SetActive(false);
+
+                if (!isWaterLeakCatastropheStarted && catastrophesCanStart)
+                {
+                    StartCoroutine(WaterLeakMoreTransition());
+
+                    isWaterLeakCatastropheStarted = true;
+                }
+
+                if (!catastrophesCanStart)
+                {
+                    StopCoroutine(WaterLeakMoreTransition());
+
+                    isWaterLeakCatastropheStarted = false;
+                }
+
+                break;
+            case Catastrophes.BACTERIA:
+                BacteriaContaminationButton.gameObject.SetActive(true);
+                DecontaminationButton.gameObject.SetActive(false);
+
+                if (!isBacteriaCatastropheStarted && catastrophesCanStart)
+                {
+                    StartCoroutine(BacteriaContaminationTransition());
+
+                    isBacteriaCatastropheStarted = true;
+                }
+
+                if (!catastrophesCanStart)
+                {
+                    StopCoroutine(BacteriaDecontaminationTransition());
+
+                    isBacteriaCatastropheStarted = false;
+                }
+                break;
+            case Catastrophes.HIGHCONTAMINATION:
+                BacteriaContaminationButton.gameObject.SetActive(false);
+                DecontaminationButton.gameObject.SetActive(true);
+
+                if (!isContaminationCatastropheStarted && catastrophesCanStart)
+                {
+                    StartCoroutine(ContaminationTransition());
+
+                    isContaminationCatastropheStarted = true;
+                }
+
+                if (!catastrophesCanStart)
+                {
+                    StopCoroutine(ContaminationTransition());
+
+                    isContaminationCatastropheStarted = false;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public IEnumerator CatastrophesTransition()
+    {
+        catastropheTransitionStarted = true;
+
+        catastrophes = Catastrophes.NONE;
+        yield return new WaitForSeconds(20f);
+        catastrophes = Catastrophes.HIGHCONTAMINATION;
+        yield return new WaitForSeconds(120f);
+        catastrophes = Catastrophes.BACTERIA;
+        yield return new WaitForSeconds(120f);
+        catastrophes = Catastrophes.WATERLEAK;
+        yield return new WaitForSeconds(120f);
+    }
+
+    #endregion Handle Catastrophes
 }
 

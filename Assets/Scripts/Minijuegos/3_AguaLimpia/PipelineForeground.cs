@@ -159,6 +159,13 @@ public class PipelineForeground : MonoBehaviour
     {
         isWaterFlowingInThisPipeline = false;
 
+        if (gameManager.catastrophes == MiniGameManager.Catastrophes.WATERLEAK)
+        {
+            gameManager.waterLeakCoroutineRunning = false;
+            StopCoroutine(gameManager.waterLeakTransitionCoroutine);
+            StartCoroutine(gameManager.WaterLeakLessTransition());
+        }
+
         ShowCorrectWaterFlowButton();
     }
 
