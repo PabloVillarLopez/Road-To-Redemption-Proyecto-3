@@ -1,18 +1,18 @@
-using System;
-using UnityEditor;
 using UnityEngine;
 
-public class GetOjectInfo : MonoBehaviour
+public class ObjectInfo : MonoBehaviour
 {
-    // Variables públicas que describen las propiedades del objeto
-    public string Name;
-    public int ID;
-    public float Weight;
+    public string Name { get; set; }
+    public int ID { get; set; }
+    public float Weight { get; set; }
 
-    // Método público para realizar acciones relacionadas con el objeto
-    public Tuple<string, int, float> GetObjectInfo()
+    public void SetInfo(int id)
     {
-        return Tuple.Create(Name, ID, Weight);
+        ID = id;
+    }
 
+    public int GetID()
+    {
+        return ID;
     }
 }

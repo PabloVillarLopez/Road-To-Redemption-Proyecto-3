@@ -12,19 +12,14 @@ public class PlayerControllerCursor : MonoBehaviour
     private float verticalInput;
     private Vector3 moveDirection;
     private Rigidbody rigy;
-
-
-    #endregion Movement Variables
-
+    #endregion
 
     #region MiniGame1 Variables
-
     private bool catchObject;
     private int TypeObject;
+    public MiniGameManager1 Manager;
+    #endregion
 
-
-
-    #endregion MiniGame1 Variables
     #region Start
     // Start is called before the first frame update
     void Start()
@@ -32,59 +27,41 @@ public class PlayerControllerCursor : MonoBehaviour
         rigy = GetComponent<Rigidbody>();
         orientation = transform.GetChild(2).transform;
     }
-
-    #endregion Start
+    #endregion
 
     #region Update
-
     // Update is called once per frame
     void Update()
     {
         MyInput();
         SpeedControl();
-
-
         Vector3 mouseWorldPosition = CastRayFromMousePosition();
-
-        CheckCatchObject();
-
-
-
     }
-
-    #endregion Update
+    #endregion
 
     #region Fixed Update
     private void FixedUpdate()
     {
         MovePlayer();
-
-       
     }
-
-    #endregion Fixed Update
+    #endregion
 
     #region Movement
     #region Get Movement Input
-
     private void MyInput() //Gets movement in horizontal and vertical axis with AWSD and arrows
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
     }
-
-    #endregion Get Movement Input
+    #endregion
 
     #region Move Player with Direction
-
     private void MovePlayer() //Moves player taking into account the direction the player is facing
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
         rigy.AddForce(moveDirection.normalized * movementSpeed * 10, ForceMode.Force);
     }
-
-    #endregion Move Player with Direction
+    #endregion
 
     #region Max Speed Control
     private void SpeedControl() //Limits the velocity to the max speed velocity and controls that max velocity
@@ -96,58 +73,49 @@ public class PlayerControllerCursor : MonoBehaviour
             rigy.velocity = new Vector3(limitedVelocity.x, rigy.velocity.y, limitedVelocity.z);
         }
     }
+    #endregion
 
-    #endregion Max Speed Control
-
-
+    #region Cast Ray From Mouse Position
     Vector3 CastRayFromMousePosition()
     {
-        // Realiza un raycast desde la posición de la cámara hacia el ratón
+        // Perform a raycast from the camera position to the mouse
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
         {
-            // Devuelve la posición del hit del rayo
+            // Return the position of the ray hit
             if (hit.collider.CompareTag("CatchAble"))
             {
-                Debug.Log("El raycast ha golpeado un objeto con el tag 'CatchAble'.");
-                catchObject = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    catchObject = true;
+                    hit.collider.gameObject.SetActive(false);
+                    ObjectInfo info = hit.collider.GetComponent<ObjectInfo>();
+                    int id = info.GetID();
+                    Debug.Log(id);
 
+                    switch (id)
+                    {
+                        case 0:
+                            Manager.AddTomatoToInventory();
+                            break;
+                        case 1:
+                            Manager.AddLettuceToInventory();
+                            break;
+                        case 2:
+                            Manager.AddCarrotToInventory();
+                            break;
+                        default:
+                            Debug.LogWarning("Unrecognized object ID: " + id);
+                            break;
+                    }
+                }
             }
-            
-
-
-
-
-          
         }
-        
-        // Si el rayo no golpea ningún objeto, devuelve Vector3.zero
+        // If the ray doesn't hit any object, return Vector3.zero
         return Vector3.zero;
     }
-
-
-    void CheckCatchObject()
-    {
-        if (catchObject)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-
-                Debug.Log("Cogido 'CatchAble'.");
-
-
-                catchObject = false;
-
-            }
-        }
-       
-
-
-    }
-
-
-
-    #endregion Movement
+    #endregion
+    #endregion
 }

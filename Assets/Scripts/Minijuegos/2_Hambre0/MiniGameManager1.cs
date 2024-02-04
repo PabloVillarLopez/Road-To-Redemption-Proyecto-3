@@ -1,78 +1,169 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MiniGameManager1 : MonoBehaviour
 {
-    [SerializeField] GameObject objectToSpawn; // Objeto a spawnear
-    [SerializeField] GameObject objectSpawner; // Objeto donde Spawnear
+    #region Variables
+
+    [SerializeField] GameObject objectToSpawn;
+    [SerializeField] GameObject objectSpawner;
 
     public float offSetYSpawn;
     public float offSetZSpawn;
     Vector3 spawnPosition;
 
+    public float dayTimeInSeconds = 60f;
+    public Light sunLight;
+
+    private float elapsedTime = 0f;
+
+    public float temperatureChangePerSecond = 0.1f;
+    private float temperature = 20;
+
+    public Text Text1;
+    public Text Text2;
+    public Text Text3;
+
+    public int level;
+
+    private int Tomato;
+    private int Lettuce;
+    private int Carrot;
+
+    #endregion
+
+    #region Unity Methods
+
     void Start()
     {
-        // Calcula la posición de spawn para cada objeto en el bucle
-         spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y + offSetYSpawn), objectSpawner.transform.position.z);
-
-        // Llama a la función para spawnear un objeto sobre el spawner
-        SpawnObjectsOnSpawner(objectToSpawn, 3,0);
-
-
-        StartCoroutine(MyCoroutine());
-
+        spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y + offSetYSpawn), objectSpawner.transform.position.z);
+        SpawnObjectsOnSpawner(objectToSpawn, 3, 0);
+        level = 0;
+        UpdateAttributesByLevel();
     }
 
-
-    // Update is called once per frame
     void Update()
     {
-        
+        UpdateCycleDays();
+        Debug.Log("Temperature " + temperature);
     }
 
+    #endregion
 
+    #region Object Spawning
 
-
-    void SpawnObjectsOnSpawner(GameObject objectToSpawn,int amount, int typesToSpawn)
+    void SpawnObjectsOnSpawner(GameObject objectToSpawn, int amount, int typesToSpawn)
     {
-        
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
+            if (info != null)
+            {
+                info.SetInfo(2);
+            }
+            spawnPosition += new Vector3(0, 0, offSetZSpawn);
+        }
 
         for (int i = 0; i < amount; i++)
         {
-            // Spawnear el objeto sobre la posición calculada
-            Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
-
-            // Sumar el offset a la posición para el siguiente spawn
-            spawnPosition += new Vector3(0, 0, offSetZSpawn);
+            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
+            if (info != null)
+            {
+                info.SetInfo(0);
+            }
+            spawnPosition += new Vector3(offSetZSpawn, 0, offSetZSpawn);
         }
     }
 
+    #endregion
 
+    #region Day-Night Cycle
 
-
-
-    IEnumerator MyCoroutine()
+    void UpdateCycleDays()
     {
-        Debug.Log("La corrutina ha comenzado.");
+        elapsedTime += Time.deltaTime;
+        float percentageOfDay = elapsedTime / dayTimeInSeconds;
 
-        // Espera 2 segundos
-        yield return new WaitForSeconds(2);
+        if (percentageOfDay >= 1f)
+        {
+            elapsedTime = 0f;
+        }
 
-        Debug.Log("Han pasado 2 segundos.");
+        float rotationAngle = percentageOfDay * 360f;
+        sunLight.transform.rotation = Quaternion.Euler(rotationAngle, 0f, 0f);
 
-        // Espera 3 segundos
-        yield return new WaitForSeconds(3);
-
-        Debug.Log("Han pasado 3 segundos.");
-
-        // Puedes seguir agregando más instrucciones o bucles dentro de la corrutina según sea necesario
-
-        // Finaliza la corrutina
-        Debug.Log("La corrutina ha terminado.");
+        if (percentageOfDay <= 0.5f)
+        {
+            Camera.main.backgroundColor = Color.Lerp(Color.blue, Color.black, percentageOfDay / 0.5f);
+            AdjustTemperatureDuringDay();
+        }
+        else
+        {
+            Camera.main.backgroundColor = Color.Lerp(Color.black, Color.blue, (percentageOfDay - 0.5f) / 0.5f);
+            AdjustTemperatureDuringNight();
+        }
     }
 
+    void AdjustTemperatureDuringDay()
+    {
+        temperature += temperatureChangePerSecond * Time.deltaTime;
+        Debug.Log("Temperature during day: " + temperature);
+    }
 
+    void AdjustTemperatureDuringNight()
+    {
+        temperature -= temperatureChangePerSecond * Time.deltaTime;
+        Debug.Log("Temperature during night: " + temperature);
+    }
 
+    #endregion
 
+    #region Inventory Management
+
+    public void AddTomatoToInventory()
+    {
+        Tomato += 1;
+        Debug.Log("Tomato added to inventory");
+        UpdateAttributesByLevel();
+    }
+
+    public void AddLettuceToInventory()
+    {
+        Lettuce += 1;
+        Debug.Log("Lettuce added to inventory");
+        UpdateAttributesByLevel();
+    }
+
+    public void AddCarrotToInventory()
+    {
+        Carrot += 1;
+        Debug.Log("Carrot added to inventory");
+        UpdateAttributesByLevel();
+    }
+
+    void UpdateAttributesByLevel()
+    {
+        switch (level)
+        {
+            case 0:
+                Text1.text = "Tomato: " + Tomato;
+                Text2.text = "Lettuce: " + Lettuce;
+                Text3.text = "Carrot: " + Carrot;
+                break;
+            case 1:
+                // Additional cases for more levels
+                break;
+            case 2:
+                // Additional cases for more levels
+                break;
+            default:
+                break;
+        }
+    }
+
+    #endregion
 }
