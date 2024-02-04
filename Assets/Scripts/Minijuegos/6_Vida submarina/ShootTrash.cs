@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ShootTrash : MonoBehaviour
+{
+    public LayerMask Trash;
+    public Vector3 relocationPosition;
+    public int points;
+    public Camera playerCamera;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
+        }
+    }
+
+    private void Shoot()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, transform.GetChild(0).transform.forward); //playerCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, Trash))
+        {
+            Debug.DrawLine(transform.position, hit.point, Color.yellow);
+            hit.transform.gameObject.transform.position = relocationPosition + new Vector3(Random.Range(10f, 20f),0,0) ;
+            points++;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Debug.DrawRay(transform.GetChild(0).transform.rotation.eulerAngles, transform.GetChild(0).transform.forward * Mathf.Infinity, Color.yellow);
+    }
+}
