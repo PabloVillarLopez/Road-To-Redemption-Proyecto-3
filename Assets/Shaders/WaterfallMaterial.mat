@@ -68,7 +68,7 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - Color_1DEAAAEB: {r: 1, g: 1, b: 1, a: 0}
-    - Color_51316B18: {r: 0.15400907, g: 0.05882349, b: 0.5960785, a: 0}
+    - Color_51316B18: {r: 0.1415093, g: 0.3136281, b: 1, a: 0}
     - Color_B3D1197F: {r: 0.44495368, g: 0.9339623, b: 0.9146175, a: 0.8235294}
   m_BuildTextureStacks: []
 --- !u!114 &3902488209938715759

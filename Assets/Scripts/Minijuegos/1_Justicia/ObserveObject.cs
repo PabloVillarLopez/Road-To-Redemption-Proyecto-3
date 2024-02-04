@@ -24,7 +24,29 @@ public class ObserveObject : MonoBehaviour
     public Vector3 previousCluePosition;
     public int clueIndex;
 
+    private bool canActivateClues;
+    private bool canDeactivateClues;
+
     #endregion Clues References
+
+    #region Take Clues Variables
+    public static List<GameObject> TakenClues = new List<GameObject>();
+
+    #endregion Take Clues Variables
+
+    #region MiniGame Phases Variables
+    public enum JusticePhases
+    {
+        INVESTIGATION,
+        ANALYSIS,
+        JUDGMENT
+    }
+
+    public JusticePhases phases;
+    public GameObject lenseAimGlass;
+    public GameObject judgementPanel;
+
+    #endregion MiniGame Phases Variables
 
     #region Start
 
@@ -34,6 +56,7 @@ public class ObserveObject : MonoBehaviour
         clueCamera.SetActive(false);
         playerCamera.SetActive(true);
         RotateUI.SetActive(false);
+        judgementPanel.SetActive(false);
     }
 
     #endregion Start
@@ -62,6 +85,8 @@ public class ObserveObject : MonoBehaviour
         {
             CameraBackToPlayer();
         }
+
+        HandleMinigamePhases();
     }
 
     #endregion Update
@@ -146,4 +171,53 @@ public class ObserveObject : MonoBehaviour
     }
 
     #endregion Rotate Clue
+
+    #region Handle Minigame Phases
+    private void HandleMinigamePhases()
+    {
+        switch (phases)
+        {
+            case JusticePhases.INVESTIGATION:
+                lenseAimGlass.SetActive(true);
+                judgementPanel.SetActive(false);
+                canDeactivateClues = true;
+                if (canDeactivateClues)
+                {
+                    for (int i = 0; i < clues.Length; i++)
+                    {
+                        clues[i].SetActive(false);
+                    }
+
+                    canDeactivateClues = false;
+                }
+
+                if (AimLenseGlass.takenClues >= 3)
+                {
+                    phases = JusticePhases.ANALYSIS;
+                }
+                break;
+            case JusticePhases.ANALYSIS:
+                judgementPanel.SetActive(false);
+                lenseAimGlass.SetActive(false);
+                canActivateClues = true;
+                if (canActivateClues)
+                {
+                    for (int i = 0; i < clues.Length; i++)
+                    {
+                        clues[i].SetActive(true);
+                    }
+
+                    canActivateClues = false;
+                }
+
+                break;
+            case JusticePhases.JUDGMENT:
+                judgementPanel.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    #endregion Handle Minigame Phases
 }
