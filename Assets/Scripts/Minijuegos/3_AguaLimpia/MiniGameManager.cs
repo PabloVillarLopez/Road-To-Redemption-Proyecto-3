@@ -601,13 +601,6 @@ public class MiniGameManager : MonoBehaviour
         catastrophesCanStart = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
-        /*if (pipelineType == PipelineType.FILTER)
-        {
-            StartCoroutine(ContaminationTransition());
-        }*/
-
-        //TypeOfPipelineFunctionality();
     }
 
     #endregion Pipeline Camera
@@ -689,6 +682,7 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Handle MiniGame Phases
 
+    //To handle different catastrophes
     #region Handle Catastrophes
 
     private void HandleCatastrophes()

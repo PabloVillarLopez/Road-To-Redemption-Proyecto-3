@@ -32,7 +32,8 @@ public class ShootTrash : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, Trash))
         {
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
-            hit.transform.gameObject.transform.position = relocationPosition + new Vector3(Random.Range(10f, 20f),0,0) ;
+            hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
+            relocationPosition += new Vector3(2f, 0, 0);
             points++;
         }
     }
