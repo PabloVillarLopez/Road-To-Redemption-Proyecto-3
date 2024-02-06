@@ -118,3 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c393e1bcad5444eb31aa237af457c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  miniGameManager: {fileID: 0}
+  temp: 20
+  materials:
+  - {fileID: 2100000, guid: fd2a4dfc2e7977e4084696185e68dbb6, type: 2}
+  - {fileID: 2100000, guid: fad1409678bff704b9465f5326a583db, type: 2}
+  - {fileID: 2100000, guid: c0d6e4b33b21b6e44abc5699cf4e14d3, type: 2}
+  Cultive: {fileID: 1453347286390941772, guid: 2a7fab8c09a2a33418c122fcf069c954, type: 3}

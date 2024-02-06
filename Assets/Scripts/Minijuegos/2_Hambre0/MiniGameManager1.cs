@@ -9,6 +9,7 @@ public class MiniGameManager1 : MonoBehaviour
 
     [SerializeField] GameObject objectToSpawn;
     [SerializeField] GameObject objectSpawner;
+    [SerializeField] GameObject cultiveZone;
 
     public float offSetYSpawn;
     public float offSetZSpawn;
@@ -20,17 +21,20 @@ public class MiniGameManager1 : MonoBehaviour
     private float elapsedTime = 0f;
 
     public float temperatureChangePerSecond = 0.1f;
-    private float temperature = 20;
+    public float temperature = 20;
+    private int badFood;
 
     public Text Text1;
-    public Text Text2;
-    public Text Text3;
+    public Text temperatureText;
+
 
     public int level;
 
-    private int Tomato;
-    private int Lettuce;
-    private int Carrot;
+
+
+
+
+    object[][] fruit = new object[3][];
 
     #endregion
 
@@ -38,16 +42,19 @@ public class MiniGameManager1 : MonoBehaviour
 
     void Start()
     {
-        spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y + offSetYSpawn), objectSpawner.transform.position.z);
-        SpawnObjectsOnSpawner(objectToSpawn, 3, 0);
-        level = 0;
+        Level(1);
+        spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y), objectSpawner.transform.position.z);
+        SpawnObjectsOnSpawner(objectToSpawn, 8, 0);
+        SpawnOchards();
         UpdateAttributesByLevel();
+
     }
 
     void Update()
     {
         UpdateCycleDays();
-        Debug.Log("Temperature " + temperature);
+
+
     }
 
     #endregion
@@ -56,26 +63,101 @@ public class MiniGameManager1 : MonoBehaviour
 
     void SpawnObjectsOnSpawner(GameObject objectToSpawn, int amount, int typesToSpawn)
     {
-        for (int i = 0; i < amount; i++)
+
+        spawnPosition += new Vector3(0, -0.05F, -2);
+
+        for (int i = 0; i < 3; i++)
+        {
+            spawnPosition += new Vector3(0, 0, offSetZSpawn);
+            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
+            if (info != null)
+            {
+                info.SetId(1);
+            }
+
+        }
+        spawnPosition += new Vector3(offSetZSpawn, 0, 0);
+        for (int i = 0; i < 2; i++)
         {
             GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
             ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
             if (info != null)
             {
-                info.SetInfo(2);
+                info.SetId(1);
             }
-            spawnPosition += new Vector3(0, 0, offSetZSpawn);
+            spawnPosition += new Vector3(0, 0, -offSetZSpawn);
         }
 
-        for (int i = 0; i < amount; i++)
+        spawnPosition += new Vector3(0, 0, 1);
+        for (int i = 0; i < 3; i++)
+        {
+            spawnPosition += new Vector3(0, 0, offSetZSpawn);
+            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
+            if (info != null)
+            {
+                info.SetId(2);
+            }
+
+        }
+        spawnPosition += new Vector3(offSetZSpawn, 0, 0);
+        for (int i = 0; i < 2; i++)
         {
             GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
             ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
             if (info != null)
             {
-                info.SetInfo(0);
+                info.SetId(2);
             }
-            spawnPosition += new Vector3(offSetZSpawn, 0, offSetZSpawn);
+            spawnPosition += new Vector3(0, 0, -offSetZSpawn);
+        }
+
+        spawnPosition += new Vector3(0, 0, 1);
+        for (int i = 0; i < 3; i++)
+        {
+            spawnPosition += new Vector3(0, 0, offSetZSpawn);
+            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
+            if (info != null)
+            {
+                info.SetId(3);
+            }
+
+        }
+        spawnPosition += new Vector3(offSetZSpawn, 0, 0);
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
+            if (info != null)
+            {
+                info.SetId(3);
+            }
+            spawnPosition += new Vector3(0, 0, -offSetZSpawn);
+        }
+
+
+    }
+
+    void SpawnOchards()
+    {
+        Vector3 spawnPosition = new Vector3(5.0f, 0.24f, -3f);
+        for (int i = 0; i < 3; i++)
+        {
+
+
+            // Asegurarse de que la posición de spawn esté en el suelo (opcional)
+            int offSetZOchard = 5;
+
+            spawnPosition += new Vector3(0, 0, offSetZOchard);
+
+            // Spawnear el prefab en la posición calculada
+            GameObject CultiveObject = Instantiate(cultiveZone, spawnPosition, Quaternion.identity);
+            CultiveObject.GetComponent<CultiveZone>().SetFruitStats((string)fruit[i][0], (int)fruit[i][1], (int)fruit[i][2]);
+
+
+
         }
     }
 
@@ -106,53 +188,32 @@ public class MiniGameManager1 : MonoBehaviour
             Camera.main.backgroundColor = Color.Lerp(Color.black, Color.blue, (percentageOfDay - 0.5f) / 0.5f);
             AdjustTemperatureDuringNight();
         }
+
+        temperatureText.text = temperature.ToString("F1") + "°C";
+
     }
 
     void AdjustTemperatureDuringDay()
     {
         temperature += temperatureChangePerSecond * Time.deltaTime;
-        Debug.Log("Temperature during day: " + temperature);
     }
 
     void AdjustTemperatureDuringNight()
     {
         temperature -= temperatureChangePerSecond * Time.deltaTime;
-        Debug.Log("Temperature during night: " + temperature);
     }
 
     #endregion
 
     #region Inventory Management
 
-    public void AddTomatoToInventory()
-    {
-        Tomato += 1;
-        Debug.Log("Tomato added to inventory");
-        UpdateAttributesByLevel();
-    }
-
-    public void AddLettuceToInventory()
-    {
-        Lettuce += 1;
-        Debug.Log("Lettuce added to inventory");
-        UpdateAttributesByLevel();
-    }
-
-    public void AddCarrotToInventory()
-    {
-        Carrot += 1;
-        Debug.Log("Carrot added to inventory");
-        UpdateAttributesByLevel();
-    }
 
     void UpdateAttributesByLevel()
     {
         switch (level)
         {
             case 0:
-                Text1.text = "Tomato: " + Tomato;
-                Text2.text = "Lettuce: " + Lettuce;
-                Text3.text = "Carrot: " + Carrot;
+
                 break;
             case 1:
                 // Additional cases for more levels
@@ -165,5 +226,37 @@ public class MiniGameManager1 : MonoBehaviour
         }
     }
 
-    #endregion
+    public void checkBadFood()
+    {
+        badFood++;
+        Text1.text = "Wasted Food: " + badFood;
+    }
+
+
+    void Level(int level)
+    {
+        // Switch para manejar los diferentes niveles
+        switch (level)
+        {
+            case 1:
+                temperatureChangePerSecond = 0.2f;
+                fruit[0] = new object[] { "Tomato", 10, 30 };
+                fruit[1] = new object[] { "Pepper", 12, 28 };
+                fruit[2] = new object[] { "Lettuce", 5, 25 };
+
+                break;
+            case 2:
+                temperatureChangePerSecond = 0.3f;
+                // Lógica específica para el Nivel 2
+                break;
+            case 3:
+                temperatureChangePerSecond = 0.4f;
+                // Lógica específica para el Nivel 3
+                break;
+
+        }
+        #endregion
+    }
+
+
 }

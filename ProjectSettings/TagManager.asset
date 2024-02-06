@@ -9,6 +9,7 @@ TagManager:
   - JusticeClue1
   - JusticeClue2
   - JusticeClue3
+  - PlantArea
   layers:
   - Default
   - TransparentFX
