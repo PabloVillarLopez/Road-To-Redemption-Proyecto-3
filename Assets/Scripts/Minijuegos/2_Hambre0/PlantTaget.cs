@@ -17,13 +17,17 @@ public class PlantTaget : MonoBehaviour
         
     }
 
-
+    public void addFruit(GameObject newGameObject)
+    {
+        cultive.GetComponent<CultiveZone>().AddFruit(newGameObject);
+    }
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("almoñejar");
         // Verifica si la colisión es con el objeto deseado
         if (collision.gameObject.CompareTag("CatchAble"))
         {
-            cultive.GetComponent<CultiveZone>().AddFruit(collision.gameObject);
+            
             Debug.Log("almoñejar");
         }
     } 

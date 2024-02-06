@@ -3,7 +3,15 @@ guid: 84f5ec4ad1522cd4f9f93ec2a8e71989
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - objectToSpawn: {fileID: 6781159458950091940, guid: c52f7f1e5b715ba41a5c4ca64806ab80,
+      type: 3}
+  - objectSpawner: {instanceID: 0}
+  - cultiveZone: {fileID: 1453347286390941772, guid: 2a7fab8c09a2a33418c122fcf069c954,
+      type: 3}
+  - sunLight: {instanceID: 0}
+  - Text1: {instanceID: 0}
+  - temperatureText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

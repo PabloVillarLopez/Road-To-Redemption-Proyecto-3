@@ -7,7 +7,8 @@ public class CultiveZone : MonoBehaviour
 {
     public Text nameFruitT;
     public Text tempFruitT;
-    public GameObject[] fruitObjects = new GameObject[5];
+    
+    public GameObject[] fruitObject = new GameObject[5];
     public Text[] tempTextArray;
 
     public GameObject[] spawnPoints;
@@ -33,12 +34,14 @@ public class CultiveZone : MonoBehaviour
     {
         if (newFruit != null)
         {
-            for (int i = 0; i < fruitObjects.Length; i++)
+            for (int i = 0; i < fruitObject.Length; i++)
             {
-                if (fruitObjects[i] == null)
+                if (fruitObject[i] == null)
                 {
-                    fruitObjects[i] = newFruit;
+                    fruitObject[i] = newFruit;
+                    
                     break;
+
                 }
             }
         }
@@ -50,23 +53,30 @@ public class CultiveZone : MonoBehaviour
 
     void UpdateTextValues()
     {
-        for (int i = 0; i < fruitObjects.Length; i++)
+        // Itera a través de los objetos fruta y los textos de temperatura asociados
+        for (int i = 0; i < fruitObject.Length; i++)
         {
-            if (fruitObjects[i] != null && tempTextArray[i] != null)
+            // Verifica si el objeto fruta y el texto de temperatura no son nulos
+            if (fruitObject[i] != null && tempTextArray[i] != null)
             {
-                ObjectInfo objectInfo = fruitObjects[i].GetComponent<ObjectInfo>();
+                // Obtiene el componente ObjectInfo del objeto fruta
+                ObjectInfo objectInfo = fruitObject[i].GetComponent<ObjectInfo>();
+                // Verifica si se encontró el componente ObjectInfo
                 if (objectInfo != null)
                 {
+                    // Intenta convertir el texto a un valor flotante y asignarlo a la temperatura del objeto fruta
                     if (float.TryParse(tempTextArray[i].text, out float tempValue))
                     {
                         objectInfo.temp = tempValue;
                     }
                     else
                     {
-                        Debug.LogWarning("Failed to parse text to float for GameObject: " + fruitObjects[i].name);
+                        // Advierte si no se pudo convertir el texto a un valor flotante
+                        Debug.LogWarning("Failed to parse text to float for GameObject: " + fruitObject[i].name);
                     }
                 }
             }
         }
     }
+
 }

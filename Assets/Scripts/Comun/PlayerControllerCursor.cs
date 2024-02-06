@@ -26,7 +26,7 @@ public class PlayerControllerCursor : MonoBehaviour
     private bool isPlanting;
     private float plantingTimer = 3f;
     public KeyCode plantingKey = KeyCode.E;
-
+    private GameObject caughtObject;
     public MiniGameManager1 manager;
     #endregion
 
@@ -110,7 +110,7 @@ public class PlayerControllerCursor : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    GameObject caughtObject = hit.collider.gameObject;
+                     caughtObject = hit.collider.gameObject;
 
                     if (PickupObject(caughtObject))
                     {
@@ -128,6 +128,7 @@ public class PlayerControllerCursor : MonoBehaviour
             if (hit.collider.CompareTag("PlantArea") && countSeeds > 0)
             {
                 planTarget = hit.collider.gameObject;
+                
                 isPlanting = true;
             }
             else
@@ -211,7 +212,7 @@ public class PlayerControllerCursor : MonoBehaviour
         if (countSeeds - 1 >= 0 && countSeeds - 1 < caughtSeed.Length && caughtSeed[countSeeds - 1] != null)
         {
             caughtSeed[countSeeds - 1].SetActive(true);
-            caughtSeed[countSeeds - 1].GetComponent<ObjectInfo>().AssignToCultive();
+            caughtSeed[countSeeds - 1].GetComponent<ObjectInfo>().AssignToCultive(caughtObject.gameObject);
             caughtSeed[countSeeds - 1].transform.position = planTarget.transform.position;
             caughtSeed[countSeeds - 1].transform.parent = null;
             caughtSeed[countSeeds - 1] = null;

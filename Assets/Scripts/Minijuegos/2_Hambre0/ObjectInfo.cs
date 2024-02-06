@@ -99,7 +99,7 @@ public class ObjectInfo : MonoBehaviour
         }
     }
 
-    public void AssignToCultive()
+    public void AssignToCultive(GameObject newGameObject)
     {
         if (Cultive != null)
         {
@@ -107,7 +107,7 @@ public class ObjectInfo : MonoBehaviour
             CultiveZone cultiveZone = Cultive.GetComponent<CultiveZone>();
             if (cultiveZone != null)
             {
-                cultiveZone.AddFruit(self);
+                cultiveZone.AddFruit(newGameObject);
             }
             else
             {

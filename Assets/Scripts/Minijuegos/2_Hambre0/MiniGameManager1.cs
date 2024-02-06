@@ -10,7 +10,6 @@ public class MiniGameManager1 : MonoBehaviour
     [SerializeField] GameObject objectToSpawn;
     [SerializeField] GameObject objectSpawner;
     [SerializeField] GameObject cultiveZone;
-
     public float offSetYSpawn;
     public float offSetZSpawn;
     Vector3 spawnPosition;
@@ -157,9 +156,10 @@ public class MiniGameManager1 : MonoBehaviour
             CultiveObject.GetComponent<CultiveZone>().SetFruitStats((string)fruit[i][0], (int)fruit[i][1], (int)fruit[i][2]);
 
 
-
         }
     }
+
+    
 
     #endregion
 
