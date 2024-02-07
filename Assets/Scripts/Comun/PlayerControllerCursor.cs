@@ -140,22 +140,25 @@ public class PlayerControllerCursor : MonoBehaviour
         }
 
 
-        if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
-        {
-            hit.collider.GetComponentInParent<CultiveZone>().state = ("Hot");
-            return hit.point;
-        }
-        if (hit.collider.CompareTag("Neutral") && Input.GetKeyDown(KeyCode.E))
-        {
-            hit.collider.GetComponentInParent<CultiveZone>().state=("Neutral");
-            return hit.point;
-        }
-        if (hit.collider.CompareTag("Cold") && Input.GetKeyDown(KeyCode.E))
-        {
-            hit.collider.GetComponentInParent<CultiveZone>().state = ("Neutral");
-            return hit.point;
-        }
+        /* if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
+         {
+             hit.collider.GetComponentInParent<CultiveZone>().state = ("Hot");
+             return hit.point;
+         }
+         if (hit.collider.CompareTag("Neutral") && Input.GetKeyDown(KeyCode.E))
+         {
+             hit.collider.GetComponentInParent<CultiveZone>().state=("Neutral");
+             return hit.point;
+         }
+         if (hit.collider.CompareTag("Cold") && Input.GetKeyDown(KeyCode.E))
+         {
+             hit.collider.GetComponentInParent<CultiveZone>().state = ("Neutral");
+             return hit.point;
+         }
+         */
         return Vector3.zero;
+
+       
     }
     #endregion
 
