@@ -8,11 +8,13 @@ using static UnityEditor.VersionControl.Asset;
 
 public class PlayerControllerCursor : MonoBehaviour
 {
+    public int mode = 0;
+
     #region Movement Variables
     [Header("Movement Variables")]
     public float movementSpeed;
     private Transform orientation;
-    private float horizontalInput;
+    public float horizontalInput;
     private float verticalInput;
     private Vector3 moveDirection;
     private Rigidbody rigy;
@@ -22,7 +24,7 @@ public class PlayerControllerCursor : MonoBehaviour
     private int currentSeed = -1;
     public float plantingTime = 3f;
     public Slider progressBar;
-    [SerializeField]  GameObject[] caughtSeed = new GameObject[6];
+    [SerializeField] GameObject[] caughtSeed = new GameObject[6];
     private GameObject planTarget;
     private int countSeeds = 0;
     private bool isPlanting;
@@ -32,12 +34,21 @@ public class PlayerControllerCursor : MonoBehaviour
     public MiniGameManager1 manager;
     #endregion
 
+
+    #region MiniGame8 Variables
+    public Camera newMainCamera;
+    public Camera mainCamera;
+    public bool monitoring;
+    
+    #endregion
     #region Start
     // Start is called before the first frame update
     void Start()
     {
         rigy = GetComponent<Rigidbody>();
         orientation = transform.GetChild(2).transform;
+        mode = 2;
+        mainCamera = Camera.main;
     }
     #endregion
 
@@ -45,28 +56,24 @@ public class PlayerControllerCursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MyInput();
-        SpeedControl();
-        //Vector3 mouseWorldPosition =
-            CastRayFromMousePosition();
-        if (isPlanting)
-        {
-            progressBar.gameObject.SetActive(true); // Activate progress bar
-        }
-        else
-        {
-            plantingTimer = 0f; // Reset planting timer
-            progressBar.gameObject.SetActive(false);
-        }
+        SelectMode();
 
-        UpdatePlantingProcess();
+        if (monitoring  &&  Input.GetKeyDown(KeyCode.E))
+        {
+            ChangeMainCamera();
+            
+        }
     }
     #endregion
 
     #region Fixed Update
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (monitoring == false)
+        {
+            MovePlayer();
+        }
+        
     }
     #endregion
 
@@ -103,6 +110,11 @@ public class PlayerControllerCursor : MonoBehaviour
     #region Cast Ray From Mouse Position
     void CastRayFromMousePosition()
     {
+
+        if (monitoring == false)
+        {
+
+        
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
        
@@ -143,8 +155,7 @@ public class PlayerControllerCursor : MonoBehaviour
 
 
 
-            // Debug.Log("Objeto golpeado: " + hit.collider.gameObject.name); // Depurar el nombre del objeto golpeado
-
+            
 
             if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
             {
@@ -167,13 +178,19 @@ public class PlayerControllerCursor : MonoBehaviour
                 hitObject.GetComponent<CultiveZone>().state = "Cold";
             }
 
-
-            
+            if(hit.collider.CompareTag("CatchAble")&& mode == 2 && Input.GetKeyDown(KeyCode.E))
+            {
+                ChangeCamera();
+                    GameObject manager = GameObject.Find("GameManager");
+                    manager.GetComponent<MiniGameManager8>().StartGame();
+                }
+        }
 
         }
     }
     #endregion
 
+    #region SetPlants
     public bool PickupObject(GameObject objectToPickup)
     {
         ObjectInfo objectInfo = objectToPickup.GetComponent<ObjectInfo>();
@@ -199,7 +216,7 @@ public class PlayerControllerCursor : MonoBehaviour
         }
         else
         {
-            Debug.Log("The object does not have type information. It cannot be picked up.");
+            
             return false;
         }
     }
@@ -260,6 +277,93 @@ public class PlayerControllerCursor : MonoBehaviour
             {
                 currentSeed = -1;
             }
+        }
+    }
+    #endregion
+
+    public void ChangeMainCamera()
+    {
+        // Desactiva la cámara actualmente marcada como principal
+        
+        mainCamera.enabled = false;
+
+        // Activa la nueva cámara
+        newMainCamera.enabled = true;
+
+        // Configura la nueva cámara como la cámara principal
+        newMainCamera.tag = "MainCamera";
+    }
+
+    public void RevertToPreviousCamera()
+    {
+        // Desactiva la nueva cámara
+        newMainCamera.enabled = false;
+
+        // Activa la cámara anteriormente marcada como principal
+        mainCamera.enabled = true;
+
+        // Configura la cámara anterior como la cámara principal
+        mainCamera.tag = "MainCamera";
+        monitoring = false;
+    }
+
+    private void ChangeCamera()
+    {
+        if (monitoring)
+        {
+            RevertToPreviousCamera();
+            monitoring = false;
+        }
+        else if (monitoring == false)
+        {
+            ChangeMainCamera();
+            monitoring = true;
+            
+        }
+
+
+    }
+
+    
+    void SelectMode()
+    {
+        switch (mode)
+        {
+            case 1:
+                MyInput();
+                SpeedControl();
+                
+                CastRayFromMousePosition();
+                if (isPlanting)
+                {
+                    progressBar.gameObject.SetActive(true); // Activate progress bar
+                }
+                else
+                {
+                    plantingTimer = 0f; // Reset planting timer
+                    progressBar.gameObject.SetActive(false);
+                }
+
+                UpdatePlantingProcess();
+                break;
+            case 2:
+                
+                MyInput();
+                if (monitoring) { 
+                SpeedControl();
+
+                
+                }
+                CastRayFromMousePosition();
+                break;
+            case 3:
+                // Código para el tercer caso
+                break;
+            case 4:
+                // Código para el cuarto caso
+                break;
+
+
         }
     }
 }
