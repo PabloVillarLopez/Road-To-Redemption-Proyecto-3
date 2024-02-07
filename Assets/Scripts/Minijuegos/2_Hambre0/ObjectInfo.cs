@@ -13,12 +13,12 @@ public class ObjectInfo : MonoBehaviour
     public float temp = 20f;
     public Material[] materials = new Material[3]; // Array of materials
     public GameObject Cultive;
-    private GameObject self;
+    
 
     void Start()
     {
         Renderer renderer = GetComponent<Renderer>();
-        self = gameObject;
+        miniGameManager = GameObject.Find("GameManager").GetComponent<MiniGameManager1>();
 
         switch (id)
         {
@@ -65,6 +65,10 @@ public class ObjectInfo : MonoBehaviour
                 break;
         }
     }
+    private void Update()
+    {
+        VerifyTemp();
+    }
 
     void SetFruitStats(string newName, int newTempMin, int newTempMax)
     {
@@ -86,17 +90,20 @@ public class ObjectInfo : MonoBehaviour
 
     void VerifyTemp()
     {
-        float temperature = miniGameManager.temperature;
-        if (temp < minTemp || temp > maxTemp)
-        {
-            float loseLife = speedLoseLife * Time.deltaTime;
-            timeLife -= speedLoseLife;
-            if (timeLife <= 0)
+        if(miniGameManager!= null) {
+            float temperature = miniGameManager.temperature;
+            if (temp < minTemp || temp > maxTemp)
             {
-                miniGameManager.checkBadFood();
-                gameObject.SetActive(false);
+                float loseLife = speedLoseLife * Time.deltaTime;
+                timeLife -= speedLoseLife;
+                if (timeLife <= 0)
+                {
+                    miniGameManager.checkBadFood();
+                    gameObject.SetActive(false);
+                }
             }
         }
+        
     }
 
     

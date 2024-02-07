@@ -23,7 +23,7 @@ public class MiniGameManager1 : MonoBehaviour
     public float temperature = 20;
     private int badFood;
 
-    public Text Text1;
+    public Text TextBadFood;
     public Text temperatureText;
 
 
@@ -45,7 +45,7 @@ public class MiniGameManager1 : MonoBehaviour
         spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y), objectSpawner.transform.position.z);
         SpawnObjectsOnSpawner(objectToSpawn, 8, 0);
         SpawnOchards();
-        UpdateAttributesByLevel();
+        
 
     }
 
@@ -182,11 +182,13 @@ public class MiniGameManager1 : MonoBehaviour
         {
             Camera.main.backgroundColor = Color.Lerp(Color.blue, Color.black, percentageOfDay / 0.5f);
             AdjustTemperatureDuringDay();
+            cultiveZone.GetComponent<CultiveZone>().day = true;
         }
         else
         {
             Camera.main.backgroundColor = Color.Lerp(Color.black, Color.blue, (percentageOfDay - 0.5f) / 0.5f);
             AdjustTemperatureDuringNight();
+            cultiveZone.GetComponent<CultiveZone>().day = false;
         }
 
         temperatureText.text = temperature.ToString("F1") + "°C";
@@ -196,13 +198,13 @@ public class MiniGameManager1 : MonoBehaviour
     void AdjustTemperatureDuringDay()
     {
         temperature += temperatureChangePerSecond * Time.deltaTime;
-        cultiveZone.GetComponent<CultiveZone>().day = true;
+        
     }
 
     void AdjustTemperatureDuringNight()
     {
         temperature -= temperatureChangePerSecond * Time.deltaTime;
-        cultiveZone.GetComponent<CultiveZone>().day = false;
+        
     }
 
     #endregion
@@ -210,28 +212,12 @@ public class MiniGameManager1 : MonoBehaviour
     #region Inventory Management
 
 
-    void UpdateAttributesByLevel()
-    {
-        switch (level)
-        {
-            case 0:
-
-                break;
-            case 1:
-                // Additional cases for more levels
-                break;
-            case 2:
-                // Additional cases for more levels
-                break;
-            default:
-                break;
-        }
-    }
+   
 
     public void checkBadFood()
     {
         badFood++;
-        Text1.text = "Wasted Food: " + badFood;
+        TextBadFood.text = "Wasted Food: " + badFood;
     }
 
 

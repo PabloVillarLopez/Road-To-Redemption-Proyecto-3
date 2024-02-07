@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1480161088899673983}
   - component: {fileID: 7568687451807587119}
   - component: {fileID: 4903693028268943037}
-  - component: {fileID: 3397365960231748479}
+  - component: {fileID: 3910990370296886073}
   m_Layer: 0
   m_Name: Neutral
   m_TagString: Neutral
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3397365960231748479
-CapsuleCollider:
+--- !u!65 &3910990370296886073
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,11 +102,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 2, z: 1.0000001}
+  m_Center: {x: -0.0000008940697, y: 0, z: -0.00000008940695}
 --- !u!1 &1362480259589185973
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,14 +379,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea148f5cc00c374c9c83bb169c927ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  applyTempMan: 1.58
+  speedTempGlobal: 0.02
   nameFruitT: {fileID: 2143072437946195898}
   tempFruitT: {fileID: 4269223123411149154}
-  fruitObject:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  fruitObjects: []
   tempTextArray:
   - {fileID: 1896181488245849311}
   - {fileID: 772029007891699819}
@@ -403,6 +398,7 @@ MonoBehaviour:
   - {fileID: 2798222523993244669}
   day: 0
   manager: {fileID: 0}
+  state: Neutral
   hot: {fileID: 4842800708050153259}
   neutral: {fileID: 341409107197563356}
   cold: {fileID: 1936747938626736043}
@@ -417,7 +413,7 @@ GameObject:
   - component: {fileID: 1105126660806332398}
   - component: {fileID: 6844562601133585736}
   - component: {fileID: 5585555878757995675}
-  - component: {fileID: 5915569523776383965}
+  - component: {fileID: 7293261485132488559}
   m_Layer: 0
   m_Name: Cold
   m_TagString: Cold
@@ -490,8 +486,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5915569523776383965
-CapsuleCollider:
+--- !u!65 &7293261485132488559
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -508,11 +504,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 2, z: 1.0000001}
+  m_Center: {x: -0.0000008940697, y: -0.00000047683716, z: -0.00000008940695}
 --- !u!1 &2405959931362022790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,7 +1263,7 @@ GameObject:
   - component: {fileID: 8774996544291703158}
   - component: {fileID: 2034399595858114748}
   - component: {fileID: 1995788216846503670}
-  - component: {fileID: 7056146430660977810}
+  - component: {fileID: 4030124515667099981}
   m_Layer: 0
   m_Name: Hot
   m_TagString: Hot
@@ -1342,8 +1336,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7056146430660977810
-CapsuleCollider:
+--- !u!65 &4030124515667099981
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1360,11 +1354,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 2, z: 1.0000001}
+  m_Center: {x: -0.0000008940697, y: 0, z: -0.00000008940695}
 --- !u!1 &5327043685464216154
 GameObject:
   m_ObjectHideFlags: 0
