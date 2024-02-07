@@ -196,11 +196,13 @@ public class MiniGameManager1 : MonoBehaviour
     void AdjustTemperatureDuringDay()
     {
         temperature += temperatureChangePerSecond * Time.deltaTime;
+        cultiveZone.GetComponent<CultiveZone>().day = true;
     }
 
     void AdjustTemperatureDuringNight()
     {
         temperature -= temperatureChangePerSecond * Time.deltaTime;
+        cultiveZone.GetComponent<CultiveZone>().day = false;
     }
 
     #endregion

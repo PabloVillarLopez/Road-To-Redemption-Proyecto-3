@@ -84,10 +84,10 @@ public class ObjectInfo : MonoBehaviour
         return id;
     }
 
-    void VerificarTemperatura()
+    void VerifyTemp()
     {
         float temperature = miniGameManager.temperature;
-        if (temperature < minTemp || temperature > maxTemp)
+        if (temp < minTemp || temp > maxTemp)
         {
             float loseLife = speedLoseLife * Time.deltaTime;
             timeLife -= speedLoseLife;
@@ -99,24 +99,5 @@ public class ObjectInfo : MonoBehaviour
         }
     }
 
-    public void AssignToCultive(GameObject newGameObject)
-    {
-        if (Cultive != null)
-        {
-            self.SetActive(true);
-            CultiveZone cultiveZone = Cultive.GetComponent<CultiveZone>();
-            if (cultiveZone != null)
-            {
-                cultiveZone.AddFruit(newGameObject);
-            }
-            else
-            {
-                Debug.LogWarning("CultiveZone component not found on Cultive GameObject.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Cultive GameObject is not assigned.");
-        }
-    }
+    
 }

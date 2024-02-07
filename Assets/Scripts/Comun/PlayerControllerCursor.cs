@@ -139,6 +139,22 @@ public class PlayerControllerCursor : MonoBehaviour
             return hit.point;
         }
 
+
+        if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
+        {
+            hit.collider.GetComponentInParent<CultiveZone>().state = ("Hot");
+            return hit.point;
+        }
+        if (hit.collider.CompareTag("Neutral") && Input.GetKeyDown(KeyCode.E))
+        {
+            hit.collider.GetComponentInParent<CultiveZone>().state=("Neutral");
+            return hit.point;
+        }
+        if (hit.collider.CompareTag("Cold") && Input.GetKeyDown(KeyCode.E))
+        {
+            hit.collider.GetComponentInParent<CultiveZone>().state = ("Neutral");
+            return hit.point;
+        }
         return Vector3.zero;
     }
     #endregion
@@ -212,9 +228,16 @@ public class PlayerControllerCursor : MonoBehaviour
         if (countSeeds - 1 >= 0 && countSeeds - 1 < caughtSeed.Length && caughtSeed[countSeeds - 1] != null)
         {
             caughtSeed[countSeeds - 1].SetActive(true);
-            caughtSeed[countSeeds - 1].GetComponent<ObjectInfo>().AssignToCultive(caughtObject.gameObject);
+            
             caughtSeed[countSeeds - 1].transform.position = planTarget.transform.position;
-            caughtSeed[countSeeds - 1].transform.parent = null;
+            caughtSeed[countSeeds - 1].transform.parent = planTarget.transform.parent;
+
+            planTarget.GetComponent<PlantTaget>().cultive.GetComponent<CultiveZone>().AddChild();
+
+            planTarget.SetActive(false);
+
+
+
             caughtSeed[countSeeds - 1] = null;
             countSeeds--;
 
