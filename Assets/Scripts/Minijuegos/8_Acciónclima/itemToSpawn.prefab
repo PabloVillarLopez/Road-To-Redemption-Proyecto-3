@@ -53,7 +53,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c0d6e4b33b21b6e44abc5699cf4e14d3, type: 2}
   - {fileID: 2100000, guid: 9e6771cdd73c4894dbfa5316a802c7a8, type: 2}
   - {fileID: 2100000, guid: 7ab848c49fc5aef4098658bf54d5ab83, type: 2}
-  fuerzaHaciaAbajo: 6.6
+  fuerzaHaciaAbajo: 3.6
 --- !u!54 &4113759057106924905
 Rigidbody:
   m_ObjectHideFlags: 0

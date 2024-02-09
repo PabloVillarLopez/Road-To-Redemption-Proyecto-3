@@ -46,9 +46,13 @@ public class PlayerControllerCursor : MonoBehaviour
     void Start()
     {
         rigy = GetComponent<Rigidbody>();
-        orientation = transform.GetChild(2).transform;
-        mode = 2;
-        mainCamera = Camera.main;
+        
+       
+            mainCamera = Camera.main;
+        
+        orientation = transform.GetChild(1).transform;
+        
+        
     }
     #endregion
 

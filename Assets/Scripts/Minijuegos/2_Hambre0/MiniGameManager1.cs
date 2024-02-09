@@ -22,8 +22,9 @@ public class MiniGameManager1 : MonoBehaviour
     public float temperatureChangePerSecond = 0.1f;
     public float temperature = 20;
     private int badFood;
-
+    private int goodFood;
     public Text TextBadFood;
+    public Text TextGoodFood;
     public Text temperatureText;
 
 
@@ -218,6 +219,14 @@ public class MiniGameManager1 : MonoBehaviour
     {
         badFood++;
         TextBadFood.text = "Wasted Food: " + badFood;
+
+    }
+
+    public void checkGoodFood()
+    {
+        goodFood++;
+        TextGoodFood.text = "Recolected Food: " + goodFood;
+
     }
 
 

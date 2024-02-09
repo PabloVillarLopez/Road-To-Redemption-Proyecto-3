@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniGameManager: {fileID: 0}
+  timeLife: 0
+  speedLoseLife: 0.2
   temp: 20
   materials:
   - {fileID: 2100000, guid: fd2a4dfc2e7977e4084696185e68dbb6, type: 2}

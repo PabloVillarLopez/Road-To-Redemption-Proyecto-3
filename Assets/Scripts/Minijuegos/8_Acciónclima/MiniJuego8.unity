@@ -481,7 +481,7 @@ MonoBehaviour:
   pointB: {x: -3.95, y: 14.5, z: 26.800001}
   moveSpeed: 7.25
   textPoints: {fileID: 1688066184}
-  totalTime: 300
+  totalTime: 5
   timerText: {fileID: 1277272782}
   monitoring: 0
 --- !u!4 &1066041525

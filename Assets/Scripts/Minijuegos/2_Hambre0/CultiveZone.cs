@@ -15,7 +15,7 @@ public class CultiveZone : MonoBehaviour
     private int counterList;
   
     public Text[] tempTextArray;
-    
+    public Slider[] health;
     public GameObject[] spawnPoints;
  
     public bool day;
@@ -65,7 +65,7 @@ public class CultiveZone : MonoBehaviour
         for (int i = 0; i < fruitObjects.Count; i++)
         {
             // Verifica si el objeto fruta y el texto de temperatura no son nulos
-            if (fruitObjects[i] != null && tempTextArray[i] != null)
+            if (fruitObjects[i] != null && tempTextArray[i] != null && health[i] != null)
             {
                 
                 // Obtiene el componente ObjectInfo del objeto fruta
@@ -76,7 +76,8 @@ public class CultiveZone : MonoBehaviour
                     // Intenta convertir el texto a un valor flotante y asignarlo a la temperatura del objeto fruta
 
                     tempTextArray[i].text = objectInfo.temp.ToString("0") + "ºC";
-
+                    float porcentaje = (objectInfo.timeLife/10);
+                    health[i].GetComponent<Slider>().value = porcentaje;
                     // Advierte si no se pudo convertir el texto a un valor flotante
 
 
@@ -94,54 +95,61 @@ public class CultiveZone : MonoBehaviour
             fruitObjects.Add(newFruit);
 
             counterList++;
+            newFruit.GetComponent<ObjectInfo>().ready = true;
         }
        
         
 
     }
 
+
+    public void RemoveChild (GameObject oldFruit)
+    {
+        if (oldFruit != null)
+        {
+            fruitObjects.Remove(oldFruit);
+            counterList--;
+        }
+    }
+
     public void ApplyTemp()
     {
 
-      
+
 
         switch (state)
-            {
-                case "Hot":
-                    for (int i = 0; i < fruitObjects.Count; i++)
+        {
+            case "Hot":
+                for (int i = 0; i < fruitObjects.Count; i++)
+                {
+                    if (fruitObjects[i] != null)
                     {
-                        if(fruitObjects[i] != null)
-                        {
-                            fruitObjects[i].GetComponent<ObjectInfo>().temp += (applyTempMan * Time.deltaTime);
-
-                        }
+                        fruitObjects[i].GetComponent<ObjectInfo>().temp += (applyTempMan * Time.deltaTime);
+                        fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -10, 40);
                     }
+                }
                 Debug.Log("Hot");
-                    break;
-                case "Neutral":
-
+                break;
+            case "Neutral":
                 Debug.Log("Neutral");
                 Debug.Log(day);
-
                 break;
-                case "Cold":
-                    
-                    for (int i = 0; i < fruitObjects.Count; i++)
+            case "Cold":
+                for (int i = 0; i < fruitObjects.Count; i++)
+                {
+                    if (fruitObjects[i] != null)
                     {
-                        if (fruitObjects[i] != null)
-                        {
-                            fruitObjects[i].GetComponent<ObjectInfo>().temp -= (applyTempMan * Time.deltaTime);
+                        fruitObjects[i].GetComponent<ObjectInfo>().temp -= (applyTempMan * Time.deltaTime);
+                        fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -10, 40);
                         Debug.Log(fruitObjects[i].GetComponent<ObjectInfo>().temp);
-                        }
                     }
+                }
                 Debug.Log("Cold");
                 break;
-                default:
-                    break;
-            }
-  
-        
-        
+            default:
+                break;
+        }
+
         if (day)
         {
             float temperatureGlobal = manager.temperatureChangePerSecond;
@@ -150,6 +158,7 @@ public class CultiveZone : MonoBehaviour
                 if (fruitObjects[i] != null)
                 {
                     fruitObjects[i].GetComponent<ObjectInfo>().temp += speedTempGlobal * temperatureGlobal;
+                    fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -10, 40);
                 }
             }
         }
@@ -162,11 +171,12 @@ public class CultiveZone : MonoBehaviour
                 if (fruitObjects[i] != null)
                 {
                     fruitObjects[i].GetComponent<ObjectInfo>().temp -= speedTempGlobal * temperatureGlobal;
+                    fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -10, 40);
                 }
             }
         }
 
-        
+
     }
 
    
