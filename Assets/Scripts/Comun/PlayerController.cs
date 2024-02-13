@@ -57,8 +57,12 @@ public class PlayerController : MonoBehaviour
 
     private void MyInput() //Gets movement in horizontal and vertical axis with AWSD and arrows
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        if (!ObserveObject.cantMove)
+        {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
+        }
+        
     }
 
         #endregion Get Movement Input

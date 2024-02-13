@@ -5,8 +5,8 @@ using UnityEngine;
 public class PanelFader : MonoBehaviour
 {
     #region Panel Fader Variables
-
-    private bool panelFaded = true;
+    [HideInInspector]
+    public bool panelFaded = true;
     [Header("Fade Variables")]
     public float duration = 0.4f;
     public CanvasGroup canvGroup;
@@ -17,6 +17,13 @@ public class PanelFader : MonoBehaviour
     public void Fade()
     {
         StartCoroutine(DoFade(canvGroup, canvGroup.alpha, panelFaded ? 1 : 0));
+
+        panelFaded = !panelFaded;
+    }
+
+    public void FadeOut()
+    {
+        StartCoroutine(DoFade(canvGroup, canvGroup.alpha, panelFaded ? 0 : 1));
     }
 
     public IEnumerator DoFade(CanvasGroup canvGroup, float start, float end)

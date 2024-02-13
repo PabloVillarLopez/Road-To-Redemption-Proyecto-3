@@ -48,6 +48,26 @@ public class ObserveObject : MonoBehaviour
 
     #endregion MiniGame Phases Variables
 
+    #region Analysis Panel Fade In Effect
+    public PanelFader panelFader;
+    public static bool cantMove;
+    public Button clue1AnalyseButton;
+    public GameObject tick1;
+    public Button clue2AnalyseButton;
+    public GameObject tick2;
+    public Button clue3AnalyseButton;
+    public GameObject tick3;
+    public bool analyzing;
+    public bool canFadeIn = true;
+    public bool notAnalyzing = true;
+    public Button analyzeButton;
+    public Slider analyzeSlider;
+    private bool canJudge = true;
+    public PanelFader judgementPanelFader;
+    private bool judgementPanelCanFade = true;
+
+    #endregion Analysis Panel Fade In Effect
+
     #region Start
 
     // Start is called before the first frame update
@@ -57,6 +77,14 @@ public class ObserveObject : MonoBehaviour
         playerCamera.SetActive(true);
         RotateUI.SetActive(false);
         judgementPanel.SetActive(false);
+        clue1AnalyseButton.gameObject.SetActive(false);
+        clue2AnalyseButton.gameObject.SetActive(false);
+        clue3AnalyseButton.gameObject.SetActive(false);
+        tick1.SetActive(false);
+        tick2.SetActive(false);
+        tick3.SetActive(false);
+        analyzeButton.gameObject.SetActive(false);
+        analyzeSlider.gameObject.SetActive(false);
     }
 
     #endregion Start
@@ -81,12 +109,19 @@ public class ObserveObject : MonoBehaviour
             Clue3CameraChange();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && clueCamera.activeInHierarchy)
+        if (Input.GetKeyDown(KeyCode.Escape) && clueCamera.activeInHierarchy && notAnalyzing)
         {
             CameraBackToPlayer();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape) && clueCamera.activeInHierarchy && !notAnalyzing)
+        {
+            CameraBackToCluePanel();
+        }
+
         HandleMinigamePhases();
+        CheckCameraAnalysis();
+        HandleAnalyzingUI();
     }
 
     #endregion Update
@@ -98,6 +133,35 @@ public class ObserveObject : MonoBehaviour
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
         clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+
+        clueIndex = 0;
+        ManageUIClueType();
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void Clue1AnalysisCameraChange()
+    {
+        //panelFader.panelFaded = false;
+        if (panelFader.canvGroup.alpha >= 1)
+        {
+            panelFader.Fade();
+        }
+
+        if (!analyzeButton.gameObject.activeInHierarchy)
+        {
+            analyzeButton.gameObject.SetActive(true);
+            
+        }
+
+        if (!analyzeSlider.gameObject.activeInHierarchy)
+        {
+            analyzeSlider.gameObject.SetActive(true);
+        }
+
+        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+        
 
         clueIndex = 0;
         ManageUIClueType();
@@ -118,11 +182,68 @@ public class ObserveObject : MonoBehaviour
         Cursor.visible = true;
     }
 
+    public void Clue2AnalysisCameraChange()
+    {
+        clueCamera.SetActive(true);
+        playerCamera.SetActive(false);
+        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+
+        if (panelFader.canvGroup.alpha >= 1)
+        {
+            panelFader.Fade();
+        }
+
+        if (!analyzeButton.gameObject.activeInHierarchy)
+        {
+            analyzeButton.gameObject.SetActive(true);
+
+        }
+
+        if (!analyzeSlider.gameObject.activeInHierarchy)
+        {
+            analyzeSlider.gameObject.SetActive(true);
+        }
+
+        clueIndex = 1;
+        ManageUIClueType();
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     private void Clue3CameraChange()
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
         clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+        clueIndex = 2;
+        ManageUIClueType();
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void Clue3AnalysisCameraChange()
+    {
+        clueCamera.SetActive(true);
+        playerCamera.SetActive(false);
+        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+        if (panelFader.canvGroup.alpha >= 1)
+        {
+            panelFader.Fade();
+        }
+
+        if (!analyzeButton.gameObject.activeInHierarchy)
+        {
+            analyzeButton.gameObject.SetActive(true);
+
+        }
+
+        if (!analyzeSlider.gameObject.activeInHierarchy)
+        {
+            analyzeSlider.gameObject.SetActive(true);
+        }
+
         clueIndex = 2;
         ManageUIClueType();
 
@@ -137,6 +258,34 @@ public class ObserveObject : MonoBehaviour
         RotateUI.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void CameraBackToCluePanel()
+    {
+        if (panelFader.canvGroup.alpha >= 0.5)
+        {
+            clueCamera.SetActive(false);
+            playerCamera.SetActive(true);
+
+            if (analyzeButton.gameObject.activeInHierarchy)
+            {
+                analyzeButton.gameObject.SetActive(false);
+
+            }
+
+            if (analyzeSlider.gameObject.activeInHierarchy)
+            {
+                analyzeSlider.gameObject.SetActive(false);
+            }
+        }
+        
+        RotateUI.SetActive(false);
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        if (panelFader.canvGroup.alpha <= 0)
+        {
+            panelFader.Fade();
+        }
     }
 
     #endregion Change from PlayerCamera to ClueCamera and from ClueCamera to PlayerCamera
@@ -161,7 +310,7 @@ public class ObserveObject : MonoBehaviour
 
                     leftRotateButton.onClick.AddListener(clues[clueIndex].GetComponent<RotateClue>().RotateLeftX);
                     rightRotateButton.onClick.AddListener(clues[clueIndex].GetComponent<RotateClue>().RotateRightX);
-                    clues[clueIndex].GetComponent<RotateClue>().canAddRotateToButton = false;
+                    //clues[clueIndex].GetComponent<RotateClue>().canAddRotateToButton = false;
                 }
                 break;
 
@@ -180,6 +329,8 @@ public class ObserveObject : MonoBehaviour
             case JusticePhases.INVESTIGATION:
                 lenseAimGlass.SetActive(true);
                 judgementPanel.SetActive(false);
+                notAnalyzing = true;
+                cantMove = false;
                 canDeactivateClues = true;
                 if (canDeactivateClues)
                 {
@@ -199,6 +350,17 @@ public class ObserveObject : MonoBehaviour
             case JusticePhases.ANALYSIS:
                 judgementPanel.SetActive(false);
                 lenseAimGlass.SetActive(false);
+                notAnalyzing = false;
+                analyzing = true;
+                cantMove = true;
+                FixFadeInAndOut();
+                
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                clue1AnalyseButton.gameObject.SetActive(true);
+                
+                HandleAnalyzingUI();
+
                 canActivateClues = true;
                 if (canActivateClues)
                 {
@@ -212,12 +374,152 @@ public class ObserveObject : MonoBehaviour
 
                 break;
             case JusticePhases.JUDGMENT:
+                notAnalyzing = true;
                 judgementPanel.SetActive(true);
+                FixJudgementPanelFadeInAndOut();
+                cantMove = false;
                 break;
             default:
                 break;
         }
     }
 
+    private void CheckCameraAnalysis()
+    {
+        if (panelFader.canvGroup.alpha >= 0.95 && analyzing)
+        {
+            clueCamera.SetActive(true);
+            playerCamera.SetActive(false);
+
+            analyzing = false;
+        }
+    }
+
+    private void FixFadeInAndOut()
+    {
+        if (canFadeIn)
+        {
+            panelFader.Fade();
+            canFadeIn = false;
+        }
+        
+    }
+
+    private void FixJudgementPanelFadeInAndOut()
+    {
+        if (judgementPanelCanFade)
+        {
+            judgementPanelFader.Fade();
+            judgementPanelCanFade = false;
+        }
+    }
+
     #endregion Handle Minigame Phases
+
+    #region Handle Analyzing UI
+    private void HandleAnalyzingUI()
+    {
+        switch (AnalyzeClue.cluesAnalyzed)
+        {
+            case 0:
+                if (clue2AnalyseButton.gameObject.activeInHierarchy)
+                {
+                    clue2AnalyseButton.gameObject.SetActive(false);
+                }
+
+                if (clue3AnalyseButton.gameObject.activeInHierarchy)
+                {
+                    clue3AnalyseButton.gameObject.SetActive(false);
+                }
+                
+                break;
+            case 1:
+                if (clue1AnalyseButton.gameObject.activeInHierarchy)
+                {
+                    clue1AnalyseButton.gameObject.SetActive(false);
+                }
+
+                if (!clue2AnalyseButton.gameObject.activeInHierarchy)
+                {
+                    clue2AnalyseButton.gameObject.SetActive(true);
+                }
+
+                if (!tick1.activeInHierarchy)
+                {
+                    tick1.SetActive(true);
+                }
+
+                if (clue3AnalyseButton.gameObject.activeInHierarchy)
+                {
+                    clue3AnalyseButton.gameObject.SetActive(false);
+                }
+                break;
+            case 2:
+                if (clue1AnalyseButton.gameObject.activeInHierarchy)
+                {
+                    clue1AnalyseButton.gameObject.SetActive(false);
+                }
+
+                if (clue2AnalyseButton.gameObject.activeInHierarchy)
+                {
+                    clue2AnalyseButton.gameObject.SetActive(false);
+                }
+
+                if (!tick2.activeInHierarchy)
+                {
+                    tick2.SetActive(true);
+                }
+
+                if (!clue3AnalyseButton.gameObject.activeInHierarchy)
+                {
+                    clue3AnalyseButton.gameObject.SetActive(true);
+                }
+                break;
+            case 3:
+                if (clue1AnalyseButton.gameObject.activeInHierarchy)
+                {
+                    clue1AnalyseButton.gameObject.SetActive(false);
+                }
+
+                if (clue3AnalyseButton.gameObject.activeInHierarchy)
+                {
+                    clue3AnalyseButton.gameObject.SetActive(false);
+                }
+
+                if (!tick3.activeInHierarchy)
+                {
+                    tick3.SetActive(true);
+                }
+
+                FixWaitForJudgment();
+
+                /*if (!analisysPanel.gameObject.activeInHierarchy)
+                {
+                    analysisPanel.
+                }*/
+
+                break;
+            default:
+                break;
+        }
+        ;
+    }
+
+    private IEnumerator WaitForJudgment()
+    {
+        yield return new WaitForSeconds(1f);
+        phases = JusticePhases.JUDGMENT;
+    }
+
+    private void FixWaitForJudgment()
+    {
+        if (canJudge)
+        {
+            StartCoroutine(WaitForJudgment());
+            canJudge = false;
+        }
+        
+    }
+
+    #endregion Handle Analyzing UI
 }

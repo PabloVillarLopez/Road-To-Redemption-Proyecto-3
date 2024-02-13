@@ -19,12 +19,22 @@ public class AimLenseGlass : MonoBehaviour
 
     #endregion Take clues Variable
 
+    #region Show Clues Icons Variables
+    [Header("Clue Icons")]
+    [Space]
+    public GameObject[] clueIcons;
+
+    #endregion Show Clues Icons Variables
+
     #region Start
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        for (int i = 0; i < clueIcons.Length; i++)
+        {
+            clueIcons[i].SetActive(false);
+        }    
     }
 
     #endregion Start
@@ -83,6 +93,7 @@ public class AimLenseGlass : MonoBehaviour
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow);
             ObserveObject.TakenClues.Add(hit.transform.gameObject);
             hit.transform.gameObject.SetActive(false);
+            clueIcons[takenClues].SetActive(true);
             takenClues++;
         }
     }
