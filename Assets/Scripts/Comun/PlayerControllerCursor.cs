@@ -361,7 +361,8 @@ public class PlayerControllerCursor : MonoBehaviour
                 CastRayFromMousePosition();
                 break;
             case 3:
-                // Código para el tercer caso
+                MyInput();
+                SpeedControl();
                 break;
             case 4:
                 // Código para el cuarto caso
