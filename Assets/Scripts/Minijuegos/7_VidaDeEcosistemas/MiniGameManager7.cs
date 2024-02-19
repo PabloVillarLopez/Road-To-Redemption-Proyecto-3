@@ -12,6 +12,7 @@ public class MiniGameManager7 : MonoBehaviour
     private int counterGameObject = 0;
     private int countItems;
     public int countProgress=15;
+    public int currentPhase=1;
     void Start()
     {
 
@@ -22,7 +23,12 @@ public class MiniGameManager7 : MonoBehaviour
 
     private void Update()
     {
-        
+        if (phasesProcess != currentPhase)
+        {
+            phasesProcess = currentPhase;
+            Phases(2);
+           
+        }
     }
 
     void SpawnObject()
@@ -39,6 +45,7 @@ public class MiniGameManager7 : MonoBehaviour
 
         // Spawnear el objeto en la posición generada
         Instantiate(objectToSpawn, randomPosition, Quaternion.identity);
+        objectToSpawn.SetActive(true);
         ManageGameObjects[counterGameObject] = objectToSpawn;
         counterGameObject++;
     }
@@ -59,19 +66,26 @@ public class MiniGameManager7 : MonoBehaviour
 
                 break;
             case 2:
-
-                foreach (GameObject obj in objectsToSpawn)
+                
+                for(int x = 0; x < ManageGameObjects.Length; x++)
                 {
-                    // Haz algo con cada objeto, por ejemplo, imprime su nombre
-                    Destroy(obj);
+
+                    if(ManageGameObjects[x].activeSelf==true)
+                    {
+                        ManageGameObjects[x].SetActive(false);
+                        Debug.Log(ManageGameObjects[x].name);
+                    }
+                    
+                    
+                   
+                  
                 }
 
-
-                // Código a ejecutar si la expresión es igual a valor2
                 break;
-            // Puedes tener más casos si es necesario
+            
+         
             default:
-                // Código a ejecutar si la expresión no coincide con ninguno de los casos anteriores
+             
                 break;
         }
     }
