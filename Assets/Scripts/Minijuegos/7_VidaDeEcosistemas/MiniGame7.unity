@@ -489,6 +489,10 @@ MonoBehaviour:
   - {fileID: 0}
   countProgress: 30
   currentPhase: 1
+  large: 60
+  hight: 60
+  zone1Large: 5
+  zone1Hight: 5
 --- !u!1 &1701705120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,7 +1245,7 @@ Transform:
   m_GameObject: {fileID: 4316347205176312859}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.76, z: -4.65}
+  m_LocalPosition: {x: 2.7, y: 1.76, z: -5.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1267,7 +1271,7 @@ GameObject:
   - component: {fileID: 7810840333007337292}
   - component: {fileID: 7810840333007337294}
   m_Layer: 0
-  m_Name: Charapter
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
