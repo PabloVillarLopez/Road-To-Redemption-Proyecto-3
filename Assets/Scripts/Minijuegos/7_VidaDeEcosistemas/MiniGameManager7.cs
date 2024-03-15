@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
+
+using static UnityEditor.VersionControl.Asset;
 
 public class MiniGameManager7 : MonoBehaviour
 {
     public GameObject[] objectsToSpawn;
     public Vector3 spawnArea;
-    public int phasesProcess;
+    public int phasesProcess=1;
     public GameObject[] ManageGameObjects;
     private int counterGameObject = 0;
     private int countItems;
-    public int countProgress = 15;
+    public int countProgress = 30;
     public int currentPhase = 1;
-
+    public Text counterProgressText;
     private Vector3 randomPosition;
 
     public float large;
@@ -36,29 +40,20 @@ public class MiniGameManager7 : MonoBehaviour
     private float xMinZone3;
 
     private bool readyToSpawn;
+
+
+
+    private float proceso = 0f;
+    public bool isPlanting;
+    public float plantingTime = 3f;
+    public Slider progressBar;
+    private float plantingTimer = 3f;
+
     void Start()
     {
         GenerateArea();
         Phases(phasesProcess);
-        Debug.Log("large: " + large);
-        Debug.Log("hight: " + hight);
-
-        Debug.Log("xMaxZone1: " + xMaxZone1);
-        Debug.Log("xMinZone1: " + xMinZone1);
-        Debug.Log("zMaxZone1: " + zMaxZone1);
-        Debug.Log("zMinZone1: " + zMinZone1);
-        Debug.Log("zone1Large: " + zone1Large);
-        Debug.Log("zone1Hight: " + zone1Hight);
-
-        Debug.Log("zMaxZone2: " + zMaxZone2);
-        Debug.Log("zMinZone2: " + zMinZone2);
-        Debug.Log("xMaxZone2: " + xMaxZone2);
-        Debug.Log("xMinZone2: " + xMinZone2);
-
-        Debug.Log("zMaxZone3: " + zMaxZone3);
-        Debug.Log("zMinZone3: " + zMinZone3);
-        Debug.Log("xMaxZone3: " + xMaxZone3);
-        Debug.Log("xMinZone3: " + xMinZone3);
+       
     }
 
     private void Update()
@@ -66,9 +61,43 @@ public class MiniGameManager7 : MonoBehaviour
         if (phasesProcess != currentPhase)
         {
             phasesProcess = currentPhase;
-            Phases(2);
+            Phases(phasesProcess);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject character = GameObject.Find("Character");
+            Vector3 vectorToCheck = character.transform.position; // Obtener la posición del personaje
+
+            bool isInsideZones = IsVectorInsideZones(vectorToCheck); // Verificar si la posición está dentro de las zonas
+            if (isInsideZones)
+            {
+
+                Debug.Log("El vector está dentro de las zonas.");
+            }
+            else
+            {
+                Debug.Log(vectorToCheck);
+                Debug.Log("El vector no está dentro de las zonas.");
+            }
+        }
+
+        if (currentPhase == 2)
+        {
+            if (isPlanting)
+            {
+                progressBar.gameObject.SetActive(true); // Activate progress bar
+            }
+            else
+            {
+                plantingTimer = 0f; // Reset planting timer
+                progressBar.gameObject.SetActive(false);
+            }
+
+            UpdatePlantingProcess();
         }
     }
+
 
     void SpawnObject()
     {
@@ -76,69 +105,65 @@ public class MiniGameManager7 : MonoBehaviour
         {
             Vector3 areaToSpawn = GeneratePointToSpawn(1);
 
-           
-                GameObject objectToSpawn = objectsToSpawn[0];
-                // Spawnear el objeto en la posici�n generada
-                Instantiate(objectToSpawn, areaToSpawn, Quaternion.identity);
+            GameObject objectToSpawn = objectsToSpawn[1];
+            // Spawnear el objeto en la posición generada
+            GameObject spawnedObject = Instantiate(objectToSpawn, areaToSpawn, Quaternion.identity);
+            spawnedObject.SetActive(true); // Asegurarse de que el objeto esté activo
 
+            ManageGameObjects[counterGameObject] = spawnedObject;
+            ObjectToExplote objectToExploteComponent = spawnedObject.GetComponent<ObjectToExplote>();
 
+            objectToExploteComponent.GetComponent<Renderer>().material = objectToExploteComponent.materials[0];
 
-                ManageGameObjects[counterGameObject] = objectToSpawn;
-                objectToSpawn.GetComponent<ObjectInfo>().renderer.material = objectToSpawn.GetComponent<ObjectInfo>().materials[0];
-            objectToSpawn.GetComponent<ObjectInfo>().Tipo = "1";
-
-            Debug.Log(areaToSpawn.ToString());  
             counterGameObject++;
-
-          
         }
         else if (counterGameObject > 10 && counterGameObject <= 20)
         {
             Vector3 areaToSpawn = GeneratePointToSpawn(2);
-            GameObject objectToSpawn = objectsToSpawn[Random.Range(0, objectsToSpawn.Length)];
+            GameObject objectToSpawn = objectsToSpawn[1];
 
             if (readyToSpawn)
             {
+                // Spawnear el objeto en la posición generada
+                GameObject spawnedObject = Instantiate(objectToSpawn, areaToSpawn, Quaternion.identity);
+                spawnedObject.SetActive(true); // Asegurarse de que el objeto esté activo
 
+                objectToSpawn.GetComponent<ObjectToExplote>().GetComponent<Renderer>().material = objectToSpawn.GetComponent<ObjectToExplote>().materials[1];
+                ManageGameObjects[counterGameObject] = spawnedObject;
 
-                // Spawnear el objeto en la posici�n generada
-                Instantiate(objectToSpawn, areaToSpawn, Quaternion.identity);
-            objectToSpawn.GetComponent<ObjectInfo>().renderer.material = objectToSpawn.GetComponent<ObjectInfo>().materials[1];
-            ManageGameObjects[counterGameObject] = objectToSpawn;
-                objectToSpawn.GetComponent<ObjectInfo>().Tipo = "2";
                 counterGameObject++;
-            readyToSpawn = false;   
-
+                readyToSpawn = false;
             }
             else
             {
                 SpawnObject();
             }
         }
-        
         else if (counterGameObject > 20 && counterGameObject <= 30)
         {
             readyToSpawn = true;
             if (readyToSpawn)
             {
-
                 Vector3 areaToSpawn = GeneratePointToSpawn(3);
-                GameObject objectToSpawn = objectsToSpawn[Random.Range(0, objectsToSpawn.Length)];
+                GameObject objectToSpawn = objectsToSpawn[1];
 
-                // Spawnear el objeto en la posici�n generada
-                Instantiate(objectToSpawn, areaToSpawn, Quaternion.identity);
-                objectToSpawn.GetComponent<ObjectInfo>().renderer.material = objectToSpawn.GetComponent<ObjectInfo>().materials[2];
-                ManageGameObjects[counterGameObject] = objectToSpawn;
-                objectToSpawn.GetComponent<ObjectInfo>().Tipo = "3";
+                // Spawnear el objeto en la posición generada
+                GameObject spawnedObject = Instantiate(objectToSpawn, areaToSpawn, Quaternion.identity);
+                spawnedObject.SetActive(true); // Asegurarse de que el objeto esté activo
+
+                objectToSpawn.GetComponent<ObjectToExplote>().GetComponent<Renderer>().material = objectToSpawn.GetComponent<ObjectToExplote>().materials[2];
+                ManageGameObjects[counterGameObject] = spawnedObject;
+
                 counterGameObject++;
                 readyToSpawn = false;
             }
-        else
-        {
-            SpawnObject();
+            else
+            {
+                SpawnObject();
+            }
         }
     }
-    }
+
 
     private Vector3 GeneratePointToSpawn(float zone)
     {
@@ -194,7 +219,7 @@ public class MiniGameManager7 : MonoBehaviour
                     if (randomPosition.x >= xMinZone1 && randomPosition.x <= xMaxZone1 &&
                         randomPosition.z >= zMinZone1 && randomPosition.z <= zMaxZone1 && randomPosition.x <= xMaxZone2)
                     {
-                        continue; // Continuar con el siguiente intento si la posici�n est� dentro de la zona 1
+                        continue; // Continuar con el siguiente intento si la posici�n est� dentro de la zona 1
                     }
                     else
                     {
@@ -240,9 +265,13 @@ public class MiniGameManager7 : MonoBehaviour
     }
     private void Phases(int phasesProcess)
     {
+        progressBar.gameObject.SetActive(false);
+
         switch (phasesProcess)
         {
+
             case 1:
+                Debug.Log("Iniciando Fase 1");
                 for (int i = 0; i < 30; i++)
                 {
                     
@@ -252,19 +281,117 @@ public class MiniGameManager7 : MonoBehaviour
 
                     
                 }
-                break;
+                for (int x = 0; x < ManageGameObjects.Length; x++)
+                    {
+
+                           ManageGameObjects[x].SetActive(true);
+                           
+
+                    }
+                    break;
             case 2:
+
+                Debug.Log("Iniciando Fase 2");
+                counterProgressText.text = 0.ToString();
+                
                 for (int x = 0; x < ManageGameObjects.Length; x++)
                 {
-                    if (ManageGameObjects[x].activeSelf == true)
-                    {
-                        ManageGameObjects[x].SetActive(false);
-                        Debug.Log(ManageGameObjects[x].name);
-                    }
+                    Debug.Log(ManageGameObjects[x]);
+                    ManageGameObjects[x].SetActive(false);
+
+
+
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    public void updateProgressText(int progress)
+    {
+        countProgress = countProgress + progress;
+        counterProgressText.text = countProgress.ToString();
+
+        if(countProgress <=0) {
+
+            Phases(2);
+
+        }
+
+    }
+
+
+    public bool IsVectorInsideZones(Vector3 vector)
+    {
+        // Verificar si el vector está dentro de la zona 1
+        if (vector.x >= xMinZone1 && vector.x <= xMaxZone1 &&
+            vector.z >= zMinZone1 && vector.z <= zMaxZone1)
+        {
+            Debug.Log("Zona 1");
+            return true; // El vector está dentro de la zona 1
+        }
+
+        // Verificar si el vector está dentro de la zona 2
+        if (vector.x >= xMinZone2 && vector.x <= xMaxZone2 &&
+            vector.z >= zMinZone2 && vector.z <= zMaxZone2)
+        {
+            Debug.Log("Zona 2");
+            return true; // El vector está dentro de la zona 2
+        }
+
+        // Verificar si el vector está dentro de la zona 3
+        if (vector.x >= xMinZone3 && vector.x <= xMaxZone3 &&
+            vector.z >= zMinZone3 && vector.z <= zMaxZone3)
+        {
+            Debug.Log("Zona 3");
+            return true; // El vector está dentro de la zona 3
+        }
+
+        // El vector no está dentro de ninguna zona
+        return false;
+
+
+    }
+
+    public void UpdateProgressPlanting()
+    {
+        proceso += 0.2f;
+
+    }
+
+
+    void StartPlanting()
+    {
+        isPlanting = true;
+        plantingTimer = 0f;
+        progressBar.gameObject.SetActive(true);
+    }
+
+    void UpdateProgress(float progress)
+    {
+        progressBar.value = Mathf.Clamp01(progress);
+    }
+
+    void UpdatePlantingProcess()
+    {
+        if (isPlanting)
+        {
+            plantingTimer += Time.deltaTime;
+            UpdateProgress(plantingTimer / plantingTime);
+
+            if (plantingTimer >= plantingTime)
+            {
+                FinishPlanting();
+            }
+        }
+    }
+
+    void FinishPlanting()
+    {
+        isPlanting = false;
+        progressBar.value = 0f;
+        progressBar.gameObject.SetActive(false);
+        
     }
 }
