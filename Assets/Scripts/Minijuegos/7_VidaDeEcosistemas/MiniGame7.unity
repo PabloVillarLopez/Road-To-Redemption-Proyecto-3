@@ -350,8 +350,6 @@ MonoBehaviour:
   objectsToSpawn:
   - {fileID: 6781159458950091940, guid: c52f7f1e5b715ba41a5c4ca64806ab80, type: 3}
   - {fileID: 9004214612344703921, guid: 0788c811857b44d4f8947fa900da7f2e, type: 3}
-  spawnArea: {x: -50, y: -20, z: 50}
-  phasesProcess: 1
   ManageGameObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -383,13 +381,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  countProgress: 30
+  wallToSpawn: {fileID: 3521082558097801036, guid: 351cf0501a4838445925cf954d9da21c,
+    type: 3}
+  spawnArea: {x: -50, y: -20, z: 50}
+  phasesProcess: 1
   currentPhase: 1
+  countProgress: 30
   counterProgressText: {fileID: 1816834804}
   large: 60
   hight: 60
   zone1Large: 5
-  zone1Hight: 5
+  zone1Height: 0
   isPlanting: 0
   plantingTime: 3
   progressBar: {fileID: 1993627274}
@@ -1222,7 +1224,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5328647748146644056}
   serializedVersion: 4
-  m_Mass: 100
+  m_Mass: 3
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1316,13 +1318,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6838916349317668686}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.51, z: -0.28}
+  m_LocalRotation: {x: -0, y: -0.75593144, z: -0, w: 0.65465087}
+  m_LocalPosition: {x: 0, y: 0.51, z: -0.2800002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5097756048649813346}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -98.214, z: 0}
 --- !u!33 &3587541717556895673
 MeshFilter:
   m_ObjectHideFlags: 0
