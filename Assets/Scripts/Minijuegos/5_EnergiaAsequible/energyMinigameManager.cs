@@ -47,7 +47,7 @@ public class energyMinigameManager : MonoBehaviour
         switch (phase)
         {
             case Phase.PHASE1:
-                //Hacer lógica de que si presionas la pieza se ponga en su sitio o se inicie la animación de ponerse en su sitio
+                //Hacer lógica de que si presionas la pieza se inicie la animación de ponerse en su sitio
 
                 //Comprobar si pieza1, pieza2, pieza3, pieza4, pieza5, pieza6 y pieza7 están bien colocada
                     //Pasar a siguiente fase
