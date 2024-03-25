@@ -47,14 +47,14 @@ public class energyMinigameManager : MonoBehaviour
         switch (phase)
         {
             case Phase.PHASE1:
-                //Hacer lógica de que si presionas la pieza se inicie la animación de ponerse en su sitio
+                //Lógica de que si presionas la pieza se inicie la animación de ponerse en su sitio
 
                 //Comprobar si pieza1, pieza2, pieza3, pieza4, pieza5, pieza6 y pieza7 están bien colocada
                     //Pasar a siguiente fase
 
                 break;
             case Phase.PHASE2:
-                //Hacer lógica de sol y de porcentaje de luz natural solar según la luz que le da o el momento del día
+                //Lógica de sol y de porcentaje de luz natural solar según la luz que le da o el momento del día
 
                 //Comprobar si pieza8, pieza9, pieza10 y piez11 están bien colocadas
                     //Pasar a siguiente fase
@@ -63,7 +63,7 @@ public class energyMinigameManager : MonoBehaviour
             case Phase.PHASE3:
                 //Se muestra panel de cableado
 
-                //Hacer lógica de cableado con drag and drop de los cables a su lugar correspondiente
+                //Lógica de cableado con drag and drop de los cables a su lugar correspondiente
 
                 //Comprobar si todos los cables están bien puestos
                     //Mostrar panel de ahorro energético y como las casas empiezan a gastar menos energía
