@@ -55,6 +55,13 @@ public class MiniGameManager : MonoBehaviour
     public Button BacteriaContaminationButton;
     public Button DecontaminationButton;
 
+    public GameObject waterLeakWarningMessage;
+    public GameObject contaminationWarningMessage;
+    public GameObject bacterianWarningMessage;
+    public PanelFader waterLeakWarningPanelFader;
+    public PanelFader contaminationWarningPanelFader;
+    public PanelFader bacteriaWarningPanelFader;
+
     [HideInInspector]
     public IEnumerator waterLeakTransitionCoroutine;
     [HideInInspector]
@@ -190,6 +197,10 @@ public class MiniGameManager : MonoBehaviour
         playerCamera.SetActive(true);
         pipelineCamera.SetActive(false);
         RotatePipelineUI.SetActive(false);
+        bacterianWarningMessage.SetActive(false);
+        contaminationWarningMessage.SetActive(false);
+        waterLeakWarningMessage.SetActive(false);
+
         maxNumOfMovements = 5;
 
         SelectPipeline();
@@ -547,8 +558,12 @@ public class MiniGameManager : MonoBehaviour
         if (clickToDecontaminateCount >= 5)
         {
             contaminationCoroutineRunning = false;
-            StopCoroutine(contaminationTransitionCoroutine);
+            //StopCoroutine(contaminationTransitionCoroutine);
+            //StopCoroutine(BlinkingContaminationWarning());
+            StopAllCoroutines();
+            
             StartCoroutine(DecontaminationTransition());
+            contaminationWarningPanelFader.FadeOut();
             clickToDecontaminateCount = 0;
         }
     }
@@ -560,7 +575,10 @@ public class MiniGameManager : MonoBehaviour
         if (clickToDecontaminateBacteriaCount >= 5)
         {
             bacteriaCoroutineRunning = false;
-            StopCoroutine(bacteriaTransitionCoroutine);
+            //StopCoroutine(bacteriaTransitionCoroutine);
+            //StopCoroutine(BlinkingBacteriaWarning());
+            StopAllCoroutines();
+            bacteriaWarningPanelFader.FadeOut();
             StartCoroutine(BacteriaDecontaminationTransition());
             clickToDecontaminateBacteriaCount = 0;
         }
@@ -699,6 +717,7 @@ public class MiniGameManager : MonoBehaviour
                 if (!isWaterLeakCatastropheStarted && catastrophesCanStart)
                 {
                     StartCoroutine(WaterLeakMoreTransition());
+                    StartCoroutine(BlinkingWaterLeakWarning());
 
                     isWaterLeakCatastropheStarted = true;
                 }
@@ -706,6 +725,7 @@ public class MiniGameManager : MonoBehaviour
                 if (!catastrophesCanStart)
                 {
                     StopCoroutine(WaterLeakMoreTransition());
+                    StopCoroutine(BlinkingWaterLeakWarning());
 
                     isWaterLeakCatastropheStarted = false;
                 }
@@ -718,6 +738,7 @@ public class MiniGameManager : MonoBehaviour
                 if (!isBacteriaCatastropheStarted && catastrophesCanStart)
                 {
                     StartCoroutine(BacteriaContaminationTransition());
+                    StartCoroutine(BlinkingBacteriaWarning());
 
                     isBacteriaCatastropheStarted = true;
                 }
@@ -725,6 +746,7 @@ public class MiniGameManager : MonoBehaviour
                 if (!catastrophesCanStart)
                 {
                     StopCoroutine(BacteriaDecontaminationTransition());
+                    StopCoroutine(BlinkingBacteriaWarning());
 
                     isBacteriaCatastropheStarted = false;
                 }
@@ -736,6 +758,7 @@ public class MiniGameManager : MonoBehaviour
                 if (!isContaminationCatastropheStarted && catastrophesCanStart)
                 {
                     StartCoroutine(ContaminationTransition());
+                    StartCoroutine(BlinkingContaminationWarning());
 
                     isContaminationCatastropheStarted = true;
                 }
@@ -743,6 +766,7 @@ public class MiniGameManager : MonoBehaviour
                 if (!catastrophesCanStart)
                 {
                     StopCoroutine(ContaminationTransition());
+                    StopCoroutine(BlinkingContaminationWarning());
 
                     isContaminationCatastropheStarted = false;
                 }
@@ -767,5 +791,42 @@ public class MiniGameManager : MonoBehaviour
     }
 
     #endregion Handle Catastrophes
+
+    #region Blinking Warning Catastrophes Messages
+
+    private IEnumerator BlinkingBacteriaWarning()
+    {
+        bacterianWarningMessage.SetActive(true);
+        bacteriaWarningPanelFader.Fade();
+        yield return new WaitForSeconds(0.3f);
+        bacteriaWarningPanelFader.FadeOut();
+        bacterianWarningMessage.SetActive(false);
+
+        StartCoroutine(BlinkingBacteriaWarning());
+    }
+
+    private IEnumerator BlinkingContaminationWarning()
+    {
+        contaminationWarningMessage.SetActive(true);
+        contaminationWarningPanelFader.Fade();
+        yield return new WaitForSeconds(0.3f);
+        contaminationWarningPanelFader.FadeOut();
+        contaminationWarningMessage.SetActive(false);
+
+        StartCoroutine(BlinkingContaminationWarning());
+    }
+
+    private IEnumerator BlinkingWaterLeakWarning()
+    {
+        waterLeakWarningMessage.SetActive(true);
+        waterLeakWarningPanelFader.Fade();
+        yield return new WaitForSeconds(0.3f);
+        waterLeakWarningPanelFader.FadeOut();
+        waterLeakWarningMessage.SetActive(false);
+
+        StartCoroutine(BlinkingWaterLeakWarning());
+    }
+
+    #endregion Blinking Warning Catastrophes Messages
 }
 
