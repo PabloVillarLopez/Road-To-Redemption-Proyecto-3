@@ -51,7 +51,7 @@ public class PlayerControllerCursor : MonoBehaviour
             mainCamera = Camera.main;
         
         orientation = transform.GetChild(1).transform;
-        orientation = transform.GetChild(3).transform;
+        orientation = transform.GetChild(2).transform;
 
     }
     #endregion
@@ -62,7 +62,7 @@ public class PlayerControllerCursor : MonoBehaviour
     {
         SelectMode();
 
-        if (monitoring  &&  Input.GetKeyDown(KeyCode.E))
+        if (monitoring  &&  Input.GetKeyDown(KeyCode.E) && mode==2)
         {
             ChangeMainCamera();
             
@@ -193,7 +193,7 @@ public class PlayerControllerCursor : MonoBehaviour
         }
     }
     #endregion
-
+   
     #region SetPlants
     public bool PickupObject(GameObject objectToPickup)
     {
@@ -365,7 +365,9 @@ public class PlayerControllerCursor : MonoBehaviour
                 SpeedControl();
                 break;
             case 4:
-                // Código para el cuarto caso
+                MyInput();
+                SpeedControl();
+
                 break;
 
 
