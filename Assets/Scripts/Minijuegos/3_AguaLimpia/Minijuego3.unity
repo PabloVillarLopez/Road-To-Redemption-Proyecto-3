@@ -7039,6 +7039,20 @@ MonoBehaviour:
   maxNumOfMovements: 0
   currentNumOfMovements: 0
   remainingMovements: 0
+  waterLeakText: {fileID: 880815176}
+  contaminationText: {fileID: 754893564}
+  bacteriaText: {fileID: 1805397457}
+  rotatePipelineText: {fileID: 885871557}
+  selectPipelineTypeText: {fileID: 1025925813}
+  bacteriaBlinkingWarningTitleText: {fileID: 531480194}
+  bacteriaBlinkingWarningSubtitleText: {fileID: 1130456860}
+  bacteriaBlinkingWarningDescriptionText: {fileID: 867396093}
+  contaminationBlinkingWarningTitleText: {fileID: 888019152}
+  contaminationBlinkingWarningSubtitleText: {fileID: 1537529498}
+  contaminationBlinkingWarningDescriptionText: {fileID: 1301752077}
+  waterLeakBlinkingWarningTitleText: {fileID: 106669738}
+  waterLeakBlinkingWarningSubtitleText: {fileID: 1119655927}
+  waterLeakBlinkingWarningDescriptionText: {fileID: 403161934}
 --- !u!4 &1569969056
 Transform:
   m_ObjectHideFlags: 0

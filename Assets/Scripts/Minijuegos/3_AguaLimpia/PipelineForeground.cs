@@ -87,7 +87,7 @@ public class PipelineForeground : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        ShowWaterFlowStatus();
     }
 
     #endregion Update
@@ -176,11 +176,19 @@ public class PipelineForeground : MonoBehaviour
 
     private void ShowWaterFlowStatus()
     {
-        if (isWaterFlowingInThisPipeline)
+        if (isWaterFlowingInThisPipeline && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            waterFlowStatusText.text = "Estado: Flujo de agua abierto";
+        }
+        else if (isWaterFlowingInThisPipeline && LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             waterFlowStatusText.text = "Status: Water Flowing";
         }
-        else
+        else if (!isWaterFlowingInThisPipeline && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            waterFlowStatusText.text = "Estado: Flujo de agua cerrado";
+        }
+        else if(!isWaterFlowingInThisPipeline && LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             waterFlowStatusText.text = "Status: Water not Flowing";
         }
