@@ -23,6 +23,14 @@ public class PlayerController : MonoBehaviour
 
     #endregion Variable for camera changes
 
+    #region Dialogue Reference Variable
+
+    [Header("Dialogue Script Reference")]
+    public DialogueScript dialogueScript;
+    public bool canDialogue;
+
+    #endregion Dialogue Reference Variable
+
     #region Start
     // Start is called before the first frame update
     void Start()
@@ -40,6 +48,11 @@ public class PlayerController : MonoBehaviour
     {
         MyInput();
         SpeedControl();
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            canDialogue = true;
+        }
     }
 
     #endregion Update
@@ -120,6 +133,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.Spanish && canDialogue)
+        {
+            dialogueScript.StartSpanishDialogue();
+            canDialogue = false;
+        }
+
+        if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.English && canDialogue)
+        {
+            dialogueScript.StartEnglishDialogue();
+            canDialogue = false;
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Pipeline"))
@@ -141,6 +169,11 @@ public class PlayerController : MonoBehaviour
         {
             playerEnteredInObjectClue3Area = false;
         }
+
+        //if (other.gameObject.CompareTag("CanDialogue") && canDialogue)
+        //{
+        //    canDialogue = false;
+        //}
     }
 
     #endregion Triggers

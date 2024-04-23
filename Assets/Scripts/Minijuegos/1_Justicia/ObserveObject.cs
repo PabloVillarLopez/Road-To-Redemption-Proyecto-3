@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ObserveObject : MonoBehaviour
 {
@@ -68,6 +69,15 @@ public class ObserveObject : MonoBehaviour
 
     #endregion Analysis Panel Fade In Effect
 
+    #region UI Handle depending on Language
+
+    public TextMeshProUGUI analyzingText1;
+    public TextMeshProUGUI analyzingText2;
+    public TextMeshProUGUI analyzingText3;
+    public TextMeshProUGUI analyzingButtonText;
+
+    #endregion UI Handle depending on Language
+
     #region Start
 
     // Start is called before the first frame update
@@ -119,9 +129,20 @@ public class ObserveObject : MonoBehaviour
             CameraBackToCluePanel();
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            LanguageManager.currentLanguage = LanguageManager.Language.Spanish;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            LanguageManager.currentLanguage = LanguageManager.Language.English;
+        }
+
         HandleMinigamePhases();
         CheckCameraAnalysis();
         HandleAnalyzingUI();
+        HandleAnalyzingUIDependingOnLanguage();
     }
 
     #endregion Update
@@ -503,6 +524,26 @@ public class ObserveObject : MonoBehaviour
                 break;
         }
         ;
+    }
+
+    private void HandleAnalyzingUIDependingOnLanguage()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            analyzingText1.text = "Analizar";
+            analyzingText2.text = "Analizar";
+            analyzingText3.text = "Analizar";
+            analyzingButtonText.text = "Analizar";
+        }
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            analyzingText1.text = "Analyze";
+            analyzingText2.text = "Analyze";
+            analyzingText3.text = "Analyze";
+            analyzingButtonText.text = "Analyze";
+        }
+
     }
 
     private IEnumerator WaitForJudgment()

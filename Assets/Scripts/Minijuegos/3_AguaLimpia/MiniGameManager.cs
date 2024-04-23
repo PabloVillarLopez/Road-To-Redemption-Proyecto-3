@@ -280,7 +280,7 @@ public class MiniGameManager : MonoBehaviour
 
         HandleCatastrophes();
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             LanguageManager.currentLanguage = LanguageManager.Language.Spanish;
         }
