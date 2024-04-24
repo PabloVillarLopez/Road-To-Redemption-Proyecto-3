@@ -4402,6 +4402,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apartamento
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 634d660317f558b4c859f4fc74865c8e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4977,6 +4982,10 @@ MonoBehaviour:
   analyzeButton: {fileID: 23459378}
   analyzeSlider: {fileID: 1269382141}
   judgementPanelFader: {fileID: 811424738}
+  analyzingText1: {fileID: 1217172923}
+  analyzingText2: {fileID: 1506539479}
+  analyzingText3: {fileID: 1958661346}
+  analyzingButtonText: {fileID: 1809187762}
 --- !u!4 &1778521778
 Transform:
   m_ObjectHideFlags: 0
@@ -5804,6 +5813,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
+  dialogueScript: {fileID: 0}
+  canDialogue: 0
 --- !u!114 &1014963719408548493
 MonoBehaviour:
   m_ObjectHideFlags: 0

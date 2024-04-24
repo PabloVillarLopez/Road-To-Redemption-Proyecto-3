@@ -177,6 +177,28 @@ public class MiniGameManager : MonoBehaviour
 
     #endregion Number of Movements Variables
 
+    #region Text Variables for changing Language
+
+    [Header("Texts for changing Language")]
+    public TextMeshProUGUI waterLeakText;
+    public TextMeshProUGUI contaminationText;
+    public TextMeshProUGUI bacteriaText;
+    public TextMeshProUGUI rotatePipelineText;
+    //public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI selectPipelineTypeText;
+    public TextMeshProUGUI bacteriaBlinkingWarningTitleText;
+    public TextMeshProUGUI bacteriaBlinkingWarningSubtitleText;
+    public TextMeshProUGUI bacteriaBlinkingWarningDescriptionText;
+    public TextMeshProUGUI contaminationBlinkingWarningTitleText;
+    public TextMeshProUGUI contaminationBlinkingWarningSubtitleText;
+    public TextMeshProUGUI contaminationBlinkingWarningDescriptionText;
+    public TextMeshProUGUI waterLeakBlinkingWarningTitleText;
+    public TextMeshProUGUI waterLeakBlinkingWarningSubtitleText;
+    public TextMeshProUGUI waterLeakBlinkingWarningDescriptionText;
+
+
+    #endregion Text Variables for changing Language
+
     #region Awake
 
     private void Awake()
@@ -233,7 +255,15 @@ public class MiniGameManager : MonoBehaviour
             pipeline1CorrectPlaced = true;
         }*/
 
-        moneyText.text = "Money: " + money;
+        if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            moneyText.text = "Dinero: " + money;
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            moneyText.text = "Money: " + money;
+        }
+        
 
         CheckSelectedPipeline();
 
@@ -249,6 +279,18 @@ public class MiniGameManager : MonoBehaviour
         }
 
         HandleCatastrophes();
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            LanguageManager.currentLanguage = LanguageManager.Language.Spanish;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            LanguageManager.currentLanguage = LanguageManager.Language.English;
+        }
+
+        HandleUIDependingOnLanguage();
     }
 
     #endregion Update
@@ -632,15 +674,27 @@ public class MiniGameManager : MonoBehaviour
 
         if (RotatePipelineUI.activeInHierarchy)
         {
-            if (remainingMovements > 1)
+            if (remainingMovements > 1 && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                numOfMovementsText.text = "Movimientos restantes: " + remainingMovements;
+            }
+            else if (remainingMovements > 1 && LanguageManager.currentLanguage == LanguageManager.Language.English)
             {
                 numOfMovementsText.text = "Remaining Movements: " + remainingMovements;
             }
-            else if (remainingMovements == 1)
+            else if (remainingMovements == 1 && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                numOfMovementsText.text = "Movimientos restantes: " + remainingMovements;
+            }
+            else if (remainingMovements == 1 && LanguageManager.currentLanguage == LanguageManager.Language.English)
             {
                 numOfMovementsText.text = "Remaining Movement: " + remainingMovements;
             }
-            else if (remainingMovements <= 0)
+            else if (remainingMovements <= 0 && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                numOfMovementsText.text = "Movimientos restantes: " + remainingMovements + " . Sin movimientos";
+            }
+            else if (remainingMovements <= 0 && LanguageManager.currentLanguage == LanguageManager.Language.English)
             {
                 numOfMovementsText.text = "Remaining Movements: " + remainingMovements + " . No Remaining Movements";
             }
@@ -828,5 +882,45 @@ public class MiniGameManager : MonoBehaviour
     }
 
     #endregion Blinking Warning Catastrophes Messages
+
+    #region Handle UI Depending On Language
+
+    private void HandleUIDependingOnLanguage()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            waterLeakText.text = "Fuga de agua";
+            contaminationText.text = "Contaminación";
+            rotatePipelineText.text = "Rotar tubería";
+            selectPipelineTypeText.text = "Selecciona tipo de tubería";
+            bacteriaBlinkingWarningTitleText.text = "Peligro! Bacteria";
+            bacteriaBlinkingWarningSubtitleText.text = "¡El agua está siendo contaminada por bacterias!";
+            bacteriaBlinkingWarningDescriptionText.text = "Pulsa 5 veces el botón de descontaminar para descontaminar el agua y eliminar las bacterias";
+            contaminationBlinkingWarningTitleText.text = "Peligro! Contaminación";
+            contaminationBlinkingWarningSubtitleText.text = "¡El agua se está contaminando!";
+            contaminationBlinkingWarningDescriptionText.text = "Pulsa 5 veces el botón de descontaminar para descontaminar el agua";
+            waterLeakBlinkingWarningTitleText.text = "Peligro! Fuga de agua";
+            waterLeakBlinkingWarningSubtitleText.text = "¡Está habiendo una fuga de agua!";
+            waterLeakBlinkingWarningDescriptionText.text = "Pulsa el botón de abrir o cerrar el flujo de agua para reparar la tubería y la fuga de agua";
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            waterLeakText.text = "Water Leak";
+            contaminationText.text = "Contamination";
+            rotatePipelineText.text = "Rotate pipeline";
+            selectPipelineTypeText.text = "Select Pipeline Type";
+            bacteriaBlinkingWarningTitleText.text = "Warning! Bacteria";
+            bacteriaBlinkingWarningSubtitleText.text = "The water is being contaminated by bacteria!";
+            bacteriaBlinkingWarningDescriptionText.text = "Press 5 times the descontamination button to decontaminate the water and eliminate the bacteria";
+            contaminationBlinkingWarningTitleText.text = "Warning! Contamination";
+            contaminationBlinkingWarningSubtitleText.text = "The water is being contaminated!";
+            contaminationBlinkingWarningDescriptionText.text = "Press 5 times the descontamination button to decontaminate the water";
+            waterLeakBlinkingWarningTitleText.text = "Warning! Water Leak";
+            waterLeakBlinkingWarningSubtitleText.text = "A water leak is happening!";
+            waterLeakBlinkingWarningDescriptionText.text = "Press the open and close water button to repair the pipeline and water leak";
+}
+    }
+
+    #endregion Handle UI Depending On Language
 }
 
