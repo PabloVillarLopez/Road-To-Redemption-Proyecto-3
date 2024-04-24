@@ -11,15 +11,15 @@ public class Cablebox : MonoBehaviour
 
     public Camera cam;
 
-    public int arraySize = 4; // Tamaño del array
-    public int minValue = 0; // Valor mínimo
-    public int maxValue = 2; // Valor máximo
+    public int arraySize = 4;
+    public int minValue = 0;
+    public int maxValue = 2;
 
-    public LineRenderer lineRendererPrefab; // Prefab de la línea
-    private LineRenderer currentLine; // Referencia a la línea actualmente activa
+    private LineRenderer currentLine;
     public Image cursor;
-    bool dragging = false; // Booleano que indica si se está arrastrando
-
+    bool dragging = false;
+    bool rightChoise;
+    public GameObject currentCable;
     private MiniGameManager4 gameManager;
 
     void Start()
@@ -27,91 +27,27 @@ public class Cablebox : MonoBehaviour
         gameManager = FindObjectOfType<MiniGameManager4>();
         AssingColorsPartLeft();
         AssingColorsPartRight();
-        Cursor.visible = true;
+       
     }
-
 
     void Update()
     {
-        if (cam.enabled)
-        {
-            Cursor.lockState = CursorLockMode.None;
-
-            // Raycast desde la cámara hacia el plano XY (2D)
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            Vector3 mousePositionScreen = Input.mousePosition;
-
-            // Convertir la posición del ratón a coordenadas del mundo
-            Vector3 mousePositionWorld = cam.ScreenToWorldPoint(new Vector3(mousePositionScreen.x, mousePositionScreen.y, 8f));
-
-            // Lanzar un rayo hacia atrás desde la posición del cursor
-            if (Physics.Raycast(mousePositionWorld, Vector3.right, out RaycastHit hit))
-            {
-                // Verificar si el rayo golpeó algún objeto
-                Debug.Log("Objeto detectado: " + hit.collider.gameObject.name);
-                // Aquí puedes realizar cualquier acción que desees con el objeto detectado
-
-                // Si se hace clic y se mantiene en el objeto, activar el arrastre
-                if (Input.GetMouseButtonDown(0))
-                {
-                    dragging = true;
-
-                    // Verificar si el objeto tiene un componente LineRenderer antes de intentar usarlo
-                    LineRenderer lineRenderer = hit.collider.gameObject.GetComponent<LineRenderer>();
-                    if (lineRenderer != null)
-                    {
-                        // Establecer la posición inicial del line renderer
-                        lineRenderer.SetPosition(0, hit.collider.transform.position);
-                    }
-                }
-            }
-
-            // Si se está arrastrando, actualizar la posición del line renderer
-            if (dragging)
-            {
-                // Actualizar la posición del line renderer para que siga al ratón
-                LineRenderer lineRenderer = hit.collider.gameObject.GetComponent<LineRenderer>();
-                if (lineRenderer != null)
-                {
-                    lineRenderer.SetPosition(1, mousePositionWorld);
-                }
-            }
-
-            cursor.transform.position = mousePositionWorld;
-
-            // Si se suelta el botón del mouse, detener el arrastre
-            if (Input.GetMouseButtonUp(0))
-            {
-                dragging = false;
-            }
-        }
+        ControlLineRenderer();
     }
-
 
     int[] GenerateRandomIntArray()
     {
-        // Crear una lista para almacenar los números disponibles
         List<int> availableNumbers = new List<int>();
-
-        // Llenar la lista con los números posibles
         for (int i = minValue; i <= maxValue; i++)
         {
             availableNumbers.Add(i);
         }
 
-        // Crear un nuevo array de ints
         int[] randomArray = new int[arraySize];
-
-        // Llenar el array con valores aleatorios
         for (int i = 0; i < arraySize; i++)
         {
-            // Obtener un índice aleatorio en la lista de números disponibles
             int randomIndex = Random.Range(0, availableNumbers.Count);
-
-            // Asignar el número aleatorio al array
             randomArray[i] = availableNumbers[randomIndex];
-
-            // Eliminar el número utilizado de la lista
             availableNumbers.RemoveAt(randomIndex);
         }
 
@@ -121,29 +57,158 @@ public class Cablebox : MonoBehaviour
     void AssingColorsPartLeft()
     {
         int[] randomArray = GenerateRandomIntArray();
-
         for (int i = 0; i < Part1GameObject.Count; i++)
         {
             Part1GameObject[i].GetComponent<MeshRenderer>().material = materials[randomArray[i]];
+            Part1GameObject[i].GetComponent<CableInfo>().id = randomArray[i];
+            //Part1GameObject[i].GetComponent<LineRenderer>().materials[0] = materials[0];
         }
     }
 
     void AssingColorsPartRight()
     {
         int[] randomArray = GenerateRandomIntArray();
-
         for (int i = 0; i < Part2GameObject.Count; i++)
         {
             Part2GameObject[i].GetComponent<MeshRenderer>().material = materials[randomArray[i]];
+            Part2GameObject[i].GetComponent<CableInfo>().id = randomArray[i];
+            Part2GameObject[i].GetComponent<LineRenderer>().materials[0] = materials[randomArray[i]];
         }
     }
 
-    public void HandleCableClick(Transform cableTransform)
+    private void UpdatePositionsRenderer(LineRenderer lineRenderer)
     {
-        currentLine = Instantiate(lineRendererPrefab, cableTransform.position, Quaternion.identity);
-        currentLine.SetPosition(0, cableTransform.position);
+        if (lineRenderer.positionCount == 0)
+        {
+            lineRenderer.positionCount = 2;
+            Transform firstChild = lineRenderer.gameObject.transform.GetChild(0);
+            Vector3 firstChildPosition = firstChild.position;
+            lineRenderer.SetPosition(0, firstChildPosition);
+        }
+    }
 
-        Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
-        currentLine.SetPosition(1, mousePosition);
+    void ClearLineRenderer(LineRenderer lineRenderer)
+    {
+        lineRenderer.positionCount = 0;
+    }
+
+
+    public void ControlLineRenderer()
+    {
+        if (cam.enabled)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            Vector3 mousePositionScreen = Input.mousePosition;
+            Vector3 mousePositionWorld = cam.ScreenToWorldPoint(new Vector3(mousePositionScreen.x, mousePositionScreen.y, 10f));
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (Input.GetMouseButtonDown(0) && dragging == false)
+                {
+                    currentCable = hit.collider.gameObject;
+
+                    LineRenderer lineRenderer = currentCable.GetComponent<LineRenderer>();
+                    if (lineRenderer != null)
+                    {
+                        currentLine = lineRenderer;
+                        UpdatePositionsRenderer(currentLine);
+                        currentLine.materials[0] = currentCable.GetComponent<Renderer>().material;
+                        mousePositionWorld = hit.point;
+                        dragging = true;
+                    }
+                    else
+                    {
+                        Debug.Log("null");
+                    }
+                }
+
+             
+            }
+
+            if (dragging && currentLine != null && currentCable.GetComponent<CableInfo>().connected==false)
+            {
+                currentLine.SetPosition(1, mousePositionWorld);
+            }
+
+            cursor.transform.position = mousePositionWorld;
+
+
+
+
+            if (dragging)
+            {
+                // Realizar un nuevo raycast
+                RaycastHit newHit;
+                Debug.DrawRay(mousePositionWorld, Vector3.forward * 10f, Color.red);
+
+                if (Physics.Raycast(mousePositionWorld, Vector3.forward, out newHit))
+                {
+                    // Comprobar si está tocando algo y es un Pipeline diferente al actual
+                    if (newHit.collider.tag == "Pipeline" && newHit.collider.gameObject != null && newHit.collider.name != currentCable.gameObject.name)
+                    {
+                        Debug.Log(newHit.collider.gameObject.name); 
+                        CableInfo hitCableInfo = newHit.collider.gameObject.GetComponent<CableInfo>();
+                        CableInfo currentCableInfo = currentCable != null ? currentCable.GetComponent<CableInfo>() : null;
+
+                        Debug.Log(hitCableInfo.id);
+                        Debug.Log(currentCableInfo.id);
+
+                        if (hitCableInfo != null && currentCableInfo != null && hitCableInfo.id == currentCableInfo.id)
+                        {
+                            rightChoise=true;
+                            Debug.Log("Correcto");
+                            LineRenderer currentCableLineRenderer = currentCable.GetComponent<LineRenderer>();
+                            
+                            if (currentCableLineRenderer != null)
+                            {
+
+                                if (Input.GetMouseButtonUp(0))
+                                {
+                                    Transform firstChild = newHit.collider.gameObject.transform.GetChild(0);
+                                    if (firstChild != null)
+                                    {
+                                        currentCableLineRenderer.positionCount = 2;
+                                        currentCableLineRenderer.SetPosition(1, firstChild.position);
+                                        currentCable.GetComponent<CableInfo>().connected = true;
+                                        hitCableInfo.gameObject.GetComponent<CableInfo>().connected = true;
+                                        currentCable = null;
+                                        rightChoise = false;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            rightChoise = false;
+                        }
+                    }
+                }
+            }
+
+          
+
+
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                dragging = false;
+                currentLine = null;
+                rightChoise = false;
+                Debug.Log("Suelto");
+                if (rightChoise == false && currentCable != null)
+                {
+                    ClearLineRenderer(currentCable.GetComponent<LineRenderer>());
+
+                }
+
+            }
+
+        }
+        else
+        {
+            Cursor.visible = false;
+        }
     }
 }
