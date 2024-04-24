@@ -20,12 +20,18 @@ public class energyMinigameManager : MonoBehaviour
 
     #endregion Minigame Phases
 
+    #region Phase 3 Variables
+    [Header("Phase 3 Variables")]
+    public GameObject cablePanel;
+
+    #endregion Phase 3 Variables
+
     #region Start
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        cablePanel.SetActive(false);
     }
 
     #endregion Start
@@ -35,7 +41,12 @@ public class energyMinigameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            phase = Phase.PHASE3;
+        }
+
+        HandleMinigamePhase();
     }
 
     #endregion Update
@@ -62,6 +73,7 @@ public class energyMinigameManager : MonoBehaviour
                 break;
             case Phase.PHASE3:
                 //Se muestra panel de cableado
+                cablePanel.SetActive(true);
 
                 //Lógica de cableado con drag and drop de los cables a su lugar correspondiente
 

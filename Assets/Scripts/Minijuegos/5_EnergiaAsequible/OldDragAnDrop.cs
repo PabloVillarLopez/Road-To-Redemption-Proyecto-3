@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragAnDrop : MonoBehaviour
+public class OldDragAnDrop : MonoBehaviour
 {
     public GameObject correctDropForm;
     private bool moving;
+    private bool finish;
 
     private float startPosX;
     private float startPosY;
@@ -21,10 +22,14 @@ public class DragAnDrop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (moving)
+        if (!finish)
         {
-            DetectMousePositionToWorldPositionAndMove();
+            if (moving)
+            {
+                DetectMousePositionToWorldPositionAndMove();
+            }
         }
+        
         
     }
 
@@ -50,6 +55,7 @@ public class DragAnDrop : MonoBehaviour
         if (Mathf.Abs(this.transform.localPosition.x - correctDropForm.transform.localPosition.x) <= 0.5f && Mathf.Abs(this.transform.localPosition.y - correctDropForm.transform.localPosition.y) <= 0.5f)
         {
             this.transform.position = new Vector3(correctDropForm.transform.position.x, correctDropForm.transform.position.y, correctDropForm.transform.position.z);
+            finish = true;
         }
         else
         {
