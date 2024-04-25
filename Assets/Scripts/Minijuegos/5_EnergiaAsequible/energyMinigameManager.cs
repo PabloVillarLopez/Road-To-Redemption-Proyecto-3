@@ -24,6 +24,8 @@ public class energyMinigameManager : MonoBehaviour
     [Header("Phase 3 Variables")]
     public GameObject cablePanel;
 
+    public static int globalElectricity;
+
     #endregion Phase 3 Variables
 
     #region Start

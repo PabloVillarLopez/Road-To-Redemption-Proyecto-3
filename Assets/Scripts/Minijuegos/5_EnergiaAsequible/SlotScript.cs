@@ -6,6 +6,14 @@ using UnityEngine.EventSystems;
 public class SlotScript : MonoBehaviour, IDropHandler
 {
     public int id;
+    public GameObject electricityFailObject;
+    public Transform electricityFailSpawnPoint;
+    public GameObject electricityPanel;
+
+    private void Start()
+    {
+        electricityFailObject.SetActive(false);
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -17,15 +25,29 @@ public class SlotScript : MonoBehaviour, IDropHandler
             {
                 eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = this.GetComponent<RectTransform>().anchoredPosition;
                 eventData.pointerDrag.GetComponent<NewDragAnDrop>().canResetPosition = false;
+                energyMinigameManager.globalElectricity++;
                 Debug.Log("Correct");
             }
             else
             {
                 eventData.pointerDrag.GetComponent<NewDragAnDrop>().ResetPosition();
+                StartCoroutine(ShowElectrictyFail());
                 Debug.Log("Incorrect");
             }
 
             
         }
+    }
+
+    private IEnumerator ShowElectrictyFail()
+    {
+        electricityPanel.SetActive(false);
+        electricityFailObject.transform.position = electricityFailSpawnPoint.position;
+        electricityFailObject.SetActive(true);
+
+        yield return new WaitForSeconds(5f);
+
+        electricityFailObject.SetActive(false);
+        electricityPanel.SetActive(true);
     }
 }
