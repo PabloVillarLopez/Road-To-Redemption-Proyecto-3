@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class energyMinigameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class energyMinigameManager : MonoBehaviour
     [Header("Minigame Phase")]
     [Tooltip("Tres fases: Montaje placa solar, Instalación placas y Cableado")]
     public Phase phase;
+    public PanelFader cablePanelFader;
 
     #endregion Minigame Phases
 
@@ -25,6 +27,7 @@ public class energyMinigameManager : MonoBehaviour
     public GameObject cablePanel;
 
     public static int globalElectricity;
+    public TextMeshProUGUI globalElectricityText;
 
     #endregion Phase 3 Variables
 
@@ -46,9 +49,10 @@ public class energyMinigameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             phase = Phase.PHASE3;
+            HandleMinigamePhase();
         }
 
-        HandleMinigamePhase();
+        HandleGlobalElectricityUI();
     }
 
     #endregion Update
@@ -76,6 +80,7 @@ public class energyMinigameManager : MonoBehaviour
             case Phase.PHASE3:
                 //Se muestra panel de cableado
                 cablePanel.SetActive(true);
+                cablePanelFader.Fade();
 
                 //Lógica de cableado con drag and drop de los cables a su lugar correspondiente
 
@@ -90,4 +95,16 @@ public class energyMinigameManager : MonoBehaviour
     }
 
     #endregion Handle MiniGame Phases
+
+    private void HandleGlobalElectricityUI()
+    {
+        if (phase == Phase.PHASE3)
+        {
+            globalElectricityText.text = "Global Electricity: " + globalElectricity;
+        }
+        else
+        {
+            globalElectricityText.text = string.Empty;
+        }
+    }
 }

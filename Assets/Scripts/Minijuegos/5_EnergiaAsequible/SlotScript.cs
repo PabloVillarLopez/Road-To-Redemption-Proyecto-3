@@ -9,6 +9,7 @@ public class SlotScript : MonoBehaviour, IDropHandler
     public GameObject electricityFailObject;
     public Transform electricityFailSpawnPoint;
     public GameObject electricityPanel;
+    public PanelFader cablePanelFader;
 
     private void Start()
     {
@@ -41,13 +42,12 @@ public class SlotScript : MonoBehaviour, IDropHandler
 
     private IEnumerator ShowElectrictyFail()
     {
-        electricityPanel.SetActive(false);
+        cablePanelFader.Fade();
         electricityFailObject.transform.position = electricityFailSpawnPoint.position;
         electricityFailObject.SetActive(true);
 
         yield return new WaitForSeconds(5f);
-
+        cablePanelFader.Fade();
         electricityFailObject.SetActive(false);
-        electricityPanel.SetActive(true);
     }
 }
