@@ -22,11 +22,16 @@ public class SlotScript : MonoBehaviour, IDropHandler
 
         if (eventData.pointerDrag != null)
         {
-            if (eventData.pointerDrag.GetComponent<NewDragAnDrop>().id == id)
+            eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = this.GetComponent<RectTransform>().anchoredPosition;
+            eventData.pointerDrag.GetComponent<NewDragAnDrop>().canResetPosition = false;
+            eventData.pointerDrag.GetComponent<NewDragAnDrop>().isPositioned = true;
+            energyMinigameManager.globalElectricity += eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity;
+
+            /*if (eventData.pointerDrag.GetComponent<NewDragAnDrop>().id == id)
             {
                 eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = this.GetComponent<RectTransform>().anchoredPosition;
                 eventData.pointerDrag.GetComponent<NewDragAnDrop>().canResetPosition = false;
-                energyMinigameManager.globalElectricity++;
+                energyMinigameManager.globalElectricity += eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity;
                 Debug.Log("Correct");
             }
             else
@@ -34,13 +39,13 @@ public class SlotScript : MonoBehaviour, IDropHandler
                 eventData.pointerDrag.GetComponent<NewDragAnDrop>().ResetPosition();
                 StartCoroutine(ShowElectrictyFail());
                 Debug.Log("Incorrect");
-            }
+            }*/
 
-            
+
         }
     }
 
-    private IEnumerator ShowElectrictyFail()
+    public IEnumerator ShowElectrictyFail()
     {
         cablePanelFader.Fade();
         electricityFailObject.transform.position = electricityFailSpawnPoint.position;

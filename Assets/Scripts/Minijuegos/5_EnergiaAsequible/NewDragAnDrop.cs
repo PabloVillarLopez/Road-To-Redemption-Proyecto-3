@@ -13,6 +13,9 @@ public class NewDragAnDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     [HideInInspector]
     public bool canResetPosition = true;
 
+    public int individualElectricity;
+    public bool isPositioned;
+
     // Start is called before the first frame update
     void Start()
     {

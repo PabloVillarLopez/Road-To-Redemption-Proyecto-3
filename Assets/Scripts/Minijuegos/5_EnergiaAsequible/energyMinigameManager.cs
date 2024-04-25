@@ -28,6 +28,14 @@ public class energyMinigameManager : MonoBehaviour
 
     public static int globalElectricity;
     public TextMeshProUGUI globalElectricityText;
+    public SlotScript slotScript;
+
+    [Header("Check if cables positioned")]
+    public NewDragAnDrop cable1;
+    public NewDragAnDrop cable2;
+    public NewDragAnDrop cable3;
+    public NewDragAnDrop cable4;
+    public NewDragAnDrop cable5;
 
     #endregion Phase 3 Variables
 
@@ -53,6 +61,7 @@ public class energyMinigameManager : MonoBehaviour
         }
 
         HandleGlobalElectricityUI();
+        CheckGlobalElectricity();
     }
 
     #endregion Update
@@ -106,5 +115,18 @@ public class energyMinigameManager : MonoBehaviour
         {
             globalElectricityText.text = string.Empty;
         }
+    }
+
+    private void CheckGlobalElectricity()
+    {
+        if (cable1.isPositioned && cable2.isPositioned && cable3.isPositioned && cable4.isPositioned && cable5.isPositioned)
+        {
+            if (globalElectricity >= 5)
+            {
+                StartCoroutine(slotScript.ShowElectrictyFail());
+
+            }
+        }
+        
     }
 }

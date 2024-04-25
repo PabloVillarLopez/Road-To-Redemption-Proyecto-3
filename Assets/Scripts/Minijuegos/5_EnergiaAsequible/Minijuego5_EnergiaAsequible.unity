@@ -1949,6 +1949,7 @@ MonoBehaviour:
   myCanvas: {fileID: 1783501511}
   id: 0
   canResetPosition: 1
+  individualElectricity: 3
 --- !u!114 &1525915633
 MonoBehaviour:
   m_ObjectHideFlags: 0
