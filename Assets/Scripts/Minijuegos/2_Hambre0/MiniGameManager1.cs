@@ -42,6 +42,8 @@ public class MiniGameManager1 : MonoBehaviour
 
     void Start()
     {
+
+
         Level(1);
         spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y), objectSpawner.transform.position.z);
         SpawnObjectsOnSpawner(objectToSpawn, 8, 0);
@@ -184,12 +186,15 @@ public class MiniGameManager1 : MonoBehaviour
             Camera.main.backgroundColor = Color.Lerp(Color.blue, Color.black, percentageOfDay / 0.5f);
             AdjustTemperatureDuringDay();
             cultiveZone.GetComponent<CultiveZone>().day = true;
+            Debug.Log("Es de dia");
+            
         }
         else
         {
             Camera.main.backgroundColor = Color.Lerp(Color.black, Color.blue, (percentageOfDay - 0.5f) / 0.5f);
             AdjustTemperatureDuringNight();
             cultiveZone.GetComponent<CultiveZone>().day = false;
+            Debug.Log("Es de noche");
         }
 
         temperatureText.text = temperature.ToString("F1") + "°C";
@@ -254,6 +259,5 @@ public class MiniGameManager1 : MonoBehaviour
         }
         #endregion
     }
-
 
 }

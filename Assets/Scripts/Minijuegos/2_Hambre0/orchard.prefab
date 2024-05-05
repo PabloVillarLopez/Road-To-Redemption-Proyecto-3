@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea148f5cc00c374c9c83bb169c927ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  applyTempMan: 2.84
+  applyTempMan: 2.12
   speedTempGlobal: 0.02
   nameFruitT: {fileID: 2143072437946195898}
   tempFruitT: {fileID: 4269223123411149154}
@@ -559,13 +559,18 @@ MonoBehaviour:
   - {fileID: 1487362202260826612}
   - {fileID: 7060298106110634774}
   - {fileID: 5753189421106950178}
+  - {fileID: 5753189421106950178}
+  - {fileID: 5753189421106950178}
+  - {fileID: 5753189421106950178}
+  - {fileID: 5753189421106950178}
+  - {fileID: 5753189421106950178}
   spawnPoints:
   - {fileID: 3367779063266313003}
   - {fileID: 1362480259589185973}
   - {fileID: 8438912308504172171}
   - {fileID: 5327043685464216154}
   - {fileID: 2798222523993244669}
-  day: 1
+  day: 0
   manager: {fileID: 0}
   state: Neutral
   hot: {fileID: 4842800708050153259}

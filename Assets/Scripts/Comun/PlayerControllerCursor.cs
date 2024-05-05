@@ -114,86 +114,123 @@ public class PlayerControllerCursor : MonoBehaviour
     #region Cast Ray From Mouse Position
     void CastRayFromMousePosition()
     {
-
-        if (monitoring == false)
+        if (!monitoring)
         {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-        
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-       
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.collider != null && hit.collider.CompareTag("CatchAble"))
+            if (Physics.Raycast(ray, out hit))
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                // Manejar colisiones con CatchAble
+                if (hit.collider.CompareTag("CatchAble"))
                 {
-                     caughtObject = hit.collider.gameObject;
-
-                    if (PickupObject(caughtObject))
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
-                        caughtSeed[countSeeds] = hit.collider.gameObject;
-                        countSeeds++;
-                        caughtObject.transform.parent = transform;
-                        caughtObject.SetActive(false);
+                        caughtObject = hit.collider.gameObject;
 
-                        ObjectInfo info = caughtObject.GetComponent<ObjectInfo>();
-                        int id = info.GetobjectInfo();
+                        if (PickupObject(caughtObject))
+                        {
+                            caughtSeed[countSeeds] = caughtObject;
+                            countSeeds++;
+                            caughtObject.transform.parent = transform;
+                            caughtObject.SetActive(false);
+
+                            ObjectInfo info = caughtObject.GetComponent<ObjectInfo>();
+                            int id = info.GetobjectInfo();
+                        }
                     }
                 }
-            }
 
-            if (hit.collider.CompareTag("PlantArea") && countSeeds > 0)
-            {
-                planTarget = hit.collider.gameObject;
-                
-                isPlanting = true;
-            }
-            else
-            {
-                isPlanting = false;
-            }
-
-
-
-
-
-
-            
-
-            if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
-            {
-
-                CultiveZone cultiveZone = hit.collider.transform.parent.gameObject.GetComponent<CultiveZone>();
-                if (cultiveZone != null)
+                // Manejar colisiones con PlantArea
+                if (hit.collider.CompareTag("PlantArea") && countSeeds > 0)
                 {
-                    cultiveZone.GetComponent<CultiveZone>().state="Hot" ;
+                    planTarget = hit.collider.gameObject;
+                    isPlanting = true;
                 }
-            }
+                else
+                {
+                    isPlanting = false;
+                }
 
-            if (hit.collider.CompareTag("Neutral") && Input.GetKeyDown(KeyCode.E))
-            {
-                GameObject hitObject = hit.collider.transform.parent.gameObject;
-                hitObject.GetComponent<CultiveZone>().state = "Neutral";
-            }
-            if (hit.collider.CompareTag("Cold") && Input.GetKeyDown(KeyCode.E))
-            {
-                GameObject hitObject = hit.collider.transform.parent.gameObject;
-                hitObject.GetComponent<CultiveZone>().state = "Cold";
-            }
+                // Manejar colisiones con Pipeline
+                if (hit.collider.CompareTag("Pipeline"))
+                {
+                    // Encuentra el objeto "Greenhouse"
+                    GameObject greenHouse = GameObject.Find("Greenhouse");
 
-            if(hit.collider.CompareTag("CatchAble")&& mode == 2 && Input.GetKeyDown(KeyCode.E))
-            {
-                ChangeCamera();
+                    if (greenHouse != null)
+                    {
+                        // Define un incremento para _CutoffHeight
+                        float incremento = 0.005f; // Ajusta este valor según tus necesidades
+
+                        // Itera sobre todos los hijos de greenHouse
+                        for (int i = 0; i < greenHouse.transform.childCount; i++)
+                        {
+                            // Accede al hijo actual
+                            Transform child = greenHouse.transform.GetChild(i);
+
+                            // Obtén el componente MeshRenderer del hijo
+                            MeshRenderer material = child.GetComponent<MeshRenderer>();
+
+                            if (material != null)
+                            {
+                                // Obtén el valor actual de _CutoffHeight
+                                float currentCutoffHeight = material.material.GetFloat("_CutoffHeight");
+
+                                // Calcula el nuevo valor de _CutoffHeight sumando el incremento
+                                float newCutoffHeight = currentCutoffHeight + incremento;
+
+                                // Establece el nuevo valor de _CutoffHeight
+                                material.material.SetFloat("_CutoffHeight", newCutoffHeight);
+
+                                // Ajusta también _NoiseStrength y _NoiseScale si es necesario
+                                material.material.SetFloat("_NoiseStrength", 8.04f);
+                                material.material.SetFloat("_NoiseScale", 46.34f);
+                                material.material.SetFloat("_EdgeWidth", 0.36f);
+                            }
+                            else
+                            {
+                                Debug.LogWarning($"No se encontró MeshRenderer en el hijo {i}.");
+                            }
+                        }
+                    }
+                }
+
+                // Manejar colisiones con Hot, Neutral, y Cold
+                if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
+                {
+                    CultiveZone cultiveZone = hit.collider.transform.parent.gameObject.GetComponent<CultiveZone>();
+                    if (cultiveZone != null)
+                    {
+                        cultiveZone.state = "Hot";
+                    }
+                }
+
+                if (hit.collider.CompareTag("Neutral") && Input.GetKeyDown(KeyCode.E))
+                {
+                    GameObject hitObject = hit.collider.transform.parent.gameObject;
+                    hitObject.GetComponent<CultiveZone>().state = "Neutral";
+                }
+
+                if (hit.collider.CompareTag("Cold") && Input.GetKeyDown(KeyCode.E))
+                {
+                    GameObject hitObject = hit.collider.transform.parent.gameObject;
+                    hitObject.GetComponent<CultiveZone>().state = "Cold";
+                }
+
+                // Manejar colisiones con CatchAble y modo 2
+                if (hit.collider.CompareTag("CatchAble") && mode == 2 && Input.GetKeyDown(KeyCode.E))
+                {
+                    ChangeCamera();
                     GameObject manager = GameObject.Find("GameManager");
                     manager.GetComponent<MiniGameManager8>().StartGame();
                 }
-        }
-
+            }
         }
     }
+
     #endregion
-   
+
     #region SetPlants
     public bool PickupObject(GameObject objectToPickup)
     {
