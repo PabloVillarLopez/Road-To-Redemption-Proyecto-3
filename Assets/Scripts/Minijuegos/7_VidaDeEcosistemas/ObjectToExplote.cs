@@ -5,8 +5,8 @@ public class ObjectToExplote : MonoBehaviour
     public Material[] materials = new Material[3];
     public MeshRenderer rendererMat;
 
-    public float maxHealth = 100f;
-    private float currentHealth;
+    public float maxHealth = 200f;
+    private float currentHealth = 200f;
 
     public GameObject GameManager;
     private MiniGameManager7 miniGameManager;
@@ -33,8 +33,10 @@ public class ObjectToExplote : MonoBehaviour
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
+        Debug.Log(currentHealth.ToString());
         if (currentHealth <= 0)
         {
+
             Explode();
         }
     }

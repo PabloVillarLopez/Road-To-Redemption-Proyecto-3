@@ -94,7 +94,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9e6771cdd73c4894dbfa5316a802c7a8, type: 2}
   - {fileID: 2100000, guid: c0d6e4b33b21b6e44abc5699cf4e14d3, type: 2}
   rendererMat: {fileID: 0}
-  maxHealth: 3
+  maxHealth: 50
   GameManager: {fileID: 0}
 --- !u!33 &6517743268091921869
 MeshFilter:

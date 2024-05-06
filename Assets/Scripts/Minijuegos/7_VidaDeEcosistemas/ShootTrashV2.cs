@@ -18,32 +18,32 @@ public class ShootTrashV2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-            Debug.Log("Pium Pium");
-        }
-        PerformRaycast();
-    }
+    //void Update()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        Shoot();
+    //        Debug.Log("Pium Pium");
+    //    }
+    //    PerformRaycast();
+    //}
 
-    private void Shoot()
-    {
-        RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.GetChild(0).transform.forward); //playerCamera.ScreenPointToRay(Input.mousePosition);
+    //private void Shoot()
+    //{
+    //    RaycastHit hit;
+    //    Ray ray = new Ray(transform.position, transform.GetChild(0).transform.forward); //playerCamera.ScreenPointToRay(Input.mousePosition);
         
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        {
-            Debug.DrawLine(ray.origin, hit.point, Color.red);
-            if (hit.collider.CompareTag("CatchAble"))
-            {
-                hit.transform.position = new Vector3(0, 0, 0);
-                Debug.Log("Barum");
-                manager.GetComponent<MiniGameManager7>().countProgress--;
-            }
-        }
-    }
+    //    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+    //    {
+    //        Debug.DrawLine(ray.origin, hit.point, Color.red);
+    //        if (hit.collider.CompareTag("CatchAble"))
+    //        {
+    //            hit.transform.position = new Vector3(0, 0, 0);
+    //            Debug.Log("Barum");
+    //            manager.GetComponent<MiniGameManager7>().countProgress--;
+    //        }
+    //    }
+    //}
 
 
 
