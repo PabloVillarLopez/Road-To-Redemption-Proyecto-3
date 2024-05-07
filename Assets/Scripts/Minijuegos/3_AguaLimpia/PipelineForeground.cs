@@ -45,6 +45,7 @@ public class PipelineForeground : MonoBehaviour
     [Header("Type of Pipeline")]
     public PipelineType pipelineType;
     public float decontaminationSpeed;
+    public int pipelineId;
 
     #endregion Types of Pipeline Variables
 

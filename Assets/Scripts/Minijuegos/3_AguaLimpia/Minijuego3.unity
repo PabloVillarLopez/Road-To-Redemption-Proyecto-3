@@ -36174,6 +36174,7 @@ MonoBehaviour:
   isWaterFlowingInThisPipeline: 1
   pipelineType: 0
   decontaminationSpeed: 50
+  pipelineId: 0
   correctRotation: {x: 0, y: 0, z: 0}
   pipelineInCorrecRotation: 0
 --- !u!1001 &1189970671
@@ -45323,6 +45324,7 @@ MonoBehaviour:
   isWaterFlowingInThisPipeline: 1
   pipelineType: 2
   decontaminationSpeed: 50
+  pipelineId: 0
   correctRotation: {x: 0, y: 0, z: 0}
   pipelineInCorrecRotation: 0
 --- !u!65 &1468608477
@@ -48191,13 +48193,21 @@ MonoBehaviour:
   pointsCanIncrease: 0
   pointsCanDecrease: 0
   pipelines:
-  - {fileID: 2052377793}
-  - {fileID: 1186455348}
-  - {fileID: 1468608475}
+  - {fileID: 919132147812496552}
+  - {fileID: 919132149342146646}
+  - {fileID: 919132147519969121}
+  - {fileID: 919132149610193350}
+  - {fileID: 919132148305477249}
+  - {fileID: 919132148057086805}
+  - {fileID: 919132148520654042}
   pipelinesIcons:
   - {fileID: 777308486}
   - {fileID: 1525367957}
   - {fileID: 612329939}
+  - {fileID: 777308486}
+  - {fileID: 1525367957}
+  - {fileID: 612329939}
+  - {fileID: 777308486}
   pipelinesInCorrectPlace: 0
   selectedPipeline: 0
   selectedPipelineIcon: 0
@@ -62600,6 +62610,7 @@ MonoBehaviour:
   isWaterFlowingInThisPipeline: 0
   pipelineType: 1
   decontaminationSpeed: 50
+  pipelineId: 0
   correctRotation: {x: 0, y: 0, z: 0}
   pipelineInCorrecRotation: 0
 --- !u!1 &2055368709
@@ -66460,6 +66471,7 @@ GameObject:
   - component: {fileID: 1711813855123764916}
   - component: {fileID: 1721559603}
   - component: {fileID: 1721559602}
+  - component: {fileID: 3469287838110876287}
   m_Layer: 0
   m_Name: tuberia_u (5)
   m_TagString: Untagged
@@ -66517,6 +66529,7 @@ GameObject:
   - component: {fileID: 1711813854586616448}
   - component: {fileID: 1184409095}
   - component: {fileID: 1184409094}
+  - component: {fileID: 3469287838647504459}
   m_Layer: 0
   m_Name: tuberia_u (2)
   m_TagString: Untagged
@@ -66537,6 +66550,7 @@ GameObject:
   - component: {fileID: 1711813854378073940}
   - component: {fileID: 1433306067}
   - component: {fileID: 1433306066}
+  - component: {fileID: 3469287838373964703}
   m_Layer: 0
   m_Name: tuberia_u (12)
   m_TagString: Untagged
@@ -66557,6 +66571,7 @@ GameObject:
   - component: {fileID: 1711813854391481615}
   - component: {fileID: 1513761166}
   - component: {fileID: 1513761165}
+  - component: {fileID: 3469287838183866822}
   m_Layer: 0
   m_Name: tuberia_esquina (10)
   m_TagString: Untagged
@@ -66577,6 +66592,7 @@ GameObject:
   - component: {fileID: 1711813855748927875}
   - component: {fileID: 186854667}
   - component: {fileID: 186854666}
+  - component: {fileID: 3469287837395928394}
   m_Layer: 0
   m_Name: tuberia_u (15)
   m_TagString: Untagged
@@ -66597,6 +66613,7 @@ GameObject:
   - component: {fileID: 1711813855480872979}
   - component: {fileID: 455416986}
   - component: {fileID: 455416985}
+  - component: {fileID: 3469287837127898330}
   m_Layer: 0
   m_Name: tuberia_u (8)
   m_TagString: Untagged
@@ -67892,6 +67909,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149610193350}
   m_Mesh: {fileID: -4213158513453270221, guid: 7ad62348e5ea3a042b0cedeb1c8563fe, type: 3}
+--- !u!114 &3469287837127898330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149610193350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf58b176b51b3c40ab271337cea1033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWaterFlowingInThisPipeline: 0
+  pipelineType: 2
+  decontaminationSpeed: 50
+  pipelineId: 4
+  correctRotation: {x: 0, y: 0, z: 0}
+  pipelineInCorrecRotation: 0
 --- !u!33 &3469287837395928393
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -67900,6 +67935,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149342146646}
   m_Mesh: {fileID: -4213158513453270221, guid: 7ad62348e5ea3a042b0cedeb1c8563fe, type: 3}
+--- !u!114 &3469287837395928394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149342146646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf58b176b51b3c40ab271337cea1033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWaterFlowingInThisPipeline: 0
+  pipelineType: 2
+  decontaminationSpeed: 50
+  pipelineId: 2
+  correctRotation: {x: 0, y: 0, z: 0}
+  pipelineInCorrecRotation: 0
 --- !u!33 &3469287837751189943
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -67923,6 +67976,7 @@ MonoBehaviour:
   isWaterFlowingInThisPipeline: 0
   pipelineType: 2
   decontaminationSpeed: 50
+  pipelineId: 1
   correctRotation: {x: 0, y: 0, z: 0}
   pipelineInCorrecRotation: 0
 --- !u!33 &3469287838110876286
@@ -67933,6 +67987,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147519969121}
   m_Mesh: {fileID: -4213158513453270221, guid: 7ad62348e5ea3a042b0cedeb1c8563fe, type: 3}
+--- !u!114 &3469287838110876287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147519969121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf58b176b51b3c40ab271337cea1033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWaterFlowingInThisPipeline: 0
+  pipelineType: 2
+  decontaminationSpeed: 50
+  pipelineId: 3
+  correctRotation: {x: 0, y: 0, z: 0}
+  pipelineInCorrecRotation: 0
 --- !u!33 &3469287838183866821
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -67941,6 +68013,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148520654042}
   m_Mesh: {fileID: -951608786083511892, guid: d03124eab42967642ab8add93a383987, type: 3}
+--- !u!114 &3469287838183866822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148520654042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf58b176b51b3c40ab271337cea1033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWaterFlowingInThisPipeline: 0
+  pipelineType: 2
+  decontaminationSpeed: 50
+  pipelineId: 7
+  correctRotation: {x: 0, y: 0, z: 0}
+  pipelineInCorrecRotation: 0
 --- !u!33 &3469287838373964702
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -67949,6 +68039,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148305477249}
   m_Mesh: {fileID: -4213158513453270221, guid: 7ad62348e5ea3a042b0cedeb1c8563fe, type: 3}
+--- !u!114 &3469287838373964703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148305477249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf58b176b51b3c40ab271337cea1033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWaterFlowingInThisPipeline: 0
+  pipelineType: 2
+  decontaminationSpeed: 50
+  pipelineId: 5
+  correctRotation: {x: 0, y: 0, z: 0}
+  pipelineInCorrecRotation: 0
 --- !u!33 &3469287838647504458
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -67957,6 +68065,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148057086805}
   m_Mesh: {fileID: -4213158513453270221, guid: 7ad62348e5ea3a042b0cedeb1c8563fe, type: 3}
+--- !u!114 &3469287838647504459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148057086805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf58b176b51b3c40ab271337cea1033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWaterFlowingInThisPipeline: 0
+  pipelineType: 2
+  decontaminationSpeed: 50
+  pipelineId: 6
+  correctRotation: {x: 0, y: 0, z: 0}
+  pipelineInCorrecRotation: 0
 --- !u!33 &3535369038673950902
 MeshFilter:
   m_ObjectHideFlags: 0

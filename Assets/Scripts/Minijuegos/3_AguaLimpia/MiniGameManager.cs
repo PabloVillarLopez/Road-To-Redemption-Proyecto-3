@@ -306,16 +306,51 @@ public class MiniGameManager : MonoBehaviour
         {
             if (i == selectedPipeline)
             {
-                pipeline.SetActive(true);
+                //pipeline.SetActive(true);
                 pipelinesIcons[i].gameObject.SetActive(true);
-                pipeline.gameObject.transform.position = pipelines[0].transform.position;
+                //pipeline.gameObject.transform.position = pipelines[0].transform.position;
                 pipelineActive = pipeline.GetComponent<PipelineForeground>();
+
+                switch (pipelineActive.pipelineId)
+                {
+
+                    case 1:
+                        pipelineCamera.transform.position = pipelines[i].transform.position + new Vector3(0, 0, 2);
+                        pipelineCamera.transform.eulerAngles = new Vector3(0, 180, 0);
+                        break;
+                    case 2:
+                        pipelineCamera.transform.position = pipelines[i].transform.position + new Vector3(3, 1, 0);
+                        pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 25);
+                        break;
+                    case 3:
+                        pipelineCamera.transform.position = pipelines[i].transform.position + new Vector3(1, 0, 0);
+                        break;
+                    case 4:
+                        pipelineCamera.transform.position = pipelines[i].transform.position + new Vector3(0, 0, 5);
+                        break;
+                    case 5:
+                        pipelineCamera.transform.position = pipelines[i].transform.position + new Vector3(0, 0, 5);
+                        break;
+                    case 6:
+                        pipelineCamera.transform.position = pipelines[i].transform.position + new Vector3(0, 0, 5);
+                        break;
+                    case 7:
+                        pipelineCamera.transform.position = pipelines[i].transform.position + new Vector3(0, 0, 5);
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        break;
+                }
+
+                
+                
 
                 ManageUIPipelineType();
             }
             else
             {
-                pipeline.SetActive(false);
+                //pipeline.SetActive(false);
                 pipelinesIcons[i].gameObject.SetActive(false);
             }
             i++;
@@ -654,7 +689,7 @@ public class MiniGameManager : MonoBehaviour
     private void PipelineCamera()
     {
         playerCamera.SetActive(false);
-        pipelineCamera.transform.position = pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+        pipelineCamera.transform.position = pipelines[PlayerController.pipelineEnteredID - 1].transform.position + new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
         pipelineCamera.SetActive(true);
         pipelineCameraActive = true;
         RotatePipelineUI.SetActive(true);
