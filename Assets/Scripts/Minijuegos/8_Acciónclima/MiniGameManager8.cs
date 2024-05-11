@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class MiniGameManager8 : MonoBehaviour
 {
-    public GameObject objectToSpawn; // Object to spawn
+    public GameObject[] objectsToSpawn; // Array of objects to spawn
     public float spawnInterval = 6f; // Time interval between spawns
     public Transform spawnPoint; // Spawn point
     public Transform spawnPointEmpty;
@@ -26,7 +27,8 @@ public class MiniGameManager8 : MonoBehaviour
     public float totalTime = 5f; // 5 minutos en segundos
     private float timeRemaining;
     public Text timerText;
-    public  bool monitoring;
+    public bool monitoring;
+
     void Start()
     {
         // Initialization goes here
@@ -44,18 +46,22 @@ public class MiniGameManager8 : MonoBehaviour
 
     void SpawnObject()
     {
-        // Generate a random number to select the type of object to spawn
-        int randomIndex = Random.Range(1, 4);
+        // Generate a random index based on the length of the objectsToSpawn array
+        int randomIndex = Random.Range(0, objectsToSpawn.Length);
 
         // Instantiate the selected prefab object at the spawn point
-        GameObject spawnedObject = Instantiate(objectToSpawn, spawnPointEmpty.transform.position, Quaternion.identity);
+        GameObject spawnedObject = Instantiate(objectsToSpawn[randomIndex], spawnPointEmpty.transform.position, Quaternion.identity);
 
-        // Set the ID of the spawned object
-        spawnedObject.GetComponent<TrashInfo>().SetId(randomIndex);
+    
+        
+
+        
         spawnedObject.GetComponent<TrashInfo>().AddForce();
+
         // Optionally: Set a random rotation for the spawned object
         spawnedObject.transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
     }
+
 
     private void MoveObject()
     {
