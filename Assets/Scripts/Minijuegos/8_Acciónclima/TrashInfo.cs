@@ -6,7 +6,7 @@ public class TrashInfo : MonoBehaviour
 {
     public int id;
     public Material[] materials = new Material[3];
-    public float fuerzaHaciaAbajo = 9.81f;
+    public float fuerzaHaciaAbajo = 0.2f;
     // Start is called before the first frame update
  
         // Update is called once per frame

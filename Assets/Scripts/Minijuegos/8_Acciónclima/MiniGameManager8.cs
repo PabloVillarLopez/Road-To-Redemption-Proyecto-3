@@ -69,7 +69,7 @@ public class MiniGameManager8 : MonoBehaviour
         float movementX = player.horizontalInput * moveObjSpeed * Time.deltaTime;
 
         // Calculate the new position of the object on the X-axis applying minimum and maximum limits
-        float newXPosition = Mathf.Clamp(objectToMove.transform.position.x + movementX, -6.42f, 6.57f);
+        float newXPosition = Mathf.Clamp(objectToMove.transform.position.x + movementX, -9.42f, -0.57f);
 
         // Set the position of the object on the X-axis
         objectToMove.transform.position = new Vector3(newXPosition, objectToMove.transform.position.y, objectToMove.transform.position.z);
@@ -108,7 +108,7 @@ public class MiniGameManager8 : MonoBehaviour
 
     public void AddPoints()
     {
-        points=points +2; 
+        points=points +5; 
         UpdatePointText(); 
     }
 
