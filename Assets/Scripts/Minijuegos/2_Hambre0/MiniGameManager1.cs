@@ -32,12 +32,12 @@ public class MiniGameManager1 : MonoBehaviour
     float cutoffThreshold = 12.5f; // Umbral para revertir al material original
     public Skybox skybox;
     public int level;
-
+    public DialogueScript dialog;
     GameObject greenHouse;
     float totalTime = 300f; // Tiempo total de 5 minutos expresado en segundos
     float elapsedTimeBuild = 0f; // Tiempo transcurrido desde el inicio del proceso
 
-
+    public bool isDialogueFinished = false;
 
 
     object[][] fruit = new object[3][];
@@ -48,12 +48,12 @@ public class MiniGameManager1 : MonoBehaviour
 
     void Start()
     {
-
+        CheckDialogue();
         greenHouse = GameObject.Find("GreenHouse");
         if (greenHouse != null)
         {
             StartCoroutine(AdjustMaterialsOverTime());
-            Debug.Log("Encuentro");
+            
         }
         Level(1);
         spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y), objectSpawner.transform.position.z);
@@ -63,10 +63,41 @@ public class MiniGameManager1 : MonoBehaviour
 
     }
 
+    IEnumerator CheckDialogue()
+    {
+
+        if (dialog.dialogueFinished && dialog.dialoguePanel.activeInHierarchy == false)
+        {
+            isDialogueFinished = true;
+            Debug.Log("Dialogo terminado");
+            if (greenHouse != null)
+            {
+                StartCoroutine(AdjustMaterialsOverTime());
+
+            }
+        }
+
+        else
+        {
+            Debug.Log("Dialogo no terminado");
+
+        }
+
+        yield return new WaitForSeconds(2);
+        // Duración simulada del diálogo
+    }
+
     void Update()
     {
-        UpdateCycleDays();
+        if (isDialogueFinished )
+        {
+            UpdateCycleDays();
+        }
 
+        if (isDialogueFinished == false)
+        {
+            StartCoroutine(CheckDialogue());
+        }
 
     }
 
@@ -305,6 +336,8 @@ public void checkBadFood()
     }
     IEnumerator AdjustMaterialsOverTime()
     {
+        
+         
         float startTime = Time.time;
 
         MeshRenderer renderer = greenHouse.GetComponent<MeshRenderer>();
@@ -313,8 +346,9 @@ public void checkBadFood()
             originalMat = renderer.material; // Guarda el material original solo una vez
             renderer.material = temporaryMaterial; // Asigna el material temporal desde el Inspector
         }
-
-        while (Time.time - startTime < duration)
+        if (isDialogueFinished)
+        {
+            while (Time.time - startTime < duration)
         {
             if (renderer != null)
             {
@@ -345,6 +379,7 @@ public void checkBadFood()
         if (renderer != null && renderer.material != originalMat)
         {
             renderer.material = originalMat;
+        }
         }
     }
 }
