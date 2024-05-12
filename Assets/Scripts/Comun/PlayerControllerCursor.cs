@@ -152,49 +152,7 @@ public class PlayerControllerCursor : MonoBehaviour
                     isPlanting = false;
                 }
 
-                // Manejar colisiones con Pipeline
-                if (hit.collider.CompareTag("Pipeline"))
-                {
-                    // Encuentra el objeto "Greenhouse"
-                    GameObject greenHouse = GameObject.Find("Greenhouse");
-
-                    if (greenHouse != null)
-                    {
-                        // Define un incremento para _CutoffHeight
-                        float incremento = 0.005f; // Ajusta este valor según tus necesidades
-
-                        // Itera sobre todos los hijos de greenHouse
-                        for (int i = 0; i < greenHouse.transform.childCount; i++)
-                        {
-                            // Accede al hijo actual
-                            Transform child = greenHouse.transform.GetChild(i);
-
-                            // Obtén el componente MeshRenderer del hijo
-                            MeshRenderer material = child.GetComponent<MeshRenderer>();
-
-                            if (material != null)
-                            {
-                                // Obtén el valor actual de _CutoffHeight
-                                float currentCutoffHeight = material.material.GetFloat("_CutoffHeight");
-
-                                // Calcula el nuevo valor de _CutoffHeight sumando el incremento
-                                float newCutoffHeight = currentCutoffHeight + incremento;
-
-                                // Establece el nuevo valor de _CutoffHeight
-                                material.material.SetFloat("_CutoffHeight", newCutoffHeight);
-
-                                // Ajusta también _NoiseStrength y _NoiseScale si es necesario
-                                material.material.SetFloat("_NoiseStrength", 8.04f);
-                                material.material.SetFloat("_NoiseScale", 46.34f);
-                                material.material.SetFloat("_EdgeWidth", 0.36f);
-                            }
-                            else
-                            {
-                                Debug.LogWarning($"No se encontró MeshRenderer en el hijo {i}.");
-                            }
-                        }
-                    }
-                }
+              
 
                 // Manejar colisiones con Hot, Neutral, y Cold
                 if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
