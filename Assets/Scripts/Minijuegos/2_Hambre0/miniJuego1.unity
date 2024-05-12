@@ -125,12 +125,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &916510 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4195442786051149321, guid: 6973a33cd45f62f48b8324ad8bedc746,
-    type: 3}
-  m_PrefabInstance: {fileID: 1462146724}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &78487069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,22 +1693,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f5ec4ad1522cd4f9f93ec2a8e71989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 916510}
+  objectsToSpawn:
+  - {fileID: 4195442786051149321, guid: b63e6faeb3a1bd5459ae9ad9db74767e, type: 3}
+  - {fileID: 4195442786051149321, guid: 473ad63d2973c1841be97da3663ba130, type: 3}
+  - {fileID: 4195442786051149321, guid: 7c458c4ab77985340947524b4b756d1a, type: 3}
   objectSpawner: {fileID: 1593434593}
   cultiveZone: {fileID: 1453347286390941772, guid: 2a7fab8c09a2a33418c122fcf069c954,
     type: 3}
   offSetYSpawn: 0.5
   offSetZSpawn: 0.2
   dayTimeInSeconds: 180
-  sunLight: {fileID: 1305564193}
   temperatureChangePerSecond: 0.02
   temperature: 20
+  level: 0
+  sunLight: {fileID: 1305564193}
   TextBadFood: {fileID: 400676440}
   TextGoodFood: {fileID: 1727952386}
   temperatureText: {fileID: 1790544189}
   temporaryMaterial: {fileID: 2100000, guid: e90b17cb1964b804280f2b2a65c0b91f, type: 2}
   skybox: {fileID: 0}
-  level: 0
   dialog: {fileID: 1993614765}
   isDialogueFinished: 0
 --- !u!4 &1993614764

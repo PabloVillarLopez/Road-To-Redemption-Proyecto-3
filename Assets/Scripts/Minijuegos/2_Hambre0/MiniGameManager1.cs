@@ -7,39 +7,53 @@ public class MiniGameManager1 : MonoBehaviour
 {
     #region Variables
 
-    [SerializeField] GameObject objectToSpawn;
+    // Variables de tipo GameObject
+    [SerializeField] GameObject[] objectsToSpawn = new GameObject[3];
+
     [SerializeField] GameObject objectSpawner;
     [SerializeField] GameObject cultiveZone;
+    GameObject greenHouse;
+
+    // Variables de tipo float
     public float offSetYSpawn;
     public float offSetZSpawn;
-    Vector3 spawnPosition;
-
     public float dayTimeInSeconds = 60f;
-    public Light sunLight;
-
     private float elapsedTime = 0f;
-
     public float temperatureChangePerSecond = 0.1f;
     public float temperature = 20;
+    float duration = 300f;
+    float cutoffThreshold = 12.5f;
+    public int level;
+    float totalTime = 300f;
+    float elapsedTimeBuild = 0f;
+
+    // Variables de tipo Light
+    public Light sunLight;
+    Vector3 spawnPosition;
+
+    // Variables de tipo int
     private int badFood;
     private int goodFood;
+
+    // Variables de tipo Text
     public Text TextBadFood;
     public Text TextGoodFood;
     public Text temperatureText;
-    public Material temporaryMaterial;
-    private Material originalMat; // Para almacenar el material original
-    float duration = 300f; // Duración en segundos (5 minutos)
-    float cutoffThreshold = 12.5f; // Umbral para revertir al material original
-    public Skybox skybox;
-    public int level;
-    public DialogueScript dialog;
-    GameObject greenHouse;
-    float totalTime = 300f; // Tiempo total de 5 minutos expresado en segundos
-    float elapsedTimeBuild = 0f; // Tiempo transcurrido desde el inicio del proceso
 
+    // Variables de tipo Material
+    public Material temporaryMaterial;
+    private Material originalMat;
+
+    // Variables de tipo Skybox
+    public Skybox skybox;
+
+    // Variables de tipo DialogueScript
+    public DialogueScript dialog;
+
+    // Variables de tipo bool
     public bool isDialogueFinished = false;
 
-
+    // Variables de tipo arreglo
     object[][] fruit = new object[3][];
 
     #endregion
@@ -57,7 +71,7 @@ public class MiniGameManager1 : MonoBehaviour
         }
         Level(1);
         spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y), objectSpawner.transform.position.z);
-        SpawnObjectsOnSpawner(objectToSpawn, 8, 0);
+        SpawnObjectsOnSpawner();
         SpawnOchards();
         
 
@@ -105,7 +119,7 @@ public class MiniGameManager1 : MonoBehaviour
 
     #region Object Spawning
 
-    void SpawnObjectsOnSpawner(GameObject objectToSpawn, int amount, int typesToSpawn)
+    void SpawnObjectsOnSpawner()
     {
 
         spawnPosition += new Vector3(0, -0.05F, -2);
@@ -113,7 +127,7 @@ public class MiniGameManager1 : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             spawnPosition += new Vector3(0, 0, offSetZSpawn);
-            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            GameObject spawnedObject = Instantiate(objectsToSpawn[0], spawnPosition, Quaternion.identity);
             ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
             if (info != null)
             {
@@ -124,7 +138,7 @@ public class MiniGameManager1 : MonoBehaviour
         spawnPosition += new Vector3(offSetZSpawn, 0, 0);
         for (int i = 0; i < 2; i++)
         {
-            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            GameObject spawnedObject = Instantiate(objectsToSpawn[0], spawnPosition, Quaternion.identity);
             ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
             if (info != null)
             {
@@ -137,7 +151,7 @@ public class MiniGameManager1 : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             spawnPosition += new Vector3(0, 0, offSetZSpawn);
-            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            GameObject spawnedObject = Instantiate(objectsToSpawn[1], spawnPosition, Quaternion.identity);
             ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
             if (info != null)
             {
@@ -148,7 +162,7 @@ public class MiniGameManager1 : MonoBehaviour
         spawnPosition += new Vector3(offSetZSpawn, 0, 0);
         for (int i = 0; i < 2; i++)
         {
-            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            GameObject spawnedObject = Instantiate(objectsToSpawn[1], spawnPosition, Quaternion.identity);
             ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
             if (info != null)
             {
@@ -161,7 +175,7 @@ public class MiniGameManager1 : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             spawnPosition += new Vector3(0, 0, offSetZSpawn);
-            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            GameObject spawnedObject = Instantiate(objectsToSpawn[2], spawnPosition, Quaternion.identity);
             ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
             if (info != null)
             {
@@ -172,7 +186,7 @@ public class MiniGameManager1 : MonoBehaviour
         spawnPosition += new Vector3(offSetZSpawn, 0, 0);
         for (int i = 0; i < 2; i++)
         {
-            GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            GameObject spawnedObject = Instantiate(objectsToSpawn[2], spawnPosition, Quaternion.identity);
             ObjectInfo info = spawnedObject.GetComponent<ObjectInfo>();
             if (info != null)
             {
@@ -317,18 +331,16 @@ public void checkBadFood()
         {
             case 1:
                 temperatureChangePerSecond = 0.2f;
-                fruit[0] = new object[] { "Tomato", 10, 30 };
-                fruit[1] = new object[] { "Pepper", 12, 28 };
-                fruit[2] = new object[] { "Lettuce", 5, 25 };
+                fruit[0] = new object[] { "Fresa", 10, 30 };
+                fruit[1] = new object[] { "Tomate", 12, 28 };
+                fruit[2] = new object[] { "Pimiento", 5, 25 };
 
                 break;
             case 2:
                 temperatureChangePerSecond = 0.3f;
-                // Lógica específica para el Nivel 2
                 break;
             case 3:
                 temperatureChangePerSecond = 0.4f;
-                // Lógica específica para el Nivel 3
                 break;
 
         }

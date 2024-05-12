@@ -29,17 +29,17 @@ public class ObjectInfo : MonoBehaviour
         switch (id)
         {
             case 1:
-                SetFruitStats("Tomato", 10, 30);
+                SetFruitStats("Fresa", 10, 30);
                 timeLife = 10f;
                 renderer.material = materials[0];
                 break;
             case 2:
-                SetFruitStats("Pepper", 12, 28);
+                SetFruitStats("Tomate", 12, 28);
                 timeLife = 10f;
                 renderer.material = materials[1];
                 break;
             case 3:
-                SetFruitStats("Lettuce", 5, 25);
+                SetFruitStats("Pipmiento", 5, 25);
                 timeLife = 10f;
                 renderer.material = materials[2];
                
