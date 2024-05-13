@@ -15,6 +15,7 @@ TagManager:
   - Hot
   - Portal Camera
   - CanDialogue
+  - SeedPlanted
   layers:
   - Default
   - TransparentFX

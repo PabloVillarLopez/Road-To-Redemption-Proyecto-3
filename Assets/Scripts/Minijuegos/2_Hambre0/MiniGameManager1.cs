@@ -9,7 +9,7 @@ public class MiniGameManager1 : MonoBehaviour
 
     // Variables de tipo GameObject
     [SerializeField] GameObject[] objectsToSpawn = new GameObject[3];
-
+    public GameObject[] seeds = new GameObject[3];
     [SerializeField] GameObject objectSpawner;
     [SerializeField] GameObject cultiveZone;
     GameObject greenHouse;
@@ -83,7 +83,6 @@ public class MiniGameManager1 : MonoBehaviour
         if (dialog.dialogueFinished && dialog.dialoguePanel.activeInHierarchy == false)
         {
             isDialogueFinished = true;
-            Debug.Log("Dialogo terminado");
             if (greenHouse != null)
             {
                 StartCoroutine(AdjustMaterialsOverTime());
@@ -91,11 +90,7 @@ public class MiniGameManager1 : MonoBehaviour
             }
         }
 
-        else
-        {
-            Debug.Log("Dialogo no terminado");
-
-        }
+    
 
         yield return new WaitForSeconds(2);
         // Duración simulada del diálogo

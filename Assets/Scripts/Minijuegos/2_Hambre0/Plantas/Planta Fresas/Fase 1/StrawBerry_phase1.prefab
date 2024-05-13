@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 9167947496548624659}
   - component: {fileID: 6810773912404057541}
   - component: {fileID: 8014700518498133576}
+  - component: {fileID: 3040200671702403996}
   m_Layer: 0
   m_Name: StrawBerry_phase1
-  m_TagString: Untagged
+  m_TagString: SeedPlanted
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,3 +84,48 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3040200671702403996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728953135499785994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c393e1bcad5444eb31aa237af457c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniGameManager: {fileID: 0}
+  ready: 0
+  id: 0
+  timeLife: 0
+  speedLoseLife: 0
+  temp: 20
+  timeToCollect: 0
+  materials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Cultive: {fileID: 0}
+  renderer: {fileID: 0}
+  mesh: {fileID: 0}
+  meshStrawBerry:
+  - {fileID: -1359189856529635300, guid: 3c24d59a77518654a85bf6d70b373f80, type: 3}
+  - {fileID: 6418781725428640858, guid: 68f0890fc5ceb524f8e756a7555f8347, type: 3}
+  meshTomatoe:
+  - {fileID: 0}
+  - {fileID: 0}
+  meshPepper:
+  - {fileID: 0}
+  - {fileID: 0}
+  materialStrawBerry:
+  - {fileID: 2100000, guid: a7c977d168e330642ab05461f3dc1b1c, type: 2}
+  - {fileID: 2100000, guid: ccfc893f65ff0f541a3a51f1c9b4802f, type: 2}
+  materialTomatoe:
+  - {fileID: 0}
+  - {fileID: 0}
+  materialPepper:
+  - {fileID: 0}
+  - {fileID: 0}
+  Tipo: 

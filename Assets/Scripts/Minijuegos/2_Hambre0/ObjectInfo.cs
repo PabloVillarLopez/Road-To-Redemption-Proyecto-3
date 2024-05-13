@@ -5,7 +5,7 @@ public class ObjectInfo : MonoBehaviour
     public MiniGameManager1 miniGameManager;
 
     public bool ready;
-    private int id;
+    public int id;
     public float timeLife;
     private float minTemp;
     private float maxTemp;
@@ -15,10 +15,23 @@ public class ObjectInfo : MonoBehaviour
     public Material[] materials = new Material[3]; // Array of materials
     public GameObject Cultive;
     public MeshRenderer renderer;
+    public Mesh mesh;
+
+    public Mesh[] meshStrawBerry = new Mesh[2];
+    public Mesh[] meshTomatoe = new Mesh[2];
+    public Mesh[] meshPepper = new Mesh[2];
+
+
+    public Material[] materialStrawBerry = new Material[2];
+    public Material[] materialTomatoe = new Material[2];
+    public Material[] materialPepper = new Material[2];
+
+
     public string Tipo;
     private void Awake()
     {
         renderer = GetComponent<MeshRenderer>();
+        mesh = GetComponent<Mesh>();
     }
 
     void Start()
@@ -31,17 +44,14 @@ public class ObjectInfo : MonoBehaviour
             case 1:
                 SetFruitStats("Fresa", 10, 30);
                 timeLife = 10f;
-                renderer.material = materials[0];
                 break;
             case 2:
                 SetFruitStats("Tomate", 12, 28);
                 timeLife = 10f;
-                renderer.material = materials[1];
                 break;
             case 3:
                 SetFruitStats("Pipmiento", 5, 25);
                 timeLife = 10f;
-                renderer.material = materials[2];
                
                 break;
             case 4:
@@ -49,14 +59,11 @@ public class ObjectInfo : MonoBehaviour
                 timeLife = 7f;
                 break;
             case 5:
-                renderer.material = materials[0];
                 Debug.Log("Heloude");
                 break;
             case 6:
-                renderer.material = materials[1];
                 break;
             case 7:
-                renderer.material = materials[2];
                 break;
             case 8:
                 SetFruitStats("Pumpkin", 12, 30);
@@ -121,14 +128,61 @@ public class ObjectInfo : MonoBehaviour
                     
                  }
 
-            if (timeToCollect >= 10)
+            if (timeToCollect >= 5)
             {
-                miniGameManager.checkGoodFood();
+                switch (id)
+                {
+                    case 0:
+                        mesh = meshStrawBerry[0];
+                        renderer.material = materialStrawBerry[0];  
+                        break;
 
-                gameObject.SetActive(false);
-                
+                    case 1: 
+                        mesh = meshTomatoe[0];
+                        renderer.material = materialTomatoe[0];
+                        break;
+
+                case 2:     
+                        mesh = meshPepper[0];
+                        renderer.material = materialPepper[0];
+                        break;
+
+                }
+
             }
+            if (timeToCollect >= 10)
+            { 
+            
+                 switch (id)
+                    {
+                        case 0:
+                            mesh = meshStrawBerry[1];
+                            renderer.material = materialStrawBerry[1];
+                            break;
+
+                        case 1:
+                            mesh = meshTomatoe[1];
+                            renderer.material = materialTomatoe[1];
+                            break;
+
+                        case 2:
+                            mesh = meshPepper[1];
+                            renderer.material = materialPepper[1];
+                            break;
+
+                    }
+      
+            
+            }
+
         }
     }
 
+    public void Recollect()
+    {
+        miniGameManager.checkGoodFood();
+
+        gameObject.SetActive(false);
+    }
+    
 }

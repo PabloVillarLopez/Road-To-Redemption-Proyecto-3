@@ -17,10 +17,10 @@ public class PlantTaget : MonoBehaviour
         
     }
     
-    public void addFruit(GameObject newGameObject)
-    {
-        cultive.GetComponent<CultiveZone>().AddFruit();
-    }
+    //public void addFruit(GameObject newGameObject)
+    //{
+    //    cultive.GetComponent<CultiveZone>().AddFruit();
+    //}
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("almoñejar");

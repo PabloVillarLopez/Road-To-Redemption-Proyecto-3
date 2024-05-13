@@ -43,21 +43,6 @@ public class CultiveZone : MonoBehaviour
         tempFruitT.text = newTempMin + "-" + newTempMax;
     }
 
-    public void AddFruit()
-    {
-        
-            for (int i = 0; i < 5; i++)
-            {
-                if (spawnPoints[i].transform.childCount > 0)
-                {
-                    fruitObjects[i] = spawnPoints[i].transform.GetComponentInChildren<GameObject>();
-
-                    break;
-
-                }
-            }
-        
-    }
 
     void UpdateTextValues()
     {

@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 using static UnityEditor.VersionControl.Asset;
+using Slider = UnityEngine.UI.Slider;
 
 
 public class PlayerControllerCursor : MonoBehaviour
@@ -21,7 +24,7 @@ public class PlayerControllerCursor : MonoBehaviour
     #endregion
 
     #region MiniGame1 Variables
-    private int currentSeed = -1;
+    public int currentSeed = -1;
     public float plantingTime = 3f;
     public Slider progressBar;
     [SerializeField] GameObject[] caughtSeed = new GameObject[6];
@@ -152,7 +155,18 @@ public class PlayerControllerCursor : MonoBehaviour
                     isPlanting = false;
                 }
 
-              
+                if(hit.collider.CompareTag("SeedPlanted") && Input.GetKeyDown(KeyCode.E))
+                {
+                    if(hit.collider.gameObject.GetComponent<ObjectInfo>().timeToCollect >= 10 && hit.collider.gameObject.GetComponent<ObjectInfo>() != null)
+                    {
+                        hit.collider.gameObject.GetComponent<ObjectInfo>().Recollect();
+                    }
+                    else
+                    {
+                        Debug.Log("No se puede recolectar");
+                    }
+                  
+                }
 
                 // Manejar colisiones con Hot, Neutral, y Cold
                 if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
@@ -258,12 +272,42 @@ public class PlayerControllerCursor : MonoBehaviour
     {
         if (countSeeds - 1 >= 0 && countSeeds - 1 < caughtSeed.Length && caughtSeed[countSeeds - 1] != null)
         {
-            caughtSeed[countSeeds - 1].SetActive(true);
+            //caughtSeed[countSeeds - 1].SetActive(true);
             
-            caughtSeed[countSeeds - 1].transform.position = planTarget.transform.position;
-            caughtSeed[countSeeds - 1].transform.parent = planTarget.transform.parent;
+            //caughtSeed[countSeeds - 1].transform.position = planTarget.transform.position;
+            //caughtSeed[countSeeds - 1].transform.parent = planTarget.transform.parent;
+            GameObject seedSpawned;
+            //planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(caughtSeed[countSeeds - 1].gameObject);
+            switch (currentSeed)
+            {
 
-            planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(caughtSeed[countSeeds - 1].gameObject);
+
+                
+                case 1:
+
+                Vector3 addposition1 = new Vector3(0.019f, 0.038f,-0.120f);
+                seedSpawned = Instantiate(manager.seeds[0], planTarget.transform.position + addposition1, Quaternion.Euler(340.059998f, 180, 180));
+                    seedSpawned.GetComponent<ObjectInfo>().id = 0;
+                    Debug.Log("Planted0");
+                    break;
+                case 2:
+                    Vector3 addposition2 = new Vector3(0.030f, 0.218f,-0.120f);
+
+                    seedSpawned = Instantiate(manager.seeds[1], planTarget.transform.position + addposition2, Quaternion.Euler(281.509979f, 0.240004182f, 359.73999f)); 
+                    seedSpawned.GetComponent<ObjectInfo>().id = 1;
+                    Debug.Log("Planted1");
+                    break;
+                case 3:
+                    Vector3 addposition3 = new Vector3(-0.154f, 0.925f, 0.679f);
+                    seedSpawned = Instantiate(manager.seeds[2], planTarget.transform.position +addposition3 , Quaternion.Euler(286.439972f, 11.3599997f, 2.01000643f)); 
+                    seedSpawned.GetComponent<ObjectInfo>().id = 2;
+                    seedSpawned.transform.rotation = Quaternion.Euler(286.439972f, 11.3599997f, 2.01000643f);
+
+
+                    Debug.Log("Planted2");
+                    break;
+            }
+            
 
             planTarget.SetActive(false);
 

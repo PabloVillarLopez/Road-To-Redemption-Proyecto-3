@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7988217493224134848}
   - component: {fileID: 3852988811867264379}
   - component: {fileID: 1359202365397254620}
+  - component: {fileID: 1118188792399006452}
+  - component: {fileID: 8513658811152010886}
   m_Layer: 0
   m_Name: SeedBoxRed
   m_TagString: CatchAble
@@ -28,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7103931, y: -0, z: -0, w: 0.7038052}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 200, y: 200, z: 200}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,3 +85,69 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4195442786051149321}
   m_Mesh: {fileID: 7294001604887603717, guid: 7eb6c438c0603cf4e886f2ced7389127, type: 3}
+--- !u!65 &1118188792399006452
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195442786051149321}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0024347273, y: 0.002445989, z: 0.002529284}
+  m_Center: {x: -0.000048967748, y: -0.000054597935, z: 0.000096245436}
+--- !u!114 &8513658811152010886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195442786051149321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c393e1bcad5444eb31aa237af457c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniGameManager: {fileID: 0}
+  ready: 0
+  id: 0
+  timeLife: 0
+  speedLoseLife: 0
+  temp: 20
+  timeToCollect: 0
+  materials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Cultive: {fileID: 0}
+  renderer: {fileID: 0}
+  mesh: {fileID: 0}
+  meshStrawBerry:
+  - {fileID: 0}
+  - {fileID: 0}
+  meshTomatoe:
+  - {fileID: 0}
+  - {fileID: 0}
+  meshPepper:
+  - {fileID: 0}
+  - {fileID: 0}
+  materialStrawBerry:
+  - {fileID: 0}
+  - {fileID: 0}
+  materialTomatoe:
+  - {fileID: 0}
+  - {fileID: 0}
+  materialPepper:
+  - {fileID: 0}
+  - {fileID: 0}
+  Tipo: 
