@@ -8,7 +8,7 @@ public class Cablebox : MonoBehaviour
     public List<GameObject> Part1GameObject;
     public List<GameObject> Part2GameObject;
     private List<int> idUsed = new List<int>();
-
+    private int countProgress = 0;
     public Camera cam;
 
     public int arraySize = 4;
@@ -110,7 +110,7 @@ public class Cablebox : MonoBehaviour
                     currentCable = hit.collider.gameObject;
 
                     LineRenderer lineRenderer = currentCable.GetComponent<LineRenderer>();
-                    if (lineRenderer != null)
+                    if (lineRenderer != null && hit.collider.CompareTag("Pipeline"))
                     {
                         currentLine = lineRenderer;
                         UpdatePositionsRenderer(currentLine);
@@ -158,7 +158,7 @@ public class Cablebox : MonoBehaviour
                         if (hitCableInfo != null && currentCableInfo != null && hitCableInfo.id == currentCableInfo.id)
                         {
                             rightChoise=true;
-                            Debug.Log("Correcto");
+                            
                             LineRenderer currentCableLineRenderer = currentCable.GetComponent<LineRenderer>();
                             
                             if (currentCableLineRenderer != null)
@@ -175,6 +175,9 @@ public class Cablebox : MonoBehaviour
                                         hitCableInfo.gameObject.GetComponent<CableInfo>().connected = true;
                                         currentCable = null;
                                         rightChoise = false;
+                                        countProgress++;
+                                        Invoke("CheckFinished", 1f);
+                                        
                                     }
                                 }
                             }
@@ -209,6 +212,15 @@ public class Cablebox : MonoBehaviour
         else
         {
             Cursor.visible = false;
+        }
+    }
+
+    private void CheckFinished()
+    {
+        if(countProgress == 4)
+        {
+            gameManager.ChangeCameraMode();
+            gameManager.PhaseMode(2);
         }
     }
 }

@@ -21,9 +21,10 @@ public class MiniGameManager4 : MonoBehaviour
     private string nameMaterial2;
     private string nameMaterial3;
     private string nameObject;
-
+    public Canvas CanvasMain;
     private Vector3[] ArrayController = new Vector3[3];
     public GameObject ojectToBuild;
+    public int countBuilds;
 
     public int countMaterial1;
     public int countMaterial2;
@@ -39,7 +40,7 @@ public class MiniGameManager4 : MonoBehaviour
     public Text material3Text;
 
     public float distanciaMaxima = 50f; // La distancia máxima desde el jugador para el spawn
-    
+    private DialogueScript dialogue;
 
     public GameObject objectToSpawn; // Objeto que se va a spawnear
     public Vector3 spawnAreaCenter; // Centro del área de spawn
@@ -47,6 +48,10 @@ public class MiniGameManager4 : MonoBehaviour
 
     public Camera mainCam;
     public Camera secondCamera;
+    public Camera thirdCamera;
+    public Canvas thirdCanvas;
+    public GameObject thirdPanel;
+    public TMPro.TextMeshProUGUI thirdText;
     private bool conectingCable;
 
     // Start is called before the first frame update
@@ -54,18 +59,20 @@ public class MiniGameManager4 : MonoBehaviour
     {
         PhaseMode(1);
         secondCamera.enabled = false;
-
+        thirdCamera.enabled = false;
+        thirdCanvas.enabled = false;
+        dialogue = GetComponent<DialogueScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ChangeCameraMode();
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    ChangeCameraMode();
 
 
-        }
+        //}
 
         }
     #region Material Assignment
@@ -173,7 +180,13 @@ public class MiniGameManager4 : MonoBehaviour
                 description = "Monta la pieza reciclada";
                 descriptionText.text = description;
                 break;
-            
+                case 6:
+                ChangeCameraMode();
+                countBuilds++;
+
+                break;
+
+
             default:
               
                 break;
@@ -217,7 +230,7 @@ public class MiniGameManager4 : MonoBehaviour
     }
 
 
-
+   
 
 
     #region Object Spawning
@@ -369,24 +382,50 @@ public class MiniGameManager4 : MonoBehaviour
     {
         if (mainCam.enabled)
         {
+            
             mainCam.enabled = false;
             secondCamera.enabled = true;
+            CanvasMain.enabled = false;
         }
         else if (secondCamera.enabled)
         {
             secondCamera.enabled = false;
             mainCam.enabled = true;
+            CanvasMain.enabled = true;
+
         }
 
 
     }
 
+    
 
 
 
 
+    private void CheckFinished()
+    {
+        if(countBuilds == 3)
+        {
+            ChangeCameraFinishGame();
+        }
+    }
 
+    public void ChangeCameraFinishGame()
+    {
+        if (mainCam.enabled)
+        {
+            mainCam.enabled = false;
+            thirdCamera.enabled = true;
+            CanvasMain.enabled = false;
+            thirdCanvas.enabled = true;
+            dialogue.spanishLines = new string[] { "Excelente trabajo, ahora que las farolas están en funcionamiento esta ciudad conseguirá luz sin tener que usar energía no renovable.\r\n" };
+            dialogue.dialoguePanel = thirdPanel;
+            dialogue.dialogueText = thirdText;
+            dialogue.StartSpanishDialogue();
+        }
 
+    }
 
 
 

@@ -114,7 +114,7 @@ public class ControllerPlayer : MonoBehaviour
 
 
                     gameManager.resetTextsProgress();
-                    gameManager.PhaseMode(2);
+                    gameManager.PhaseMode(6);
 
 
 
