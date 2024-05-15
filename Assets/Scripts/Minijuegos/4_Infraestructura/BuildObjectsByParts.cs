@@ -79,7 +79,8 @@ public class BuildObjectsByParts : MonoBehaviour
             case 3:
 
                 part3.GetComponent<MeshRenderer>().material = ownMaterialPart3;
-                gameManager.phaseBuild=0;
+
+                
 
 
 

@@ -272,12 +272,7 @@ public class PlayerControllerCursor : MonoBehaviour
     {
         if (countSeeds - 1 >= 0 && countSeeds - 1 < caughtSeed.Length && caughtSeed[countSeeds - 1] != null)
         {
-            //caughtSeed[countSeeds - 1].SetActive(true);
-
-            //caughtSeed[countSeeds - 1].transform.position = planTarget.transform.position;
-            //caughtSeed[countSeeds - 1].transform.parent = planTarget.transform.parent;
-
-            //planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(caughtSeed[countSeeds - 1].gameObject);
+            
             GameObject seedSpawned;
             switch (currentSeed)
             {

@@ -6,7 +6,7 @@ using static UnityEditor.VersionControl.Asset;
 
 public class CultiveZone : MonoBehaviour
 {
-    [SerializeField] float applyTempMan=0.5f;
+    [SerializeField] float applyTempMan=6f;
     [SerializeField] float speedTempGlobal=0.05f;
 
     public Text nameFruitT;
@@ -63,7 +63,6 @@ public class CultiveZone : MonoBehaviour
                     tempTextArray[i].text = objectInfo.temp.ToString("0") + "ºC";
                     float porcentaje = (objectInfo.timeLife/20);
                     health[i].GetComponent<Slider>().value = porcentaje;
-                    print(porcentaje + "" + objectInfo.timeLife);
                     // Advierte si no se pudo convertir el texto a un valor flotante
 
 
@@ -102,7 +101,14 @@ public class CultiveZone : MonoBehaviour
     public void ApplyTemp()
     {
 
-
+        if(manager.dayTime == true)
+        {
+            day = true;     
+         }
+        else
+        {
+            day = false;
+        }
 
         switch (state)
         {
@@ -146,6 +152,12 @@ public class CultiveZone : MonoBehaviour
                 {
                     fruitObjects[i].GetComponent<ObjectInfo>().temp += speedTempGlobal * temperatureGlobal;
                     fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -3, 35);
+                    print(fruitObjects[i].GetComponent<ObjectInfo>().temp);
+
+                }
+                else if (fruitObjects[i] == null)
+                {
+                    fruitObjects.Remove(fruitObjects[i]);
                 }
             }
         }
@@ -159,7 +171,10 @@ public class CultiveZone : MonoBehaviour
                 {
                     fruitObjects[i].GetComponent<ObjectInfo>().temp -= speedTempGlobal * temperatureGlobal;
                     fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -3, 35);
+                    
+
                 }
+
             }
         }
 

@@ -221,6 +221,25 @@ public class Cablebox : MonoBehaviour
         {
             gameManager.ChangeCameraMode();
             gameManager.PhaseMode(2);
+
+            ResetCables();
+        }
+    }
+
+
+
+    private void ResetCables()
+    {
+        foreach (GameObject cable in Part1GameObject)
+        {
+            cable.GetComponent<CableInfo>().connected = false;
+            cable.GetComponent<LineRenderer>().positionCount = 0;
+        }
+
+        foreach (GameObject cable in Part2GameObject)
+        {
+            cable.GetComponent<CableInfo>().connected = false;
+            cable.GetComponent<LineRenderer>().positionCount = 0;
         }
     }
 }

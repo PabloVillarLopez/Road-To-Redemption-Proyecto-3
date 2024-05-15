@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrashInfo : MonoBehaviour
 {
     public int id;
     public Material[] materials = new Material[3];
     public float fuerzaHaciaAbajo = 0.2f;
+   
     // Start is called before the first frame update
  
-        // Update is called once per frame
-        void Update()
+ 
+
+    // Update is called once per frame
+    void Update()
         {
         AddForce();
         }

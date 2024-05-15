@@ -52,7 +52,7 @@ public class MiniGameManager1 : MonoBehaviour
 
     // Variables de tipo bool
     public bool isDialogueFinished = false;
-
+    public bool dayTime = true;
     // Variables de tipo arreglo
     object[][] fruit = new object[3][];
 
@@ -278,7 +278,7 @@ public class MiniGameManager1 : MonoBehaviour
     void AdjustTemperatureDuringDay()
     {
         temperature += temperatureChangePerSecond * Time.deltaTime;
-
+        dayTime = true;
         // Aumentar la exposición del skybox durante el día
         float exposure = Mathf.Lerp(0.33f, 1.30f, elapsedTime / (dayTimeInSeconds / 4));
         RenderSettings.skybox.SetFloat("_Exposure", exposure);
@@ -288,7 +288,7 @@ public class MiniGameManager1 : MonoBehaviour
     void AdjustTemperatureDuringNight()
     {
         temperature -= temperatureChangePerSecond * Time.deltaTime;
-
+        dayTime = false;
         // Disminuir la exposición del skybox durante la noche
         float exposure = Mathf.Lerp(1.30f, 0.33f, (elapsedTime - dayTimeInSeconds / 4) / (dayTimeInSeconds / 2));
         RenderSettings.skybox.SetFloat("_Exposure", exposure);

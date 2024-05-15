@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 using static energyMinigameManager;
+
 
 public class MiniGameManager4 : MonoBehaviour
 {
@@ -41,8 +43,8 @@ public class MiniGameManager4 : MonoBehaviour
 
     public float distanciaMaxima = 50f; // La distancia máxima desde el jugador para el spawn
     private DialogueScript dialogue;
-
-    public GameObject objectToSpawn; // Objeto que se va a spawnear
+    public GameObject[] objectsToSpawn; // Array de objetos que se van a spawnear
+    public GameObject pointToSpawn; // Jugador
     public Vector3 spawnAreaCenter; // Centro del área de spawn
     public Vector3 spawnAreaSize; // Tamaño del área de spawn
 
@@ -84,66 +86,51 @@ public class MiniGameManager4 : MonoBehaviour
         switch (idObjectPhase)
         {
             case 1: // Base
-                nameObject = "Base";
-                nameMaterial1 = "Plastico";
-                idMaterial1 = 1;
+                nameObject = "Base molino";
+                nameMaterial1 = "Botella azul";
+                idMaterial1 = 0;
                 HowManyMaterial1 = 1;
 
-                nameMaterial2 = "Madera";
-                idMaterial2 = 2;
+                nameMaterial2 = "Botella morada";
+                idMaterial2 = 1;
                 HowManyMaterial2 = 1;
 
-                nameMaterial3 = "Cobre";
-                idMaterial3 = 3;
+                nameMaterial3 = "Botella verde";
+                idMaterial3 = 2;
                 HowManyMaterial3 = 1;
                 break;
 
             case 2: // Blades
-                nameObject = "Blades";
+                nameObject = "Cuerpo";
                 idMaterial1 = 1;
-                nameMaterial1 = "Plastico";
+                nameMaterial1 = "Botella morada";
                 HowManyMaterial1 = 1;
 
-                idMaterial2 = 2;
-                nameMaterial2 = "Madera";
+                idMaterial2 = 1;
+                nameMaterial2 = "Botella verde";
                 HowManyMaterial2 = 1;
 
-                idMaterial3 = 4;
-                nameMaterial3 = "Cobre";
+                idMaterial3 = 0;
+                nameMaterial3 = "Botella azul";
                 HowManyMaterial3 = 1;
                 break;
 
             case 3: // Gearbox
-                nameObject = "Gearbox";
-                idMaterial1 = 1;
-                nameMaterial1 = "Plastico";
-                HowManyMaterial1 = 1;
+                nameObject = "Hélices";
+                idMaterial1 = 2;
+                nameMaterial1 = "Botella verde";
+                HowManyMaterial1 =1;
 
-                idMaterial2 = 2;
-                nameMaterial2 = "Madera";
+                idMaterial2 = 0;
+                nameMaterial2 = "Botella azul";
                 HowManyMaterial2 = 1;
 
-                idMaterial3 = 3;
-                nameMaterial3 = "Cobre";
+                idMaterial3 = 1;
+                nameMaterial3 = "Botella morada";
                 HowManyMaterial3 = 1;
                 break;
 
-            case 4: // Motor
-                nameObject = "Motor";
-                idMaterial1 = 10;
-                HowManyMaterial1 = 2;
-
-                idMaterial2 = 11;
-                HowManyMaterial2 = 2;
-
-                idMaterial3 = 12;
-                HowManyMaterial3 = 2;
-                break;
-
-            default:
-                nameObject = "Unknown";
-                // code for the default case
-                break;
+            
         }
         updateTextsProgress();
     }
@@ -181,8 +168,11 @@ public class MiniGameManager4 : MonoBehaviour
                 descriptionText.text = description;
                 break;
                 case 6:
-                ChangeCameraMode();
+                
                 countBuilds++;
+                if (countBuilds == 3)
+                {
+                    ChangeCameraMode();                }
 
                 break;
 
@@ -215,10 +205,12 @@ public class MiniGameManager4 : MonoBehaviour
 
             case 3:
                 // Construye la cabeza
+
+                CheckFinished();
                 break;
             case 4:
                 // Pieza completa
-
+                
 
                 break;
 
@@ -229,24 +221,32 @@ public class MiniGameManager4 : MonoBehaviour
         }
     }
 
+    private void invoke(string v1, float v2)
+    {
+        throw new NotImplementedException();
+    }
 
-   
+
+
 
 
     #region Object Spawning
 
     public void SpawnObjects()
     {
-        Vector3 jugadorPosition = transform.position;
+        Vector3 jugadorPosition = pointToSpawn.transform.position;
 
-        for (int i = 0; i < 40; i++)
+        for (int i = 0; i < 60; i++)
         {
+            
+            int id = UnityEngine.Random.Range(0, 3);
             // Calculate a random position within a circle around the player
             Vector2 offset = UnityEngine.Random.insideUnitCircle * distanciaMaxima;
-            Vector3 spawnPosition = new Vector3(jugadorPosition.x + offset.x, 0f, jugadorPosition.z + offset.y);
+            Vector3 spawnPosition = new Vector3(jugadorPosition.x + offset.x, 0.3f, jugadorPosition.z + offset.y);
 
             // Spawn the object at the calculated position
-            Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            GameObject prefab = Instantiate(objectsToSpawn[id], spawnPosition, Quaternion.identity);
+            prefab.GetComponent<ObjectToCatch>().id = id;
         }
         PhaseMode(2);
     }
@@ -386,13 +386,21 @@ public class MiniGameManager4 : MonoBehaviour
             mainCam.enabled = false;
             secondCamera.enabled = true;
             CanvasMain.enabled = false;
+
         }
         else if (secondCamera.enabled)
         {
             secondCamera.enabled = false;
             mainCam.enabled = true;
             CanvasMain.enabled = true;
-
+            PhaseMode(2);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            phaseBuild = 0;
+            countBuilds++;
+              
+                ChangeCameraFinishGame();
+            
         }
 
 
@@ -419,7 +427,7 @@ public class MiniGameManager4 : MonoBehaviour
             thirdCamera.enabled = true;
             CanvasMain.enabled = false;
             thirdCanvas.enabled = true;
-            dialogue.spanishLines = new string[] { "Excelente trabajo, ahora que las farolas están en funcionamiento esta ciudad conseguirá luz sin tener que usar energía no renovable.\r\n" };
+            dialogue.spanishLines = new string[] { "Excelente trabajo, ahora que las farolas están en funcionamiento esta ciudad conseguirá luz sin tener que usar energía  renovable.\r\n" };
             dialogue.dialoguePanel = thirdPanel;
             dialogue.dialogueText = thirdText;
             dialogue.StartSpanishDialogue();

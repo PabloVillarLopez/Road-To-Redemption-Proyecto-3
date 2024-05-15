@@ -23,15 +23,21 @@ public class MiniGameManager8 : MonoBehaviour
 
     public Text textPoints;
     private int points;
-
+    public Image overlay;
     public float totalTime = 5f; // 5 minutos en segundos
     private float timeRemaining;
     public Text timerText;
     public bool monitoring;
+    private DialogueScript dialogue;
+
+    public GameObject panel;
+    public TMPro.TextMeshProUGUI text;
 
     void Start()
     {
         // Initialization goes here
+        overlay.gameObject.SetActive(false);
+        dialogue = GetComponent<DialogueScript>();
     }
 
     private void Update()
@@ -40,7 +46,14 @@ public class MiniGameManager8 : MonoBehaviour
         if (player.monitoring)
         {
             MoveObject();
+            overlay.gameObject.SetActive(true);
             UpdateTimer();
+            textPoints.gameObject.SetActive(true);
+        }
+        else 
+        {
+            overlay.gameObject.SetActive(false);
+            textPoints.gameObject.SetActive(false);
         }
     }
 
@@ -153,6 +166,10 @@ public class MiniGameManager8 : MonoBehaviour
             monitoring = false;
             StopAllCoroutines();
             CancelInvoke("SpawnObject");
+            dialogue.spanishLines = new string[] { "Excelente trabajo, después de toda esta basura que has reciclado mientras solucionabamos la averia no hemos contaminado la capa de ozono buen trabajo.\r\n" };
+            dialogue.dialoguePanel = panel;
+            dialogue.dialogueText = text;
+            dialogue.StartSpanishDialogue();
             move = false;
         }
     }

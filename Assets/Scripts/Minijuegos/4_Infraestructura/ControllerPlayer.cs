@@ -93,7 +93,7 @@ public class ControllerPlayer : MonoBehaviour
 
             }
 
-            if (hit.collider != null && hit.collider.CompareTag("Pipeline") && gameManager.phaseState==5 && gameManager.phaseBuild != 0 && gameManager.phaseBuild != 4)
+            if (hit.collider != null && hit.collider.CompareTag("Pipeline") && gameManager.phaseState==5 && gameManager.phaseBuild != 0 && gameManager.phaseBuild != 5)
             {
                 
                 if (Input.GetKeyDown(KeyCode.E) && gameManager.phaseState == 5)
