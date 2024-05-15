@@ -273,11 +273,12 @@ public class PlayerControllerCursor : MonoBehaviour
         if (countSeeds - 1 >= 0 && countSeeds - 1 < caughtSeed.Length && caughtSeed[countSeeds - 1] != null)
         {
             //caughtSeed[countSeeds - 1].SetActive(true);
-            
+
             //caughtSeed[countSeeds - 1].transform.position = planTarget.transform.position;
             //caughtSeed[countSeeds - 1].transform.parent = planTarget.transform.parent;
-            GameObject seedSpawned;
+
             //planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(caughtSeed[countSeeds - 1].gameObject);
+            GameObject seedSpawned;
             switch (currentSeed)
             {
 
@@ -288,6 +289,7 @@ public class PlayerControllerCursor : MonoBehaviour
                 Vector3 addposition1 = new Vector3(0.019f, 0.038f,-0.120f);
                 seedSpawned = Instantiate(manager.seeds[0], planTarget.transform.position + addposition1, Quaternion.Euler(340.059998f, 180, 180));
                     seedSpawned.GetComponent<ObjectInfo>().id = 0;
+                    planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(seedSpawned.gameObject);
                     Debug.Log("Planted0");
                     break;
                 case 2:
@@ -295,6 +297,7 @@ public class PlayerControllerCursor : MonoBehaviour
 
                     seedSpawned = Instantiate(manager.seeds[1], planTarget.transform.position + addposition2, Quaternion.Euler(281.509979f, 0.240004182f, 359.73999f)); 
                     seedSpawned.GetComponent<ObjectInfo>().id = 1;
+                    planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(seedSpawned.gameObject);
                     Debug.Log("Planted1");
                     break;
                 case 3:
@@ -302,13 +305,17 @@ public class PlayerControllerCursor : MonoBehaviour
                     seedSpawned = Instantiate(manager.seeds[2], planTarget.transform.position +addposition3 , Quaternion.Euler(286.439972f, 11.3599997f, 2.01000643f)); 
                     seedSpawned.GetComponent<ObjectInfo>().id = 2;
                     seedSpawned.transform.rotation = Quaternion.Euler(286.439972f, 11.3599997f, 2.01000643f);
-
+                    planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(seedSpawned.gameObject);
 
                     Debug.Log("Planted2");
                     break;
             }
-            
 
+       
+
+     
+
+           
             planTarget.SetActive(false);
 
 

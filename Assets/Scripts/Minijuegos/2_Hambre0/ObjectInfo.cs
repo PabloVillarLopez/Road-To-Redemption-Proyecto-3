@@ -9,7 +9,7 @@ public class ObjectInfo : MonoBehaviour
     public float timeLife;
     private float minTemp;
     private float maxTemp;
-    public float speedLoseLife;
+    private float speedLoseLife=0.1f;
     public float temp = 20f;
     public float timeToCollect;
     public Material[] materials = new Material[3]; // Array of materials
@@ -43,15 +43,15 @@ public class ObjectInfo : MonoBehaviour
         {
             case 1:
                 SetFruitStats("Fresa", 10, 30);
-                timeLife = 10f;
+                timeLife = 20f;
                 break;
             case 2:
                 SetFruitStats("Tomate", 12, 28);
-                timeLife = 10f;
+                timeLife = 20f;
                 break;
             case 3:
                 SetFruitStats("Pipmiento", 5, 25);
-                timeLife = 10f;
+                timeLife = 20f;
                
                 break;
             case 4:
