@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class AimLenseGlass : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class AimLenseGlass : MonoBehaviour
     public Vector3 normalPose, aimPose;
     public float aimSpeed;
     public Camera playerCam;
+    public TextMeshProUGUI PressLeftClickText;
+    public TextMeshProUGUI InvestigatingText;
 
     #endregion Aim with Lense Variables
 
@@ -69,6 +72,8 @@ public class AimLenseGlass : MonoBehaviour
         transform.localPosition = Vector3.Slerp(transform.localPosition, aimPose, aimSpeed * Time.deltaTime);
         playerCam.fieldOfView -= 40 * Time.deltaTime;
         playerCam.fieldOfView = Mathf.Clamp(playerCam.fieldOfView, 30, 60);
+        PressLeftClickText.text = string.Empty;
+        InvestigatingText.text = "Investigando...";
     }
 
     #endregion Start Lense Aim
@@ -79,6 +84,8 @@ public class AimLenseGlass : MonoBehaviour
         transform.localPosition = Vector3.Slerp(transform.localPosition, normalPose, aimSpeed * Time.deltaTime);
         playerCam.fieldOfView += 40 * Time.deltaTime;
         playerCam.fieldOfView = Mathf.Clamp(playerCam.fieldOfView, 30, 60);
+        PressLeftClickText.text = "Press Left Click";
+        InvestigatingText.text = string.Empty;
     }
 
     #endregion Stop Lense Aim
@@ -95,6 +102,14 @@ public class AimLenseGlass : MonoBehaviour
             hit.transform.gameObject.SetActive(false);
             clueIcons[takenClues].SetActive(true);
             takenClues++;
+
+            
+        }
+
+        if (takenClues >= 3)
+        {
+            PressLeftClickText.text = string.Empty;
+            InvestigatingText.text = string.Empty;
         }
     }
 

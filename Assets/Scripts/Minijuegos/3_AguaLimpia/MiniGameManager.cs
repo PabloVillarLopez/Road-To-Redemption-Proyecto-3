@@ -689,11 +689,15 @@ public class MiniGameManager : MonoBehaviour
     private void PipelineCamera()
     {
         playerCamera.SetActive(false);
-        pipelineCamera.transform.position = pipelines[PlayerController.pipelineEnteredID - 1].transform.position + new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+        //pipelineCamera.transform.position = pipelines[PlayerController.pipelineEnteredID - 1].transform.position + new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
         pipelineCamera.SetActive(true);
         pipelineCameraActive = true;
         RotatePipelineUI.SetActive(true);
-        catastrophesCanStart = true;
+        if (PlayerController.pipelineEnteredID > 1)
+        {
+            catastrophesCanStart = true;
+        }
+        
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -750,7 +754,7 @@ public class MiniGameManager : MonoBehaviour
         {
             case Phases.TREATMENTPLANT:
 
-                for (int i = 0; i < pipelines.Length; i++)
+                /*for (int i = 0; i < pipelines.Length; i++)
                 {
                     if (pipelines[i].GetComponent<PipelineForeground>().pipelineInCorrecRotation)
                     {
@@ -760,9 +764,9 @@ public class MiniGameManager : MonoBehaviour
                         }
                         
                     }
-                }
+                }*/
 
-                if (pipelinesInCorrectPlace >= 3 && decontaminationCount == 1 && bacteriaCleanedCount == 1)
+                if (decontaminationCount == 1 && bacteriaCleanedCount == 1 && waterLeakedSolvedCount == 1)
                 {
                     phases = Phases.TOWN;
                 }
@@ -773,9 +777,9 @@ public class MiniGameManager : MonoBehaviour
                 {
                     if (pipelines[i].GetComponent<PipelineForeground>().pipelineInCorrecRotation)
                     {
-                        if (pipelinesInCorrectPlace >= 0 && pipelinesInCorrectPlace <= 7)
+                        if (pipelinesInCorrectPlace >= 10)
                         {
-                            pipelinesInCorrectPlace++;
+                            Debug.Log("Minigame Finished");
                         }
 
                     }
@@ -869,14 +873,29 @@ public class MiniGameManager : MonoBehaviour
     {
         catastropheTransitionStarted = true;
 
-        catastrophes = Catastrophes.NONE;
-        yield return new WaitForSeconds(20f);
-        catastrophes = Catastrophes.HIGHCONTAMINATION;
-        yield return new WaitForSeconds(120f);
-        catastrophes = Catastrophes.BACTERIA;
-        yield return new WaitForSeconds(120f);
-        catastrophes = Catastrophes.WATERLEAK;
-        yield return new WaitForSeconds(120f);
+        if (PlayerController.pipelineEnteredID == 0)
+        {
+            catastrophes = Catastrophes.NONE;
+        }
+        else if (PlayerController.pipelineEnteredID == 1)
+        {
+            catastrophes = Catastrophes.NONE;
+        }
+        else if (PlayerController.pipelineEnteredID == 2)
+        {
+            catastrophes = Catastrophes.HIGHCONTAMINATION;
+            yield return new WaitForSeconds(120f);
+        }
+        else if (PlayerController.pipelineEnteredID == 3)
+        {
+            catastrophes = Catastrophes.WATERLEAK;
+            yield return new WaitForSeconds(120f);
+        }
+        else if (PlayerController.pipelineEnteredID == 4)
+        {
+            catastrophes = Catastrophes.BACTERIA;
+            yield return new WaitForSeconds(120f);
+        }
     }
 
     #endregion Handle Catastrophes

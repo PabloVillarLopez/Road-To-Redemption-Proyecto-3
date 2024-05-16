@@ -27,6 +27,16 @@ public class TimerController : MonoBehaviour
             if (timeLeft <= 0)
             {
                 timerOn = false;
+                if (ShootTrash.points < 31)
+                {
+                    Debug.Log("Te faltan puntos. Inténtalo de nuevo");
+                }
+                else
+                {
+                    MinigamesCompleted.minigame3Finished = true;
+                    SceneManager.LoadScene("LevelSelector");
+                }
+                
             }
 
             int timeMin = Mathf.FloorToInt(timeLeft / 60);

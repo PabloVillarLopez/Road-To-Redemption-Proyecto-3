@@ -54,6 +54,7 @@ public class PipelineForeground : MonoBehaviour
     [Header("Verify Pipeline Correct Rotation")]
     public Vector3 correctRotation;
     public bool pipelineInCorrecRotation;
+    private Vector3 initialRotation;
 
     #endregion Verify Pipeline Correct Rotation
 
@@ -77,7 +78,7 @@ public class PipelineForeground : MonoBehaviour
         
         rotationAddedX = transform.rotation.x;
         rotationAddedY = transform.rotation.y;
-
+        initialRotation = transform.eulerAngles;
         ShowCorrectWaterFlowButton();
     }
 
@@ -98,50 +99,58 @@ public class PipelineForeground : MonoBehaviour
 
     public void RotateRightX()
     {
-        if (gameManager.currentNumOfMovements < gameManager.maxNumOfMovements)
+        /*if (gameManager.currentNumOfMovements < gameManager.maxNumOfMovements)
         {
-            rotationAddedY += 45f;
-            transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
-            gameManager.currentNumOfMovements++;
+            
+        }*/
 
-            DecreaseOrIncreasePointsOnWrongOrRightRotation();
-        }
+        rotationAddedY += 90f;
+        transform.rotation = Quaternion.Euler(initialRotation.x, rotationAddedY, rotationAddedX);
+        //gameManager.currentNumOfMovements++;
+
+        DecreaseOrIncreasePointsOnWrongOrRightRotation();
     }
 
     public void RotateLeftX()
     {
-        if (gameManager.currentNumOfMovements < gameManager.maxNumOfMovements)
+        /*if (gameManager.currentNumOfMovements < gameManager.maxNumOfMovements)
         {
-            rotationAddedY -= 45f;
-            transform.rotation = Quaternion.Euler(transform.rotation.x, rotationAddedY, transform.rotation.z);
-            gameManager.currentNumOfMovements++;
+            
+        }*/
 
-            DecreaseOrIncreasePointsOnWrongOrRightRotation();
-        }
+        rotationAddedY -= 90f;
+        transform.rotation = Quaternion.Euler(initialRotation.x, rotationAddedY, rotationAddedX);
+        //gameManager.currentNumOfMovements++;
+
+        DecreaseOrIncreasePointsOnWrongOrRightRotation();
     }
 
     public void RotateUpwards()
     {
-        if (gameManager.currentNumOfMovements < gameManager.maxNumOfMovements)
+        /*if (gameManager.currentNumOfMovements < gameManager.maxNumOfMovements)
         {
-            rotationAddedX += 45f;
-            transform.rotation = Quaternion.Euler(rotationAddedX, transform.rotation.y, transform.rotation.z);
-            gameManager.currentNumOfMovements++;
+            
+        }*/
 
-            DecreaseOrIncreasePointsOnWrongOrRightRotation();
-        }
+        rotationAddedX += 90f;
+        transform.rotation = Quaternion.Euler(initialRotation.x, rotationAddedY, rotationAddedX);
+        //gameManager.currentNumOfMovements++;
+
+        DecreaseOrIncreasePointsOnWrongOrRightRotation();
     }
 
     public void RotateDownwards()
     {
-        if (gameManager.currentNumOfMovements < gameManager.maxNumOfMovements)
+        /*if (gameManager.currentNumOfMovements < gameManager.maxNumOfMovements)
         {
-            rotationAddedX -= 45f;
-            transform.rotation = Quaternion.Euler(rotationAddedX, transform.rotation.y, transform.rotation.z);
-            gameManager.currentNumOfMovements++;
+            
+        }*/
 
-            DecreaseOrIncreasePointsOnWrongOrRightRotation();
-        }
+        rotationAddedX -= 90f;
+        transform.rotation = Quaternion.Euler(initialRotation.x , transform.rotation.y, rotationAddedX);
+        //gameManager.currentNumOfMovements++;
+
+        DecreaseOrIncreasePointsOnWrongOrRightRotation();
     }
 
     #endregion RotatePipeline
@@ -223,7 +232,7 @@ public class PipelineForeground : MonoBehaviour
             case MiniGameManager.DifficultyLevel.EASY:
                 Debug.Log("Rotación tubería: " + rotationAddedX + ", " + rotationAddedY);
                 Debug.Log("Rotación correcta: " + correctRotation);
-                if (rotationAddedX == correctRotation.x && rotationAddedY == correctRotation.y)
+                if (transform.eulerAngles == correctRotation )//rotationAddedX == correctRotation.z && rotationAddedY == correctRotation.y)
                 {
                     Debug.Log("Aquí llego");
                     pipelineInCorrecRotation = true;
@@ -233,11 +242,11 @@ public class PipelineForeground : MonoBehaviour
                 break;
             case MiniGameManager.DifficultyLevel.INTERMEDIATE:
 
-                if (rotationAddedX != correctRotation.x || rotationAddedY != correctRotation.y)
+                if (transform.eulerAngles != correctRotation)//transform.eulerAngles.x != correctRotation.x || rotationAddedY != correctRotation.y)
                 {
                     gameManager.points -= 1;
                 }
-                else if (rotationAddedX == correctRotation.x && rotationAddedY == correctRotation.y)
+                else if (transform.eulerAngles == correctRotation)//rotationAddedX == correctRotation.z && rotationAddedY == correctRotation.y)
                 {
                     pipelineInCorrecRotation = true;
                     gameManager.points += 5;
@@ -247,7 +256,7 @@ public class PipelineForeground : MonoBehaviour
             case MiniGameManager.DifficultyLevel.HARD:
                 gameManager.points = 1000;
 
-                if (rotationAddedX == correctRotation.x && rotationAddedY == correctRotation.y)
+                if (transform.eulerAngles == correctRotation)
                 {
                     gameManager.points -= 10;
                 }

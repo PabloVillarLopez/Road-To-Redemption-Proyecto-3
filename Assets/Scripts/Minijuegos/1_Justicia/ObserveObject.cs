@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ObserveObject : MonoBehaviour
 {
@@ -153,7 +154,8 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
 
         clueIndex = 0;
         ManageUIClueType();
@@ -181,8 +183,8 @@ public class ObserveObject : MonoBehaviour
             analyzeSlider.gameObject.SetActive(true);
         }
 
-        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
-        
+        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
 
         clueIndex = 0;
         ManageUIClueType();
@@ -195,7 +197,8 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        //clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
         clueIndex = 1;
         ManageUIClueType();
 
@@ -207,7 +210,8 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        //clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
 
         if (panelFader.canvGroup.alpha >= 1)
         {
@@ -236,7 +240,8 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        //clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
         clueIndex = 2;
         ManageUIClueType();
 
@@ -248,7 +253,8 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        //clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
         if (panelFader.canvGroup.alpha >= 1)
         {
             panelFader.Fade();
@@ -563,4 +569,11 @@ public class ObserveObject : MonoBehaviour
     }
 
     #endregion Handle Analyzing UI
+
+    public void SelectGuiltyAndFinishMinigame1()
+    {
+        MinigamesCompleted.minigame1Finished = true;
+        Debug.Log("Button pressed");
+        SceneManager.LoadScene("LevelSelector");
+    }
 }

@@ -20,6 +20,7 @@ public class DialogueScript : MonoBehaviour
 
     [Header("Lines of Dialogue In Spanish")]
     [Tooltip("Put the dialogue lines in Spanish")]
+    [TextArea(3,4)]
     public string[] spanishLines;
     private int spanishIndex;
 
@@ -29,6 +30,7 @@ public class DialogueScript : MonoBehaviour
 
     [Header("Lines of Dialogue In English")]
     [Tooltip("Put the dialogue lines in English")]
+    [TextArea(3,4)]
     public string[] englishLines;
     private int englishIndex;
 
