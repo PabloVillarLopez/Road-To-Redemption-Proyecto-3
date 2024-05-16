@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static energyMinigameManager;
 
@@ -431,10 +432,17 @@ public class MiniGameManager4 : MonoBehaviour
             dialogue.dialoguePanel = thirdPanel;
             dialogue.dialogueText = thirdText;
             dialogue.StartSpanishDialogue();
+
+            Invoke("ChangeSceneMain", 15f);
+
         }
 
     }
 
+    private void ChangeSceneMain()
+    {
+        SceneManager.LoadScene("LevelSelector");
+    }
 
 
 

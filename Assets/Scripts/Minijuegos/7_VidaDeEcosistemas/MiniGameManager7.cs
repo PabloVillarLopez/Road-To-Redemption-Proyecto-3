@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
@@ -94,15 +95,22 @@ public class MiniGameManager7 : MonoBehaviour
         manageWalls();
         secondCamera.enabled = false;
         mainCam= Camera.main;
+
+
+        foreach (GameObject obj in wallsBad)
+        {
+            obj.SetActive(true);
+
+        }
     }
 
     private void Update()
     {
-        if (phasesProcess != currentPhase)
-        {
-            phasesProcess = currentPhase;
-            Phases(phasesProcess);
-        }
+        //if (phasesProcess != currentPhase)
+        //{
+        //    phasesProcess = currentPhase;
+        //    Phases(phasesProcess);
+        //}
 
 
 
@@ -281,14 +289,14 @@ public class MiniGameManager7 : MonoBehaviour
                 countProgress = scrapt.Length;
                 break;
             case 2:
-
+                currentPhase = 2;
                 reminders(0);
                 pistol.SetActive(false);
                 ManagerPlant();
                 Debug.Log("Starting Phase 2");
                 maxRefText = maxPlants;
                 countProgress = maxPlants ;
-                currentPhase = 2;
+               
                 updateProgressText(-1);
                 
 
@@ -302,15 +310,19 @@ public class MiniGameManager7 : MonoBehaviour
                 countProgress = 3;
                 updateProgressText(0);
                 Debug.Log("Starting Phase 3");
-                ManageGameObjects = null;
 
-                
+                foreach (GameObject obj in wallsBad)
+                {
+                    obj.SetActive(true);
+
+                }
+
                 break;
                 case 4:
 
                 ChangeCameraFinishGame();
 
-
+                
 
 
 
@@ -333,14 +345,17 @@ public class MiniGameManager7 : MonoBehaviour
         {
             Phases(2);
             
+
         }
         else if (countProgress <= 0 && currentPhase == 2)
         {
             Phases(3);
+            
         }
         else if (countProgress <= 0 && currentPhase == 3)
         {
             Phases(4);
+           
         }
     }
 
@@ -430,7 +445,7 @@ public class MiniGameManager7 : MonoBehaviour
                 dialogue.StartSpanishDialogue();
                 break;
             case 1:
-                dialogue.spanishLines = new string[] { "Has hecho un trabajo excepcional en la fase de reforestación. Ahora, avanzamos hacia la fase final de nuestra misión.Para proteger nuestro santuario de intrusiones no deseadas, necesitamos reparar estas vallas dañadas. Toma el kit de reparación y sigue mis indicaciones para restaurarlas. \r\n" };
+                dialogue.spanishLines = new string[] { "Has hecho un trabajo excepcional en la fase de reforestación. Ahora, avanzamos hacia la fase final de nuestra misión.Para proteger nuestro santuario de intrusiones no deseadas, necesitamos reparar estas vallas dañadas. Toma el kit de reparación y disparales para arreglarlas. \r\n" };
                 dialogue.dialoguePanel = panel;
 
                 dialogue.dialogueText = text;
@@ -499,8 +514,8 @@ public class MiniGameManager7 : MonoBehaviour
        
             mainCam.enabled = false;
             secondCamera.enabled = true;
-           
-            reminders(3);
+        Invoke("ChangeSceneMain", 15f);
+        reminders(3);
 
         foreach (GameObject obj in scrapt)
         {
@@ -517,6 +532,11 @@ public class MiniGameManager7 : MonoBehaviour
         }
 
 
+    }
+
+    private void ChangeSceneMain()
+    {
+        SceneManager.LoadScene("LevelSelector");
     }
 
 }

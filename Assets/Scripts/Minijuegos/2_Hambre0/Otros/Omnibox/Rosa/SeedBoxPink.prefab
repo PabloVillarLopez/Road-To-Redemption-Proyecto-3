@@ -104,8 +104,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.002336792, y: 0.0023367922, z: 0.0023828608}
-  m_Center: {x: 0, y: 2.1452295e-14, z: 0.00002303423}
+  m_Size: {x: 0.0033246772, y: 0.002969807, z: 0.0025680065}
+  m_Center: {x: 0.000020571946, y: -0.0000027297438, z: 0.00011560719}
 --- !u!114 &234074354377368562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,7 +122,6 @@ MonoBehaviour:
   ready: 0
   id: 0
   timeLife: 0
-  speedLoseLife: 0
   temp: 20
   timeToCollect: 0
   materials:
@@ -131,4 +130,23 @@ MonoBehaviour:
   - {fileID: 0}
   Cultive: {fileID: 0}
   renderer: {fileID: 0}
+  mesh: {fileID: 0}
+  meshStrawBerry:
+  - {fileID: 0}
+  - {fileID: 0}
+  meshTomatoe:
+  - {fileID: 0}
+  - {fileID: 0}
+  meshPepper:
+  - {fileID: 0}
+  - {fileID: 0}
+  materialStrawBerry:
+  - {fileID: 0}
+  - {fileID: 0}
+  materialTomatoe:
+  - {fileID: 0}
+  - {fileID: 0}
+  materialPepper:
+  - {fileID: 0}
+  - {fileID: 0}
   Tipo: 

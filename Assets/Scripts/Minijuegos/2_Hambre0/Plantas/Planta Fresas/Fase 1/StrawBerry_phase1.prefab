@@ -99,7 +99,7 @@ MonoBehaviour:
   miniGameManager: {fileID: 0}
   ready: 0
   id: 0
-  timeLife: 0
+  timeLife: 10
   temp: 20
   timeToCollect: 0
   materials:

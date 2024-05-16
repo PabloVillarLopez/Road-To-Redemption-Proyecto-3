@@ -125,94 +125,8 @@ public class PlayerControllerCursor : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
             if (Physics.Raycast(ray, out hit))
             {
-                // Manejar colisiones con CatchAble
-                if (hit.collider.CompareTag("CatchAble"))
-                {
-                    manager.activeInteract(true);
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        caughtObject = hit.collider.gameObject;
-
-                        if (PickupObject(caughtObject))
-                        {
-                            caughtSeed[countSeeds] = caughtObject;
-                            countSeeds++;
-                            caughtObject.transform.parent = transform;
-                            caughtObject.SetActive(false);
-
-                            ObjectInfo info = caughtObject.GetComponent<ObjectInfo>();
-                            int id = info.GetobjectInfo();
-                        }
-                    }
-                }
-                else if (hit.collider.CompareTag("SeedPlanted")) 
-                {
-                    manager.activeInteract(true);
-                }
-                else
-                {
-                    manager.activeInteract(false);
-                }
-              
-
-                // Manejar colisiones con PlantArea
-                if (hit.collider.CompareTag("PlantArea") && countSeeds > 0)
-                {
-                    planTarget = hit.collider.gameObject;
-                    isPlanting = true;
-                }
-                else
-                {
-                    isPlanting = false;
-                }
-
-                if (hit.collider.CompareTag("SeedPlanted"))
-                {
-                    manager.activeInteract(true);
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        if (hit.collider.gameObject.GetComponent<ObjectInfo>().timeToCollect >= 10 && hit.collider.gameObject.GetComponent<ObjectInfo>() != null)
-                        {
-                            hit.collider.gameObject.GetComponent<ObjectInfo>().Recollect();
-                            manager.Reminders();
-                        }
-                        else
-                        {
-                            Debug.Log("No se puede recolectar");
-                        }
-                    }
-                    
-                  
-                }
-              
-                
-
-                // Manejar colisiones con Hot, Neutral, y Cold
-                if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
-                {
-                    CultiveZone cultiveZone = hit.collider.transform.parent.gameObject.GetComponent<CultiveZone>();
-                    if (cultiveZone != null)
-                    {
-                        cultiveZone.state = "Hot";
-                    }
-                }
-
-                if (hit.collider.CompareTag("Neutral") && Input.GetKeyDown(KeyCode.E))
-                {
-                    GameObject hitObject = hit.collider.transform.parent.gameObject;
-                    hitObject.GetComponent<CultiveZone>().state = "Neutral";
-                }
-
-                if (hit.collider.CompareTag("Cold") && Input.GetKeyDown(KeyCode.E))
-                {
-                    GameObject hitObject = hit.collider.transform.parent.gameObject;
-                    hitObject.GetComponent<CultiveZone>().state = "Cold";
-                }
-
-                // Manejar colisiones con CatchAble y modo 2
                 if (hit.collider.CompareTag("CatchAble") && mode == 2 && Input.GetKeyDown(KeyCode.E))
                 {
                     ChangeCamera();
@@ -220,6 +134,96 @@ public class PlayerControllerCursor : MonoBehaviour
                     manager.GetComponent<MiniGameManager8>().StartGame();
                 }
             }
+
+            //    if (Physics.Raycast(ray, out hit))
+            //    {
+            //        // Manejar colisiones con CatchAble
+            //        if (hit.collider.CompareTag("CatchAble"))
+            //        {
+            //            //manager.activeInteract(true);
+            //            if (Input.GetKeyDown(KeyCode.E))
+            //            {
+            //                caughtObject = hit.collider.gameObject;
+
+            //                if (PickupObject(caughtObject))
+            //                {
+            //                    caughtSeed[countSeeds] = caughtObject;
+            //                    countSeeds++;
+            //                    caughtObject.transform.parent = transform;
+            //                    caughtObject.SetActive(false);
+
+            //                    ObjectInfo info = caughtObject.GetComponent<ObjectInfo>();
+            //                    int id = info.GetobjectInfo();
+            //                }
+            //            }
+            //        }
+            //        else if (hit.collider.CompareTag("SeedPlanted")) 
+            //        {
+            //            manager.activeInteract(true);
+            //        }
+            //        else
+            //        {
+            //            manager.activeInteract(false);
+            //        }
+
+
+            //        // Manejar colisiones con PlantArea
+            //        if (hit.collider.CompareTag("PlantArea") && countSeeds > 0)
+            //        {
+            //            planTarget = hit.collider.gameObject;
+            //            isPlanting = true;
+            //        }
+            //        else
+            //        {
+            //            isPlanting = false;
+            //        }
+
+            //        if (hit.collider.CompareTag("SeedPlanted"))
+            //        {
+            //            manager.activeInteract(true);
+            //            if (Input.GetKeyDown(KeyCode.E))
+            //            {
+            //                if (hit.collider.gameObject.GetComponent<ObjectInfo>().timeToCollect >= 10 && hit.collider.gameObject.GetComponent<ObjectInfo>() != null)
+            //                {
+            //                    hit.collider.gameObject.GetComponent<ObjectInfo>().Recollect();
+            //                    manager.Reminders();
+            //                }
+            //                else
+            //                {
+            //                    Debug.Log("No se puede recolectar");
+            //                }
+            //            }
+
+
+            //        }
+
+
+
+            //        // Manejar colisiones con Hot, Neutral, y Cold
+            //        if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
+            //        {
+            //            CultiveZone cultiveZone = hit.collider.transform.parent.gameObject.GetComponent<CultiveZone>();
+            //            if (cultiveZone != null)
+            //            {
+            //                cultiveZone.state = "Hot";
+            //            }
+            //        }
+
+            //        if (hit.collider.CompareTag("Neutral") && Input.GetKeyDown(KeyCode.E))
+            //        {
+            //            GameObject hitObject = hit.collider.transform.parent.gameObject;
+            //            hitObject.GetComponent<CultiveZone>().state = "Neutral";
+            //        }
+
+            //        if (hit.collider.CompareTag("Cold") && Input.GetKeyDown(KeyCode.E))
+            //        {
+            //            GameObject hitObject = hit.collider.transform.parent.gameObject;
+            //            hitObject.GetComponent<CultiveZone>().state = "Cold";
+            //        }
+
+            //        // Manejar colisiones con CatchAble y modo 2
+
+            //    }
         }
     }
 

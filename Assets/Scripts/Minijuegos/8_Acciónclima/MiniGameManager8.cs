@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MiniGameManager8 : MonoBehaviour
@@ -171,6 +172,15 @@ public class MiniGameManager8 : MonoBehaviour
             dialogue.dialogueText = text;
             dialogue.StartSpanishDialogue();
             move = false;
+
+            Invoke("ChangeSceneMain", 15f);
         }
     }
+
+
+    private void ChangeSceneMain()
+    {
+        SceneManager.LoadScene("LevelSelector");
+    }
+
 }

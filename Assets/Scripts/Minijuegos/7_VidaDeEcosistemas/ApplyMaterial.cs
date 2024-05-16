@@ -48,6 +48,7 @@ public class ApplyMaterial : MonoBehaviour
                     
                     minigame.wallsBad[i].SetActive(false);
                     minigame.wallsGood[i].SetActive(true);
+                    print("Desactivo valla");
                 }
             
             }

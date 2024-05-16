@@ -173,7 +173,7 @@ public class CultiveZone : MonoBehaviour
             {
                 if (fruitObjects[i] != null)
                 {
-                    fruitObjects[i].GetComponent<ObjectInfo>().temp -= speedTempGlobal * temperatureGlobal;
+                    fruitObjects[i].GetComponent<ObjectInfo>().temp -= speedTempGlobal * +Time.deltaTime;
                     fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -3, 35);
                     
 

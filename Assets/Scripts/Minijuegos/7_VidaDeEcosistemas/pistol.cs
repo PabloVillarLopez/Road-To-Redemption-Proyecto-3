@@ -121,7 +121,7 @@ public class Laser : MonoBehaviour
                     print("Se ha recogido la semilla");
                 
             }
-
+            print(miniGameManager.haveSeeds);
         }
         
 
@@ -131,7 +131,7 @@ public class Laser : MonoBehaviour
 
 
         // Laser behavior for phase 3
-        if (miniGameManager.currentPhase == 3 && _beam.enabled)
+        if (miniGameManager.currentPhase == 3 )
         {
             Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             bool cast = Physics.Raycast(ray, out RaycastHit hit, _maxLength);

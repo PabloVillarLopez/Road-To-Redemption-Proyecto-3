@@ -10361,7 +10361,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f098d2e92f845a458b38950eed968df, type: 2}
+  - {fileID: 9052822142289579826, guid: 9946f129212eaf34a960fc598f08e9f4, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10400,7 +10400,7 @@ Transform:
   m_GameObject: {fileID: 828285631}
   serializedVersion: 2
   m_LocalRotation: {x: -0.115962446, y: 0.70250475, z: -0.69753337, w: 0.08054206}
-  m_LocalPosition: {x: -36.55, y: -0.2, z: 1.41}
+  m_LocalPosition: {x: -36.73, y: -0.25, z: 1.42}
   m_LocalScale: {x: 91.97017, y: 350.8879, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12468,7 +12468,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f098d2e92f845a458b38950eed968df, type: 2}
+  - {fileID: 9052822142289579826, guid: 9946f129212eaf34a960fc598f08e9f4, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12507,8 +12507,8 @@ Transform:
   m_GameObject: {fileID: 976711930}
   serializedVersion: 2
   m_LocalRotation: {x: -0.017883787, y: 0.7068806, z: -0.7068806, w: -0.017883763}
-  m_LocalPosition: {x: -33.04, y: 0.04, z: 1.24}
-  m_LocalScale: {x: 303.33356, y: 350.8879, z: 50}
+  m_LocalPosition: {x: -31.46, y: -0.06, z: 1.16}
+  m_LocalScale: {x: 459.88403, y: 350.8879, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -24692,7 +24692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 1660014437}
   dialoguePanel: {fileID: 639173353}
-  textSpeed: 0.17
+  textSpeed: 0.05
   dialogueStarted: 0
   dialogueFinished: 0
   spanishLines:
@@ -24710,13 +24710,8 @@ MonoBehaviour:
   - "Cada alimento tiene una temperatura m\xEDnima y m\xE1xima en la que crece correctamente.
     Por eso, deber\xE1s gestionar la temperatura de los cultivos utilizando los botones
     que se encuentran cerca de ellos."
-  - "Una vez que los alimentos se hayan cultivado,se recoger\xE1n autom\xE1ticamente.
-    Ten en cuenta que todos los alimentos tienen el mismo valor, as\xED que no priorices
-    ninguno. "
-  - "Adem\xE1s, deber\xE1s construir un invernadero autom\xE1tico que se gestione
-    solo con energ\xEDas renovables, tienes un panel a la izquierda donde podr\xE1s
-    ir construyendo cuando veas que los alimentos est\xE1n bien. Esto asegurar\xE1
-    que los cultivos contin\xFAen creciendo incluso cuando t\xFA no est\xE9s presente."
+  - "Una vez que los alimentos se hayan cultivado,deber\xE1s recogerlos. Ten en cuenta
+    que todos los alimentos tienen el mismo valor, as\xED que no priorices ninguno. "
   - "Si tienes todo claro, \xA1a plantar se ha dicho! "
   englishLines:
   - 'Greetings, Inmate Gronk. Welcome to the Nutritia region. I am the Police Robot
@@ -24922,7 +24917,7 @@ PrefabInstance:
     - target: {fileID: 1377991457774892638, guid: 1f92d5d8b2f91334f8f36cafa75cd88f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -48.92
+      value: -43.18
       objectReference: {fileID: 0}
     - target: {fileID: 1377991457774892638, guid: 1f92d5d8b2f91334f8f36cafa75cd88f,
         type: 3}
@@ -24932,7 +24927,7 @@ PrefabInstance:
     - target: {fileID: 1377991457774892638, guid: 1f92d5d8b2f91334f8f36cafa75cd88f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.4988813
+      value: -5.16
       objectReference: {fileID: 0}
     - target: {fileID: 1377991457774892638, guid: 1f92d5d8b2f91334f8f36cafa75cd88f,
         type: 3}
@@ -26305,6 +26300,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6240732150961487807, guid: a3589b4458f2c26468ff933243c3d902,
         type: 3}
+      propertyPath: m_fontSize
+      value: 27.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240732150961487807, guid: a3589b4458f2c26468ff933243c3d902,
+        type: 3}
       propertyPath: m_margin.w
       value: -0.0736084
       objectReference: {fileID: 0}
@@ -26332,6 +26332,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240732150961487807, guid: a3589b4458f2c26468ff933243c3d902,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 27.02
       objectReference: {fileID: 0}
     - target: {fileID: 6240732150961487807, guid: a3589b4458f2c26468ff933243c3d902,
         type: 3}

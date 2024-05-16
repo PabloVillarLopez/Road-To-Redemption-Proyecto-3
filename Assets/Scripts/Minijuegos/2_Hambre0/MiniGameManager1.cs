@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MiniGameManager1 : MonoBehaviour
@@ -366,7 +367,7 @@ public void checkBadFood()
             if (renderer != null)
             {
                 float currentCutoffHeight = renderer.material.GetFloat("_CutoffHeight");
-                float incremento = 0.01f * Time.deltaTime;
+                float incremento = 0.1f * Time.deltaTime;
                 float newCutoffHeight = currentCutoffHeight + incremento;
                 renderer.material.SetFloat("_CutoffHeight", newCutoffHeight);
 
@@ -392,9 +393,10 @@ public void checkBadFood()
         if (renderer != null && renderer.material != originalMat)
         {
             renderer.material = originalMat;
+                Invoke("ChangeSceneMain", 15f);
 
 
-                if (goodFood == 0)
+                if (goodFood == 2)
                 {
                     dialog.spanishLines = new string[] { "¡Increíble! Tu generosidad ha marcado la diferencia. Has contribuido a la meta de Hambre Cero, ayudando a crear un mundo donde nadie pase hambre.\r\n" };
                     dialog.dialoguePanel = panel;
@@ -475,4 +477,11 @@ public void checkBadFood()
 
 
     }
+
+
+    private void ChangeSceneMain()
+    {
+        SceneManager.LoadScene("LevelSelector");
+    }
+
 }

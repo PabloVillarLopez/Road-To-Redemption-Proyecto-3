@@ -14,7 +14,7 @@ public class ObjectInfo : MonoBehaviour
     public float timeToCollect;
     public Material[] materials = new Material[3]; // Array of materials
     public GameObject Cultive;
-    public MeshRenderer renderer;
+    public new MeshRenderer renderer;
     public MeshFilter mesh;
 
     public Mesh[] meshStrawBerry = new Mesh[2];
