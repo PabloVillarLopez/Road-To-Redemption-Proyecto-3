@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -24,6 +25,15 @@ public class MainMenu : MonoBehaviour
 
     // Reference to the text that will display the current pivot point
     public Text pivotPointText;
+
+    public GameObject startButton;
+    public GameObject leftArrow;
+    public GameObject rightArrow;
+
+    private void Start()
+    {
+        HandleMenuUI();
+    }
 
     void Update()
     {
@@ -75,5 +85,31 @@ public class MainMenu : MonoBehaviour
     {
         // Display the text with the current pivot point
         pivotPointText.text = "Activity: " + pivotPoints[currentPivotPointIndex];
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Minijuego1_Justicia");
+    }
+
+    private void HandleMenuUI()
+    {
+        if (!MinigamesCompleted.minigame1Finished)
+        {
+            startButton.SetActive(true);
+            leftArrow.SetActive(false);
+            rightArrow.SetActive(false);
+        }
+        else if (MinigamesCompleted.minigame1Finished)
+        {
+            startButton.SetActive(false);
+            leftArrow.SetActive(true);
+            rightArrow.SetActive(true);
+        }
     }
 }

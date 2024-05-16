@@ -6,12 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: "Assets/Scenes1/Santuario_Da\xF1ado.unity"
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
     path: Assets/Scripts/Menu/LevelSelector/LevelSelector.unity
     guid: 0acf32042f0f94e4a953a64a5f379619
   - enabled: 1
     path: Assets/Scripts/Minijuegos/1_Justicia/Minijuego1_Justicia.unity
     guid: 155db1ce73b53bb4c9056d10cb0413b8
+  - enabled: 1
+    path: Assets/Scripts/Minijuegos/4_Infraestructura/MiniJuego4.unity
+    guid: 81b0f8f2d8fb81b44abc7f66153efd37
+  - enabled: 1
+    path: Assets/Scripts/Minijuegos/6_Vida submarina/Minijuego6_VidaSubmarina.unity
+    guid: 0a3b67295a19b84489ae5d377886ef9b
+  - enabled: 1
+    path: "Assets/Scenes1/Santuario_Da\xF1ado.unity"
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: "Assets/Scripts/Minijuegos/8_Acci\xF3nclima/MiniJuego8.unity"
+    guid: e5bd0007e734d9444ac830e87169cbe4
   m_configObjects: {}
