@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigy = GetComponent<Rigidbody>();
-        orientation = transform.GetChild(2).transform;
+        orientation = transform.GetChild(3).transform;
     }
 
     #endregion Start
