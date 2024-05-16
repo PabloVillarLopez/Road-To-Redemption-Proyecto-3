@@ -25,6 +25,11 @@ public class DetectorFirtsDialogue : MonoBehaviour
             firstTime = false;
             (gameManager as MiniGameManager4).GetComponent<DialogueScript>().StartSpanishDialogue(); ;
         }
+        else if (firstTime && gameManager != null && gameManager is MiniGameManager7)
+        {
+            firstTime = false;
+            (gameManager as MiniGameManager7).GetComponent<DialogueScript>().StartSpanishDialogue(); ;
+        }
         // Puedes añadir más condiciones si hay más tipos de MiniGameManagers
     }
 }

@@ -25,7 +25,7 @@ public class ApplyMaterial : MonoBehaviour
     public void SetHeight(float height)
     {
         material.SetFloat("_CutoffHeight", height);
-        material.SetFloat("_NoiseStrength", 40f);
+        material.SetFloat("_NoiseStrength", 10f);
         material.SetFloat("_NoiseScale", 46.34f);
         
     }
@@ -35,10 +35,23 @@ public class ApplyMaterial : MonoBehaviour
         float newHeight = currentHeight + additionalHeight;
         material.SetFloat("_CutoffHeight", newHeight);
         Debug.Log(newHeight);
-        if(newHeight >= 30 && newHeight <=49)
+        if(newHeight >= 20 && newHeight <=32)
         {
             material.SetFloat("_CutoffHeight", 50);
-            minigame.updateProgressRepareText();
+            minigame.updateProgressText(-1);
+            
+            for(int i = 0; i <= minigame.wallsBad.Length; i++) 
+            
+            {
+                if (minigame.wallsBad[i] != null && minigame.wallsBad[i] == gameObject)
+                {
+                    
+                    minigame.wallsBad[i].SetActive(false);
+                    minigame.wallsGood[i].SetActive(true);
+                }
+            
+            }
+
         }
     }
 

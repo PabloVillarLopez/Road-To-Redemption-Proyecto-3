@@ -1,8 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
+using static UnityEngine.Rendering.DebugUI;
+using Text = UnityEngine.UI.Text;
 
 public class MiniGameManager7 : MonoBehaviour
 {
@@ -25,6 +30,7 @@ public class MiniGameManager7 : MonoBehaviour
     public int countProgress = 30;
     public Text counterProgressText;
     private int counterRepare;
+    public bool haveSeeds;
     // Dimensions and Sizes
     public float large;
     public float hight; // Note: Consider correcting the spelling to "height"
@@ -57,12 +63,37 @@ public class MiniGameManager7 : MonoBehaviour
     public Slider progressBar;
     private float plantingTimer = 3f;
 
+    private DialogueScript dialogue;
+    public TMPro.TextMeshProUGUI text;
+    public GameObject panel;
     #region MonoBehaviour Callbacks
 
+
+    public GameObject[] scrapt = new GameObject[5];
+    private int maxScraps = 0;
+    private int maxRefText = 0;
+    public GameObject[] plantTargets = new GameObject[5];
+    private int maxPlants = 0;
+    public GameObject pistol;
+
+    public GameObject[] wallsGood;
+    public GameObject[] wallsBad;
+    public Camera secondCamera;
+    public Camera mainCam;
+
+    public GameObject[] tress;
     void Start()
     {
+        maxScraps = scrapt.Length;
+        maxPlants = plantTargets.Length;
+        maxRefText = maxScraps;
         GenerateArea();
         Phases(phasesProcess);
+        dialogue = GetComponent<DialogueScript>();
+        ManagerPlant();
+        manageWalls();
+        secondCamera.enabled = false;
+        mainCam= Camera.main;
     }
 
     private void Update()
@@ -73,36 +104,23 @@ public class MiniGameManager7 : MonoBehaviour
             Phases(phasesProcess);
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            GameObject character = GameObject.Find("Character");
-            Vector3 vectorToCheck = character.transform.position; // Get character's position
 
-            bool isInsideZones = IsVectorInsideZones(vectorToCheck); // Check if the position is inside the zones
-            if (isInsideZones)
-            {
-                Debug.Log("The vector is inside the zones.");
-            }
-            else
-            {
-                Debug.Log(vectorToCheck);
-                Debug.Log("The vector is not inside the zones.");
-            }
-        }
 
         if (currentPhase == 2)
         {
             if (isPlanting)
             {
                 progressBar.gameObject.SetActive(true); // Activate progress bar
+                UpdateProgressPlanting();
             }
             else
             {
                 plantingTimer = 0f; // Reset planting timer
                 progressBar.gameObject.SetActive(false);
+                
             }
 
-            UpdatePlantingProcess();
+            
         }
     }
 
@@ -176,18 +194,18 @@ public class MiniGameManager7 : MonoBehaviour
         {
             case 1:
                 randomPosition = new Vector3(
-                    Random.Range(xMinZone1, xMaxZone1),
+                    UnityEngine.Random.Range(xMinZone1, xMaxZone1),
                     0f,
-                    Random.Range(zMinZone1, zMaxZone1)
+                    UnityEngine.Random.Range(zMinZone1, zMaxZone1)
                 );
                 break;
             case 2:
                 for (int attemptsZone2 = 0; attemptsZone2 < 100; attemptsZone2++)
                 {
                     randomPosition = new Vector3(
-                        Random.Range(xMinZone2, xMaxZone2),
+                        UnityEngine.Random.Range(xMinZone2, xMaxZone2),
                         0f,
-                        Random.Range(zMinZone2, zMaxZone2)
+                        UnityEngine.Random.Range(zMinZone2, zMaxZone2)
                     );
                     if (randomPosition.x >= xMinZone1 && randomPosition.x <= xMaxZone1 &&
                         randomPosition.z >= zMinZone1 && randomPosition.z <= zMaxZone1 && randomPosition.x >= xMinZone3)
@@ -205,9 +223,9 @@ public class MiniGameManager7 : MonoBehaviour
                 for (int attemptsZone3 = 0; attemptsZone3 < 100; attemptsZone3++)
                 {
                     randomPosition = new Vector3(
-                        Random.Range(xMinZone3, xMaxZone3),
+                        UnityEngine.Random.Range(xMinZone3, xMaxZone3),
                         0f,
-                        Random.Range(zMinZone3, zMaxZone3)
+                        UnityEngine.Random.Range(zMinZone3, zMaxZone3)
                     );
                     if (randomPosition.x >= xMinZone1 && randomPosition.x <= xMaxZone1 &&
                         randomPosition.z >= zMinZone1 && randomPosition.z <= zMaxZone1 && randomPosition.x <= xMaxZone2)
@@ -259,44 +277,45 @@ public class MiniGameManager7 : MonoBehaviour
         {
             case 1:
                 Debug.Log("Starting Phase 1");
-                for (int i = 0; i < 30; i++)
-                {
-                    SpawnObject();
-                }
-                for (int x = 0; x < ManageGameObjects.Length; x++)
-                {
-                    ManageGameObjects[x].SetActive(true);
-                }
+                
+                countProgress = scrapt.Length;
                 break;
             case 2:
+
+                reminders(0);
+                pistol.SetActive(false);
+                ManagerPlant();
                 Debug.Log("Starting Phase 2");
-                counterProgressText.text = 0.ToString();
-                for (int x = 0; x < ManageGameObjects.Length; x++)
-                {
-                    Debug.Log(ManageGameObjects[x]);
-                    ManageGameObjects[x].SetActive(false);
-                }
+                maxRefText = maxPlants;
+                countProgress = maxPlants ;
+                currentPhase = 2;
+                updateProgressText(-1);
+                
+
                 break;
             case 3:
+                currentPhase = 3;
+                pistol.SetActive(true);
+                reminders(1);
+                countProgress = 0;
+                maxScraps = 3;
+                countProgress = 3;
+                updateProgressText(0);
                 Debug.Log("Starting Phase 3");
                 ManageGameObjects = null;
-                counterProgressText.text = counterRepare.ToString();
 
-                for (int x = 0; x < 5; x++)
-                {
-
-                    // Calculate spawn position by adding offset to spawner's position
-                    Vector3 spawnPosition = transform.position + new Vector3(10f * x, 0, 0);
-                    // Instantiate the object at the calculated position
-                    GameObject newWall = Instantiate(wallToSpawn, spawnPosition, Quaternion.identity);
-                    // Get a random number between 0 and 3
-                    int randomNumber = Random.Range(0, 4);
-                    // Access the first child of the instantiated object
-                    GameObject childObject = newWall.transform.GetChild(randomNumber).gameObject;
-                    float randomFloat = Random.Range(1f, 3f);
-                    childObject.GetComponent<ApplyMaterial>().SetHeight(randomFloat);
-                }
+                
                 break;
+                case 4:
+
+                ChangeCameraFinishGame();
+
+
+
+
+
+                break;
+
             default:
                 break;
         }
@@ -309,10 +328,19 @@ public class MiniGameManager7 : MonoBehaviour
     public void updateProgressText(int progress)
     {
         countProgress = countProgress + progress;
-        counterProgressText.text = countProgress.ToString();
-        if (countProgress <= 0)
+        counterProgressText.text = countProgress.ToString()+ " /" + maxScraps.ToString()  ;
+        if (countProgress <= 0 && currentPhase==1)
         {
             Phases(2);
+            
+        }
+        else if (countProgress <= 0 && currentPhase == 2)
+        {
+            Phases(3);
+        }
+        else if (countProgress <= 0 && currentPhase == 3)
+        {
+            Phases(4);
         }
     }
 
@@ -360,35 +388,137 @@ public class MiniGameManager7 : MonoBehaviour
 
     #region Planting Progress
 
+
     public void UpdateProgressPlanting()
     {
-        proceso += 0.2f;
-    }
+        plantingTimer += Time.deltaTime;
+        progressBar.value  = plantingTimer;
+        
 
-    void UpdateProgress(float progress)
-    {
-        progressBar.value = Mathf.Clamp01(progress);
-    }
-
-    void UpdatePlantingProcess()
-    {
-        if (isPlanting)
+        if (plantingTimer >= 1)
         {
-            plantingTimer += Time.deltaTime;
-            UpdateProgress(plantingTimer / plantingTime);
-            if (plantingTimer >= plantingTime)
-            {
-                FinishPlanting();
-            }
+            FinishPlanting();
         }
     }
+
+   
+
+
 
     void FinishPlanting()
     {
         isPlanting = false;
         progressBar.value = 0f;
         progressBar.gameObject.SetActive(false);
+        updateProgressText(-1);
     }
 
-    #endregion
+
+    private void reminders(int phaseReminder)
+    {
+
+
+
+        switch (phaseReminder)
+        {
+            case 0:
+
+                dialogue.spanishLines = new string[] { "Excelente trabajo, después de toda esta basura que has reciclado mientras solucionabamos la averia no hemos contaminado la capa de ozono buen trabajo.En esta fase, plantarás árboles y plantas para restaurar la biodiversidad del santuario. Observa las diferentes cajas de almacenamiento que contienen las semillas y plántalas en las áreas designadas.\r\n\r\n" };
+                dialogue.dialoguePanel = panel;
+
+                dialogue.dialogueText = text;
+                dialogue.StartSpanishDialogue();
+                break;
+            case 1:
+                dialogue.spanishLines = new string[] { "Has hecho un trabajo excepcional en la fase de reforestación. Ahora, avanzamos hacia la fase final de nuestra misión.Para proteger nuestro santuario de intrusiones no deseadas, necesitamos reparar estas vallas dañadas. Toma el kit de reparación y sigue mis indicaciones para restaurarlas. \r\n" };
+                dialogue.dialoguePanel = panel;
+
+                dialogue.dialogueText = text;
+                dialogue.StartSpanishDialogue();
+                break;
+            case 2:
+                dialogue.spanishLines = new string[] { "¡Increíble trabajo, guardián! Las vallas reparadas asegurarán que nuestro santuario esté protegido y sus habitantes estén seguros. Recuerda siempre la importancia de proteger nuestros hábitats naturales.\r\n" };
+                dialogue.dialoguePanel = panel;
+                dialogue.dialogueText = text;
+                dialogue.StartSpanishDialogue();
+                break;
+                case 3:
+
+                dialogue.spanishLines = new string[] { "Excelente trabajo, has logrado reparar la capa de ozono, ahora la naturaleza se recuperara.\r\n" };
+                    dialogue.dialoguePanel = panel;
+                    dialogue.dialogueText = text;
+                    dialogue.StartSpanishDialogue();
+                break;
+
+
+
+        
+
+         }
+
+        
+
+    }
+
+    public void removeScrap(GameObject scrap)
+    {
+        
+        updateProgressText(-1);
+
+       
+            Destroy(scrap);
+        
+    }
+
+    private void ManagerPlant()
+    {
+        foreach (GameObject obj in plantTargets)
+        {
+            // Si el objeto está activo, desactívalo; de lo contrario, actívalo.
+            obj.SetActive(!obj.activeSelf);
+        }
+    }
+
+    private void manageWalls()
+    {
+        foreach (GameObject obj in wallsGood)
+        {
+            // Si el objeto está activo, desactívalo; de lo contrario, actívalo.
+            obj.SetActive(!obj.activeSelf);
+        }
+        foreach (var item in tress)
+        {
+            item.SetActive(false);
+        }
+    }
+
+    
+
+    public void ChangeCameraFinishGame()
+    {
+       
+            mainCam.enabled = false;
+            secondCamera.enabled = true;
+           
+            reminders(3);
+
+        foreach (GameObject obj in scrapt)
+        {
+            obj.SetActive(false);
+        }
+
+        foreach (var item in plantTargets)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in tress)
+        {
+            item.SetActive(true);
+        }
+
+
+    }
+
 }
+#endregion
+

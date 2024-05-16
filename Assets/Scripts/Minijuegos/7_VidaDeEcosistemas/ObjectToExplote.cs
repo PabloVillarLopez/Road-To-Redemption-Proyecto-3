@@ -1,3 +1,4 @@
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class ObjectToExplote : MonoBehaviour
@@ -5,7 +6,7 @@ public class ObjectToExplote : MonoBehaviour
     public Material[] materials = new Material[3];
     public MeshRenderer rendererMat;
 
-    public float maxHealth = 200f;
+    private float maxHealth = 15f;
     private float currentHealth = 200f;
 
     public GameObject GameManager;
@@ -45,7 +46,8 @@ public class ObjectToExplote : MonoBehaviour
     {
         if (miniGameManager != null)
         {
-            miniGameManager.updateProgressText(-1);
+           
+            miniGameManager.removeScrap(gameObject);
         }
         else
         {

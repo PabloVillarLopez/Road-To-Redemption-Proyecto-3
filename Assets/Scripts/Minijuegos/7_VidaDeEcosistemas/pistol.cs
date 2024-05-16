@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Debug = UnityEngine.Debug;
 
 public class Laser : MonoBehaviour
 {
@@ -70,13 +72,63 @@ public class Laser : MonoBehaviour
             // Si el rayo láser golpea un objeto, verifica si es "CatchAble" y reduce su vida
             if (cast && hit.collider.CompareTag("CatchAble"))
             {
-                var catchableObject = hit.collider.GetComponent<ObjectToExplote>();
-                if (catchableObject != null)
+                
+                if (hit.collider.gameObject != null)
                 {
-                    catchableObject.TakeDamage(0.2f); // Puedes ajustar el daño aquí
+                    var catchableObject = hit.collider.GetComponent<ObjectToExplote>();
+                    if (catchableObject != null)
+                    {
+                        catchableObject.TakeDamage(0.2f); // Puedes ajustar el daño aquí
+                        
+                    }
+                  
                 }
             }
+
+            
         }
+
+
+        if (miniGameManager.currentPhase == 2 )
+        {
+            // Logic for phase 2
+            Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+            bool cast = Physics.Raycast(ray, out RaycastHit hit, _maxLength);
+            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+
+            // Establece la longitud del rayo
+            Vector3 hitPosition = cast ? hit.point : ray.origin + ray.direction * _maxLength;
+            if (cast && hit.collider.CompareTag("PlantArea") && miniGameManager.haveSeeds==true)
+            {
+                print("Se puede plantar");
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    print("Se ha plantado");
+                    miniGameManager.isPlanting = true;
+                    hit.collider.gameObject.SetActive(false);
+
+                }
+
+            }
+         
+
+            if (cast && hit.collider.CompareTag("CatchAble"))
+            {
+                
+                    // Incrementar el proceso de la barra de progreso
+                    miniGameManager.haveSeeds = true;
+                    hit.collider.gameObject.SetActive(false);   
+                    print("Se ha recogido la semilla");
+                
+            }
+
+        }
+        
+
+
+
+
+
 
         // Laser behavior for phase 3
         if (miniGameManager.currentPhase == 3 && _beam.enabled)
