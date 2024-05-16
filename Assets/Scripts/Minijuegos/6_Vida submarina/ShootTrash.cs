@@ -23,6 +23,7 @@ public class ShootTrash : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
+            Debug.Log("Mouse presionado");
         }
     }
 
@@ -30,9 +31,12 @@ public class ShootTrash : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.GetChild(0).transform.forward); //playerCamera.ScreenPointToRay(Input.mousePosition);
+        Debug.Log("Intentado disparar");
+        Debug.DrawLine(transform.position, transform.position + new Vector3(0,0, 1000), Color.yellow);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, Trash))
         {
+            Debug.Log("Rayo sale");
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
             hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
             relocationPosition += new Vector3(2f, 0, 0);
