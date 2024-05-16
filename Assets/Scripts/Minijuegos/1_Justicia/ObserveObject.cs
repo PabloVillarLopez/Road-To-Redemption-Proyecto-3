@@ -153,7 +153,7 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
 
         clueIndex = 0;
         ManageUIClueType();
@@ -181,7 +181,7 @@ public class ObserveObject : MonoBehaviour
             analyzeSlider.gameObject.SetActive(true);
         }
 
-        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
         
 
         clueIndex = 0;
@@ -195,7 +195,7 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
         clueIndex = 1;
         ManageUIClueType();
 
@@ -207,7 +207,7 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
 
         if (panelFader.canvGroup.alpha >= 1)
         {
@@ -236,7 +236,7 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
         clueIndex = 2;
         ManageUIClueType();
 
@@ -248,7 +248,7 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0, 0); //Place the camera in front of the correct clue
         if (panelFader.canvGroup.alpha >= 1)
         {
             panelFader.Fade();
@@ -353,15 +353,15 @@ public class ObserveObject : MonoBehaviour
                 notAnalyzing = true;
                 cantMove = false;
                 canDeactivateClues = true;
-                if (canDeactivateClues)
-                {
-                    for (int i = 0; i < clues.Length; i++)
-                    {
-                        clues[i].SetActive(false);
-                    }
+                //if (canDeactivateClues)
+                //{
+                    //for (int i = 0; i < clues.Length; i++)
+                    //{
+                        //clues[i].SetActive(false);
+                    //}
 
-                    canDeactivateClues = false;
-                }
+                    //canDeactivateClues = false;
+                //}
 
                 if (AimLenseGlass.takenClues >= 3)
                 {

@@ -88,9 +88,9 @@ public class AimLenseGlass : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 10f, Clues))
+        if (Physics.Raycast(transform.position, playerCam.transform.forward, out hit, 10f, Clues))
         {
-            Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow);
+            Debug.DrawRay(transform.position, playerCam.transform.forward * hit.distance, Color.yellow);
             ObserveObject.TakenClues.Add(hit.transform.gameObject);
             hit.transform.gameObject.SetActive(false);
             clueIcons[takenClues].SetActive(true);
