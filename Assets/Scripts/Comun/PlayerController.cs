@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     public DialogueScript dialogueScript;
     public bool canDialogue;
 
+    public GameObject interactIndicator;
+
     #endregion Dialogue Reference Variable
 
     #region Start
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         rigy = GetComponent<Rigidbody>();
         orientation = transform.GetChild(3).transform;
+        interactIndicator.SetActive(false);
     }
 
     #endregion Start
@@ -143,6 +146,11 @@ public class PlayerController : MonoBehaviour
             canDialogue = false;
         }
 
+        if (other.gameObject.CompareTag("CanDialogue") && interactIndicator != null)
+        {
+            interactIndicator.SetActive(true);
+        }
+
         if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.English && canDialogue)
         {
             dialogueScript.StartEnglishDialogue();
@@ -171,6 +179,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("JusticeClue3"))
         {
             playerEnteredInObjectClue3Area = false;
+        }
+
+        if (other.gameObject.CompareTag("CanDialogue") && interactIndicator != null)
+        {
+            interactIndicator.SetActive(false);
         }
 
         //if (other.gameObject.CompareTag("CanDialogue") && canDialogue)
