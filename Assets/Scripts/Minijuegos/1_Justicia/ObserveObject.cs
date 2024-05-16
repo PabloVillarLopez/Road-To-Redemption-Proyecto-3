@@ -79,6 +79,10 @@ public class ObserveObject : MonoBehaviour
 
     #endregion UI Handle depending on Language
 
+    public GameObject sellosPanel;
+    public GameObject SellosPanelPanel;
+    public GameObject interactIndicator;
+
     #region Start
 
     // Start is called before the first frame update
@@ -96,6 +100,8 @@ public class ObserveObject : MonoBehaviour
         tick3.SetActive(false);
         analyzeButton.gameObject.SetActive(false);
         analyzeSlider.gameObject.SetActive(false);
+        sellosPanel.SetActive(false);
+        SellosPanelPanel.SetActive(false);
     }
 
     #endregion Start
@@ -377,6 +383,7 @@ public class ObserveObject : MonoBehaviour
             case JusticePhases.ANALYSIS:
                 judgementPanel.SetActive(false);
                 lenseAimGlass.SetActive(false);
+                interactIndicator.SetActive(false);
                 notAnalyzing = false;
                 analyzing = true;
                 cantMove = true;
@@ -573,7 +580,15 @@ public class ObserveObject : MonoBehaviour
     public void SelectGuiltyAndFinishMinigame1()
     {
         MinigamesCompleted.minigame1Finished = true;
+        SellosPanelPanel.SetActive(true);
+        sellosPanel.SetActive(true);
         Debug.Log("Button pressed");
+        StartCoroutine(Wait());   
+    }
+
+    public IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("LevelSelector");
     }
 }
