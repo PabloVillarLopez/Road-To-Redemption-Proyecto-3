@@ -1,11 +1,14 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using UnityEngine.Windows;
 using static UnityEditor.Progress;
 using static UnityEditor.VersionControl.Asset;
+using Input = UnityEngine.Input;
 using Slider = UnityEngine.UI.Slider;
 
 
@@ -55,6 +58,7 @@ public class PlayerControllerCursor : MonoBehaviour
         
         orientation = transform.GetChild(1).transform;
         orientation = transform.GetChild(2).transform;
+        
 
     }
     #endregion
@@ -127,6 +131,7 @@ public class PlayerControllerCursor : MonoBehaviour
                 // Manejar colisiones con CatchAble
                 if (hit.collider.CompareTag("CatchAble"))
                 {
+                    manager.activeInteract(true);
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         caughtObject = hit.collider.gameObject;
@@ -143,6 +148,15 @@ public class PlayerControllerCursor : MonoBehaviour
                         }
                     }
                 }
+                else if (hit.collider.CompareTag("SeedPlanted")) 
+                {
+                    manager.activeInteract(true);
+                }
+                else
+                {
+                    manager.activeInteract(false);
+                }
+              
 
                 // Manejar colisiones con PlantArea
                 if (hit.collider.CompareTag("PlantArea") && countSeeds > 0)
@@ -155,18 +169,26 @@ public class PlayerControllerCursor : MonoBehaviour
                     isPlanting = false;
                 }
 
-                if(hit.collider.CompareTag("SeedPlanted") && Input.GetKeyDown(KeyCode.E))
+                if (hit.collider.CompareTag("SeedPlanted"))
                 {
-                    if(hit.collider.gameObject.GetComponent<ObjectInfo>().timeToCollect >= 10 && hit.collider.gameObject.GetComponent<ObjectInfo>() != null)
+                    manager.activeInteract(true);
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
-                        hit.collider.gameObject.GetComponent<ObjectInfo>().Recollect();
+                        if (hit.collider.gameObject.GetComponent<ObjectInfo>().timeToCollect >= 10 && hit.collider.gameObject.GetComponent<ObjectInfo>() != null)
+                        {
+                            hit.collider.gameObject.GetComponent<ObjectInfo>().Recollect();
+                            manager.Reminders();
+                        }
+                        else
+                        {
+                            Debug.Log("No se puede recolectar");
+                        }
                     }
-                    else
-                    {
-                        Debug.Log("No se puede recolectar");
-                    }
+                    
                   
                 }
+              
+                
 
                 // Manejar colisiones con Hot, Neutral, y Cold
                 if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
@@ -331,7 +353,7 @@ public class PlayerControllerCursor : MonoBehaviour
         // Desactiva la cámara actualmente marcada como principal
         
         mainCamera.enabled = false;
-
+        
         // Activa la nueva cámara
         newMainCamera.enabled = true;
 

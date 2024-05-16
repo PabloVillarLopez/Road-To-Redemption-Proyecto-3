@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6810773912404057541}
   - component: {fileID: 8014700518498133576}
   - component: {fileID: 7675717401559126604}
+  - component: {fileID: -6433052440950935715}
   m_Layer: 0
   m_Name: Tomate_phase1
   m_TagString: SeedPlanted
@@ -100,7 +101,6 @@ MonoBehaviour:
   ready: 0
   id: 0
   timeLife: 0
-  speedLoseLife: 0
   temp: 20
   timeToCollect: 0
   materials:
@@ -129,3 +129,24 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   Tipo: 
+--- !u!65 &-6433052440950935715
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728953135499785994}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0021807302, y: 0.0024009615, z: 0.0036128846}
+  m_Center: {x: 0.0019287175, y: 0.002966592, z: -0.005660276}

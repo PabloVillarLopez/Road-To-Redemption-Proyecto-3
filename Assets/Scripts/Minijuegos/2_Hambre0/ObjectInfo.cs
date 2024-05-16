@@ -15,7 +15,7 @@ public class ObjectInfo : MonoBehaviour
     public Material[] materials = new Material[3]; // Array of materials
     public GameObject Cultive;
     public MeshRenderer renderer;
-    public Mesh mesh;
+    public MeshFilter mesh;
 
     public Mesh[] meshStrawBerry = new Mesh[2];
     public Mesh[] meshTomatoe = new Mesh[2];
@@ -31,7 +31,7 @@ public class ObjectInfo : MonoBehaviour
     private void Awake()
     {
         renderer = GetComponent<MeshRenderer>();
-        mesh = GetComponent<Mesh>();
+        mesh = GetComponent<MeshFilter>();
     }
 
     void Start()
@@ -42,7 +42,7 @@ public class ObjectInfo : MonoBehaviour
         switch (id)
         {
             case 1:
-                SetFruitStats("Fresa", 10, 30);
+                SetFruitStats("Pimiento", 10, 30);
                 timeLife = 20f;
                 break;
             case 2:
@@ -50,7 +50,7 @@ public class ObjectInfo : MonoBehaviour
                 timeLife = 20f;
                 break;
             case 3:
-                SetFruitStats("Pipmiento", 5, 25);
+                SetFruitStats("Fresa", 5, 25);
                 timeLife = 20f;
                
                 break;
@@ -132,18 +132,18 @@ public class ObjectInfo : MonoBehaviour
             {
                 switch (id)
                 {
-                    case 0:
-                        mesh = meshStrawBerry[0];
+                    case 3:
+                        mesh.mesh = meshStrawBerry[0];
                         renderer.material = materialStrawBerry[0];  
                         break;
 
-                    case 1: 
-                        mesh = meshTomatoe[0];
+                    case 2: 
+                        mesh.mesh = meshTomatoe[0];
                         renderer.material = materialTomatoe[0];
                         break;
 
-                case 2:     
-                        mesh = meshPepper[0];
+                case 1:     
+                        mesh.mesh = meshPepper[0];
                         renderer.material = materialPepper[0];
                         break;
 
@@ -155,18 +155,18 @@ public class ObjectInfo : MonoBehaviour
             
                  switch (id)
                     {
-                        case 0:
-                            mesh = meshStrawBerry[1];
+                        case 3:
+                            mesh.mesh = meshStrawBerry[1];
                             renderer.material = materialStrawBerry[1];
                             break;
 
-                        case 1:
-                            mesh = meshTomatoe[1];
+                        case 2:
+                            mesh.mesh = meshTomatoe[1];
                             renderer.material = materialTomatoe[1];
                             break;
 
-                        case 2:
-                            mesh = meshPepper[1];
+                        case 1:
+                            mesh.mesh = meshPepper[1];
                             renderer.material = materialPepper[1];
                             break;
 

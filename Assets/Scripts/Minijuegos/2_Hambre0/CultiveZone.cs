@@ -6,8 +6,8 @@ using static UnityEditor.VersionControl.Asset;
 
 public class CultiveZone : MonoBehaviour
 {
-    [SerializeField] float applyTempMan=6f;
-    [SerializeField] float speedTempGlobal=0.05f;
+    private float applyTempMan=1f;
+    private float speedTempGlobal=0.05f;
 
     public Text nameFruitT;
     public Text tempFruitT;
@@ -46,6 +46,7 @@ public class CultiveZone : MonoBehaviour
 
     void UpdateTextValues()
     {
+
         // Itera a través de los objetos fruta y los textos de temperatura asociados
         for (int i = 0; i < fruitObjects.Count; i++)
         {
@@ -68,8 +69,9 @@ public class CultiveZone : MonoBehaviour
 
                 }
             }
+            
         }
-
+        
     }
 
     public void AddChild(GameObject newFruit)
@@ -118,6 +120,7 @@ public class CultiveZone : MonoBehaviour
                     if (fruitObjects[i] != null)
                     {
                         fruitObjects[i].GetComponent<ObjectInfo>().temp += (applyTempMan * Time.deltaTime);
+                        print (applyTempMan * Time.deltaTime);
                         fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -3, 35);
                     }
                 }
@@ -134,6 +137,7 @@ public class CultiveZone : MonoBehaviour
                     {
                         fruitObjects[i].GetComponent<ObjectInfo>().temp -= (applyTempMan * Time.deltaTime);
                         fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -3, 35);
+                        print(applyTempMan * Time.deltaTime);
                         Debug.Log(fruitObjects[i].GetComponent<ObjectInfo>().temp);
                     }
                 }
@@ -150,7 +154,7 @@ public class CultiveZone : MonoBehaviour
             {
                 if (fruitObjects[i] != null)
                 {
-                    fruitObjects[i].GetComponent<ObjectInfo>().temp += speedTempGlobal * temperatureGlobal;
+                    fruitObjects[i].GetComponent<ObjectInfo>().temp += speedTempGlobal *  + Time.deltaTime;
                     fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -3, 35);
                     print(fruitObjects[i].GetComponent<ObjectInfo>().temp);
 

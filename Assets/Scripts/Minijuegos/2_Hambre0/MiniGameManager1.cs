@@ -19,12 +19,12 @@ public class MiniGameManager1 : MonoBehaviour
     public float offSetZSpawn;
     public float dayTimeInSeconds = 60f;
     private float elapsedTime = 0f;
-    public float temperatureChangePerSecond = 0.1f;
+    public float temperatureChangePerSecond = 0.000000000001f;
     public float temperature = 20;
     float duration = 300f;
     float cutoffThreshold = 12.5f;
     public int level;
-    float totalTime = 300f;
+    float totalTime = 900f;
     float elapsedTimeBuild = 0f;
 
     // Variables de tipo Light
@@ -56,6 +56,12 @@ public class MiniGameManager1 : MonoBehaviour
     // Variables de tipo arreglo
     object[][] fruit = new object[3][];
 
+    public Image interact;
+
+ 
+    public GameObject panel;
+    public TMPro.TextMeshProUGUI text;
+
     #endregion
 
     #region Unity Methods
@@ -73,7 +79,7 @@ public class MiniGameManager1 : MonoBehaviour
         spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y), objectSpawner.transform.position.z);
         SpawnObjectsOnSpawner();
         SpawnOchards();
-        
+        activeInteract(false);
 
     }
 
@@ -360,7 +366,7 @@ public void checkBadFood()
             if (renderer != null)
             {
                 float currentCutoffHeight = renderer.material.GetFloat("_CutoffHeight");
-                float incremento = 0.1f * Time.deltaTime;
+                float incremento = 0.01f * Time.deltaTime;
                 float newCutoffHeight = currentCutoffHeight + incremento;
                 renderer.material.SetFloat("_CutoffHeight", newCutoffHeight);
 
@@ -386,7 +392,87 @@ public void checkBadFood()
         if (renderer != null && renderer.material != originalMat)
         {
             renderer.material = originalMat;
+
+
+                if (goodFood == 0)
+                {
+                    dialog.spanishLines = new string[] { "¡Increíble! Tu generosidad ha marcado la diferencia. Has contribuido a la meta de Hambre Cero, ayudando a crear un mundo donde nadie pase hambre.\r\n" };
+                    dialog.dialoguePanel = panel;
+                    dialog.dialogueText = text;
+                    dialog.StartSpanishDialogue();
+                }
+                else if (goodFood == 5)
+                {
+                    dialog.spanishLines = new string[] { " ¿Sabías que cada comida salvada ayuda a reducir el desperdicio y a alimentar a quienes más lo necesitan?\r\n" };
+                    dialog.dialoguePanel = panel;
+                    dialog.dialogueText = text;
+                    dialog.StartSpanishDialogue();
+                }
+                else if (goodFood == 10)
+                {
+                    dialog.spanishLines = new string[] { "¡Fantástico! Gracias a ti, 50 familias tendrán algo en sus mesas esta noche.\r\n" };
+                    dialog.dialoguePanel = panel;
+                    dialog.dialogueText = text;
+                    dialog.StartSpanishDialogue();
+                }
+                else if (goodFood == 15)
+                {
+                    dialog.spanishLines = new string[] { "¡Impresionante! Ahora, gracias a ti, 75 familias tendrán algo que comer.\r\n" };
+                    dialog.dialoguePanel = panel;
+                    dialog.dialogueText = text;
+                    dialog.StartSpanishDialogue();
+                }
+                else if (goodFood == 20)
+                {
+                    dialog.spanishLines = new string[] { "Increíble. ¡Has salvado suficiente comida para alimentar a 100 familias! \r\n" };
+                    dialog.dialoguePanel = panel;
+                    dialog.dialogueText = text;
+                    dialog.StartSpanishDialogue();
+                }
+
+            }
         }
+    }
+
+    public void Reminders()
+    {
+        if (goodFood == 5)
+        {
+            dialog.spanishLines = new string[] { "Vaya, recluso no esperaba que fueras tan bueno, te han dicho alguna vez que se echa a perder mucha comida a lo largo del año?\r\n" };
+            dialog.dialoguePanel = panel;
+            dialog.dialogueText = text;
+            dialog.StartSpanishDialogue();
         }
+        else if (goodFood == 10)
+        
+        {
+            dialog.spanishLines = new string[] { "Excelente trabajo, con la comida que has salvado se van a poder alimentar 50 familias\r\n" };
+            dialog.dialoguePanel = panel;
+            dialog.dialogueText = text;
+            dialog.StartSpanishDialogue();
+        }
+        else if (badFood == 2)
+        {
+            dialog.spanishLines = new string[] { "¿Cuidado muchacho quieres volver a tener problemas? ¿Sabes cuanta gente podría alimentarse con esa comida que se ha echado a perder?\r\n" };
+            dialog.dialoguePanel = panel;
+            dialog.dialogueText = text;
+            dialog.StartSpanishDialogue();
+        }
+    }
+    
+
+    public void activeInteract (bool active)
+    {
+        if (active)
+        {
+            interact.gameObject.SetActive(true);
+        }
+        else
+        {
+            interact.gameObject.SetActive(false);
+        }
+       
+
+
     }
 }
