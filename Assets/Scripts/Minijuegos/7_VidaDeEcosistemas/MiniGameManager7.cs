@@ -24,7 +24,7 @@ public class MiniGameManager7 : MonoBehaviour
     // Phase Management
     public int phasesProcess = 1;
     public int currentPhase = 1;
-
+    public GameObject player;
     // Counters and Progress
     private int counterGameObject = 0;
     private int countItems;
@@ -81,8 +81,15 @@ public class MiniGameManager7 : MonoBehaviour
     public GameObject[] wallsBad;
     public Camera secondCamera;
     public Camera mainCam;
+    public int lightmapIndexToUse; // Índice del baked lightmap que deseas que se utilice
 
     public GameObject[] tress;
+
+
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
         maxScraps = scrapt.Length;
@@ -94,8 +101,7 @@ public class MiniGameManager7 : MonoBehaviour
         ManagerPlant();
         manageWalls();
         secondCamera.enabled = false;
-        mainCam= Camera.main;
-
+        mainCam = Camera.main;
 
         foreach (GameObject obj in wallsBad)
         {
@@ -539,6 +545,37 @@ public class MiniGameManager7 : MonoBehaviour
         SceneManager.LoadScene("LevelSelector");
     }
 
+
+
+    void ApplyLightmapToScene()
+    {
+        // Obtener el número total de lightmaps
+        int totalLightmaps = LightmapSettings.lightmaps.Length;
+
+        // Verificar si el índice del baked lightmap es válido
+        if (lightmapIndexToUse >= 0 && lightmapIndexToUse < totalLightmaps)
+        {
+            // Crear un arreglo de LightmapData para asignar el lightmap a toda la escena
+            LightmapData[] lightmaps = new LightmapData[totalLightmaps];
+
+            // Asignar el baked lightmap a todas las entradas del arreglo de LightmapData
+            for (int i = 0; i < totalLightmaps; i++)
+            {
+                lightmaps[i] = new LightmapData();
+                lightmaps[i].lightmapColor = LightmapSettings.lightmaps[i].lightmapColor;
+                lightmaps[i].lightmapDir = LightmapSettings.lightmaps[i].lightmapDir;
+            }
+
+            // Asignar el lightmap seleccionado a toda la escena
+            LightmapSettings.lightmaps = lightmaps;
+
+            Debug.Log("Baked lightmap asignado a toda la escena.");
+        }
+        else
+        {
+            Debug.LogWarning("El índice del baked lightmap no es válido.");
+        }
+    }
 }
 #endregion
 

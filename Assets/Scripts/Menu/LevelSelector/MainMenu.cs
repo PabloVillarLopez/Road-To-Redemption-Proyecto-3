@@ -1,9 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices;
 
 public class MainMenu : MonoBehaviour
 {
+    public GameObject level1;
+    public GameObject level2;
+        
+    public GameObject level3;
+        
+    public GameObject level4;
+    public GameObject level5;
+    public GameObject level6;
+        
+    public GameObject level7;
+        
+    public GameObject level8;
+
     // List of predefined pivot points
     private Vector3[] pivotPoints = new Vector3[]
     {
@@ -15,6 +29,7 @@ public class MainMenu : MonoBehaviour
         new Vector3(-1f, 1f, -10f),
         new Vector3(-1f, 1f, 0f),
         new Vector3(-1f, 1f, 1f)
+
     };
 
     // Index of the current pivot point

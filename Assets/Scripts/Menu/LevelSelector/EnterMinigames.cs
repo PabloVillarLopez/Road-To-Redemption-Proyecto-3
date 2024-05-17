@@ -39,7 +39,7 @@ public class EnterMinigames : MonoBehaviour
                 SceneManager.LoadScene("Minijuego6_VidaSubmarina");
                 break;
             case 6: //Vida de ecosistemas terrestres
-                SceneManager.LoadScene("Santuario_Dañado");
+                SceneManager.LoadScene("Santuario_Dañado 1");
                 break;
             case 7: //Acción por el clima
                 SceneManager.LoadScene("MiniJuego8");

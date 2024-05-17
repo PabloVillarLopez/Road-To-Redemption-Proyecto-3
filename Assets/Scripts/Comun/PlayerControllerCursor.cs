@@ -1,13 +1,10 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.Windows;
-using static UnityEditor.Progress;
-using static UnityEditor.VersionControl.Asset;
 using Input = UnityEngine.Input;
 using Slider = UnityEngine.UI.Slider;
 

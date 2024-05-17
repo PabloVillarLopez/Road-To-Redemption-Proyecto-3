@@ -3128,6 +3128,7 @@ MonoBehaviour:
   monitoring: 0
   panel: {fileID: 943842398}
   text: {fileID: 851371783}
+  lightmapIndexToUse: 1
 --- !u!4 &1066041525
 Transform:
   m_ObjectHideFlags: 0
@@ -3595,8 +3596,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.02
-  m_Range: 413
+  m_Intensity: 180.1
+  m_Range: 1630
   m_SpotAngle: 106.4433
   m_InnerSpotAngle: 0
   m_CookieSize: 10
@@ -3637,7 +3638,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 2744.7
+  m_BounceIntensity: 2748.73
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -3653,13 +3654,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308238143}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19207887, y: 0.75063586, z: -0.4095207, w: -0.48160592}
-  m_LocalPosition: {x: 8.99, y: 9.38, z: 0.09}
+  m_LocalRotation: {x: 0.5327051, y: 0.4549919, z: -0.43773678, w: -0.56355494}
+  m_LocalPosition: {x: -5.19, y: 6.56, z: -3.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 25.454, y: 257.15698, z: 49.133}
+  m_LocalEulerAnglesHint: {x: -11.659, y: 271.077, z: 87.119}
 --- !u!114 &1308238146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6200,7 +6201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -7.0245056, y: 0.000015259}
+  m_AnchoredPosition: {x: -7.024475, y: 0.000015259}
   m_SizeDelta: {x: -19.199951, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2094703132

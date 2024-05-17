@@ -56,7 +56,7 @@ public class MiniGameManager4 : MonoBehaviour
     public GameObject thirdPanel;
     public TMPro.TextMeshProUGUI thirdText;
     private bool conectingCable;
-
+    public int lightmapIndexToUse; // Índice del baked lightmap que deseas que se utilice
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +65,7 @@ public class MiniGameManager4 : MonoBehaviour
         thirdCamera.enabled = false;
         thirdCanvas.enabled = false;
         dialogue = GetComponent<DialogueScript>();
+        ApplyLightmapToScene();
     }
 
     // Update is called once per frame
@@ -445,7 +446,35 @@ public class MiniGameManager4 : MonoBehaviour
     }
 
 
+    void ApplyLightmapToScene()
+    {
+        // Obtener el número total de lightmaps
+        int totalLightmaps = LightmapSettings.lightmaps.Length;
 
+        // Verificar si el índice del baked lightmap es válido
+        if (lightmapIndexToUse >= 0 && lightmapIndexToUse < totalLightmaps)
+        {
+            // Crear un arreglo de LightmapData para asignar el lightmap a toda la escena
+            LightmapData[] lightmaps = new LightmapData[totalLightmaps];
+
+            // Asignar el baked lightmap a todas las entradas del arreglo de LightmapData
+            for (int i = 0; i < totalLightmaps; i++)
+            {
+                lightmaps[i] = new LightmapData();
+                lightmaps[i].lightmapColor = LightmapSettings.lightmaps[i].lightmapColor;
+                lightmaps[i].lightmapDir = LightmapSettings.lightmaps[i].lightmapDir;
+            }
+
+            // Asignar el lightmap seleccionado a toda la escena
+            LightmapSettings.lightmaps = lightmaps;
+
+            Debug.Log("Baked lightmap asignado a toda la escena.");
+        }
+        else
+        {
+            Debug.LogWarning("El índice del baked lightmap no es válido.");
+        }
+    }
 
 
 
