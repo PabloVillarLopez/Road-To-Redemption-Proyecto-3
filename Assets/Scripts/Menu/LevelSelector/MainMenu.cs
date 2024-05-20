@@ -114,6 +114,9 @@ public class MainMenu : MonoBehaviour
 
     private void HandleMenuUI()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         if (!MinigamesCompleted.minigame1Finished)
         {
             startButton.SetActive(true);

@@ -27,6 +27,11 @@ public class Container : MonoBehaviour
             miniManager.GetComponent<MiniGameManager8>().SubtractPoints();
         }
 
-        Destroy(collision.gameObject);
+        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("MainCamera"))
+        {
+            Destroy(collision.gameObject);
+        }
+
+        
     }
 }
