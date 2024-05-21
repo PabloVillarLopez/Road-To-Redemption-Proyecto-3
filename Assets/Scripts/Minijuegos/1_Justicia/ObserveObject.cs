@@ -54,10 +54,13 @@ public class ObserveObject : MonoBehaviour
     public PanelFader panelFader;
     public static bool cantMove;
     public Button clue1AnalyseButton;
+    public bool clue1AnalyseButtonCanDeactivate = false;
     public GameObject tick1;
     public Button clue2AnalyseButton;
+    public static bool clue2AnalyseButtonCanDeactivate = false;
     public GameObject tick2;
     public Button clue3AnalyseButton;
+    public static bool clue3AnalyseButtonCanDeactivate = false;
     public GameObject tick3;
     public bool analyzing;
     public bool canFadeIn = true;
@@ -82,6 +85,10 @@ public class ObserveObject : MonoBehaviour
     public GameObject sellosPanel;
     public GameObject SellosPanelPanel;
     public GameObject interactIndicator;
+    public GameObject analyzeButton1;
+    public GameObject analyzeButton2;
+    public GameObject analyzeButton3;
+    public GameObject errorJudgementPanel;
 
     #region Start
 
@@ -102,6 +109,7 @@ public class ObserveObject : MonoBehaviour
         analyzeSlider.gameObject.SetActive(false);
         sellosPanel.SetActive(false);
         SellosPanelPanel.SetActive(false);
+        errorJudgementPanel.SetActive(false);
     }
 
     #endregion Start
@@ -178,7 +186,7 @@ public class ObserveObject : MonoBehaviour
             panelFader.Fade();
         }
 
-        if (!analyzeButton.gameObject.activeInHierarchy)
+        /*if (!analyzeButton.gameObject.activeInHierarchy)
         {
             analyzeButton.gameObject.SetActive(true);
             
@@ -187,7 +195,19 @@ public class ObserveObject : MonoBehaviour
         if (!analyzeSlider.gameObject.activeInHierarchy)
         {
             analyzeSlider.gameObject.SetActive(true);
+        }*/
+
+        if (!leftRotateButton.gameObject.activeInHierarchy)
+        {
+            leftRotateButton.gameObject.SetActive(true);
         }
+
+        if (!rightRotateButton.gameObject.activeInHierarchy)
+        {
+            rightRotateButton.gameObject.SetActive(true);
+        }
+
+        analyzeButton1.SetActive(false);
 
         clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
         clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
@@ -216,6 +236,7 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
+        analyzeButton2.SetActive(false);
         clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
         //clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
 
@@ -224,7 +245,7 @@ public class ObserveObject : MonoBehaviour
             panelFader.Fade();
         }
 
-        if (!analyzeButton.gameObject.activeInHierarchy)
+        /*if (!analyzeButton.gameObject.activeInHierarchy)
         {
             analyzeButton.gameObject.SetActive(true);
 
@@ -233,6 +254,16 @@ public class ObserveObject : MonoBehaviour
         if (!analyzeSlider.gameObject.activeInHierarchy)
         {
             analyzeSlider.gameObject.SetActive(true);
+        }*/
+
+        if (!leftRotateButton.gameObject.activeInHierarchy)
+        {
+            leftRotateButton.gameObject.SetActive(true);
+        }
+
+        if (!rightRotateButton.gameObject.activeInHierarchy)
+        {
+            rightRotateButton.gameObject.SetActive(true);
         }
 
         clueIndex = 1;
@@ -259,6 +290,7 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
+        analyzeButton3.SetActive(false);
         clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
         //clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
         if (panelFader.canvGroup.alpha >= 1)
@@ -266,7 +298,7 @@ public class ObserveObject : MonoBehaviour
             panelFader.Fade();
         }
 
-        if (!analyzeButton.gameObject.activeInHierarchy)
+        /*if (!analyzeButton.gameObject.activeInHierarchy)
         {
             analyzeButton.gameObject.SetActive(true);
 
@@ -275,6 +307,16 @@ public class ObserveObject : MonoBehaviour
         if (!analyzeSlider.gameObject.activeInHierarchy)
         {
             analyzeSlider.gameObject.SetActive(true);
+        }*/
+
+        if (!leftRotateButton.gameObject.activeInHierarchy)
+        {
+            leftRotateButton.gameObject.SetActive(true);
+        }
+
+        if (!rightRotateButton.gameObject.activeInHierarchy)
+        {
+            rightRotateButton.gameObject.SetActive(true);
         }
 
         clueIndex = 2;
@@ -392,7 +434,12 @@ public class ObserveObject : MonoBehaviour
                 
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                clue1AnalyseButton.gameObject.SetActive(true);
+
+                if (!clue1AnalyseButtonCanDeactivate)
+                {
+                    clue1AnalyseButton.gameObject.SetActive(true);
+                    clue1AnalyseButtonCanDeactivate = true;
+                }
                 
                 HandleAnalyzingUI();
 
@@ -474,9 +521,10 @@ public class ObserveObject : MonoBehaviour
                     clue1AnalyseButton.gameObject.SetActive(false);
                 }
 
-                if (!clue2AnalyseButton.gameObject.activeInHierarchy)
+                if (!clue2AnalyseButton.gameObject.activeInHierarchy && !clue2AnalyseButtonCanDeactivate)
                 {
                     clue2AnalyseButton.gameObject.SetActive(true);
+                    clue2AnalyseButtonCanDeactivate = true;
                 }
 
                 if (!tick1.activeInHierarchy)
@@ -505,10 +553,12 @@ public class ObserveObject : MonoBehaviour
                     tick2.SetActive(true);
                 }
 
-                if (!clue3AnalyseButton.gameObject.activeInHierarchy)
+                if (!clue3AnalyseButton.gameObject.activeInHierarchy && !clue3AnalyseButtonCanDeactivate)
                 {
                     clue3AnalyseButton.gameObject.SetActive(true);
+                    clue3AnalyseButtonCanDeactivate = true;
                 }
+
                 break;
             case 3:
                 if (clue1AnalyseButton.gameObject.activeInHierarchy)
@@ -591,5 +641,17 @@ public class ObserveObject : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("LevelSelector");
+    }
+
+    public void ShowErrorJudgementMessage()
+    {
+        StartCoroutine(ShowAndWait());
+    }
+
+    public IEnumerator ShowAndWait()
+    {
+        errorJudgementPanel.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        errorJudgementPanel.SetActive(false);
     }
 }

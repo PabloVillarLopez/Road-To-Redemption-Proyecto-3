@@ -1592,7 +1592,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 271228358}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1778521777}
+        m_TargetAssemblyTypeName: ObserveObject, Assembly-CSharp
+        m_MethodName: ShowErrorJudgementMessage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &271228358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1962,8 +1974,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 12.5
+  m_Color: {r: 0.81960785, g: 0.8156863, b: 0.61960787, a: 1}
+  m_Intensity: 7.9
   m_Range: 108.5
   m_SpotAngle: 150.9061
   m_InnerSpotAngle: 103.38913
@@ -2351,6 +2363,13 @@ MonoBehaviour:
   clueType: 1
   id: 0
   canAddRotateToButton: 1
+  correctRotation: {x: 0, y: 0, z: 0}
+  correctRotation2: {x: 0, y: 0, z: 0}
+  clueIsInCorrectRotation: 0
+  analyzeButton: {fileID: 0}
+  analyzeSlider: {fileID: 0}
+  leftArrow: {fileID: 0}
+  rightArrow: {fileID: 0}
 --- !u!65 &451829647
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2500,6 +2519,13 @@ MonoBehaviour:
   clueType: 1
   id: 0
   canAddRotateToButton: 1
+  correctRotation: {x: 0, y: 0, z: 0}
+  correctRotation2: {x: 0, y: 0, z: 0}
+  clueIsInCorrectRotation: 0
+  analyzeButton: {fileID: 0}
+  analyzeSlider: {fileID: 0}
+  leftArrow: {fileID: 0}
+  rightArrow: {fileID: 0}
 --- !u!65 &508989546
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2678,7 +2704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &541358356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2773,6 +2799,13 @@ MonoBehaviour:
   clueType: 1
   id: 0
   canAddRotateToButton: 1
+  correctRotation: {x: 0, y: 0, z: 0}
+  correctRotation2: {x: 0, y: 0, z: 0}
+  clueIsInCorrectRotation: 0
+  analyzeButton: {fileID: 0}
+  analyzeSlider: {fileID: 0}
+  leftArrow: {fileID: 0}
+  rightArrow: {fileID: 0}
 --- !u!65 &547872839
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2902,6 +2935,7 @@ RectTransform:
   - {fileID: 1269382140}
   - {fileID: 1295632736}
   - {fileID: 541358356}
+  - {fileID: 1897256126}
   - {fileID: 1234275196}
   - {fileID: 1061314304}
   m_Father: {fileID: 0}
@@ -3481,8 +3515,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 70.36
+  m_Color: {r: 0.81960785, g: 0.8156863, b: 0.61960787, a: 1}
+  m_Intensity: 34.6
   m_Range: 108.5
   m_SpotAngle: 150.9061
   m_InnerSpotAngle: 103.38913
@@ -3732,8 +3766,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 70.36
+  m_Color: {r: 0.81960785, g: 0.8156863, b: 0.61960787, a: 1}
+  m_Intensity: 27.3
   m_Range: 108.5
   m_SpotAngle: 150.9061
   m_InnerSpotAngle: 103.38913
@@ -4256,8 +4290,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 12.5
+  m_Color: {r: 0.81960785, g: 0.8156863, b: 0.61960787, a: 1}
+  m_Intensity: 8
   m_Range: 108.5
   m_SpotAngle: 150.9061
   m_InnerSpotAngle: 103.38913
@@ -5109,7 +5143,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1024733842}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1778521777}
+        m_TargetAssemblyTypeName: ObserveObject, Assembly-CSharp
+        m_MethodName: ShowErrorJudgementMessage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1024733842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5545,7 +5591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1061314304
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5884,6 +5930,141 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.009220094, y: 0.000044831042, z: 0.008313969}
   m_Center: {x: -0.00038995343, y: 0.000022415252, z: 0.0005434169}
+--- !u!1 &1156167697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1156167698}
+  - component: {fileID: 1156167700}
+  - component: {fileID: 1156167699}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1156167698
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156167697}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897256126}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1156167699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156167697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "Lo sentimos, no puedes juzgar a un personaje inocente.\n\nPrueba de nuevo
+    en tu elecci\xF3n sobre el culpable del crimen al que condenar."
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 72
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -632.96857, y: -247.77591, z: -649.766, w: -227.84483}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1156167700
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156167697}
+  m_CullTransparentMesh: 1
 --- !u!1 &1159825506 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3490541350518934955, guid: a8a6d141e3b6e604380219e7dbf51d25,
@@ -6332,7 +6513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1234275196
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7728,6 +7909,13 @@ MonoBehaviour:
   clueType: 1
   id: 0
   canAddRotateToButton: 1
+  correctRotation: {x: 0, y: 0, z: 0}
+  correctRotation2: {x: 0, y: 0, z: 0}
+  clueIsInCorrectRotation: 0
+  analyzeButton: {fileID: 0}
+  analyzeSlider: {fileID: 0}
+  leftArrow: {fileID: 0}
+  rightArrow: {fileID: 0}
 --- !u!65 &1369144194
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8635,6 +8823,13 @@ MonoBehaviour:
   clueType: 1
   id: 0
   canAddRotateToButton: 1
+  correctRotation: {x: 0, y: 0, z: 0}
+  correctRotation2: {x: 0, y: 0, z: 0}
+  clueIsInCorrectRotation: 0
+  analyzeButton: {fileID: 0}
+  analyzeSlider: {fileID: 0}
+  leftArrow: {fileID: 0}
+  rightArrow: {fileID: 0}
 --- !u!65 &1423128915
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10538,6 +10733,13 @@ MonoBehaviour:
   clueType: 1
   id: 0
   canAddRotateToButton: 1
+  correctRotation: {x: 0, y: 0, z: 0}
+  correctRotation2: {x: 0, y: 0, z: 0}
+  clueIsInCorrectRotation: 0
+  analyzeButton: {fileID: 0}
+  analyzeSlider: {fileID: 0}
+  leftArrow: {fileID: 0}
+  rightArrow: {fileID: 0}
 --- !u!65 &1763637245
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10767,6 +10969,7 @@ MonoBehaviour:
   judgementPanel: {fileID: 1295632735}
   panelFader: {fileID: 558643928}
   clue1AnalyseButton: {fileID: 1460218003}
+  clue1AnalyseButtonCanDeactivate: 0
   tick1: {fileID: 1773183487}
   clue2AnalyseButton: {fileID: 1255639505}
   tick2: {fileID: 1994690228}
@@ -10785,6 +10988,10 @@ MonoBehaviour:
   sellosPanel: {fileID: 1061314303}
   SellosPanelPanel: {fileID: 1234275195}
   interactIndicator: {fileID: 1244545730}
+  analyzeButton1: {fileID: 1460218001}
+  analyzeButton2: {fileID: 1255639503}
+  analyzeButton3: {fileID: 1336542727}
+  errorJudgementPanel: {fileID: 1897256125}
 --- !u!4 &1778521778
 Transform:
   m_ObjectHideFlags: 0
@@ -11313,8 +11520,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 17.6
+  m_Color: {r: 0.8415094, g: 0.83350956, b: 0.6335137, a: 1}
+  m_Intensity: 9.9
   m_Range: 108.5
   m_SpotAngle: 150.9061
   m_InnerSpotAngle: 103.38913
@@ -11520,6 +11727,95 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.019349031, y: 0.00086501986, z: 0.0007952882}
   m_Center: {x: -0.009926547, y: 0.012443148, z: -0.011715258}
+--- !u!1 &1897256125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1897256126}
+  - component: {fileID: 1897256129}
+  - component: {fileID: 1897256128}
+  - component: {fileID: 1897256127}
+  m_Layer: 5
+  m_Name: ErrorJudgementFeedbackPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1897256126
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897256125}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1156167698}
+  m_Father: {fileID: 556895390}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 11.012085, y: 64.04303}
+  m_SizeDelta: {x: 663.33, y: 1863.94}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1897256127
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897256125}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1897256128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897256125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.99433964, b: 0.99433964, a: 0.8901961}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: cfb3f20d0c1a7eb48be7c14d99874016, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1897256129
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897256125}
+  m_CullTransparentMesh: 1
 --- !u!1 &1911779998
 GameObject:
   m_ObjectHideFlags: 0
@@ -11587,8 +11883,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 70.36
+  m_Color: {r: 0.81960785, g: 0.8156863, b: 0.61960787, a: 1}
+  m_Intensity: 27.3
   m_Range: 108.5
   m_SpotAngle: 150.9061
   m_InnerSpotAngle: 103.38913
@@ -12923,8 +13219,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 10.4
+  m_Color: {r: 0.81960785, g: 0.8156863, b: 0.61960787, a: 1}
+  m_Intensity: 8.56
   m_Range: 108.5
   m_SpotAngle: 124.36578
   m_InnerSpotAngle: 76.84879
@@ -13985,6 +14281,13 @@ MonoBehaviour:
   clueType: 1
   id: 1
   canAddRotateToButton: 1
+  correctRotation: {x: 0, y: 0, z: 0}
+  correctRotation2: {x: 0, y: 0, z: 0}
+  clueIsInCorrectRotation: 0
+  analyzeButton: {fileID: 23459375}
+  analyzeSlider: {fileID: 1269382139}
+  leftArrow: {fileID: 659647823}
+  rightArrow: {fileID: 1686271177}
 --- !u!65 &3469287836904952887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14029,6 +14332,13 @@ MonoBehaviour:
   clueType: 1
   id: 2
   canAddRotateToButton: 1
+  correctRotation: {x: 0, y: 90, z: 0}
+  correctRotation2: {x: 0, y: 90, z: 0}
+  clueIsInCorrectRotation: 0
+  analyzeButton: {fileID: 23459375}
+  analyzeSlider: {fileID: 1269382139}
+  leftArrow: {fileID: 659647823}
+  rightArrow: {fileID: 1686271177}
 --- !u!65 &3469287836920332312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14073,6 +14383,13 @@ MonoBehaviour:
   clueType: 1
   id: 0
   canAddRotateToButton: 1
+  correctRotation: {x: 0, y: 225, z: 0}
+  correctRotation2: {x: 0, y: -135, z: 0}
+  clueIsInCorrectRotation: 0
+  analyzeButton: {fileID: 23459375}
+  analyzeSlider: {fileID: 1269382139}
+  leftArrow: {fileID: 659647823}
+  rightArrow: {fileID: 1686271177}
 --- !u!65 &3469287837490605816
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14218,7 +14535,7 @@ CharacterController:
   m_Enabled: 0
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5000001
+  m_Radius: 0.46
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08

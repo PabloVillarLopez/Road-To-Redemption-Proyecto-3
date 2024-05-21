@@ -21,10 +21,14 @@ public class RotateClue : MonoBehaviour
     public int id;
     public bool canAddRotateToButton = true;
 
-    public Vector3 correctRotation { get; private set; }
+    public Vector3 correctRotation;
+    public Vector3 correctRotation2;
+    //public Vector3 CorrectRotation { get { return correctRotation; } set { correctRotation = value;} }
+
     public bool clueIsInCorrectRotation;
 
     public GameObject analyzeButton;
+    public GameObject analyzeSlider;
     public GameObject leftArrow;
     public GameObject rightArrow;
 
@@ -33,7 +37,7 @@ public class RotateClue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        angleAddedY = transform.rotation.y;
+        angleAddedY = transform.eulerAngles.y;
     }
 
     #endregion Start
@@ -53,7 +57,16 @@ public class RotateClue : MonoBehaviour
     public void RotateRightX()
     {
         angleAddedY += 45f;
-        transform.rotation = Quaternion.Euler(transform.rotation.x, angleAddedY, transform.rotation.z);
+
+        if (angleAddedY == 360)
+        {
+            angleAddedY = 0;
+        }
+
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, angleAddedY, transform.eulerAngles.z);
+        CheckCorrectRotation();
+        Debug.Log(transform.eulerAngles);
+        Debug.Log(angleAddedY);
     }
 
     #endregion Rotate Right
@@ -63,16 +76,28 @@ public class RotateClue : MonoBehaviour
     public void RotateLeftX()
     {
         angleAddedY -= 45f;
-        transform.rotation = Quaternion.Euler(transform.rotation.x, angleAddedY, transform.rotation.z);
+
+        if (angleAddedY == 360)
+        {
+            angleAddedY = 0;
+        }
+
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, angleAddedY, transform.eulerAngles.z);
+        CheckCorrectRotation();
+        Debug.Log(transform.eulerAngles);
+        Debug.Log(angleAddedY);
     }
 
     #endregion Rotate Left
 
     private void CheckCorrectRotation()
     {
-        if (transform.eulerAngles == correctRotation)
+        if (transform.eulerAngles == correctRotation || angleAddedY == correctRotation.y)
         {
+            clueIsInCorrectRotation = true;
+            angleAddedY = 0;
             analyzeButton.SetActive(true);
+            analyzeSlider.SetActive(true);
             leftArrow.SetActive(false);
             rightArrow.SetActive(false);
         }
