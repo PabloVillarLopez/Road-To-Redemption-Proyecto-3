@@ -783,7 +783,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -2502,7 +2502,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2557,7 +2557,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -4258,7 +4258,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -5798,7 +5798,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045044874}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!1 &1071392810 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 450362024348030771, guid: 525985bcdece67242b4d9033c3e8c422,
@@ -5981,7 +5981,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -6171,7 +6171,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -8096,7 +8096,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -8293,7 +8293,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -10411,7 +10411,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -10850,7 +10850,7 @@ GameObject:
   - component: {fileID: 1992495725}
   - component: {fileID: 1992495724}
   - component: {fileID: 1992495723}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11307,7 +11307,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -11589,7 +11589,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e0cc49c635ef51b48a194ee6d853f80d, type: 2}
+  - {fileID: -5432891417892938267, guid: c5c1e8ee4c3b5b14eb253053680b9934, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12191,6 +12191,8 @@ MonoBehaviour:
   wallToSpawn: {fileID: 3521082558097801036, guid: 351cf0501a4838445925cf954d9da21c,
     type: 3}
   spawnArea: {x: -50, y: -20, z: 50}
+  markGuide: {fileID: 1475391813982276928, guid: 36963cc01ae52234c819f991dfddcaa9,
+    type: 3}
   phasesProcess: 1
   currentPhase: 1
   player: {fileID: 8099201403011274141, guid: e7ecc6e0084ca9c46a3b0c33fc77375c, type: 3}
@@ -12511,7 +12513,7 @@ PrefabInstance:
     - target: {fileID: 3669465907360354762, guid: e7ecc6e0084ca9c46a3b0c33fc77375c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.5
+      value: 3.18
       objectReference: {fileID: 0}
     - target: {fileID: 3669465907360354762, guid: e7ecc6e0084ca9c46a3b0c33fc77375c,
         type: 3}
@@ -12557,6 +12559,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099201403011274141, guid: e7ecc6e0084ca9c46a3b0c33fc77375c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 using static UnityEngine.Rendering.DebugUI;
 using Text = UnityEngine.UI.Text;
 
@@ -20,7 +19,7 @@ public class MiniGameManager7 : MonoBehaviour
     // Vectors and Positions
     public Vector3 spawnArea;
     private Vector3 randomPosition;
-
+    public GameObject markGuide;
     // Phase Management
     public int phasesProcess = 1;
     public int currentPhase = 1;
@@ -291,9 +290,15 @@ public class MiniGameManager7 : MonoBehaviour
         {
             case 1:
                 Debug.Log("Starting Phase 1");
-                
+
                 countProgress = scrapt.Length;
-                break;
+               
+                foreach(GameObject obj in scrapt)
+                {
+                    Instantiate(markGuide, obj.transform.position + new Vector3(0,3,0), Quaternion.identity);
+                }
+
+                    break;
             case 2:
                 currentPhase = 2;
                 reminders(0);
