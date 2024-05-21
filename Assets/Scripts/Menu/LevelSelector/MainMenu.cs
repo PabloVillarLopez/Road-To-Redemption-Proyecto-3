@@ -55,27 +55,13 @@ public class MainMenu : MonoBehaviour
         // Check if the 'D' key is being pressed
         if (Input.GetKeyDown(KeyCode.D))
         {
-            // Increment the index of the current pivot point
-            currentPivotPointIndex = (currentPivotPointIndex + 1) % pivotPoints.Length;
-
-            // Display the text with the current pivot point if the text is not null
-            if (pivotPointText != null)
-            {
-                DisplayPivotPointText();
-            }
+            RotateToNextPivotPoint();
         }
 
         // Check if the 'A' key is being pressed
         if (Input.GetKeyDown(KeyCode.A))
         {
-            // Decrement the index of the current pivot point
-            currentPivotPointIndex = (currentPivotPointIndex - 1 + pivotPoints.Length) % pivotPoints.Length;
-
-            // Display the text with the current pivot point if the text is not null
-            if (pivotPointText != null)
-            {
-                DisplayPivotPointText();
-            }
+            RotateToPreviousPivotPoint();
         }
 
         // Ensure the index stays within bounds
@@ -94,6 +80,30 @@ public class MainMenu : MonoBehaviour
         // Smoothly rotate the object towards the new pivot point
         Quaternion targetRotation = Quaternion.LookRotation(targetPivotPoint - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+    
+    public void RotateToNextPivotPoint()
+    {
+        // Increment the index of the current pivot point
+        currentPivotPointIndex = (currentPivotPointIndex + 1) % pivotPoints.Length;
+
+        // Display the text with the current pivot point if the text is not null
+        if (pivotPointText != null)
+        {
+            DisplayPivotPointText();
+        }
+    }
+
+    public void RotateToPreviousPivotPoint()
+    {
+        // Decrement the index of the current pivot point
+        currentPivotPointIndex = (currentPivotPointIndex - 1 + pivotPoints.Length) % pivotPoints.Length;
+
+        // Display the text with the current pivot point if the text is not null
+        if (pivotPointText != null)
+        {
+            DisplayPivotPointText();
+        }
     }
 
     void DisplayPivotPointText()

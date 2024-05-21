@@ -21,6 +21,13 @@ public class RotateClue : MonoBehaviour
     public int id;
     public bool canAddRotateToButton = true;
 
+    public Vector3 correctRotation { get; private set; }
+    public bool clueIsInCorrectRotation;
+
+    public GameObject analyzeButton;
+    public GameObject leftArrow;
+    public GameObject rightArrow;
+
     #region Start
 
     // Start is called before the first frame update
@@ -60,4 +67,14 @@ public class RotateClue : MonoBehaviour
     }
 
     #endregion Rotate Left
+
+    private void CheckCorrectRotation()
+    {
+        if (transform.eulerAngles == correctRotation)
+        {
+            analyzeButton.SetActive(true);
+            leftArrow.SetActive(false);
+            rightArrow.SetActive(false);
+        }
+    }
 }

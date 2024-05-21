@@ -36,7 +36,6 @@ public class DialogueScript : MonoBehaviour
 
     #endregion English Lines of Dialogue
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -130,6 +129,7 @@ public class DialogueScript : MonoBehaviour
         else
         {
             dialoguePanel.SetActive(false);
+            dialogueStarted = false;
         }
     }
 
@@ -179,6 +179,7 @@ public class DialogueScript : MonoBehaviour
         else
         {
             dialoguePanel.SetActive(false);
+            dialogueStarted = false;
         }
     }
 

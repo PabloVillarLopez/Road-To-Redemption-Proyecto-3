@@ -8,8 +8,10 @@ public class AimLenseGlass : MonoBehaviour
     #region Aim with Lense Variables
     [Header("Aim with Lense Variables")]
     public Vector3 normalPose, aimPose;
+    private Vector3 aproachAimPose;
     public float aimSpeed;
     public Camera playerCam;
+    public GameObject aimPoint;
     public TextMeshProUGUI PressLeftClickText;
     public TextMeshProUGUI InvestigatingText;
 
@@ -37,7 +39,9 @@ public class AimLenseGlass : MonoBehaviour
         for (int i = 0; i < clueIcons.Length; i++)
         {
             clueIcons[i].SetActive(false);
-        }    
+        }
+
+        aproachAimPose = new Vector3(0.020f, -0.3f, 1f);
     }
 
     #endregion Start
@@ -56,8 +60,9 @@ public class AimLenseGlass : MonoBehaviour
             StopLenseAim();
         }
 
+        Debug.Log(Vector3.Distance(transform.localPosition, aimPose) < 0.15f);
 
-        if (transform.localPosition == aimPose)
+        if (Vector3.Distance(transform.localPosition, aimPose) < 0.15f) //transform.localPosition.x ) ; //aimPose)
         {
             TakeClues();
         }
@@ -95,16 +100,16 @@ public class AimLenseGlass : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, playerCam.transform.forward, out hit, 10f, Clues))
+        if (Physics.Raycast(aimPoint.transform.position, aimPoint.transform.TransformDirection(Vector3.forward), out hit, 10f, Clues)) //playerCam.transform.forward
         {
-            Debug.DrawRay(transform.position, playerCam.transform.forward * hit.distance, Color.yellow);
+            Debug.DrawRay(aimPoint.transform.position, aimPoint.transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow); //playerCam.transform.forward
             ObserveObject.TakenClues.Add(hit.transform.gameObject);
             hit.transform.gameObject.SetActive(false);
-            clueIcons[takenClues].SetActive(true);
+            clueIcons[hit.transform.gameObject.GetComponent<RotateClue>().id].SetActive(true);
             takenClues++;
-
-            
         }
+
+        Debug.DrawRay(aimPoint.transform.position, aimPoint.transform.TransformDirection(Vector3.forward), Color.yellow); //playerCam.transform.forward
 
         if (takenClues >= 3)
         {
