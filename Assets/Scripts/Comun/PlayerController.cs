@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [Header("Dialogue Script Reference")]
     public DialogueScript dialogueScript;
     public bool canDialogue;
+    public bool dialogueStarted;
 
     public GameObject interactIndicator;
 
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
         MyInput();
         SpeedControl();
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !canDialogue && !dialogueScript.dialogueStarted)
         {
             canDialogue = true;
         }
@@ -144,6 +145,7 @@ public class PlayerController : MonoBehaviour
         {
             dialogueScript.StartSpanishDialogue();
             canDialogue = false;
+            //dialogueStarted = true;
         }
 
         if (other.gameObject.CompareTag("CanDialogue") && interactIndicator != null)
@@ -155,6 +157,7 @@ public class PlayerController : MonoBehaviour
         {
             dialogueScript.StartEnglishDialogue();
             canDialogue = false;
+            //dialogueStarted = true;
         }
     }
 
@@ -184,6 +187,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("CanDialogue") && interactIndicator != null)
         {
             interactIndicator.SetActive(false);
+            //dialogueStarted = false;
         }
 
         //if (other.gameObject.CompareTag("CanDialogue") && canDialogue)

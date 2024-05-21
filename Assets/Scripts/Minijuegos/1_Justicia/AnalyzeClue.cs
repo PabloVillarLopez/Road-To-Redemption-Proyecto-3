@@ -10,6 +10,7 @@ public class AnalyzeClue : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public static int cluesAnalyzed;
     public bool buttonPressed;
     public Slider analyzeSlider;
+    public GameObject analyzeButton;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,7 @@ public class AnalyzeClue : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Update is called once per frame
     void Update()
     {
-        if (buttonPressed && timer <= 5)
+        if (buttonPressed && timer < 5)
         {
             timer += Time.deltaTime;
             Debug.Log(timer);
@@ -30,6 +31,9 @@ public class AnalyzeClue : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             cluesAnalyzed++;
             Debug.Log(cluesAnalyzed);
+            analyzeSlider.gameObject.SetActive(false);
+            analyzeButton.SetActive(false);
+            buttonPressed = false;
             timer = 0;
         }
 

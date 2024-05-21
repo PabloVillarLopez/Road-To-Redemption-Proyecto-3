@@ -73700,6 +73700,8 @@ MonoBehaviour:
   movementSpeed: 5
   dialogueScript: {fileID: 1064583924572021684}
   canDialogue: 0
+  dialogueStarted: 0
+  interactIndicator: {fileID: 0}
 --- !u!1 &1857337437706332506
 GameObject:
   m_ObjectHideFlags: 0

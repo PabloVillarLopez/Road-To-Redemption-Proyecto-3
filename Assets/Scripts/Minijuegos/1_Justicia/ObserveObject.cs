@@ -330,6 +330,7 @@ public class ObserveObject : MonoBehaviour
         switch (clues[clueIndex].GetComponent<RotateClue>().clueType)
         {
             case RotateClue.ClueType.NOTROTATE:
+                RotateUI.SetActive(false);
                 break;
 
             case RotateClue.ClueType.ROTATE:

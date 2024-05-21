@@ -215,7 +215,7 @@ public class ShootTrash : MonoBehaviour
     private IEnumerator ShowTrashFeedbackPanel()
     {
         trashFeedbackPanel.SetActive(true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3.5f);
         trashFeedbackPanel.SetActive(false);
     }
 }
