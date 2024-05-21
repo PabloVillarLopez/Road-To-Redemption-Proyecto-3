@@ -54,7 +54,7 @@ public class MiniGameManager1 : MonoBehaviour
     // Variables de tipo bool
     public bool isDialogueFinished = false;
     public bool dayTime = true;
-    // Variables de tipo arreglo
+    // Variables de tipo array
     object[][] fruit = new object[3][];
 
     public Image interact;
@@ -81,7 +81,7 @@ public class MiniGameManager1 : MonoBehaviour
         SpawnObjectsOnSpawner();
         SpawnOchards();
         activeInteract(false);
-
+        StartCoroutine(CheckDialogue());
     }
 
     IEnumerator CheckDialogue()
@@ -107,13 +107,13 @@ public class MiniGameManager1 : MonoBehaviour
     {
         if (isDialogueFinished )
         {
-            UpdateCycleDays();
+            StartCoroutine(UpdateCycleDaysCoroutine());
+            isDialogueFinished = false;
         }
 
-        if (isDialogueFinished == false)
-        {
-            StartCoroutine(CheckDialogue());
-        }
+       
+            
+        
 
     }
 
@@ -231,6 +231,15 @@ public class MiniGameManager1 : MonoBehaviour
 
     #region Day-Night Cycle
 
+    private IEnumerator UpdateCycleDaysCoroutine()
+    {
+        while (true)
+        {
+            UpdateCycleDays();
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
     void UpdateCycleDays()
     {
         elapsedTime += Time.deltaTime;
@@ -263,24 +272,7 @@ public class MiniGameManager1 : MonoBehaviour
         temperatureText.text = temperature.ToString("F1") + "°C";
 
     }
-    void UpdateDayNightCycle()
-    {
-        elapsedTime += Time.deltaTime;
-
-        // Asumimos que el día tiene dos fases iguales: día y noche
-        if (elapsedTime <= dayTimeInSeconds / 2)
-        {
-            AdjustTemperatureDuringDay();
-        }
-        else if (elapsedTime <= dayTimeInSeconds)
-        {
-            AdjustTemperatureDuringNight();
-        }
-        else
-        {
-            elapsedTime = 0f; // Reiniciar el ciclo día-noche
-        }
-    }
+    
 
     void AdjustTemperatureDuringDay()
     {

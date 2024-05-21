@@ -9,22 +9,13 @@ public class ObjectInfo : MonoBehaviour
     public float timeLife;
     private float minTemp;
     private float maxTemp;
-    private float speedLoseLife=0.1f;
+    private float speedLoseLife=10f;
     public float temp = 20f;
     public float timeToCollect;
     public Material[] materials = new Material[3]; // Array of materials
     public GameObject Cultive;
     public new MeshRenderer renderer;
     public MeshFilter mesh;
-
-    public Mesh[] meshStrawBerry = new Mesh[2];
-    public Mesh[] meshTomatoe = new Mesh[2];
-    public Mesh[] meshPepper = new Mesh[2];
-
-
-    public Material[] materialStrawBerry = new Material[2];
-    public Material[] materialTomatoe = new Material[2];
-    public Material[] materialPepper = new Material[2];
 
 
     public string Tipo;
@@ -41,6 +32,11 @@ public class ObjectInfo : MonoBehaviour
 
         switch (id)
         {
+
+            case 0:
+                SetFruitStats("Fresa", 10, 30);
+                timeLife = 20f;
+                break;
             case 1:
                 SetFruitStats("Pimiento", 10, 30);
                 timeLife = 20f;
@@ -49,11 +45,7 @@ public class ObjectInfo : MonoBehaviour
                 SetFruitStats("Tomate", 12, 28);
                 timeLife = 20f;
                 break;
-            case 3:
-                SetFruitStats("Fresa", 5, 25);
-                timeLife = 20f;
-               
-                break;
+            
             case 4:
                 SetFruitStats("Carrot", 8, 25);
                 timeLife = 7f;
@@ -76,13 +68,17 @@ public class ObjectInfo : MonoBehaviour
             default:
                 break;
         }
+
+        ActiveChild(0);
+
+        StartCoroutine(ApplyTempCoroutine());
+
     }
     private void Update()
     {
-        if (ready)
-        {
-            VerifyTemp();
-        }
+       
+           
+      
     }
 
     void SetFruitStats(string newName, int newTempMin, int newTempMax)
@@ -101,6 +97,16 @@ public class ObjectInfo : MonoBehaviour
     public int GetobjectInfo()
     {
         return id;
+    }
+
+    private System.Collections.IEnumerator ApplyTempCoroutine()
+    {
+        while (true)
+        {
+            if (ready) { VerifyTemp(); }
+            
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     void VerifyTemp()
@@ -130,49 +136,16 @@ public class ObjectInfo : MonoBehaviour
 
             if (timeToCollect >= 5)
             {
-                switch (id)
-                {
-                    case 3:
-                        mesh.mesh = meshStrawBerry[0];
-                        renderer.material = materialStrawBerry[0];  
-                        break;
 
-                    case 2: 
-                        mesh.mesh = meshTomatoe[0];
-                        renderer.material = materialTomatoe[0];
-                        break;
-
-                case 1:     
-                        mesh.mesh = meshPepper[0];
-                        renderer.material = materialPepper[0];
-                        break;
-
-                }
+                ActiveChild(1);
 
             }
             if (timeToCollect >= 10)
-            { 
-            
-                 switch (id)
-                    {
-                        case 3:
-                            mesh.mesh = meshStrawBerry[1];
-                            renderer.material = materialStrawBerry[1];
-                            break;
+            {
 
-                        case 2:
-                            mesh.mesh = meshTomatoe[1];
-                            renderer.material = materialTomatoe[1];
-                            break;
+               
 
-                        case 1:
-                            mesh.mesh = meshPepper[1];
-                            renderer.material = materialPepper[1];
-                            break;
-
-                    }
-      
-            
+                ActiveChild(2);
             }
 
         }
@@ -184,5 +157,23 @@ public class ObjectInfo : MonoBehaviour
 
         gameObject.SetActive(false);
     }
-    
+ 
+    private void ActiveChild(int childnumber)
+    {
+        int childcount = 0;
+        foreach (Transform child in gameObject.transform)
+        {
+            if (childcount == childnumber)
+            {
+                child.gameObject.SetActive(true);
+            }
+            else
+            {
+                child.gameObject.SetActive(false);
+            }
+            childcount++;
+        }
+    }
+
+
 }

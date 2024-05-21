@@ -132,95 +132,95 @@ public class PlayerControllerCursor : MonoBehaviour
                 }
             }
 
-            //    if (Physics.Raycast(ray, out hit))
-            //    {
-            //        // Manejar colisiones con CatchAble
-            //        if (hit.collider.CompareTag("CatchAble"))
-            //        {
-            //            //manager.activeInteract(true);
-            //            if (Input.GetKeyDown(KeyCode.E))
-            //            {
-            //                caughtObject = hit.collider.gameObject;
+            if (Physics.Raycast(ray, out hit))
+            {
+                // Manejar colisiones con CatchAble
+                if (hit.collider.CompareTag("CatchAble"))
+                {
+                    //manager.activeInteract(true);
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        caughtObject = hit.collider.gameObject;
 
-            //                if (PickupObject(caughtObject))
-            //                {
-            //                    caughtSeed[countSeeds] = caughtObject;
-            //                    countSeeds++;
-            //                    caughtObject.transform.parent = transform;
-            //                    caughtObject.SetActive(false);
+                        if (PickupObject(caughtObject))
+                        {
+                            caughtSeed[countSeeds] = caughtObject;
+                            countSeeds++;
+                            caughtObject.transform.parent = transform;
+                            caughtObject.SetActive(false);
 
-            //                    ObjectInfo info = caughtObject.GetComponent<ObjectInfo>();
-            //                    int id = info.GetobjectInfo();
-            //                }
-            //            }
-            //        }
-            //        else if (hit.collider.CompareTag("SeedPlanted")) 
-            //        {
-            //            manager.activeInteract(true);
-            //        }
-            //        else
-            //        {
-            //            manager.activeInteract(false);
-            //        }
-
-
-            //        // Manejar colisiones con PlantArea
-            //        if (hit.collider.CompareTag("PlantArea") && countSeeds > 0)
-            //        {
-            //            planTarget = hit.collider.gameObject;
-            //            isPlanting = true;
-            //        }
-            //        else
-            //        {
-            //            isPlanting = false;
-            //        }
-
-            //        if (hit.collider.CompareTag("SeedPlanted"))
-            //        {
-            //            manager.activeInteract(true);
-            //            if (Input.GetKeyDown(KeyCode.E))
-            //            {
-            //                if (hit.collider.gameObject.GetComponent<ObjectInfo>().timeToCollect >= 10 && hit.collider.gameObject.GetComponent<ObjectInfo>() != null)
-            //                {
-            //                    hit.collider.gameObject.GetComponent<ObjectInfo>().Recollect();
-            //                    manager.Reminders();
-            //                }
-            //                else
-            //                {
-            //                    Debug.Log("No se puede recolectar");
-            //                }
-            //            }
+                            ObjectInfo info = caughtObject.GetComponent<ObjectInfo>();
+                            int id = info.GetobjectInfo();
+                        }
+                    }
+                }
+                else if (hit.collider.CompareTag("SeedPlanted"))
+                {
+                    manager.activeInteract(true);
+                }
+                else
+                {
+                    manager.activeInteract(false);
+                }
 
 
-            //        }
+                // Manejar colisiones con PlantArea
+                if (hit.collider.CompareTag("PlantArea") && countSeeds > 0)
+                {
+                    planTarget = hit.collider.gameObject;
+                    isPlanting = true;
+                }
+                else
+                {
+                    isPlanting = false;
+                }
+
+                if (hit.collider.CompareTag("SeedPlanted"))
+                {
+                    manager.activeInteract(true);
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        if (hit.collider.gameObject.GetComponent<ObjectInfo>().timeToCollect >= 10 && hit.collider.gameObject.GetComponent<ObjectInfo>() != null)
+                        {
+                            hit.collider.gameObject.GetComponent<ObjectInfo>().Recollect();
+                            manager.Reminders();
+                        }
+                        else
+                        {
+                            Debug.Log("No se puede recolectar");
+                        }
+                    }
+
+
+                }
 
 
 
-            //        // Manejar colisiones con Hot, Neutral, y Cold
-            //        if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
-            //        {
-            //            CultiveZone cultiveZone = hit.collider.transform.parent.gameObject.GetComponent<CultiveZone>();
-            //            if (cultiveZone != null)
-            //            {
-            //                cultiveZone.state = "Hot";
-            //            }
-            //        }
+                // Manejar colisiones con Hot, Neutral, y Cold
+                if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
+                {
+                    CultiveZone cultiveZone = hit.collider.transform.parent.gameObject.GetComponent<CultiveZone>();
+                    if (cultiveZone != null)
+                    {
+                        cultiveZone.state = "Hot";
+                    }
+                }
 
-            //        if (hit.collider.CompareTag("Neutral") && Input.GetKeyDown(KeyCode.E))
-            //        {
-            //            GameObject hitObject = hit.collider.transform.parent.gameObject;
-            //            hitObject.GetComponent<CultiveZone>().state = "Neutral";
-            //        }
+                if (hit.collider.CompareTag("Neutral") && Input.GetKeyDown(KeyCode.E))
+                {
+                    GameObject hitObject = hit.collider.transform.parent.gameObject;
+                    hitObject.GetComponent<CultiveZone>().state = "Neutral";
+                }
 
-            //        if (hit.collider.CompareTag("Cold") && Input.GetKeyDown(KeyCode.E))
-            //        {
-            //            GameObject hitObject = hit.collider.transform.parent.gameObject;
-            //            hitObject.GetComponent<CultiveZone>().state = "Cold";
-            //        }
+                if (hit.collider.CompareTag("Cold") && Input.GetKeyDown(KeyCode.E))
+                {
+                    GameObject hitObject = hit.collider.transform.parent.gameObject;
+                    hitObject.GetComponent<CultiveZone>().state = "Cold";
+                }
 
-            //        // Manejar colisiones con CatchAble y modo 2
+                
 
-            //    }
+            }
         }
     }
 
@@ -304,25 +304,21 @@ public class PlayerControllerCursor : MonoBehaviour
                 
                 case 1:
 
-                Vector3 addposition1 = new Vector3(0.019f, 0.038f,-0.120f);
-                seedSpawned = Instantiate(manager.seeds[0], planTarget.transform.position + addposition1, Quaternion.Euler(340.059998f, 180, 180));
+                seedSpawned = Instantiate(manager.seeds[0], planTarget.transform.position, Quaternion.identity);
                     seedSpawned.GetComponent<ObjectInfo>().id = 0;
                     planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(seedSpawned.gameObject);
                     Debug.Log("Planted0");
                     break;
                 case 2:
-                    Vector3 addposition2 = new Vector3(0.030f, 0.218f,-0.120f);
 
-                    seedSpawned = Instantiate(manager.seeds[1], planTarget.transform.position + addposition2, Quaternion.Euler(281.509979f, 0.240004182f, 359.73999f)); 
+                    seedSpawned = Instantiate(manager.seeds[1], planTarget.transform.position, Quaternion.identity); 
                     seedSpawned.GetComponent<ObjectInfo>().id = 1;
                     planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(seedSpawned.gameObject);
                     Debug.Log("Planted1");
                     break;
                 case 3:
-                    Vector3 addposition3 = new Vector3(-0.154f, 0.925f, 0.679f);
-                    seedSpawned = Instantiate(manager.seeds[2], planTarget.transform.position +addposition3 , Quaternion.Euler(286.439972f, 11.3599997f, 2.01000643f)); 
+                    seedSpawned = Instantiate(manager.seeds[2], planTarget.transform.position, Quaternion.identity); 
                     seedSpawned.GetComponent<ObjectInfo>().id = 2;
-                    seedSpawned.transform.rotation = Quaternion.Euler(286.439972f, 11.3599997f, 2.01000643f);
                     planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(seedSpawned.gameObject);
 
                     Debug.Log("Planted2");

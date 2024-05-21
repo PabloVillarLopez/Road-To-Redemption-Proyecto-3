@@ -26,15 +26,16 @@ public class CultiveZone : MonoBehaviour
     private void Start()
     {
         manager = GameObject.Find("GameManager").GetComponent<MiniGameManager1>();
-        
+        StartCoroutine(ApplyTempCoroutine());
     }
 
     private void Update()
     {
         UpdateTextValues();
-        ApplyTemp();
+        
 
-     }
+
+    }
 
     public void SetFruitStats(string newName, int newTempMin, int newTempMax)
     {
@@ -83,11 +84,29 @@ public class CultiveZone : MonoBehaviour
             counterList++;
             newFruit.GetComponent<ObjectInfo>().ready = true;
             newFruit.GetComponent<ObjectInfo>().temp= Random.Range(20, 25);
+
+             
         }
-       
+       if (newFruit != null && newFruit.transform.childCount > 0)
+        {
+            bool firstChild = true;
+
+            foreach (Transform child in newFruit.transform)
+            {
+                if (firstChild)
+                {
+                    firstChild = false;
+                }
+                else
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
         
 
-    }
+        }
+
+       }
 
 
     public void RemoveChild (GameObject oldFruit)
@@ -99,6 +118,16 @@ public class CultiveZone : MonoBehaviour
         }
     }
 
+
+
+    private IEnumerator ApplyTempCoroutine()
+    {
+        while (true)
+        {
+            ApplyTemp();
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
     public void ApplyTemp()
     {
 
@@ -123,11 +152,10 @@ public class CultiveZone : MonoBehaviour
                         fruitObjects[i].GetComponent<ObjectInfo>().temp = Mathf.Clamp(fruitObjects[i].GetComponent<ObjectInfo>().temp, -3, 35);
                     }
                 }
-                Debug.Log("Hot");
+              
                 break;
             case "Neutral":
-                Debug.Log("Neutral");
-                Debug.Log(day);
+            
                 break;
             case "Cold":
                 for (int i = 0; i < fruitObjects.Count; i++)
@@ -140,7 +168,7 @@ public class CultiveZone : MonoBehaviour
                         Debug.Log(fruitObjects[i].GetComponent<ObjectInfo>().temp);
                     }
                 }
-                Debug.Log("Cold");
+              
                 break;
             default:
                 break;
