@@ -37,9 +37,11 @@ public class PipelineForeground : MonoBehaviour
 
     public enum PipelineType
     {
-        FILTER,
-        HIGHSPEED,
-        REDIRECTION
+        DECONTAMINATING,
+        DECONTAMINATINGBACTERIA,
+        CONTROLFLOWOFWATER,
+        REDIRECTION,
+        REDIRECTIONANDSELECT
     }
 
     [Header("Type of Pipeline")]
@@ -76,8 +78,8 @@ public class PipelineForeground : MonoBehaviour
     {
         gameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
         
-        rotationAddedX = transform.rotation.x;
-        rotationAddedY = transform.rotation.y;
+        rotationAddedX = transform.eulerAngles.x;
+        rotationAddedY = transform.eulerAngles.y;
         initialRotation = transform.eulerAngles;
         ShowCorrectWaterFlowButton();
     }
@@ -105,7 +107,7 @@ public class PipelineForeground : MonoBehaviour
         }*/
 
         rotationAddedY += 90f;
-        transform.rotation = Quaternion.Euler(initialRotation.x, rotationAddedY, rotationAddedX);
+        transform.eulerAngles = new Vector3(initialRotation.x, rotationAddedY, rotationAddedY); //Quaternion.Euler(initialRotation.x, rotationAddedY, rotationAddedX);
         //gameManager.currentNumOfMovements++;
 
         DecreaseOrIncreasePointsOnWrongOrRightRotation();
@@ -119,7 +121,7 @@ public class PipelineForeground : MonoBehaviour
         }*/
 
         rotationAddedY -= 90f;
-        transform.rotation = Quaternion.Euler(initialRotation.x, rotationAddedY, rotationAddedX);
+        transform.eulerAngles = new Vector3(initialRotation.x, rotationAddedY, rotationAddedX); //Quaternion.Euler(initialRotation.x, rotationAddedY, rotationAddedX);
         //gameManager.currentNumOfMovements++;
 
         DecreaseOrIncreasePointsOnWrongOrRightRotation();
@@ -133,7 +135,7 @@ public class PipelineForeground : MonoBehaviour
         }*/
 
         rotationAddedX += 90f;
-        transform.rotation = Quaternion.Euler(initialRotation.x, rotationAddedY, rotationAddedX);
+        transform.eulerAngles = new Vector3(initialRotation.x, rotationAddedY, rotationAddedX); //Quaternion.Euler(initialRotation.x, rotationAddedY, rotationAddedX);
         //gameManager.currentNumOfMovements++;
 
         DecreaseOrIncreasePointsOnWrongOrRightRotation();
@@ -147,7 +149,7 @@ public class PipelineForeground : MonoBehaviour
         }*/
 
         rotationAddedX -= 90f;
-        transform.rotation = Quaternion.Euler(initialRotation.x , transform.rotation.y, rotationAddedX);
+        transform.eulerAngles = new Vector3(initialRotation.x, rotationAddedY, rotationAddedX); //Quaternion.Euler(initialRotation.x , transform.rotation.y, rotationAddedX);
         //gameManager.currentNumOfMovements++;
 
         DecreaseOrIncreasePointsOnWrongOrRightRotation();

@@ -101,6 +101,9 @@ public class MiniGameManager : MonoBehaviour
 
     [Header("Verify Pipelines Correct Position")]
     public GameObject[] pipelines;
+    public GameObject[] pipelinesToChangePipeline1;
+    public GameObject[] pipelinesToChangePipeline3;
+    public GameObject[] pipelinesToChangePipeline5;
     public GameObject[] pipelinesIcons;
     public int pipelinesInCorrectPlace;
 
@@ -195,9 +198,12 @@ public class MiniGameManager : MonoBehaviour
     public TextMeshProUGUI waterLeakBlinkingWarningTitleText;
     public TextMeshProUGUI waterLeakBlinkingWarningSubtitleText;
     public TextMeshProUGUI waterLeakBlinkingWarningDescriptionText;
-
+    public TextMeshProUGUI instructionsText;
+    public GameObject instructionsPanel;
 
     #endregion Text Variables for changing Language
+
+    public static bool canInteractWithRotatePipelines;
 
     #region Awake
 
@@ -242,8 +248,14 @@ public class MiniGameManager : MonoBehaviour
     void Update()
     {
         ComeBackToPlayerCamera();
+        HandleMinigamePhases();
 
-        if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInPipelineArea)
+        if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInRotatePipelineArea && canInteractWithRotatePipelines)
+        {
+            PipelineCamera();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInDecontaminatePipelineArea)
         {
             PipelineCamera();
         }
@@ -586,14 +598,14 @@ public class MiniGameManager : MonoBehaviour
     {
         switch (pipelineActive.pipelineType)
         {
-            case PipelineForeground.PipelineType.FILTER:
+            case PipelineForeground.PipelineType.DECONTAMINATING:
                 RotateUI.SetActive(false);
                 waterOpenAndCloseUI.SetActive(false);
                 SelectUI.SetActive(true);
                 decontaminationUI.SetActive(true);
                 //SelectUI.transform.position = new Vector3(SelectUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
                 break;
-            case PipelineForeground.PipelineType.HIGHSPEED:
+            case PipelineForeground.PipelineType.CONTROLFLOWOFWATER:
                 RotateUI.SetActive(false);
                 waterOpenAndCloseUI.SetActive(true);
                 decontaminationUI.SetActive(false);
@@ -604,6 +616,7 @@ public class MiniGameManager : MonoBehaviour
                 RotateUI.SetActive(true);
                 waterOpenAndCloseUI.SetActive(false);
                 decontaminationUI.SetActive(false);
+                SelectUI.SetActive(false);
 
                 if (canAddRotateToButton)
                 {
@@ -617,6 +630,12 @@ public class MiniGameManager : MonoBehaviour
 
                 //SelectUI.SetActive(false);
                 //RotateUI.transform.position = new Vector3(RotateUI.transform.position.x + 160, RotateUI.transform.position.y, RotateUI.transform.position.z);
+                break;
+            case PipelineForeground.PipelineType.REDIRECTIONANDSELECT:
+                RotateUI.SetActive(true);
+                waterOpenAndCloseUI.SetActive(false);
+                decontaminationUI.SetActive(false);
+                SelectUI.SetActive(true);
                 break;
             default:
                 break;
@@ -702,6 +721,22 @@ public class MiniGameManager : MonoBehaviour
         Cursor.visible = true;
     }
 
+    /*private void PipelineDecontaminateCamera()
+    {
+        playerCamera.SetActive(false);
+        //pipelineCamera.transform.position = pipelines[PlayerController.pipelineEnteredID - 1].transform.position + new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+        pipelineCamera.SetActive(true);
+        pipelineCameraActive = true;
+        RotatePipelineUI.SetActive(true);
+        if (PlayerController.pipelineEnteredID > 1)
+        {
+            catastrophesCanStart = true;
+        }
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }*/
+
     #endregion Pipeline Camera
 
     //To handle the remainging movements text
@@ -766,6 +801,23 @@ public class MiniGameManager : MonoBehaviour
                     }
                 }*/
 
+                canInteractWithRotatePipelines = false;
+
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    instructionsText.text = "Descontamina las tuberías rojas. Tuberías descontaminadas: " + (decontaminationCount + bacteriaCleanedCount + waterLeakedSolvedCount) + " / 3";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    instructionsText.text = "Decontaminate the red tubes. Decontaminated tubes: " + (decontaminationCount + bacteriaCleanedCount + waterLeakedSolvedCount) + " / 3";
+                }
+                else
+                {
+                    instructionsText.text = "Descontamina las tuberías rojas. Tuberías descontaminadas: " + (decontaminationCount + bacteriaCleanedCount + waterLeakedSolvedCount) + " / 3";
+                }
+
+                
+
                 if (decontaminationCount == 1 && bacteriaCleanedCount == 1 && waterLeakedSolvedCount == 1)
                 {
                     phases = Phases.TOWN;
@@ -773,11 +825,27 @@ public class MiniGameManager : MonoBehaviour
 
                 break;
             case Phases.TOWN:
+
+                canInteractWithRotatePipelines = true;
+
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    instructionsText.text = "Rota las tuberías que están mal colocadas. Tuberías bien colocadas: " + (pipelinesInCorrectPlace) + " / 7";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    instructionsText.text = "Rotate the tubes that are in wrong position. Rotated tubes: " + (pipelinesInCorrectPlace) + " / 7";
+                }
+                else
+                {
+                    instructionsText.text = "Rota las tuberías que están mal colocadas. Tuberías bien colocadas: " + (pipelinesInCorrectPlace) + " / 7";
+                }
+
                 for (int i = 0; i < pipelines.Length; i++)
                 {
                     if (pipelines[i].GetComponent<PipelineForeground>().pipelineInCorrecRotation)
                     {
-                        if (pipelinesInCorrectPlace >= 10)
+                        if (pipelinesInCorrectPlace >= 7)
                         {
                             Debug.Log("Minigame Finished");
                         }

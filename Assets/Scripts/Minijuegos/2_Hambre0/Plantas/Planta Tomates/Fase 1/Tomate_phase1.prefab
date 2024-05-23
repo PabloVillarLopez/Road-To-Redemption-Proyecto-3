@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7728953135499785994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9167947496548624659}
+  - component: {fileID: 6810773912404057541}
+  - component: {fileID: 8014700518498133576}
+  - component: {fileID: 7675717401559126604}
+  - component: {fileID: -6433052440950935715}
+  m_Layer: 0
+  m_Name: Tomate_phase1
+  m_TagString: SeedPlanted
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9167947496548624659
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728953135499785994}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5564406, y: 0, z: 0, w: 0.8308874}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 150, y: 150, z: 150}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -67.62, y: 0, z: 0}
+--- !u!33 &6810773912404057541
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728953135499785994}
+  m_Mesh: {fileID: 5854647188612408955, guid: 9a4a0d9d92a87c741b98cee3d575ade4, type: 3}
+--- !u!23 &8014700518498133576
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728953135499785994}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7180f6265a5cbf04594b531122775667, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7675717401559126604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728953135499785994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c393e1bcad5444eb31aa237af457c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniGameManager: {fileID: 0}
+  ready: 0
+  id: 0
+  timeLife: 0
+  temp: 20
+  timeToCollect: 0
+  materials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Cultive: {fileID: 0}
+  renderer: {fileID: 0}
+  mesh: {fileID: 0}
+  meshStrawBerry:
+  - {fileID: 0}
+  - {fileID: 0}
+  meshTomatoe:
+  - {fileID: 4435496133662662707, guid: a5476476a288fe947b7e29bd63d6061c, type: 3}
+  - {fileID: 8335393094317969318, guid: 2600d7889e8342545a85a2ccb9d08808, type: 3}
+  meshPepper:
+  - {fileID: 0}
+  - {fileID: 0}
+  materialStrawBerry:
+  - {fileID: 0}
+  - {fileID: 0}
+  materialTomatoe:
+  - {fileID: 2100000, guid: 9ab8f4ce493387743bc619753c59200c, type: 2}
+  - {fileID: 2100000, guid: fdaececd0e1954c409c601846057e9f0, type: 2}
+  materialPepper:
+  - {fileID: 0}
+  - {fileID: 0}
+  Tipo: 
+--- !u!65 &-6433052440950935715
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728953135499785994}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0021807302, y: 0.0024009615, z: 0.0036128846}
+  m_Center: {x: 0.0019287175, y: 0.002966592, z: -0.005660276}

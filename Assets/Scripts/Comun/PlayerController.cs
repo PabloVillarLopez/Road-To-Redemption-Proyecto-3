@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     #endregion Movement Variables
 
     #region Variable for camera changes
-    public static bool playerEnteredInPipelineArea;
+    public static bool playerEnteredInRotatePipelineArea;
+    public static bool playerEnteredInDecontaminatePipelineArea;
     public static bool playerEnteredInObjectClue1Area;
     public static bool playerEnteredInObjectClue2Area;
     public static bool playerEnteredInObjectClue3Area;
@@ -41,7 +42,12 @@ public class PlayerController : MonoBehaviour
     {
         rigy = GetComponent<Rigidbody>();
         orientation = transform.GetChild(3).transform;
-        interactIndicator.SetActive(false);
+
+        if (interactIndicator != null)
+        {
+            interactIndicator.SetActive(false);
+        }
+        
     }
 
     #endregion Start
@@ -117,9 +123,21 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Pipeline"))
+        /*if (other.gameObject.CompareTag("Pipeline"))
         {
             playerEnteredInPipelineArea = true;
+            pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
+        }*/
+
+        if (other.gameObject.CompareTag("PipelineRotate") && MiniGameManager.canInteractWithRotatePipelines)
+        {
+            playerEnteredInRotatePipelineArea = true;
+            pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
+        }
+
+        if (other.gameObject.CompareTag("PipelineDecontaminate"))
+        {
+            playerEnteredInDecontaminatePipelineArea = true;
             pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
         }
 
@@ -163,9 +181,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Pipeline"))
+        if (other.gameObject.CompareTag("PipelineRotate") && MiniGameManager.canInteractWithRotatePipelines)
         {
-            playerEnteredInPipelineArea = false;
+            playerEnteredInRotatePipelineArea = false;
+            pipelineEnteredID = 0;
+        }
+
+        if (other.gameObject.CompareTag("PipelineDecontaminate"))
+        {
+            playerEnteredInDecontaminatePipelineArea = false;
             pipelineEnteredID = 0;
         }
 

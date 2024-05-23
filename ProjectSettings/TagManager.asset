@@ -16,6 +16,8 @@ TagManager:
   - Portal Camera
   - CanDialogue
   - SeedPlanted
+  - PipelineRotate
+  - PipelineDecontaminate
   layers:
   - Default
   - TransparentFX
