@@ -176,6 +176,11 @@ public class PipelineForeground : MonoBehaviour
             gameManager.waterLeakCoroutineRunning = false;
             StopCoroutine(gameManager.waterLeakTransitionCoroutine);
             StartCoroutine(gameManager.WaterLeakLessTransition());
+            gameManager.StopCoroutine(gameManager.blinkingWaterLeakCorroutine);
+            gameManager.waterLeakWarningPanelFader.FadeOut();
+            gameManager.waterLeakWarningPanelFader.canvGroup.gameObject.SetActive(false);
+
+            //StopCoroutine(gameManager.blinkingWaterLeakCorroutine);
         }
 
         ShowCorrectWaterFlowButton();

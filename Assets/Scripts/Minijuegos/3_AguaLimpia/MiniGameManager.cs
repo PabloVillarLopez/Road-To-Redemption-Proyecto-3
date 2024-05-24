@@ -100,11 +100,15 @@ public class MiniGameManager : MonoBehaviour
     #region Verify Pipelines Correct Position Variables
 
     [Header("Verify Pipelines Correct Position")]
-    public GameObject[] pipelines;
+    public GameObject[] pipelinesToRotate;
+    //public GameObject[] pipelinesToRotateAndSelect;
+    public GameObject[] pipelinesToDecontaminate;
     public GameObject[] pipelinesToChangePipeline1;
     public GameObject[] pipelinesToChangePipeline3;
     public GameObject[] pipelinesToChangePipeline5;
-    public GameObject[] pipelinesIcons;
+    public GameObject[] pipelinesIconsPipeline1;
+    public GameObject[] pipelinesIconsPipeline3;
+    public GameObject[] pipelinesIconsPipeline5;
     public int pipelinesInCorrectPlace;
 
     #endregion Verify Pipelines Correct Position Variables
@@ -146,6 +150,7 @@ public class MiniGameManager : MonoBehaviour
     public GameObject SelectUI;
     public GameObject waterOpenAndCloseUI;
     public GameObject decontaminationUI;
+    public GameObject catastrophesPanel;
 
     #endregion UI References
 
@@ -204,6 +209,9 @@ public class MiniGameManager : MonoBehaviour
     #endregion Text Variables for changing Language
 
     public static bool canInteractWithRotatePipelines;
+    public IEnumerator blinkingWaterLeakCorroutine;
+    public IEnumerator blinkingContaminationCorroutine;
+    public IEnumerator blinkingContaminationBacteriaCorroutine;
 
     #region Awake
 
@@ -231,11 +239,12 @@ public class MiniGameManager : MonoBehaviour
 
         maxNumOfMovements = 5;
 
-        SelectPipeline();
+        //SelectPipeline();
 
         contaminationTransitionCoroutine = ContaminationTransition();
         bacteriaTransitionCoroutine = BacteriaContaminationTransition();
         waterLeakTransitionCoroutine = WaterLeakMoreTransition();
+        blinkingWaterLeakCorroutine = BlinkingWaterLeakWarning();
 
         //StartCoroutine(ContaminationTransition());
     }
@@ -249,15 +258,16 @@ public class MiniGameManager : MonoBehaviour
     {
         ComeBackToPlayerCamera();
         HandleMinigamePhases();
+        ManageUIPipelineType();
 
         if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInRotatePipelineArea && canInteractWithRotatePipelines)
         {
-            PipelineCamera();
+            PipelineRotateCamera();
         }
 
         if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInDecontaminatePipelineArea)
         {
-            PipelineCamera();
+            PipelineDecontaminateCamera();
         }
 
         HandleRemaingingMovements();
@@ -277,7 +287,7 @@ public class MiniGameManager : MonoBehaviour
         }
         
 
-        CheckSelectedPipeline();
+        //CheckSelectedPipeline();
 
         //waterContamination = Mathf.Lerp(0.5f, 1f, contaminationSpeed);
 
@@ -285,12 +295,12 @@ public class MiniGameManager : MonoBehaviour
         bacteriaSlider.value = bacteriaContamination;
         waterLeakSlider.value = waterLeak;
 
-        if (!catastropheTransitionStarted)
+        /*if (!catastropheTransitionStarted)
         {
             StartCoroutine(CatastrophesTransition());
-        }
+        }*/
 
-        HandleCatastrophes();
+        //HandleCatastrophes();
 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -310,11 +320,11 @@ public class MiniGameManager : MonoBehaviour
     //To select different types of pipelines
     #region Select Pipeline Types
 
-    void SelectPipeline()
+    /*void SelectPipeline()
     {
         int i = 0;
 
-        foreach (GameObject pipeline in pipelines)
+        foreach (GameObject pipeline in pipelinesToRotateAndSelect)
         {
             if (i == selectedPipeline)
             {
@@ -426,7 +436,7 @@ public class MiniGameManager : MonoBehaviour
         {
             SelectPipeline();
         }
-    }
+    }*/
 
     #endregion Select Pipeline Types
 
@@ -537,7 +547,7 @@ public class MiniGameManager : MonoBehaviour
             float previousWaterLeak = waterLeak;
 
             waterLeak = Mathf.Lerp(previousWaterLeak, 0f, elapsedTime6 / waterLessLeakSpeed);
-            waterLeakedSolvedCount++;
+            waterLeakedSolvedCount = 1;
             yield return null;
         }
 
@@ -596,50 +606,82 @@ public class MiniGameManager : MonoBehaviour
 
     private void ManageUIPipelineType()
     {
-        switch (pipelineActive.pipelineType)
+        if (PlayerController.pipelineEntered != null)
         {
-            case PipelineForeground.PipelineType.DECONTAMINATING:
-                RotateUI.SetActive(false);
-                waterOpenAndCloseUI.SetActive(false);
-                SelectUI.SetActive(true);
-                decontaminationUI.SetActive(true);
-                //SelectUI.transform.position = new Vector3(SelectUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
-                break;
-            case PipelineForeground.PipelineType.CONTROLFLOWOFWATER:
-                RotateUI.SetActive(false);
-                waterOpenAndCloseUI.SetActive(true);
-                decontaminationUI.SetActive(false);
-                //SelectUI.SetActive(false);
-                //waterOpenAndCloseUI.transform.position = new Vector3(waterOpenAndCloseUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
-                break;
-            case PipelineForeground.PipelineType.REDIRECTION:
-                RotateUI.SetActive(true);
-                waterOpenAndCloseUI.SetActive(false);
-                decontaminationUI.SetActive(false);
-                SelectUI.SetActive(false);
-
-                if (canAddRotateToButton)
-                {
-                    leftRotateButton.onClick.AddListener(pipelineActive.RotateLeftX);
-                    rightRotateButton.onClick.AddListener(pipelineActive.RotateRightX);
-                    upRotateButton.onClick.AddListener(pipelineActive.RotateUpwards);
-                    downRotateButton.onClick.AddListener(pipelineActive.RotateDownwards);
-                    canAddRotateToButton = false;
-                }
-                
-
-                //SelectUI.SetActive(false);
-                //RotateUI.transform.position = new Vector3(RotateUI.transform.position.x + 160, RotateUI.transform.position.y, RotateUI.transform.position.z);
-                break;
-            case PipelineForeground.PipelineType.REDIRECTIONANDSELECT:
-                RotateUI.SetActive(true);
-                waterOpenAndCloseUI.SetActive(false);
-                decontaminationUI.SetActive(false);
-                SelectUI.SetActive(true);
-                break;
-            default:
-                break;
+            pipelineActive = PlayerController.pipelineEntered.GetComponent<PipelineForeground>();
         }
+        
+        if (pipelineActive != null)
+        {
+            switch (pipelineActive.pipelineType)
+            {
+                case PipelineForeground.PipelineType.DECONTAMINATING:
+                    RotateUI.SetActive(false);
+                    waterOpenAndCloseUI.SetActive(false);
+                    SelectUI.SetActive(false);
+                    decontaminationUI.SetActive(true);
+                    catastrophesPanel.SetActive(true);
+                    catastrophes = Catastrophes.HIGHCONTAMINATION;
+                    HandleCatastrophes();
+                    //SelectUI.transform.position = new Vector3(SelectUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
+                    break;
+                case PipelineForeground.PipelineType.CONTROLFLOWOFWATER:
+                    RotateUI.SetActive(false);
+                    waterOpenAndCloseUI.SetActive(true);
+                    decontaminationUI.SetActive(false);
+                    SelectUI.SetActive(false);
+                    catastrophesPanel.SetActive(true);
+                    catastrophes = Catastrophes.WATERLEAK;
+                    HandleCatastrophes();
+                    //waterOpenAndCloseUI.transform.position = new Vector3(waterOpenAndCloseUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
+                    break;
+                case PipelineForeground.PipelineType.DECONTAMINATINGBACTERIA:
+                    RotateUI.SetActive(false);
+                    waterOpenAndCloseUI.SetActive(false);
+                    decontaminationUI.SetActive(true);
+                    SelectUI.SetActive(false);
+                    catastrophesPanel.SetActive(true);
+                    catastrophes = Catastrophes.BACTERIA;
+                    HandleCatastrophes();
+
+                    break;
+                case PipelineForeground.PipelineType.REDIRECTION:
+                    RotateUI.SetActive(true);
+                    waterOpenAndCloseUI.SetActive(false);
+                    decontaminationUI.SetActive(false);
+                    SelectUI.SetActive(false);
+                    catastrophesPanel.SetActive(false);
+
+                    catastrophes = Catastrophes.NONE;
+                    HandleCatastrophes();
+
+                    if (canAddRotateToButton)
+                    {
+                        leftRotateButton.onClick.AddListener(pipelineActive.RotateLeftX);
+                        rightRotateButton.onClick.AddListener(pipelineActive.RotateRightX);
+                        upRotateButton.onClick.AddListener(pipelineActive.RotateUpwards);
+                        downRotateButton.onClick.AddListener(pipelineActive.RotateDownwards);
+                        canAddRotateToButton = false;
+                    }
+
+
+                    //SelectUI.SetActive(false);
+                    //RotateUI.transform.position = new Vector3(RotateUI.transform.position.x + 160, RotateUI.transform.position.y, RotateUI.transform.position.z);
+                    break;
+                case PipelineForeground.PipelineType.REDIRECTIONANDSELECT:
+                    RotateUI.SetActive(true);
+                    waterOpenAndCloseUI.SetActive(false);
+                    decontaminationUI.SetActive(false);
+                    SelectUI.SetActive(true);
+                    catastrophesPanel.SetActive(false);
+                    catastrophes = Catastrophes.NONE;
+                    HandleCatastrophes();
+                    break;
+                default:
+                    break;
+            }
+        }
+        
     }
 
     #endregion Manage UI Depending on Pipeline Type
@@ -659,8 +701,12 @@ public class MiniGameManager : MonoBehaviour
             StopAllCoroutines();
             
             StartCoroutine(DecontaminationTransition());
-            contaminationWarningPanelFader.FadeOut();
+            StopCoroutine(blinkingContaminationCorroutine);
+            contaminationWarningPanelFader.Fade();
+            contaminationWarningPanelFader.canvGroup.gameObject.SetActive(false);
             clickToDecontaminateCount = 0;
+
+            decontaminationCount = 1;
         }
     }
 
@@ -674,9 +720,14 @@ public class MiniGameManager : MonoBehaviour
             //StopCoroutine(bacteriaTransitionCoroutine);
             //StopCoroutine(BlinkingBacteriaWarning());
             StopAllCoroutines();
-            bacteriaWarningPanelFader.FadeOut();
+            
             StartCoroutine(BacteriaDecontaminationTransition());
+            StopCoroutine(blinkingContaminationBacteriaCorroutine);
+            bacteriaWarningPanelFader.Fade();
+            bacteriaWarningPanelFader.canvGroup.gameObject.SetActive(false);
             clickToDecontaminateBacteriaCount = 0;
+
+            bacteriaCleanedCount = 1;
         }
     }
 
@@ -705,10 +756,29 @@ public class MiniGameManager : MonoBehaviour
     //To place in the foreground the pipeline by activating the pipelinecamera and deactivating the player camera
     #region Pipeline Camera
 
-    private void PipelineCamera()
+    private void PipelineRotateCamera()
     {
         playerCamera.SetActive(false);
         //pipelineCamera.transform.position = pipelines[PlayerController.pipelineEnteredID - 1].transform.position + new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+        pipelineCamera.SetActive(true);
+        pipelineCameraActive = true;
+        RotatePipelineUI.SetActive(true);
+
+        ManageUIPipelineType();
+
+        if (PlayerController.pipelineEnteredID > 1)
+        {
+            catastrophesCanStart = true;
+        }
+        
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void PipelineDecontaminateCamera()
+    {
+        playerCamera.SetActive(false);
+        pipelineCamera.transform.position = pipelinesToDecontaminate[0].transform.position; //+ new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
         pipelineCamera.SetActive(true);
         pipelineCameraActive = true;
         RotatePipelineUI.SetActive(true);
@@ -716,7 +786,7 @@ public class MiniGameManager : MonoBehaviour
         {
             catastrophesCanStart = true;
         }
-        
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -841,9 +911,9 @@ public class MiniGameManager : MonoBehaviour
                     instructionsText.text = "Rota las tuberías que están mal colocadas. Tuberías bien colocadas: " + (pipelinesInCorrectPlace) + " / 7";
                 }
 
-                for (int i = 0; i < pipelines.Length; i++)
+                for (int i = 0; i < pipelinesToRotate.Length; i++)
                 {
-                    if (pipelines[i].GetComponent<PipelineForeground>().pipelineInCorrecRotation)
+                    if (pipelinesToRotate[i].GetComponent<PipelineForeground>().pipelineInCorrecRotation)
                     {
                         if (pipelinesInCorrectPlace >= 7)
                         {
@@ -978,7 +1048,8 @@ public class MiniGameManager : MonoBehaviour
         bacteriaWarningPanelFader.FadeOut();
         bacterianWarningMessage.SetActive(false);
 
-        StartCoroutine(BlinkingBacteriaWarning());
+        blinkingContaminationBacteriaCorroutine = BlinkingBacteriaWarning();
+        StartCoroutine(blinkingContaminationBacteriaCorroutine);
     }
 
     private IEnumerator BlinkingContaminationWarning()
@@ -989,10 +1060,11 @@ public class MiniGameManager : MonoBehaviour
         contaminationWarningPanelFader.FadeOut();
         contaminationWarningMessage.SetActive(false);
 
-        StartCoroutine(BlinkingContaminationWarning());
+        blinkingContaminationCorroutine = BlinkingContaminationWarning();
+        StartCoroutine(blinkingContaminationCorroutine);
     }
 
-    private IEnumerator BlinkingWaterLeakWarning()
+    public IEnumerator BlinkingWaterLeakWarning()
     {
         waterLeakWarningMessage.SetActive(true);
         waterLeakWarningPanelFader.Fade();
@@ -1000,7 +1072,8 @@ public class MiniGameManager : MonoBehaviour
         waterLeakWarningPanelFader.FadeOut();
         waterLeakWarningMessage.SetActive(false);
 
-        StartCoroutine(BlinkingWaterLeakWarning());
+        blinkingWaterLeakCorroutine = BlinkingWaterLeakWarning();
+        StartCoroutine(blinkingWaterLeakCorroutine);
     }
 
     #endregion Blinking Warning Catastrophes Messages

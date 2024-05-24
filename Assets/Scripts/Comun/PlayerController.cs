@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public static bool playerEnteredInObjectClue2Area;
     public static bool playerEnteredInObjectClue3Area;
     public static int pipelineEnteredID;
+    public static GameObject pipelineEntered;
 
     #endregion Variable for camera changes
 
@@ -133,12 +134,14 @@ public class PlayerController : MonoBehaviour
         {
             playerEnteredInRotatePipelineArea = true;
             pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
+            pipelineEntered = other.gameObject;
         }
 
         if (other.gameObject.CompareTag("PipelineDecontaminate"))
         {
             playerEnteredInDecontaminatePipelineArea = true;
             pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
+            pipelineEntered = other.gameObject;
         }
 
         if (other.gameObject.CompareTag("JusticeClue1"))
@@ -185,12 +188,14 @@ public class PlayerController : MonoBehaviour
         {
             playerEnteredInRotatePipelineArea = false;
             pipelineEnteredID = 0;
+            pipelineEntered = null;
         }
 
         if (other.gameObject.CompareTag("PipelineDecontaminate"))
         {
             playerEnteredInDecontaminatePipelineArea = false;
             pipelineEnteredID = 0;
+            pipelineEntered = null;
         }
 
         if (other.gameObject.CompareTag("JusticeClue1"))
