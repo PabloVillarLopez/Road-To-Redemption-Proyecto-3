@@ -60,6 +60,8 @@ public class PipelineForeground : MonoBehaviour
 
     #endregion Verify Pipeline Correct Rotation
 
+    public bool alreadyDecontaminated;
+
     #region Awake
 
     private void Awake()
@@ -179,6 +181,9 @@ public class PipelineForeground : MonoBehaviour
             gameManager.StopCoroutine(gameManager.blinkingWaterLeakCorroutine);
             gameManager.waterLeakWarningPanelFader.FadeOut();
             gameManager.waterLeakWarningPanelFader.canvGroup.gameObject.SetActive(false);
+            gameManager.congratulationsPanel.SetActive(true);
+            gameManager.congratulationsPanelText.text = "Congratulations on controlling efficiently the water flow.";
+            alreadyDecontaminated = true;
 
             //StopCoroutine(gameManager.blinkingWaterLeakCorroutine);
         }

@@ -213,6 +213,14 @@ public class MiniGameManager : MonoBehaviour
     public IEnumerator blinkingContaminationCorroutine;
     public IEnumerator blinkingContaminationBacteriaCorroutine;
 
+    [Header("Congratulations Panel")]
+    public GameObject congratulationsPanel;
+    public TextMeshProUGUI congratulationsPanelText;
+
+    [Header("Mistake Panel")]
+    public GameObject mistakePanel;
+    public TextMeshProUGUI mistakePanelText;
+
     #region Awake
 
     private void Awake()
@@ -236,6 +244,8 @@ public class MiniGameManager : MonoBehaviour
         bacterianWarningMessage.SetActive(false);
         contaminationWarningMessage.SetActive(false);
         waterLeakWarningMessage.SetActive(false);
+        congratulationsPanel.SetActive(false);
+        mistakePanel.SetActive(false);
 
         maxNumOfMovements = 5;
 
@@ -265,7 +275,7 @@ public class MiniGameManager : MonoBehaviour
             PipelineRotateCamera();
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInDecontaminatePipelineArea)
+        if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInDecontaminatePipelineArea && !PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated)
         {
             PipelineDecontaminateCamera();
         }
@@ -456,6 +466,14 @@ public class MiniGameManager : MonoBehaviour
             yield return null;
         }
 
+        if (waterContamination >= 1f)
+        {
+            StopAllCoroutines();
+            RotatePipelineUI.SetActive(false);
+            instructionsPanel.SetActive(false);
+            mistakePanel.SetActive(true);
+        }
+
         //StartCoroutine(ContaminationTransition());
     }
 
@@ -473,7 +491,7 @@ public class MiniGameManager : MonoBehaviour
             yield return null;
         }
 
-        decontaminationCount++;
+        //decontaminationCount++;
         //StartCoroutine(ContaminationTransition());
     }
 
@@ -495,6 +513,14 @@ public class MiniGameManager : MonoBehaviour
             yield return null;
         }
 
+        if (bacteriaContamination >= 1f)
+        {
+            StopAllCoroutines();
+            RotatePipelineUI.SetActive(false);
+            instructionsPanel.SetActive(false);
+            mistakePanel.SetActive(true);
+        }
+
         //StartCoroutine(ContaminationTransition());
     }
 
@@ -512,7 +538,7 @@ public class MiniGameManager : MonoBehaviour
             yield return null;
         }
 
-        bacteriaCleanedCount++;
+        //bacteriaCleanedCount++;
         //StartCoroutine(ContaminationTransition());
     }
 
@@ -532,6 +558,14 @@ public class MiniGameManager : MonoBehaviour
 
             waterLeak = Mathf.Lerp(0f, 1f, elapsedTime5 / waterMoreLeakSpeed);
             yield return null;
+        }
+
+        if (waterLeak >= 1f)
+        {
+            StopAllCoroutines();
+            RotatePipelineUI.SetActive(false);
+            instructionsPanel.SetActive(false);
+            mistakePanel.SetActive(true);
         }
 
         //StartCoroutine(ContaminationTransition());
@@ -704,6 +738,11 @@ public class MiniGameManager : MonoBehaviour
             StopCoroutine(blinkingContaminationCorroutine);
             contaminationWarningPanelFader.Fade();
             contaminationWarningPanelFader.canvGroup.gameObject.SetActive(false);
+            congratulationsPanel.SetActive(true);
+            congratulationsPanelText.text = "Congratulations on decontamining the water.";
+            //PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated = true;
+            PlayerController.pipelineEntered.GetComponent<PipelineForeground>().alreadyDecontaminated = true;
+
             clickToDecontaminateCount = 0;
 
             decontaminationCount = 1;
@@ -725,6 +764,11 @@ public class MiniGameManager : MonoBehaviour
             StopCoroutine(blinkingContaminationBacteriaCorroutine);
             bacteriaWarningPanelFader.Fade();
             bacteriaWarningPanelFader.canvGroup.gameObject.SetActive(false);
+            congratulationsPanel.SetActive(true);
+            congratulationsPanelText.text = "Congratulations on decontamining the water of bacteria.";
+            PlayerController.pipelineEntered.GetComponent<PipelineForeground>().alreadyDecontaminated = true;
+            //PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated = true;
+
             clickToDecontaminateBacteriaCount = 0;
 
             bacteriaCleanedCount = 1;
@@ -748,6 +792,18 @@ public class MiniGameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
+    }
+
+    public void ComeBackToPlayerCameraAfterEvent()
+    {
+        playerCamera.SetActive(true);
+        pipelineCamera.SetActive(false);
+        pipelineCameraActive = false;
+        RotatePipelineUI.SetActive(false);
+        catastrophesCanStart = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
     }
 

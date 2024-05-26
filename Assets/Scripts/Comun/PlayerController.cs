@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     #endregion Dialogue Reference Variable
 
+    public static bool pipelineEnteredHasBeenAlreadyDecontaminated;
+
     #region Start
     // Start is called before the first frame update
     void Start()
@@ -142,6 +144,7 @@ public class PlayerController : MonoBehaviour
             playerEnteredInDecontaminatePipelineArea = true;
             pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
             pipelineEntered = other.gameObject;
+            pipelineEnteredHasBeenAlreadyDecontaminated = other.gameObject.GetComponent<PipelineForeground>().alreadyDecontaminated;
         }
 
         if (other.gameObject.CompareTag("JusticeClue1"))
@@ -196,6 +199,7 @@ public class PlayerController : MonoBehaviour
             playerEnteredInDecontaminatePipelineArea = false;
             pipelineEnteredID = 0;
             pipelineEntered = null;
+            pipelineEnteredHasBeenAlreadyDecontaminated = false;
         }
 
         if (other.gameObject.CompareTag("JusticeClue1"))
