@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public static bool playerEnteredInObjectClue2Area;
     public static bool playerEnteredInObjectClue3Area;
     public static int pipelineEnteredID;
+    public static int pipelineRotateEnteredID;
     public static GameObject pipelineEntered;
 
     #endregion Variable for camera changes
@@ -38,6 +39,9 @@ public class PlayerController : MonoBehaviour
     #endregion Dialogue Reference Variable
 
     public static bool pipelineEnteredHasBeenAlreadyDecontaminated;
+    public static bool pipelineEnteredHasBeenAlreadyRotated;
+    public static float pipeRotateX;
+    public static float pipeRotateY;
 
     #region Start
     // Start is called before the first frame update
@@ -136,7 +140,12 @@ public class PlayerController : MonoBehaviour
         {
             playerEnteredInRotatePipelineArea = true;
             pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
+            pipelineRotateEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineRotateId;
             pipelineEntered = other.gameObject;
+            pipelineEnteredHasBeenAlreadyRotated = other.gameObject.GetComponent<PipelineForeground>().pipelineInCorrecRotation;
+            MiniGameManager.canAddRotateToButton = true;
+            pipeRotateX = other.gameObject.GetComponent<PipelineForeground>().rotationAddedX;
+            pipeRotateY = other.gameObject.GetComponent<PipelineForeground>().rotationAddedY;
         }
 
         if (other.gameObject.CompareTag("PipelineDecontaminate"))
@@ -192,6 +201,9 @@ public class PlayerController : MonoBehaviour
             playerEnteredInRotatePipelineArea = false;
             pipelineEnteredID = 0;
             pipelineEntered = null;
+            pipelineEnteredHasBeenAlreadyRotated = false;
+            pipeRotateX = 0;
+            pipeRotateY = 0;
         }
 
         if (other.gameObject.CompareTag("PipelineDecontaminate"))

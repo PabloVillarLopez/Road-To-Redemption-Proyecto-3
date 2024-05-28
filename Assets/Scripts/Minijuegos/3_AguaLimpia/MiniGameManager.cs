@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MiniGameManager : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class MiniGameManager : MonoBehaviour
     private GameObject playerCamera;
     private GameObject pipelineCamera;
     private bool pipelineCameraActive;
-    private GameObject RotatePipelineUI;
+    [HideInInspector]
+    public GameObject RotatePipelineUI;
 
     #endregion Camera Variables
 
@@ -161,7 +163,7 @@ public class MiniGameManager : MonoBehaviour
     public Button rightRotateButton;
     public Button upRotateButton;
     public Button downRotateButton;
-    private bool canAddRotateToButton = true;
+    public static bool canAddRotateToButton = true;
 
     #endregion Rotate UI Buttons Variables
 
@@ -221,6 +223,20 @@ public class MiniGameManager : MonoBehaviour
     public GameObject mistakePanel;
     public TextMeshProUGUI mistakePanelText;
 
+    [Header("Stamp Panel")]
+    public GameObject stampPanel;
+
+    [Header("Select buttons")]
+    public GameObject selectUp1Button;
+    public GameObject selectDonw1Button;
+    public GameObject selectUp2Button;
+    public GameObject selectDown2Button;
+    public GameObject selectUp3Button;
+    public GameObject selectDown3Button;
+    public GameObject pipelineSelector1;
+    public GameObject pipelineSelector2;
+    public GameObject pipelineSelector3;
+
     #region Awake
 
     private void Awake()
@@ -246,6 +262,7 @@ public class MiniGameManager : MonoBehaviour
         waterLeakWarningMessage.SetActive(false);
         congratulationsPanel.SetActive(false);
         mistakePanel.SetActive(false);
+        stampPanel.SetActive(false);
 
         maxNumOfMovements = 5;
 
@@ -266,11 +283,11 @@ public class MiniGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ComeBackToPlayerCamera();
+        //ComeBackToPlayerCamera();
         HandleMinigamePhases();
         ManageUIPipelineType();
 
-        if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInRotatePipelineArea && canInteractWithRotatePipelines)
+        if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInRotatePipelineArea && canInteractWithRotatePipelines && !PlayerController.pipelineEnteredHasBeenAlreadyRotated)
         {
             PipelineRotateCamera();
         }
@@ -280,12 +297,7 @@ public class MiniGameManager : MonoBehaviour
             PipelineDecontaminateCamera();
         }
 
-        HandleRemaingingMovements();
-
-        /*if (pipelines[0].GetComponent<PipelineForeground>().pipelineInCorrecRotation transform.rotation.x == 90f)
-        {
-            pipeline1CorrectPlaced = true;
-        }*/
+        //HandleRemaingingMovements();
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
@@ -299,18 +311,10 @@ public class MiniGameManager : MonoBehaviour
 
         //CheckSelectedPipeline();
 
-        //waterContamination = Mathf.Lerp(0.5f, 1f, contaminationSpeed);
 
         contaminationSlider.value = waterContamination;
         bacteriaSlider.value = bacteriaContamination;
         waterLeakSlider.value = waterLeak;
-
-        /*if (!catastropheTransitionStarted)
-        {
-            StartCoroutine(CatastrophesTransition());
-        }*/
-
-        //HandleCatastrophes();
 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -650,33 +654,47 @@ public class MiniGameManager : MonoBehaviour
             switch (pipelineActive.pipelineType)
             {
                 case PipelineForeground.PipelineType.DECONTAMINATING:
-                    RotateUI.SetActive(false);
-                    waterOpenAndCloseUI.SetActive(false);
-                    SelectUI.SetActive(false);
-                    decontaminationUI.SetActive(true);
-                    catastrophesPanel.SetActive(true);
-                    catastrophes = Catastrophes.HIGHCONTAMINATION;
-                    HandleCatastrophes();
-                    //SelectUI.transform.position = new Vector3(SelectUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
+                    if (!pipelineActive.alreadyDecontaminated)
+                    {
+                        RotateUI.SetActive(false);
+                        waterOpenAndCloseUI.SetActive(false);
+                        SelectUI.SetActive(false);
+                        decontaminationUI.SetActive(true);
+                        catastrophesPanel.SetActive(true);
+                        catastrophes = Catastrophes.HIGHCONTAMINATION;
+                        HandleCatastrophes();
+                        //SelectUI.transform.position = new Vector3(SelectUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
+                    }
+
                     break;
                 case PipelineForeground.PipelineType.CONTROLFLOWOFWATER:
-                    RotateUI.SetActive(false);
-                    waterOpenAndCloseUI.SetActive(true);
-                    decontaminationUI.SetActive(false);
-                    SelectUI.SetActive(false);
-                    catastrophesPanel.SetActive(true);
-                    catastrophes = Catastrophes.WATERLEAK;
-                    HandleCatastrophes();
-                    //waterOpenAndCloseUI.transform.position = new Vector3(waterOpenAndCloseUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
+                    if (!pipelineActive.alreadyDecontaminated)
+                    {
+                        RotateUI.SetActive(false);
+                        waterOpenAndCloseUI.SetActive(true);
+                        decontaminationUI.SetActive(false);
+                        SelectUI.SetActive(false);
+                        catastrophesPanel.SetActive(true);
+                        catastrophes = Catastrophes.WATERLEAK;
+                        HandleCatastrophes();
+                        //waterOpenAndCloseUI.transform.position = new Vector3(waterOpenAndCloseUI.transform.position.x - 5, SelectUI.transform.position.y, SelectUI.transform.position.z);
+                    }
+
+
                     break;
                 case PipelineForeground.PipelineType.DECONTAMINATINGBACTERIA:
-                    RotateUI.SetActive(false);
-                    waterOpenAndCloseUI.SetActive(false);
-                    decontaminationUI.SetActive(true);
-                    SelectUI.SetActive(false);
-                    catastrophesPanel.SetActive(true);
-                    catastrophes = Catastrophes.BACTERIA;
-                    HandleCatastrophes();
+                    if (!pipelineActive.alreadyDecontaminated)
+                    {
+                        RotateUI.SetActive(false);
+                        waterOpenAndCloseUI.SetActive(false);
+                        decontaminationUI.SetActive(true);
+                        SelectUI.SetActive(false);
+                        catastrophesPanel.SetActive(true);
+                        catastrophes = Catastrophes.BACTERIA;
+                        HandleCatastrophes();
+                    }
+                    
+                    
 
                     break;
                 case PipelineForeground.PipelineType.REDIRECTION:
@@ -691,6 +709,11 @@ public class MiniGameManager : MonoBehaviour
 
                     if (canAddRotateToButton)
                     {
+                        leftRotateButton.onClick.RemoveAllListeners();
+                        rightRotateButton.onClick.RemoveAllListeners();
+                        upRotateButton.onClick.RemoveAllListeners();
+                        downRotateButton.onClick.RemoveAllListeners();
+
                         leftRotateButton.onClick.AddListener(pipelineActive.RotateLeftX);
                         rightRotateButton.onClick.AddListener(pipelineActive.RotateRightX);
                         upRotateButton.onClick.AddListener(pipelineActive.RotateUpwards);
@@ -710,6 +733,36 @@ public class MiniGameManager : MonoBehaviour
                     catastrophesPanel.SetActive(false);
                     catastrophes = Catastrophes.NONE;
                     HandleCatastrophes();
+
+                    if (canAddRotateToButton)
+                    {
+                        leftRotateButton.onClick.RemoveAllListeners();
+                        rightRotateButton.onClick.RemoveAllListeners();
+                        upRotateButton.onClick.RemoveAllListeners();
+                        downRotateButton.onClick.RemoveAllListeners();
+
+                        leftRotateButton.onClick.AddListener(pipelineActive.RotateLeftX);
+                        rightRotateButton.onClick.AddListener(pipelineActive.RotateRightX);
+                        upRotateButton.onClick.AddListener(pipelineActive.RotateUpwards);
+                        downRotateButton.onClick.AddListener(pipelineActive.RotateDownwards);
+                        canAddRotateToButton = false;
+                    }
+                    break;
+                case PipelineForeground.PipelineType.DECONTAMINATINGANDSELECT:
+                    RotateUI.SetActive(false);
+                    waterOpenAndCloseUI.SetActive(false);
+                    SelectUI.SetActive(true);
+                    decontaminationUI.SetActive(true);
+                    catastrophesPanel.SetActive(true);
+
+                    break;
+                case PipelineForeground.PipelineType.CONTROLFLOWOFWATERANDSELECT:
+                    RotateUI.SetActive(false);
+                    waterOpenAndCloseUI.SetActive(true);
+                    decontaminationUI.SetActive(false);
+                    SelectUI.SetActive(true);
+                    catastrophesPanel.SetActive(true);
+
                     break;
                 default:
                     break;
@@ -739,6 +792,8 @@ public class MiniGameManager : MonoBehaviour
             contaminationWarningPanelFader.Fade();
             contaminationWarningPanelFader.canvGroup.gameObject.SetActive(false);
             congratulationsPanel.SetActive(true);
+            //StartCoroutine(Wait());
+            DecontaminationButton.gameObject.SetActive(false);
             congratulationsPanelText.text = "Congratulations on decontamining the water.";
             //PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated = true;
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().alreadyDecontaminated = true;
@@ -765,6 +820,8 @@ public class MiniGameManager : MonoBehaviour
             bacteriaWarningPanelFader.Fade();
             bacteriaWarningPanelFader.canvGroup.gameObject.SetActive(false);
             congratulationsPanel.SetActive(true);
+            BacteriaContaminationButton.gameObject.SetActive(false);
+            //StartCoroutine(Wait());
             congratulationsPanelText.text = "Congratulations on decontamining the water of bacteria.";
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().alreadyDecontaminated = true;
             //PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated = true;
@@ -815,10 +872,121 @@ public class MiniGameManager : MonoBehaviour
     private void PipelineRotateCamera()
     {
         playerCamera.SetActive(false);
-        //pipelineCamera.transform.position = pipelines[PlayerController.pipelineEnteredID - 1].transform.position + new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+
+        switch (PlayerController.pipelineRotateEnteredID)
+        {
+            case 0:
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(0, 0, 4); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, -180, 0);
+
+                selectDonw1Button.SetActive(true);
+                selectUp1Button.SetActive(true);
+                selectDown2Button.SetActive(false);
+                selectUp2Button.SetActive(false);
+                selectDown3Button.SetActive(false);
+                selectUp3Button.SetActive(false);
+
+                pipelineSelector1.SetActive(true);
+                pipelineSelector1.GetComponent<PipelineSelector>().SelectPipeline();
+                pipelineSelector2.GetComponent<PipelineSelector>().DeactivatePipelines();
+                pipelineSelector3.GetComponent<PipelineSelector>().DeactivatePipelines();
+                //pipelineSelector2.SetActive(false);
+                //pipelineSelector3.SetActive(false);
+                break;
+            case 1:
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, 0); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+
+                selectDonw1Button.SetActive(false);
+                selectUp1Button.SetActive(false);
+                selectDown2Button.SetActive(false);
+                selectUp2Button.SetActive(false);
+                selectDown3Button.SetActive(false);
+                selectUp3Button.SetActive(false);
+                break;
+            case 2:
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, 1); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+
+                selectDonw1Button.SetActive(false);
+                selectUp1Button.SetActive(false);
+                selectDown2Button.SetActive(true);
+                selectUp2Button.SetActive(true);
+                selectDown3Button.SetActive(false);
+                selectUp3Button.SetActive(false);
+
+                //pipelineSelector1.SetActive(false);
+                pipelineSelector2.SetActive(true);
+                pipelineSelector2.GetComponent<PipelineSelector>().SelectPipeline();
+                pipelineSelector1.GetComponent<PipelineSelector>().DeactivatePipelines();
+                pipelineSelector3.GetComponent<PipelineSelector>().DeactivatePipelines();
+                //pipelineSelector3.SetActive(false);
+                break;
+            case 3:
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, -1); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+
+                selectDonw1Button.SetActive(false);
+                selectUp1Button.SetActive(false);
+                selectDown2Button.SetActive(false);
+                selectUp2Button.SetActive(false);
+                selectDown3Button.SetActive(false);
+                selectUp3Button.SetActive(false);
+                break;
+            case 4:
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, -1); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+
+                selectDown2Button.SetActive(false);
+                selectUp2Button.SetActive(false);
+                selectDown2Button.SetActive(false);
+                selectUp2Button.SetActive(false);
+                selectDown2Button.SetActive(true);
+                selectUp2Button.SetActive(true);
+
+                //pipelineSelector1.SetActive(false);
+                //pipelineSelector2.SetActive(false);
+                pipelineSelector1.GetComponent<PipelineSelector>().DeactivatePipelines();
+                pipelineSelector2.GetComponent<PipelineSelector>().DeactivatePipelines();
+
+                pipelineSelector3.SetActive(true);
+                pipelineSelector3.GetComponent<PipelineSelector>().SelectPipeline();
+                break;
+            case 5:
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, 0); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+
+                selectDonw1Button.SetActive(false);
+                selectUp1Button.SetActive(false);
+                selectDown2Button.SetActive(false);
+                selectUp2Button.SetActive(false);
+                selectDown3Button.SetActive(false);
+                selectUp3Button.SetActive(false);
+                break;
+            case 6:
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, 0); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+
+                selectDonw1Button.SetActive(false);
+                selectUp1Button.SetActive(false);
+                selectDown2Button.SetActive(false);
+                selectUp2Button.SetActive(false);
+                selectDown3Button.SetActive(false);
+                selectUp3Button.SetActive(false);
+                break;
+            default:
+                break;
+        }
+        
+        
         pipelineCamera.SetActive(true);
         pipelineCameraActive = true;
         RotatePipelineUI.SetActive(true);
+        leftRotateButton.gameObject.SetActive(true);
+        rightRotateButton.gameObject.SetActive(true);
+        upRotateButton.gameObject.SetActive(true);
+        downRotateButton.gameObject.SetActive(true);
+        numOfMovementsText.gameObject.SetActive(false);
 
         ManageUIPipelineType();
 
@@ -834,7 +1002,25 @@ public class MiniGameManager : MonoBehaviour
     private void PipelineDecontaminateCamera()
     {
         playerCamera.SetActive(false);
-        pipelineCamera.transform.position = pipelinesToDecontaminate[0].transform.position; //+ new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+
+        if (PlayerController.pipelineEnteredID == 2)
+        {
+            pipelineCamera.transform.position = pipelinesToDecontaminate[0].transform.position - new Vector3(0, 0, 2) ; //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+            pipelineCamera.transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else if (PlayerController.pipelineEnteredID == 3)
+        {
+            pipelineCamera.transform.position = pipelinesToDecontaminate[2].transform.position - new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+            pipelineCamera.transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else if (PlayerController.pipelineEnteredID == 4)
+        {
+            pipelineCamera.transform.position = pipelinesToDecontaminate[1].transform.position + new Vector3(2, 0, -1); //+ new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+            pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+        }
+
+
+        
         pipelineCamera.SetActive(true);
         pipelineCameraActive = true;
         RotatePipelineUI.SetActive(true);
@@ -967,16 +1153,11 @@ public class MiniGameManager : MonoBehaviour
                     instructionsText.text = "Rota las tuberías que están mal colocadas. Tuberías bien colocadas: " + (pipelinesInCorrectPlace) + " / 7";
                 }
 
-                for (int i = 0; i < pipelinesToRotate.Length; i++)
+                if (pipelinesInCorrectPlace >= 7)
                 {
-                    if (pipelinesToRotate[i].GetComponent<PipelineForeground>().pipelineInCorrecRotation)
-                    {
-                        if (pipelinesInCorrectPlace >= 7)
-                        {
-                            Debug.Log("Minigame Finished");
-                        }
+                    Debug.Log("Minigame Finished");
 
-                    }
+                    StartCoroutine(WaitAndFinish());
                 }
 
                 break;
@@ -1173,5 +1354,22 @@ public class MiniGameManager : MonoBehaviour
     }
 
     #endregion Handle UI Depending On Language
+
+    public IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1f);
+        RotatePipelineUI.SetActive(false);
+    }
+
+    public IEnumerator WaitAndFinish()
+    {
+        yield return new WaitForSeconds(2f);
+        RotatePipelineUI.SetActive(false);
+        congratulationsPanel.SetActive(false);
+        stampPanel.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        MinigamesCompleted.minigame3Finished = true;
+        SceneManager.LoadScene("LevelSelector");
+    }
 }
 
