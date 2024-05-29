@@ -27,7 +27,7 @@ public class EnterMinigames : MonoBehaviour
                 Debug.Log("Minijuego bloqueado por ahora.");
                 break;
             case 2: //Agua limpia
-                Debug.Log("Minijuego bloqueado por ahora.");
+                SceneManager.LoadScene("Minijuego3");
                 break;
             case 3: //Infraestructrua
                 SceneManager.LoadScene("MiniJuego4");

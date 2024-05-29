@@ -129,4 +129,9 @@ public class energyMinigameManager : MonoBehaviour
         }
         
     }
+
+    public void PassToPhase2()
+    {
+        phase = Phase.PHASE2;
+    }
 }
