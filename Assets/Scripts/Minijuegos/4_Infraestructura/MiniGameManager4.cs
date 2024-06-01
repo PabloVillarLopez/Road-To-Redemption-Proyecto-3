@@ -223,11 +223,7 @@ public class MiniGameManager4 : MonoBehaviour
         }
     }
 
-    private void invoke(string v1, float v2)
-    {
-        throw new NotImplementedException();
-    }
-
+  
 
 
 

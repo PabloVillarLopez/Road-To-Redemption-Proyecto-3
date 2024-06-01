@@ -7061,7 +7061,7 @@ MonoBehaviour:
   thirdCanvas: {fileID: 805344118}
   thirdPanel: {fileID: 8928000936508316126}
   thirdText: {fileID: 7468905119368487337}
-  lightmapIndexToUse: 1
+  lightmapIndexToUse: 0
 --- !u!4 &1491287991
 Transform:
   m_ObjectHideFlags: 0
