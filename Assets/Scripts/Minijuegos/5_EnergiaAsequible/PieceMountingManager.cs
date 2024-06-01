@@ -13,12 +13,17 @@ public class PieceMountingManager : MonoBehaviour
 
     public Camera playerCamera;
     public Camera mountingCamera;
+    public Camera phase2Camera;
     public LayerMask solarPieces;
     public GameObject solarPlaqueMounted;
     public GameObject[] pieces;
     public GameObject congratulationsPanel;
     public TextMeshProUGUI pressLeftClickText;
     private Animator currentAnimator;
+
+    [Header("Instructions Panel")]
+    public GameObject instructionsPanel;
+    public TextMeshProUGUI instructionsPanelText;
 
     private int piecesMounted = 0;
 
@@ -30,6 +35,7 @@ public class PieceMountingManager : MonoBehaviour
     void Start()
     {
         mountingCamera.gameObject.SetActive(false);
+        phase2Camera.gameObject.SetActive(false);
         solarPlaqueMounted.SetActive(false);
         congratulationsPanel.SetActive(false);
         pressLeftClickText.gameObject.SetActive(false);
@@ -106,6 +112,7 @@ public class PieceMountingManager : MonoBehaviour
     {
         piecesMounted++;
         pressLeftClickText.gameObject.SetActive(false);
+        instructionsPanel.SetActive(false);
         mountingCamera.gameObject.SetActive(true); //activaría la cámara de montar piezas
         playerCamera.gameObject.SetActive(false); //desactivaría la cámara del personaje
         currentAnimator.Play("Mounting"); //daría play a la animación según que pieza sea
@@ -126,6 +133,7 @@ public class PieceMountingManager : MonoBehaviour
         {
             playerCamera.gameObject.SetActive(true); //volvería a activar la cámara del personaje
             mountingCamera.gameObject.SetActive(false); //volvería a desactivar la cámara de montar piezas
+            instructionsPanel.SetActive(true);
         }
         
     }
@@ -134,8 +142,13 @@ public class PieceMountingManager : MonoBehaviour
     {
         mountingCamera.gameObject.SetActive(false);
         solarPlaqueMounted.SetActive(false);
-        playerCamera.gameObject.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = false;
+        phase2Camera.gameObject.SetActive(true);
+        SolarLight.canShowSunPercent = true;
+        instructionsPanel.SetActive(true);
+        instructionsPanel.transform.localPosition = new Vector3(67, -377, 0);
+        instructionsPanelText.text = "Fase 2. Selecciona la parte del tejado que más porcentaje de sol tenga en ese momento para colocar la placa solar.";
+        //playerCamera.gameObject.SetActive(true);
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = false;
     }
 }

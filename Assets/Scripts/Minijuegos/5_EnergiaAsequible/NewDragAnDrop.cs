@@ -9,7 +9,7 @@ public class NewDragAnDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public Canvas myCanvas;
     private CanvasGroup canvasGroup;
     public int id;
-    private Vector2 initPosition;
+    public Vector2 initPosition;
     [HideInInspector]
     public bool canResetPosition = true;
 
@@ -52,5 +52,7 @@ public class NewDragAnDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public void ResetPosition()
     {
         transform.position = initPosition;
+        isPositioned = false;
+        canResetPosition = true;
     }
 }
