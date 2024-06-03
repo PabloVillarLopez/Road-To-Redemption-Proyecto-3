@@ -71,6 +71,16 @@ public class PipelineForeground : MonoBehaviour
     public GameObject player;
     public GameObject arrowAsociated;
 
+    [Header("Waterfalls")]
+    public GameObject waterfallContamination;
+    public GameObject waterfallRedirection1;
+    public GameObject waterfallRedirection2;
+    public GameObject waterfallRedirection3;
+    public GameObject waterfallRedirection4;
+    public GameObject waterfallRedirection5;
+    public GameObject waterfallRedirection6;
+    public GameObject waterfallRedirection7;
+
     #region Awake
 
     private void Awake()
@@ -324,6 +334,7 @@ public class PipelineForeground : MonoBehaviour
 
         if (gameManager.catastrophes == MiniGameManager.Catastrophes.WATERLEAK)
         {
+            waterfallContamination.SetActive(false);
             gameManager.waterLeakCoroutineRunning = false;
             StopCoroutine(gameManager.waterLeakTransitionCoroutine);
             StartCoroutine(gameManager.WaterLeakLessTransition());
@@ -476,6 +487,33 @@ public class PipelineForeground : MonoBehaviour
             if (pipeScript.pipelineRotateId == 1)
             {
                 player.transform.position = new Vector3(-5.88999987f, 1.02022767f, 0.893214941f);
+            }
+
+            switch (pipeScript.pipelineRotateId)
+            {
+                case 0:
+                    waterfallRedirection1.SetActive(false);
+                    break;
+                case 1:
+                    waterfallRedirection2.SetActive(false);
+                    break;
+                case 2:
+                    waterfallRedirection3.SetActive(false);
+                    break;
+                case 3:
+                    waterfallRedirection4.SetActive(false);
+                    break;
+                case 4:
+                    waterfallRedirection5.SetActive(false);
+                    break;
+                case 5:
+                    waterfallRedirection6.SetActive(false);
+                    break;
+                case 6:
+                    waterfallRedirection7.SetActive(false);
+                    break;
+                default:
+                    break;
             }
 
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);

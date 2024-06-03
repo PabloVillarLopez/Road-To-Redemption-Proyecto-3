@@ -146,6 +146,12 @@ public class PlayerController : MonoBehaviour
             MiniGameManager.canAddRotateToButton = true;
             pipeRotateX = other.gameObject.GetComponent<PipelineForeground>().rotationAddedX;
             pipeRotateY = other.gameObject.GetComponent<PipelineForeground>().rotationAddedY;
+
+            if (!pipelineEnteredHasBeenAlreadyRotated)
+            {
+                interactIndicator.SetActive(true);
+            }
+            
         }
 
         if (other.gameObject.CompareTag("PipelineDecontaminate"))
@@ -154,6 +160,11 @@ public class PlayerController : MonoBehaviour
             pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
             pipelineEntered = other.gameObject;
             pipelineEnteredHasBeenAlreadyDecontaminated = other.gameObject.GetComponent<PipelineForeground>().alreadyDecontaminated;
+            
+            if (!pipelineEnteredHasBeenAlreadyDecontaminated)
+            {
+                interactIndicator.SetActive(true);
+            }
         }
 
         if (other.gameObject.CompareTag("JusticeClue1"))
@@ -204,6 +215,7 @@ public class PlayerController : MonoBehaviour
             pipelineEnteredHasBeenAlreadyRotated = false;
             pipeRotateX = 0;
             pipeRotateY = 0;
+            interactIndicator.SetActive(false);
         }
 
         if (other.gameObject.CompareTag("PipelineDecontaminate"))
@@ -212,6 +224,7 @@ public class PlayerController : MonoBehaviour
             pipelineEnteredID = 0;
             pipelineEntered = null;
             pipelineEnteredHasBeenAlreadyDecontaminated = false;
+            interactIndicator.SetActive(false);
         }
 
         if (other.gameObject.CompareTag("JusticeClue1"))

@@ -253,6 +253,9 @@ public class MiniGameManager : MonoBehaviour
     private float arrowsContaminationCont = 0;
     private float arrowsRedirectionCont = 0;
 
+    [Header("Interact Indicator")]
+    public GameObject interactIndicator;
+
     #region Awake
 
     private void Awake()
@@ -900,6 +903,7 @@ public class MiniGameManager : MonoBehaviour
 
     private void PipelineRotateCamera()
     {
+        interactIndicator.SetActive(false);
         playerCamera.SetActive(false);
 
         switch (PlayerController.pipelineRotateEnteredID)
@@ -1030,6 +1034,7 @@ public class MiniGameManager : MonoBehaviour
 
     private void PipelineDecontaminateCamera()
     {
+        interactIndicator.SetActive(false);
         playerCamera.SetActive(false);
 
         if (PlayerController.pipelineEnteredID == 2)
@@ -1174,6 +1179,9 @@ public class MiniGameManager : MonoBehaviour
 
                 break;
             case Phases.TOWN:
+                arrowContamination1.SetActive(false);
+                arrowContamination2.SetActive(false);
+                arrowContamination3.SetActive(false);
 
                 canInteractWithRotatePipelines = true;
 
