@@ -154,12 +154,13 @@ public class PlayerControllerCursor : MonoBehaviour
                         }
                     }
                 }
-                else if (hit.collider.CompareTag("SeedPlanted"))
+                else if (hit.collider.CompareTag("SeedPlanted") && manager != null)
                 {
                     manager.activeInteract(true);
                 }
                 else
                 {
+                    if (manager != null)
                     manager.activeInteract(false);
                 }
 

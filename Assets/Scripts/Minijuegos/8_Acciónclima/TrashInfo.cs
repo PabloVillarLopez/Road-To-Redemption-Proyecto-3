@@ -46,18 +46,28 @@ public class TrashInfo : MonoBehaviour
     public void AddForce()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
-        
+
         rb.useGravity = true;
-        
+
         rb.AddForce(Vector3.down * fuerzaHaciaAbajo, ForceMode.Acceleration);
-        
     }
 
     public int GetId()
     {
         return id;
-
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Pipeline"))
+        {
+            // Access the Rigidbody component
+            Rigidbody rb = GetComponent<Rigidbody>();
 
-    } 
+            // Reduce the object's velocity and angular velocity
+            rb.velocity *= 0.1f;       // Reduce linear velocity to 10% of its current value
+            rb.angularVelocity *= 0.1f; // Reduce angular velocity to 10% of its current value
+        }
+    }
+
+}

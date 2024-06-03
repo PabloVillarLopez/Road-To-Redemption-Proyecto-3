@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2039604795511735218}
@@ -52,7 +52,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  fuerzaHaciaAbajo: 9.81
+  fuerzaHaciaAbajo: 3.47
 --- !u!54 &3431889802846353030
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -99,8 +99,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.20704281
-  m_Center: {x: 0.23346382, y: -0.059493378, z: 0}
+  m_Radius: 0.29615784
+  m_Center: {x: 0.23346364, y: 0.029621542, z: 0}
 --- !u!1001 &2000892068353041497
 PrefabInstance:
   m_ObjectHideFlags: 0

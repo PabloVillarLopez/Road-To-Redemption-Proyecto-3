@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7421188646745927457}
   - component: {fileID: 3304338435465242177}
   - component: {fileID: 2842225116937643744}
-  - component: {fileID: 3310306695096102905}
+  - component: {fileID: 155160301707257113}
   m_Layer: 0
   m_Name: Paper
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5008583044029494444}
@@ -79,8 +79,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  fuerzaHaciaAbajo: 9.81
---- !u!136 &3310306695096102905
+  fuerzaHaciaAbajo: 10.21
+--- !u!136 &155160301707257113
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,10 +99,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.794743
-  m_Height: 1.8807739
+  m_Radius: 0.54171705
+  m_Height: 1.2179179
   m_Direction: 1
-  m_Center: {x: 0.00016355515, y: 0.44038695, z: -0.29490656}
+  m_Center: {x: -0.038344502, y: 0.35967994, z: -0.18964732}
 --- !u!1001 &4758253944513319751
 PrefabInstance:
   m_ObjectHideFlags: 0

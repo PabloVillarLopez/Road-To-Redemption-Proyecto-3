@@ -66,30 +66,34 @@ public class MiniGameManager8 : MonoBehaviour
         // Generate a random index based on the length of the objectsToSpawn array
         int randomIndex = Random.Range(0, objectsToSpawn.Length);
 
-        // Instantiate the selected prefab object at the spawn point
-        GameObject spawnedObject = Instantiate(objectsToSpawn[randomIndex], spawnPointEmpty.transform.position, Quaternion.identity);
+        // Generate a random rotation
+        Quaternion randomRotation = Quaternion.Euler(
+            Random.Range(0f, 360f), // Random rotation around the x-axis
+            Random.Range(0f, 360f), // Random rotation around the y-axis
+            Random.Range(0f, 360f)  // Random rotation around the z-axis
+        );
 
-    
-        
+        // Instantiate the selected prefab object at the spawn point with the random rotation
+        GameObject spawnedObject = Instantiate(objectsToSpawn[randomIndex], spawnPointEmpty.transform.position, randomRotation);
 
-        
         spawnedObject.GetComponent<TrashInfo>().AddForce();
 
-        // Optionally: Set a random rotation for the spawned object
-        spawnedObject.transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+        // Optionally: If you only want random rotation around the y-axis, use this instead
+        // spawnedObject.transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
     }
+
 
 
     private void MoveObject()
     {
         // Calculate displacement on the X-axis based on keyboard input
-        float movementX = player.horizontalInput * moveObjSpeed * Time.deltaTime;
+        float movementZ = player.horizontalInput * moveObjSpeed * Time.deltaTime;
 
         // Calculate the new position of the object on the X-axis applying minimum and maximum limits
-        float newXPosition = Mathf.Clamp(objectToMove.transform.position.x + movementX, -9.42f, -0.57f);
+        float newZPosition = Mathf.Clamp(objectToMove.transform.position.z + movementZ, -1.946f, 1.984f);
 
         // Set the position of the object on the X-axis
-        objectToMove.transform.position = new Vector3(newXPosition, objectToMove.transform.position.y, objectToMove.transform.position.z);
+        objectToMove.transform.position = new Vector3(objectToMove.transform.position.x, objectToMove.transform.position.y, newZPosition);
     }
 
     IEnumerator MoveObjectRoutine()
