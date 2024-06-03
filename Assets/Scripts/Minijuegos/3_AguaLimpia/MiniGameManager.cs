@@ -256,6 +256,14 @@ public class MiniGameManager : MonoBehaviour
     [Header("Interact Indicator")]
     public GameObject interactIndicator;
 
+    [Header("Cinematic Camera")]
+    public Camera cinematicCamera;
+    public Material cleanWaterMaterial;
+    public GameObject treatmentPlant;
+    private Renderer treatmentPlantRenderer;
+    private bool cinematicCleanWaterCanStart = true;
+    public Canvas canvas;
+
     #region Awake
 
     private void Awake()
@@ -303,6 +311,8 @@ public class MiniGameManager : MonoBehaviour
         arrowRedirection6.SetActive(false);
         arrowRedirection7.SetActive(false);
 
+        cinematicCamera.gameObject.SetActive(false);
+        treatmentPlantRenderer = treatmentPlant.GetComponent<Renderer>();
     //StartCoroutine(ContaminationTransition());
 }
 
@@ -1175,6 +1185,13 @@ public class MiniGameManager : MonoBehaviour
                 {
                     phases = Phases.TOWN;
                     canShowArrowsRedirection = true;
+
+                    if (cinematicCleanWaterCanStart)
+                    {
+                        StartCoroutine(CinematicCleanWater());
+                        cinematicCleanWaterCanStart = false;
+                    }
+                    
                 }
 
                 break;
@@ -1428,6 +1445,19 @@ public class MiniGameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         MinigamesCompleted.minigame3Finished = true;
         SceneManager.LoadScene("LevelSelector");
+    }
+
+    public IEnumerator CinematicCleanWater()
+    {
+        canvas.gameObject.SetActive(false);
+        cinematicCamera.gameObject.SetActive(true);
+        pipelineCamera.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        treatmentPlantRenderer.sharedMaterial = cleanWaterMaterial;
+        yield return new WaitForSeconds(2f);
+        canvas.gameObject.SetActive(true);
+        pipelineCamera.SetActive(true);
+        cinematicCamera.gameObject.SetActive(false);
     }
 }
 
