@@ -89,6 +89,11 @@ public class ObserveObject : MonoBehaviour
     public GameObject analyzeButton2;
     public GameObject analyzeButton3;
     public GameObject errorJudgementPanel;
+    public GameObject arrowJustice1;
+    public GameObject arrowJustice2;
+    public GameObject arrowJustice3;
+    private bool canShowArrowsJustice = true;
+    private float arrowsJusticeCont = 0;
 
     #region Start
 
@@ -110,6 +115,9 @@ public class ObserveObject : MonoBehaviour
         sellosPanel.SetActive(false);
         SellosPanelPanel.SetActive(false);
         errorJudgementPanel.SetActive(false);
+        arrowJustice1.SetActive(false);
+        arrowJustice2.SetActive(false);
+        arrowJustice3.SetActive(false);
     }
 
     #endregion Start
@@ -408,6 +416,16 @@ public class ObserveObject : MonoBehaviour
                 notAnalyzing = true;
                 cantMove = false;
                 canDeactivateClues = true;
+
+                arrowsJusticeCont += Time.deltaTime;
+                if (canShowArrowsJustice && arrowsJusticeCont >= 15f)
+                {
+                    arrowJustice1.SetActive(true);
+                    arrowJustice2.SetActive(true);
+                    arrowJustice3.SetActive(true);
+                    canShowArrowsJustice = false;
+                }
+
                 //if (canDeactivateClues)
                 //{
                     //for (int i = 0; i < clues.Length; i++)

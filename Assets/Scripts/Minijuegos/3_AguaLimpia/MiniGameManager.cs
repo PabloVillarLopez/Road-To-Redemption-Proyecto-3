@@ -237,6 +237,22 @@ public class MiniGameManager : MonoBehaviour
     public GameObject pipelineSelector2;
     public GameObject pipelineSelector3;
 
+    [Header("Arrows")]
+    public GameObject arrowContamination1;
+    public GameObject arrowContamination2;
+    public GameObject arrowContamination3;
+    public GameObject arrowRedirection1;
+    public GameObject arrowRedirection2;
+    public GameObject arrowRedirection3;
+    public GameObject arrowRedirection4;
+    public GameObject arrowRedirection5;
+    public GameObject arrowRedirection6;
+    public GameObject arrowRedirection7;
+    private bool canShowArrowsContamination = true;
+    private bool canShowArrowsRedirection = false;
+    private float arrowsContaminationCont = 0;
+    private float arrowsRedirectionCont = 0;
+
     #region Awake
 
     private void Awake()
@@ -273,8 +289,19 @@ public class MiniGameManager : MonoBehaviour
         waterLeakTransitionCoroutine = WaterLeakMoreTransition();
         blinkingWaterLeakCorroutine = BlinkingWaterLeakWarning();
 
-        //StartCoroutine(ContaminationTransition());
-    }
+        arrowContamination1.SetActive(false);
+        arrowContamination2.SetActive(false);
+        arrowContamination3.SetActive(false);
+        arrowRedirection1.SetActive(false);
+        arrowRedirection2.SetActive(false);
+        arrowRedirection3.SetActive(false);
+        arrowRedirection4.SetActive(false);
+        arrowRedirection5.SetActive(false);
+        arrowRedirection6.SetActive(false);
+        arrowRedirection7.SetActive(false);
+
+    //StartCoroutine(ContaminationTransition());
+}
 
     #endregion Start
 
@@ -797,6 +824,7 @@ public class MiniGameManager : MonoBehaviour
             congratulationsPanelText.text = "Congratulations on decontamining the water.";
             //PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated = true;
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().alreadyDecontaminated = true;
+            PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
 
             clickToDecontaminateCount = 0;
 
@@ -824,6 +852,7 @@ public class MiniGameManager : MonoBehaviour
             //StartCoroutine(Wait());
             congratulationsPanelText.text = "Congratulations on decontamining the water of bacteria.";
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().alreadyDecontaminated = true;
+            PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
             //PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated = true;
 
             clickToDecontaminateBacteriaCount = 0;
@@ -1128,11 +1157,19 @@ public class MiniGameManager : MonoBehaviour
                     instructionsText.text = "Descontamina las tuberías rojas. Tuberías descontaminadas: " + (decontaminationCount + bacteriaCleanedCount + waterLeakedSolvedCount) + " / 3";
                 }
 
-                
+                arrowsContaminationCont += Time.deltaTime;
+                if (canShowArrowsContamination && arrowsContaminationCont >= 15f)
+                {
+                    arrowContamination1.SetActive(true);
+                    arrowContamination2.SetActive(true);
+                    arrowContamination3.SetActive(true);
+                    canShowArrowsContamination = false;
+                }
 
                 if (decontaminationCount == 1 && bacteriaCleanedCount == 1 && waterLeakedSolvedCount == 1)
                 {
                     phases = Phases.TOWN;
+                    canShowArrowsRedirection = true;
                 }
 
                 break;
@@ -1151,6 +1188,19 @@ public class MiniGameManager : MonoBehaviour
                 else
                 {
                     instructionsText.text = "Rota las tuberías que están mal colocadas. Tuberías bien colocadas: " + (pipelinesInCorrectPlace) + " / 7";
+                }
+
+                arrowsRedirectionCont += Time.deltaTime;
+                if (canShowArrowsRedirection && arrowsRedirectionCont >= 15f)
+                {
+                    arrowRedirection1.SetActive(true);
+                    arrowRedirection2.SetActive(true);
+                    arrowRedirection3.SetActive(true);
+                    arrowRedirection4.SetActive(true);
+                    arrowRedirection5.SetActive(true);
+                    arrowRedirection6.SetActive(true);
+                    arrowRedirection7.SetActive(true);
+                    canShowArrowsRedirection = false;
                 }
 
                 if (pipelinesInCorrectPlace >= 7)

@@ -69,6 +69,7 @@ public class PipelineForeground : MonoBehaviour
     public bool alreadyDecontaminated;
     private int rotationCount = 0;
     public GameObject player;
+    public GameObject arrowAsociated;
 
     #region Awake
 
@@ -333,6 +334,7 @@ public class PipelineForeground : MonoBehaviour
             
             gameManager.congratulationsPanelText.text = "Congratulations on controlling efficiently the water flow.";
             alreadyDecontaminated = true;
+            PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
             closeWaterFlowButton.SetActive(false);
             openWaterFlowButton.SetActive(false);
         }
@@ -475,6 +477,8 @@ public class PipelineForeground : MonoBehaviour
             {
                 player.transform.position = new Vector3(-5.88999987f, 1.02022767f, 0.893214941f);
             }
+
+            PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
         }
 
 
