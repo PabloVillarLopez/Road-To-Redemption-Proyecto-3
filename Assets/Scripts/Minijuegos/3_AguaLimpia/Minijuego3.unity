@@ -80230,9 +80230,16 @@ MonoBehaviour:
   dialogueStarted: 0
   dialogueFinished: 0
   spanishLines:
-  - Hola
-  - Como estamos
-  - Adios
+  - "Saludos, Recluso Gronk. Bienvenido a la regi\xF3n de Sanea. Soy el Robot Policial
+    de la Unidad de Seguridad y Prevenci\xF3n de Delitos en Entornos Urbanos Avanzados
+    Modelo X8-2000, pero puedes llamarme X8."
+  - "No hay nada m\xE1s b\xE1sico que el agua potable, el saneamiento y la higiene.\r\nAunque
+    miles de millones de personas no tienen acceso, t\xFA puedes ayudar a acabar
+    con esta escasez de agua. Rota las tuber\xEDas para colocarlas en su sitio, descontam\xEDnala
+    y aseg\xFArate que no se desperdicie ni el agua ni el dinero.\r"
+  - "\xBFSabes por qu\xE9 es tan importante el agua? No solo es necesaria para la
+    salud, tambi\xE9n para reducir la pobreza, y garantizar la seguridad de los alimentos,
+    la paz, los derechos, los ecosistemas y la educaci\xF3n."
   englishLines:
   - Hello
   - How are u doing

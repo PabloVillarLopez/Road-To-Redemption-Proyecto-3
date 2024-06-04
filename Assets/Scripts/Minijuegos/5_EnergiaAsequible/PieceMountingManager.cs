@@ -12,6 +12,7 @@ public class PieceMountingManager : MonoBehaviour
     public static bool piece8WellMounted, piece9WellMounted, piece10WellMounted, piece11WellMounted;
 
     public Camera playerCamera;
+    public GameObject player;
     public Camera mountingCamera;
     public Camera phase2Camera;
     public LayerMask solarPieces;
@@ -20,6 +21,7 @@ public class PieceMountingManager : MonoBehaviour
     public GameObject congratulationsPanel;
     public TextMeshProUGUI pressLeftClickText;
     private Animator currentAnimator;
+    public GameObject interactIndicator;
 
     [Header("Instructions Panel")]
     public GameObject instructionsPanel;
@@ -110,6 +112,8 @@ public class PieceMountingManager : MonoBehaviour
 
     private IEnumerator MountPiece()
     {
+        interactIndicator.SetActive(false);
+        player.SetActive(false);
         piecesMounted++;
         pressLeftClickText.gameObject.SetActive(false);
         instructionsPanel.SetActive(false);
@@ -135,6 +139,8 @@ public class PieceMountingManager : MonoBehaviour
             mountingCamera.gameObject.SetActive(false); //volvería a desactivar la cámara de montar piezas
             instructionsPanel.SetActive(true);
         }
+
+        player.SetActive(true);
         
     }
 
