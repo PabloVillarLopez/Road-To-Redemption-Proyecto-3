@@ -81,6 +81,10 @@ public class PipelineForeground : MonoBehaviour
     public GameObject waterfallRedirection6;
     public GameObject waterfallRedirection7;
 
+    [Header("Material change contamination pipeline")]
+    public Material straightPipelineMaterial;
+    private Renderer pipelineRenderer;
+
     #region Awake
 
     private void Awake()
@@ -346,6 +350,8 @@ public class PipelineForeground : MonoBehaviour
             gameManager.congratulationsPanelText.text = "Congratulations on controlling efficiently the water flow.";
             alreadyDecontaminated = true;
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
+            pipelineRenderer = PlayerController.pipelineEntered.GetComponent<Renderer>();
+            pipelineRenderer.sharedMaterial = straightPipelineMaterial;
             closeWaterFlowButton.SetActive(false);
             openWaterFlowButton.SetActive(false);
         }

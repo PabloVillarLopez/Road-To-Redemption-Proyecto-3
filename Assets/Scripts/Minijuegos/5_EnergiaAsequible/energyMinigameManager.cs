@@ -223,6 +223,7 @@ public class energyMinigameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         stampPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
+        MinigamesCompleted.minigame5Finished = true;
         SceneManager.LoadScene("LevelSelector");
     }
 

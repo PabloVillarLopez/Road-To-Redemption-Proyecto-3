@@ -43,7 +43,14 @@ public class PlayerController : MonoBehaviour
     public static float pipeRotateX;
     public static float pipeRotateY;
 
+    [Header("Animations / Animaciones")]
+    public GameObject armsIdle;
+    public GameObject armsRun;
+    public Animator armsIdleAimController;
+    public Animator armsRunAimController;
+
     #region Start
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,6 +99,17 @@ public class PlayerController : MonoBehaviour
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
+
+            if ((verticalInput != 0 && armsIdle != null && armsRun != null) || (horizontalInput != 0 && armsIdle != null && armsRun != null))
+            {
+                armsIdle.SetActive(false);
+                armsRun.SetActive(true);
+            }
+            else if((verticalInput == 0 && armsIdle != null && armsRun != null) || (horizontalInput == 0 && armsIdle != null && armsRun != null))
+            {
+                armsRun.SetActive(false);
+                armsIdle.SetActive(true);
+            }
         }
         
     }

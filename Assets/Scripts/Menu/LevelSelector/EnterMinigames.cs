@@ -33,7 +33,7 @@ public class EnterMinigames : MonoBehaviour
                 SceneManager.LoadScene("MiniJuego4");
                 break;
             case 4: //Energía asequible
-                Debug.Log("Minijuego bloqueado por ahora.");
+                SceneManager.LoadScene("Minijuego_Marc");
                 break;
             case 5: //Vida submarina
                 SceneManager.LoadScene("Minijuego6_VidaSubmarina");

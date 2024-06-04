@@ -264,6 +264,11 @@ public class MiniGameManager : MonoBehaviour
     private bool cinematicCleanWaterCanStart = true;
     public Canvas canvas;
 
+    [Header("Change material to normal contamination pipeline")]
+    public Material cornerNormalMaterial;
+    public Material uNormalMaterial;
+    private Renderer pipelineRenderer;
+
     #region Awake
 
     private void Awake()
@@ -838,6 +843,8 @@ public class MiniGameManager : MonoBehaviour
             //PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated = true;
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().alreadyDecontaminated = true;
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
+            pipelineRenderer = PlayerController.pipelineEntered.GetComponent<Renderer>();
+            pipelineRenderer.sharedMaterial = cornerNormalMaterial;
 
             clickToDecontaminateCount = 0;
 
@@ -866,6 +873,8 @@ public class MiniGameManager : MonoBehaviour
             congratulationsPanelText.text = "Congratulations on decontamining the water of bacteria.";
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().alreadyDecontaminated = true;
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
+            pipelineRenderer = PlayerController.pipelineEntered.GetComponent<Renderer>();
+            pipelineRenderer.sharedMaterial = uNormalMaterial;
             //PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated = true;
 
             clickToDecontaminateBacteriaCount = 0;
