@@ -9,7 +9,7 @@ public class ObjectInfo : MonoBehaviour
     public float timeLife;
     private float minTemp;
     private float maxTemp;
-    private float speedLoseLife=10f;
+    private float speedLoseLife=20f;
     public float temp = 20f;
     public float timeToCollect;
     public Material[] materials = new Material[3]; // Array of materials
@@ -34,15 +34,15 @@ public class ObjectInfo : MonoBehaviour
         {
 
             case 0:
-                SetFruitStats("Fresa", 10, 30);
+                SetFruitStats("Fresa", 20, 30);
                 timeLife = 20f;
                 break;
             case 1:
-                SetFruitStats("Pimiento", 10, 30);
+                SetFruitStats("Pimiento", 22, 31);
                 timeLife = 20f;
                 break;
             case 2:
-                SetFruitStats("Tomate", 12, 28);
+                SetFruitStats("Tomate", 15, 25);
                 timeLife = 20f;
                 break;
             
@@ -125,6 +125,7 @@ public class ObjectInfo : MonoBehaviour
                 if (timeLife <= 0)
                 {
                     miniGameManager.checkBadFood();
+                    miniGameManager.badReminders();
                     gameObject.SetActive(false);
                     Cultive.GetComponent<CultiveZone>().RemoveChild(gameObject);
                 }

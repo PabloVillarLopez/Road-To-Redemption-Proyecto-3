@@ -1238,7 +1238,7 @@ PrefabInstance:
     - target: {fileID: 1271989140481835491, guid: 6228b4f7b75e0624e9459531248a229e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.02
+      value: -28.36
       objectReference: {fileID: 0}
     - target: {fileID: 1271989140481835491, guid: 6228b4f7b75e0624e9459531248a229e,
         type: 3}
@@ -1248,7 +1248,7 @@ PrefabInstance:
     - target: {fileID: 1271989140481835491, guid: 6228b4f7b75e0624e9459531248a229e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.8
+      value: -12.08
       objectReference: {fileID: 0}
     - target: {fileID: 1271989140481835491, guid: 6228b4f7b75e0624e9459531248a229e,
         type: 3}
@@ -4182,7 +4182,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Wasted Food:'
+  m_Text: 'Comida Perdida:'
 --- !u!1001 &406949085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4690,6 +4690,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7589459703572379185, guid: e20f0003d72e1d3469775a8be2a3a07c,
     type: 3}
   m_PrefabInstance: {fileID: 457307864}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &465341895 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8417568782601643679, guid: 3efdfedca501b3947bcf6117343e4507,
+    type: 3}
+  m_PrefabInstance: {fileID: 1519793261}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &471316473
 PrefabInstance:
@@ -18499,6 +18505,74 @@ PrefabInstance:
       addedObject: {fileID: 1934398851}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6228b4f7b75e0624e9459531248a229e, type: 3}
+--- !u!1001 &1519793261
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3259602860167286347, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -30.139904
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259602860167286347, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5651221
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259602860167286347, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.366617
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259602860167286347, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.88438123
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259602860167286347, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259602860167286347, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.46676525
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259602860167286347, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259602860167286347, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259602860167286347, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -55.649
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259602860167286347, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8417568782601643679, guid: 3efdfedca501b3947bcf6117343e4507,
+        type: 3}
+      propertyPath: m_Name
+      value: Expendedora
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3efdfedca501b3947bcf6117343e4507, type: 3}
 --- !u!1001 &1532666270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20509,7 +20583,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Food Collected:'
+  m_Text: 'Comida Salvada:'
 --- !u!222 &1727952387
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20534,8 +20608,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 592.74, y: 732}
-  m_SizeDelta: {x: 333.156, y: 59.965}
+  m_AnchoredPosition: {x: 588.71857, y: 732}
+  m_SizeDelta: {x: 325.116, y: 59.965}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1732815662
 PrefabInstance:
@@ -23104,6 +23178,7 @@ MonoBehaviour:
   isDialogueFinished: 0
   dayTime: 1
   interact: {fileID: 514599281}
+  dispenser: {fileID: 465341895}
   panel: {fileID: 639173353}
   text: {fileID: 1660014437}
   markGuide: {fileID: 3996501084533043336}
@@ -23147,13 +23222,14 @@ MonoBehaviour:
     te hemos tra\xEDdo para que gestiones la comida de la ciudad. Hemos tenido un
     problema con el invernadero que ten\xEDamos y, debido a la temperatura, no podemos
     gestionarlo adecuadamente."
-  - "Tienes cuatro cultivos frente a ti, cada uno preparado para plantar diferentes
-    semillas que ves a tu izquierda. Una vez las hayas plantado, tendr\xE1s que trabajar
-    r\xE1pido porque el tiempo vuela. Tu objetivo es durante 2 d\xEDas recolectar
-    la m\xE1xima comida posible para que los ciudadanos puedan alimentarse."
-  - "Cada alimento tiene una temperatura m\xEDnima y m\xE1xima en la que crece correctamente.
-    Por eso, deber\xE1s gestionar la temperatura de los cultivos utilizando los botones
-    que se encuentran cerca de ellos."
+  - "Tienes tres cultivos frente a ti, cada uno preparado para plantar diferentes
+    semillas que ves a tu derecha. Una vez las hayas plantado, tendr\xE1s que trabajar
+    r\xE1pido porque el tiempo vuela. Tu objetivo es durante la construcci\xF3n del
+    invernadero recolectar la m\xE1xima comida posible para que los ciudadanos puedan
+    alimentarse."
+  - "Cada alimento tiene una temperatura m\xEDnima y m\xE1xima en la que crece correctamente
+    es importante leer los letreros. Por eso, deber\xE1s gestionar la temperatura
+    de los cultivos utilizando los botones que se encuentran cerca de ellos."
   - "Una vez que los alimentos se hayan cultivado,deber\xE1s recogerlos. Ten en cuenta
     que todos los alimentos tienen el mismo valor, as\xED que no priorices ninguno. "
   - "Si tienes todo claro, \xA1a plantar se ha dicho! "
@@ -25010,7 +25086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.58
   magnitude: 0.1
-  disappearDuration: 17.03
+  disappearDuration: 60
 --- !u!1 &1741771357629891428
 GameObject:
   m_ObjectHideFlags: 0
@@ -25639,3 +25715,4 @@ SceneRoots:
   - {fileID: 748246821}
   - {fileID: 983941910}
   - {fileID: 6169415502006936753}
+  - {fileID: 1519793261}

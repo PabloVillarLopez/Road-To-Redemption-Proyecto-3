@@ -199,7 +199,14 @@ public class PlayerControllerCursor : MonoBehaviour
 
                 }
 
-
+                if (hit.collider.CompareTag("Respawn"))
+                {
+                    manager.activeInteract(true);
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        manager.SpawnObjectsOnSpawner();
+                    }
+                }
 
                 // Manejar colisiones con Hot, Neutral, y Cold
                 if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))

@@ -134,7 +134,7 @@ MonoBehaviour:
   miniGameManager: {fileID: 0}
   ready: 0
   id: 0
-  timeLife: 20
+  timeLife: 10
   temp: 20
   timeToCollect: 0
   materials:
@@ -144,24 +144,6 @@ MonoBehaviour:
   Cultive: {fileID: 0}
   renderer: {fileID: 0}
   mesh: {fileID: 0}
-  meshStrawBerry:
-  - {fileID: -1359189856529635300, guid: 3c24d59a77518654a85bf6d70b373f80, type: 3}
-  - {fileID: 6418781725428640858, guid: 68f0890fc5ceb524f8e756a7555f8347, type: 3}
-  meshTomatoe:
-  - {fileID: 0}
-  - {fileID: 0}
-  meshPepper:
-  - {fileID: 0}
-  - {fileID: 0}
-  materialStrawBerry:
-  - {fileID: 2100000, guid: a7c977d168e330642ab05461f3dc1b1c, type: 2}
-  - {fileID: 2100000, guid: ccfc893f65ff0f541a3a51f1c9b4802f, type: 2}
-  materialTomatoe:
-  - {fileID: 0}
-  - {fileID: 0}
-  materialPepper:
-  - {fileID: 0}
-  - {fileID: 0}
   Tipo: 
 --- !u!65 &5448355411275446424
 BoxCollider:

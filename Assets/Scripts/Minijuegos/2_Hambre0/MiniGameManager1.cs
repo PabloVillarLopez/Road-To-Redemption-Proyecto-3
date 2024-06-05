@@ -58,7 +58,7 @@ public class MiniGameManager1 : MonoBehaviour
     object[][] fruit = new object[3][];
 
     public Image interact;
-
+    public GameObject dispenser;
  
     public GameObject panel;
     public TMPro.TextMeshProUGUI text;
@@ -74,7 +74,7 @@ public class MiniGameManager1 : MonoBehaviour
         greenHouse = GameObject.Find("GreenHouse");
         
         Level(1);
-        spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y), objectSpawner.transform.position.z);
+        
         SpawnObjectsOnSpawner();
         SpawnOchards();
         activeInteract(false);
@@ -91,7 +91,10 @@ public class MiniGameManager1 : MonoBehaviour
             if (greenHouse != null)
             {
                 StartCoroutine(AdjustMaterialsOverTime());
-               
+                if(markGuide != null)
+                {
+                    Instantiate(markGuide, dispenser.transform.position + new Vector3(-3, 3, 3), Quaternion.identity);
+                }
 
             }
         }
@@ -122,9 +125,9 @@ public class MiniGameManager1 : MonoBehaviour
 
     #region Object Spawning
 
-    void SpawnObjectsOnSpawner()
+    public void SpawnObjectsOnSpawner()
     {
-
+        spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y), objectSpawner.transform.position.z);
         spawnPosition += new Vector3(0, -0.05F, -2);
 
         for (int i = 0; i < 3; i++)
@@ -252,14 +255,12 @@ public class MiniGameManager1 : MonoBehaviour
         float totalDayCycleInSeconds = dayTimeInSeconds + fullNightDurationInSeconds;
         float percentageOfDay = elapsedTime / totalDayCycleInSeconds;
 
-        if (elapsedTime >= totalDayCycleInSeconds)
+        if (percentageOfDay >= 1f)
         {
             elapsedTime = 0f;
         }
 
-        // Calculate the rotation angle of the sun
-        float dayPercentage = elapsedTime / dayTimeInSeconds;
-        float rotationAngle = dayPercentage * 360f;
+        float rotationAngle = (elapsedTime / dayTimeInSeconds) * 360f;
         sunLight.transform.rotation = Quaternion.Euler(rotationAngle - 90f, 170f, 0f);
 
         if (percentageOfDay <= dayTimeInSeconds / totalDayCycleInSeconds)
@@ -278,12 +279,13 @@ public class MiniGameManager1 : MonoBehaviour
         }
         else
         {
-            Camera.main.backgroundColor = Color.black;
+            Camera.main.backgroundColor = Color.black; // Hacer la noche más oscura
             AdjustTemperatureDuringNight();
             cultiveZone.GetComponent<CultiveZone>().day = false;
             Debug.Log("Es de noche (noche completa)");
         }
     }
+
 
     void AdjustTemperatureDuringDay()
     {
@@ -337,9 +339,9 @@ public class MiniGameManager1 : MonoBehaviour
         {
             case 1:
                 temperatureChangePerSecond = 0.2f;
-                fruit[0] = new object[] { "Fresa", 10, 30 };
-                fruit[1] = new object[] { "Tomate", 12, 28 };
-                fruit[2] = new object[] { "Pimiento", 5, 25 };
+                fruit[0] = new object[] { "Fresa", 20, 30 };
+                fruit[1] = new object[] { "Tomate", 15, 25 };
+                fruit[2] = new object[] { "Pimiento", 22, 31 };
 
                 break;
             case 2:
@@ -354,91 +356,107 @@ public class MiniGameManager1 : MonoBehaviour
     }
     IEnumerator AdjustMaterialsOverTime()
     {
-        
-         
         float startTime = Time.time;
-
         MeshRenderer renderer = greenHouse.GetComponent<MeshRenderer>();
+
         if (renderer != null)
         {
-            originalMat = renderer.material; // Guarda el material original solo una vez
+            // Guarda el material original solo una vez
+            if (originalMat == null)
+            {
+                originalMat = renderer.material;
+            }
             renderer.material = temporaryMaterial; // Asigna el material temporal desde el Inspector
         }
+
+        // Asegúrate de que el diálogo ha terminado antes de continuar
         if (isDialogueFinished)
         {
             while (Time.time - startTime < duration)
-        {
-            if (renderer != null)
             {
-                float currentCutoffHeight = renderer.material.GetFloat("_CutoffHeight");
-                float incremento = 0.1f * Time.deltaTime;
-                float newCutoffHeight = currentCutoffHeight + incremento;
-                renderer.material.SetFloat("_CutoffHeight", newCutoffHeight);
-
-                // Revisa si el valor de _CutoffHeight supera el umbral
-                if (newCutoffHeight >= cutoffThreshold)
+                if (renderer != null)
                 {
-                    renderer.material = originalMat; // Reasigna el material original
-                    break; // Opcional: detiene la corutina si no necesitas más cambios después de revertir el material
-                }
+                    float currentCutoffHeight = renderer.material.GetFloat("_CutoffHeight");
+                    float incremento = 0.1f * Time.deltaTime;
+                    float newCutoffHeight = currentCutoffHeight + incremento;
+                    renderer.material.SetFloat("_CutoffHeight", newCutoffHeight);
 
-                // Actualiza otros valores de material si se sigue utilizando el material temporal
-                if (renderer.material == temporaryMaterial)
-                {
-                    renderer.material.SetFloat("_NoiseStrength", 8.04f);
-                    renderer.material.SetFloat("_NoiseScale", 46.34f);
-                    renderer.material.SetFloat("_EdgeWidth", 0.36f);
+                    // Revisa si el valor de _CutoffHeight supera el umbral
+                    if (newCutoffHeight >= cutoffThreshold)
+                    {
+                        renderer.material = originalMat; // Reasigna el material original
+                        break; // Detiene la corutina
+                    }
+
+                    // Actualiza otros valores de material si se sigue utilizando el material temporal
+                    if (renderer.material == temporaryMaterial)
+                    {
+                        renderer.material.SetFloat("_NoiseStrength", 8.04f);
+                        renderer.material.SetFloat("_NoiseScale", 46.34f);
+                        renderer.material.SetFloat("_EdgeWidth", 0.36f);
+                    }
                 }
+                yield return null;
             }
-            yield return null;
-        }
 
-        // Opcional: Asegura que el material original se reestablezca al finalizar el tiempo total
-        if (renderer != null && renderer.material != originalMat)
-        {
-            renderer.material = originalMat;
-                Invoke("ChangeSceneMain", 15f);
-
-
-                if (goodFood == 2)
-                {
-                    dialog.spanishLines = new string[] { "¡Increíble! Tu generosidad ha marcado la diferencia. Has contribuido a la meta de Hambre Cero, ayudando a crear un mundo donde nadie pase hambre.\r\n" };
-                    dialog.dialoguePanel = panel;
-                    dialog.dialogueText = text;
-                    dialog.StartSpanishDialogue();
-                }
-                else if (goodFood == 5)
-                {
-                    dialog.spanishLines = new string[] { " ¿Sabías que cada comida salvada ayuda a reducir el desperdicio y a alimentar a quienes más lo necesitan?\r\n" };
-                    dialog.dialoguePanel = panel;
-                    dialog.dialogueText = text;
-                    dialog.StartSpanishDialogue();
-                }
-                else if (goodFood == 10)
-                {
-                    dialog.spanishLines = new string[] { "¡Fantástico! Gracias a ti, 50 familias tendrán algo en sus mesas esta noche.\r\n" };
-                    dialog.dialoguePanel = panel;
-                    dialog.dialogueText = text;
-                    dialog.StartSpanishDialogue();
-                }
-                else if (goodFood == 15)
-                {
-                    dialog.spanishLines = new string[] { "¡Impresionante! Ahora, gracias a ti, 75 familias tendrán algo que comer.\r\n" };
-                    dialog.dialoguePanel = panel;
-                    dialog.dialogueText = text;
-                    dialog.StartSpanishDialogue();
-                }
-                else if (goodFood == 20)
-                {
-                    dialog.spanishLines = new string[] { "Increíble. ¡Has salvado suficiente comida para alimentar a 100 familias! \r\n" };
-                    dialog.dialoguePanel = panel;
-                    dialog.dialogueText = text;
-                    dialog.StartSpanishDialogue();
-                }
-
+            // Asegura que el material original se reestablezca al finalizar el tiempo total
+            if (renderer != null && renderer.material != originalMat)
+            {
+                renderer.material = originalMat;
             }
+
+            if (goodFood == 0)
+            {
+                dialog.spanishLines = new string[] {
+               "Vaya, parece que no has superado esta prueba, lamentablemente van a pasar hambre muchas familias por no gestionar bien los alimientos.\r\n"
+    };
+            }
+
+            if (goodFood >= 2 && goodFood < 5)
+            {
+                dialog.spanishLines = new string[] {
+        "¡Increíble! Tu generosidad ha marcado la diferencia. Has contribuido a la meta de Hambre Cero, ayudando a crear un mundo donde nadie pase hambre.\r\n"
+    };
+            }
+            else if (goodFood >= 5 && goodFood < 10)
+            {
+                dialog.spanishLines = new string[] {
+        "¿Sabías que cada comida salvada ayuda a reducir el desperdicio y a alimentar a quienes más lo necesitan? Gracias a tu esfuerzo, estamos un paso más cerca de alcanzar el Hambre Cero.\r\n"
+    };
+            }
+            else if (goodFood >= 10 && goodFood < 15)
+            {
+                dialog.spanishLines = new string[] {
+        "¡Fantástico! Gracias a ti, 50 familias tendrán algo en sus mesas esta noche. Continuemos trabajando juntos para acabar con el hambre en el mundo.\r\n"
+    };
+            }
+            else if (goodFood >= 15 && goodFood < 20)
+            {
+                dialog.spanishLines = new string[] {
+        "¡Impresionante! Ahora, gracias a ti, 75 familias tendrán algo que comer. Tu ayuda es crucial en la lucha contra el hambre.\r\n"
+    };
+            }
+            else if (goodFood >= 20)
+            {
+                dialog.spanishLines = new string[] {
+        "Increíble. ¡Has salvado suficiente comida para alimentar a 100 familias! Cada acción cuenta en nuestra misión de alcanzar el Hambre Cero. ¡Gracias por tu compromiso!\r\n"
+    };
+            }
+
+            // Inicia el diálogo
+            dialog.dialoguePanel = panel;
+            dialog.dialogueText = text;
+            dialog.StartSpanishDialogue();
+
+            if (goodFood > 0)
+            {
+                MinigamesCompleted.minigame2Finished = true;
+            }
+            // Invocar el cambio de escena después de 15 segundos
+            Invoke("ChangeSceneMain", 15f);
         }
     }
+
 
     public void Reminders()
     {
@@ -465,6 +483,31 @@ public class MiniGameManager1 : MonoBehaviour
             dialog.StartSpanishDialogue();
         }
     }
+
+    public void badReminders()
+    {
+        if (badFood == 1)
+        {
+            dialog.spanishLines = new string[] { "¡Cuidado! Has dejado que se eche a perder una comida, recuerda que hay muchas personas que no tienen la oportunidad de tener algo en su mesa.\r\n" };
+            dialog.dialoguePanel = panel;
+            dialog.dialogueText = text;
+            dialog.StartSpanishDialogue();
+        }
+        else if (badFood == 5)
+        {
+            dialog.spanishLines = new string[] { "Has permitido que se desperdicien cinco comidas. Este desperdicio podría haber alimentado a varias personas necesitadas. ¡Recuerda la importancia de no desperdiciar comida!\r\n" };
+            dialog.dialoguePanel = panel;
+            dialog.dialogueText = text;
+            dialog.StartSpanishDialogue();
+        }
+        else if (badFood == 10)
+        {
+            dialog.spanishLines = new string[] { "¡Preocupante! Diez comidas se han echado a perder. Cada desperdicio es una oportunidad perdida para ayudar a quienes pasan hambre. Reflexiona sobre el impacto de tus acciones.\r\n"}; 
+            dialog.dialoguePanel = panel;
+            dialog.dialogueText = text;
+            dialog.StartSpanishDialogue();
+        }
+    }
     
 
     public void activeInteract (bool active)
@@ -485,8 +528,10 @@ public class MiniGameManager1 : MonoBehaviour
 
     private void ChangeSceneMain()
     {
+        
         SceneManager.LoadScene("LevelSelector");
-        MinigamesCompleted.minigame2Finished = true;
+
+        
     }
 
 }

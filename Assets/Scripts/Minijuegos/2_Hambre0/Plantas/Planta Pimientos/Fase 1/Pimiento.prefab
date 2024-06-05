@@ -227,24 +227,6 @@ MonoBehaviour:
   Cultive: {fileID: 0}
   renderer: {fileID: 0}
   mesh: {fileID: 0}
-  meshStrawBerry:
-  - {fileID: 0}
-  - {fileID: 0}
-  meshTomatoe:
-  - {fileID: 0}
-  - {fileID: 0}
-  meshPepper:
-  - {fileID: -9067026051423343459, guid: 100ad86ad01cfc24e9fc3b1afcb749d6, type: 3}
-  - {fileID: 8684162771000507663, guid: c4d25c7947a5a3b488da8685123a101b, type: 3}
-  materialStrawBerry:
-  - {fileID: 0}
-  - {fileID: 0}
-  materialTomatoe:
-  - {fileID: 0}
-  - {fileID: 0}
-  materialPepper:
-  - {fileID: 2100000, guid: 98da933b18514ca4ba3caf4a13565b8c, type: 2}
-  - {fileID: 2100000, guid: 37426b5af131a4845bbc6db77ad6a713, type: 2}
   Tipo: 
 --- !u!65 &8367697600755675311
 BoxCollider:
