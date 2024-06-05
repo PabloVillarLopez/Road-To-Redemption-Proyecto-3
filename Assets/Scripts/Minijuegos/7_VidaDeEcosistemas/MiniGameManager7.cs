@@ -307,9 +307,12 @@ public class MiniGameManager7 : MonoBehaviour
                 Debug.Log("Starting Phase 2");
                 maxRefText = maxPlants;
                 countProgress = maxPlants ;
-               
-                updateProgressText(-1);
                 
+                updateProgressText(-1);
+                foreach(GameObject obj in plantTargets)
+                {
+                    Instantiate(markGuide, obj.transform.position + new Vector3(0,3,0), Quaternion.identity);
+                }
 
                 break;
             case 3:
@@ -325,6 +328,7 @@ public class MiniGameManager7 : MonoBehaviour
                 foreach (GameObject obj in wallsBad)
                 {
                     obj.SetActive(true);
+                    Instantiate(markGuide, obj.transform.position + new Vector3(0, 3, 0), Quaternion.identity);
 
                 }
 

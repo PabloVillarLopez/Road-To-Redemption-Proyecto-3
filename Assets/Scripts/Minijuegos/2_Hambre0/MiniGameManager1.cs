@@ -18,7 +18,7 @@ public class MiniGameManager1 : MonoBehaviour
     // Variables de tipo float
     public float offSetYSpawn;
     public float offSetZSpawn;
-    public float dayTimeInSeconds = 60f;
+    public float dayTimeInSeconds = 150f;
     private float elapsedTime = 0f;
     public float temperatureChangePerSecond = 0.001f;
     public float temperature = 20;
@@ -27,7 +27,7 @@ public class MiniGameManager1 : MonoBehaviour
     public int level;
     float totalTime = 900f;
     float elapsedTimeBuild = 0f;
-
+    public float fullNightDurationInSeconds = 100f;
     // Variables de tipo Light
     public Light sunLight;
     Vector3 spawnPosition;
@@ -62,6 +62,7 @@ public class MiniGameManager1 : MonoBehaviour
  
     public GameObject panel;
     public TMPro.TextMeshProUGUI text;
+    public GameObject markGuide;
 
     #endregion
 
@@ -90,7 +91,7 @@ public class MiniGameManager1 : MonoBehaviour
             if (greenHouse != null)
             {
                 StartCoroutine(AdjustMaterialsOverTime());
-                StartCoroutine(UpdateCycleDaysCoroutine());
+               
 
             }
         }
@@ -108,9 +109,10 @@ public class MiniGameManager1 : MonoBehaviour
     }
     void Update()
     {
-        
 
-  
+
+        UpdateCycleDays();
+
 
 
 
@@ -244,78 +246,76 @@ public class MiniGameManager1 : MonoBehaviour
 
     #region Day-Night Cycle
 
-    private IEnumerator UpdateCycleDaysCoroutine()
-    {
-        while (true)
-        {
-            UpdateCycleDays();
-            yield return new WaitForSeconds(0.2f);
-        }
-    }
-
     void UpdateCycleDays()
     {
         elapsedTime += Time.deltaTime;
-        float percentageOfDay = elapsedTime / dayTimeInSeconds;
-        print (percentageOfDay);
-        if (percentageOfDay >= 1f)
+        float totalDayCycleInSeconds = dayTimeInSeconds + fullNightDurationInSeconds;
+        float percentageOfDay = elapsedTime / totalDayCycleInSeconds;
+
+        if (elapsedTime >= totalDayCycleInSeconds)
         {
             elapsedTime = 0f;
         }
 
-        float rotationAngle = percentageOfDay * 360f;
-        sunLight.transform.rotation = Quaternion.Euler(rotationAngle, 0f, 0f);
+        // Calculate the rotation angle of the sun
+        float dayPercentage = elapsedTime / dayTimeInSeconds;
+        float rotationAngle = dayPercentage * 360f;
+        sunLight.transform.rotation = Quaternion.Euler(rotationAngle - 90f, 170f, 0f);
 
-        if (percentageOfDay <= 0.5f)
+        if (percentageOfDay <= dayTimeInSeconds / totalDayCycleInSeconds)
         {
-            Camera.main.backgroundColor = Color.Lerp(Color.blue, Color.black, percentageOfDay / 0.5f);
+            Camera.main.backgroundColor = Color.Lerp(Color.black, Color.blue, percentageOfDay / (dayTimeInSeconds / totalDayCycleInSeconds));
             AdjustTemperatureDuringDay();
             cultiveZone.GetComponent<CultiveZone>().day = true;
-            Debug.Log("Es de dia");
-            
+            Debug.Log("Es de día");
+        }
+        else if (percentageOfDay > dayTimeInSeconds / totalDayCycleInSeconds && percentageOfDay <= (dayTimeInSeconds / totalDayCycleInSeconds) + (0.25f * fullNightDurationInSeconds / totalDayCycleInSeconds))
+        {
+            Camera.main.backgroundColor = Color.Lerp(Color.blue, Color.black, (percentageOfDay - (dayTimeInSeconds / totalDayCycleInSeconds)) / (0.25f * fullNightDurationInSeconds / totalDayCycleInSeconds));
+            AdjustTemperatureDuringNight();
+            cultiveZone.GetComponent<CultiveZone>().day = false;
+            Debug.Log("Es de noche (transición a noche completa)");
         }
         else
         {
-            Camera.main.backgroundColor = Color.Lerp(Color.black, Color.blue, (percentageOfDay - 0.5f) / 0.5f);
+            Camera.main.backgroundColor = Color.black;
             AdjustTemperatureDuringNight();
             cultiveZone.GetComponent<CultiveZone>().day = false;
-            Debug.Log("Es de noche");
+            Debug.Log("Es de noche (noche completa)");
         }
-
-
     }
-    
 
     void AdjustTemperatureDuringDay()
     {
         temperature += temperatureChangePerSecond * Time.deltaTime;
         dayTime = true;
-        // Aumentar la exposición del skybox durante el día
-        float exposure = Mathf.Lerp(0.9f, 4f, elapsedTime / (dayTimeInSeconds / 4));
+
+        float exposure = Mathf.Lerp(0.2f, 1.5f, elapsedTime / dayTimeInSeconds);
         RenderSettings.skybox.SetFloat("_Exposure", exposure);
-        DynamicGI.UpdateEnvironment(); // Actualiza la iluminación global basada en los cambios del skybox
+        DynamicGI.UpdateEnvironment();
     }
 
     void AdjustTemperatureDuringNight()
     {
         temperature -= temperatureChangePerSecond * Time.deltaTime;
         dayTime = false;
-        // Disminuir la exposición del skybox durante la noche
-        float exposure = Mathf.Lerp(0.9f, 4f, (elapsedTime - dayTimeInSeconds / 4) / (dayTimeInSeconds / 2));
+
+        float nightElapsedTime = elapsedTime - dayTimeInSeconds;
+        float exposure = Mathf.Lerp(1.5f, 0.2f, nightElapsedTime / fullNightDurationInSeconds);
         RenderSettings.skybox.SetFloat("_Exposure", exposure);
-        DynamicGI.UpdateEnvironment(); // Actualiza la iluminación global basada en los cambios del skybox
+        DynamicGI.UpdateEnvironment();
     }
 
 
- 
-#endregion
 
-#region Inventory Management
+    #endregion
 
-
+    #region Inventory Management
 
 
-public void checkBadFood()
+
+
+    public void checkBadFood()
     {
         badFood++;
         TextBadFood.text = "Wasted Food: " + badFood;

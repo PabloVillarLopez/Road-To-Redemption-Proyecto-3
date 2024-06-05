@@ -5,7 +5,7 @@ public class EffectWave : MonoBehaviour
 {
     public float speed = 1.0f;          // Velocidad de la onda
     public float magnitude = 0.1f;      // Magnitud de la onda
-    public float disappearDuration = 5f; // Duración antes de desaparecer
+    public float disappearDuration = 30f; // Duración antes de desaparecer
 
     private Vector3 originalPosition;    // Posición original del objeto
     private Transform playerTransform;   // Referencia al transform del jugador
