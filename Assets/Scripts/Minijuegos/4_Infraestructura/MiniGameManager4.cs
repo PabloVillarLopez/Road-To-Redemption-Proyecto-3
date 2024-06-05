@@ -438,6 +438,7 @@ public class MiniGameManager4 : MonoBehaviour
 
     private void ChangeSceneMain()
     {
+        MinigamesCompleted.minigame4Finished = true;
         SceneManager.LoadScene("LevelSelector");
     }
 

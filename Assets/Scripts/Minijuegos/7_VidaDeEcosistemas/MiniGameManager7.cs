@@ -547,6 +547,7 @@ public class MiniGameManager7 : MonoBehaviour
 
     private void ChangeSceneMain()
     {
+        MinigamesCompleted.minigame7Finished = true;
         SceneManager.LoadScene("LevelSelector");
     }
 

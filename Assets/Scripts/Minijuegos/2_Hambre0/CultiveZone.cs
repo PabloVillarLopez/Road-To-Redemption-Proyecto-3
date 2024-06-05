@@ -27,11 +27,12 @@ public class CultiveZone : MonoBehaviour
     {
         manager = GameObject.Find("GameManager").GetComponent<MiniGameManager1>();
         StartCoroutine(ApplyTempCoroutine());
+        StartCoroutine(UpdateTempCoroutine());
+
     }
 
     private void Update()
     {
-        UpdateTextValues();
         
 
 
@@ -125,6 +126,15 @@ public class CultiveZone : MonoBehaviour
         while (true)
         {
             ApplyTemp();
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    private IEnumerator UpdateTempCoroutine()
+    {
+        while (true)
+        {
+            UpdateTextValues();
             yield return new WaitForSeconds(0.5f);
         }
     }

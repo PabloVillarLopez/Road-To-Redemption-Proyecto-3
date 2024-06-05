@@ -20,7 +20,7 @@ public class MiniGameManager1 : MonoBehaviour
     public float offSetZSpawn;
     public float dayTimeInSeconds = 60f;
     private float elapsedTime = 0f;
-    public float temperatureChangePerSecond = 0.000000000001f;
+    public float temperatureChangePerSecond = 0.001f;
     public float temperature = 20;
     float duration = 300f;
     float cutoffThreshold = 12.5f;
@@ -71,49 +71,48 @@ public class MiniGameManager1 : MonoBehaviour
     {
         CheckDialogue();
         greenHouse = GameObject.Find("GreenHouse");
-        if (greenHouse != null)
-        {
-            StartCoroutine(AdjustMaterialsOverTime());
-            
-        }
+        
         Level(1);
         spawnPosition = new Vector3(objectSpawner.transform.position.x, (objectSpawner.transform.position.y), objectSpawner.transform.position.z);
         SpawnObjectsOnSpawner();
         SpawnOchards();
         activeInteract(false);
         StartCoroutine(CheckDialogue());
+        StartCoroutine(AdjustMaterialsOverTime());
     }
 
     IEnumerator CheckDialogue()
     {
 
-        if (dialog.dialogueFinished && dialog.dialoguePanel.activeInHierarchy == false)
+        if (dialog.dialogueFinished && dialog.dialoguePanel.activeSelf == false)
         {
             isDialogueFinished = true;
             if (greenHouse != null)
             {
                 StartCoroutine(AdjustMaterialsOverTime());
+                StartCoroutine(UpdateCycleDaysCoroutine());
 
             }
         }
-
-    
-
-        yield return new WaitForSeconds(2);
-        // Duración simulada del diálogo
-    }
-
-    void Update()
-    {
-        if (isDialogueFinished )
+        while (!isDialogueFinished)
         {
-            StartCoroutine(UpdateCycleDaysCoroutine());
-            isDialogueFinished = false;
+            // Llama a la corrutina original
+            yield return new WaitForSeconds(1f);
+            yield return StartCoroutine(CheckDialogue());
+
+
         }
 
-       
-            
+
+
+    }
+    void Update()
+    {
         
+
+  
+
+
 
     }
 
@@ -149,7 +148,7 @@ public class MiniGameManager1 : MonoBehaviour
             spawnPosition += new Vector3(0, 0, -offSetZSpawn);
         }
 
-        spawnPosition += new Vector3(0, 0, 1);
+        spawnPosition += new Vector3(0, 0, 2);
         for (int i = 0; i < 3; i++)
         {
             spawnPosition += new Vector3(0, 0, offSetZSpawn);
@@ -226,7 +225,21 @@ public class MiniGameManager1 : MonoBehaviour
 
 
 
+    public void reminderNotCatch()
+    {
+        dialog.spanishLines = new string[] { "Primero planta las semillas que has cogido.\r\n" };
+        dialog.dialoguePanel = panel;
+        dialog.dialogueText = text;
+        dialog.StartSpanishDialogue();
+    }
 
+    public void reminderNotRecollect()
+    {
+        dialog.spanishLines = new string[] { "Esta planta todavia no está lista para ser recogida. Además de tener una mayor biodisponibilidad de antioxidantes y nutrientes clave, lo que mejora su valor nutricional\r\n" };
+        dialog.dialoguePanel = panel;
+        dialog.dialogueText = text;
+        dialog.StartSpanishDialogue();
+    }
     #endregion
 
     #region Day-Night Cycle
@@ -236,7 +249,7 @@ public class MiniGameManager1 : MonoBehaviour
         while (true)
         {
             UpdateCycleDays();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
@@ -244,7 +257,7 @@ public class MiniGameManager1 : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
         float percentageOfDay = elapsedTime / dayTimeInSeconds;
-
+        print (percentageOfDay);
         if (percentageOfDay >= 1f)
         {
             elapsedTime = 0f;
@@ -269,7 +282,6 @@ public class MiniGameManager1 : MonoBehaviour
             Debug.Log("Es de noche");
         }
 
-        temperatureText.text = temperature.ToString("F1") + "°C";
 
     }
     
@@ -279,7 +291,7 @@ public class MiniGameManager1 : MonoBehaviour
         temperature += temperatureChangePerSecond * Time.deltaTime;
         dayTime = true;
         // Aumentar la exposición del skybox durante el día
-        float exposure = Mathf.Lerp(0.33f, 1.30f, elapsedTime / (dayTimeInSeconds / 4));
+        float exposure = Mathf.Lerp(0.9f, 4f, elapsedTime / (dayTimeInSeconds / 4));
         RenderSettings.skybox.SetFloat("_Exposure", exposure);
         DynamicGI.UpdateEnvironment(); // Actualiza la iluminación global basada en los cambios del skybox
     }
@@ -289,7 +301,7 @@ public class MiniGameManager1 : MonoBehaviour
         temperature -= temperatureChangePerSecond * Time.deltaTime;
         dayTime = false;
         // Disminuir la exposición del skybox durante la noche
-        float exposure = Mathf.Lerp(1.30f, 0.33f, (elapsedTime - dayTimeInSeconds / 4) / (dayTimeInSeconds / 2));
+        float exposure = Mathf.Lerp(0.9f, 4f, (elapsedTime - dayTimeInSeconds / 4) / (dayTimeInSeconds / 2));
         RenderSettings.skybox.SetFloat("_Exposure", exposure);
         DynamicGI.UpdateEnvironment(); // Actualiza la iluminación global basada en los cambios del skybox
     }
@@ -474,6 +486,7 @@ public void checkBadFood()
     private void ChangeSceneMain()
     {
         SceneManager.LoadScene("LevelSelector");
+        MinigamesCompleted.minigame2Finished = true;
     }
 
 }

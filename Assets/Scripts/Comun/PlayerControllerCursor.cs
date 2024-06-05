@@ -152,6 +152,10 @@ public class PlayerControllerCursor : MonoBehaviour
                             ObjectInfo info = caughtObject.GetComponent<ObjectInfo>();
                             int id = info.GetobjectInfo();
                         }
+                        else
+                        {
+                            manager.reminderNotCatch();
+                        }
                     }
                 }
                 else if (hit.collider.CompareTag("SeedPlanted") && manager != null)
@@ -188,7 +192,7 @@ public class PlayerControllerCursor : MonoBehaviour
                         }
                         else
                         {
-                            Debug.Log("No se puede recolectar");
+                            manager.reminderNotRecollect();
                         }
                     }
 

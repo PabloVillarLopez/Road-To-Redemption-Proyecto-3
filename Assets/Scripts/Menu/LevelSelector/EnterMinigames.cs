@@ -24,13 +24,13 @@ public class EnterMinigames : MonoBehaviour
         switch (minigameID)
         {
             case 1: //Hambre cero
-                Debug.Log("Minijuego bloqueado por ahora.");
+                SceneManager.LoadScene("miniJuego1");
                 break;
             case 2: //Agua limpia
                 SceneManager.LoadScene("Minijuego3");
                 break;
             case 3: //Infraestructrua
-                SceneManager.LoadScene("MiniJuego4");
+                SceneManager.LoadScene("MinujuegoInfraestructura");
                 break;
             case 4: //Energía asequible
                 SceneManager.LoadScene("Minijuego_Marc");
@@ -42,7 +42,7 @@ public class EnterMinigames : MonoBehaviour
                 SceneManager.LoadScene("Santuario_Dañado 1");
                 break;
             case 7: //Acción por el clima
-                SceneManager.LoadScene("MiniJuego8");
+                SceneManager.LoadScene("MiniGame_8");
                 break;
             default:
                 break;
