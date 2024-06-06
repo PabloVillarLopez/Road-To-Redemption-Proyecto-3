@@ -124,11 +124,22 @@ public class PlayerControllerCursor : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.CompareTag("CatchAble") && mode == 2 && Input.GetKeyDown(KeyCode.E))
+                if (hit.collider.CompareTag("CatchAble") && mode == 2  )
                 {
-                    ChangeCamera();
                     GameObject manager = GameObject.Find("GameManager");
-                    manager.GetComponent<MiniGameManager8>().StartGame();
+                    manager.GetComponent<MiniGameManager8>().activeInteract(true);
+                     if (Input.GetKeyDown(KeyCode.E)) {
+                        ChangeCamera();
+                        
+                        manager.GetComponent<MiniGameManager8>().StartGame();
+                    }
+                    
+                }
+                else if (mode == 2 && !hit.collider.CompareTag("CatchAble"))
+                {
+                    GameObject manager = GameObject.Find("GameManager");
+
+                    manager.GetComponent<MiniGameManager8>().activeInteract(false);
                 }
             }
 

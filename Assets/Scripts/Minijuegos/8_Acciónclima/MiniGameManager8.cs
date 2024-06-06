@@ -35,12 +35,15 @@ public class MiniGameManager8 : MonoBehaviour
     public TMPro.TextMeshProUGUI text;
     public int lightmapIndexToUse; // Índice del baked lightmap que deseas que se utilice
 
+    public Image interact;
+
     void Start()
     {
         // Initialization goes here
         overlay.gameObject.SetActive(false);
         dialogue = GetComponent<DialogueScript>();
         ApplyLightmapToScene();
+        activeInteract(false);
 
     }
 
@@ -180,7 +183,7 @@ public class MiniGameManager8 : MonoBehaviour
             dialogue.StartSpanishDialogue();
             move = false;
 
-            Invoke("ChangeSceneMain", 15f);
+            Invoke("ChangeSceneMain", 7f);
         }
     }
 
@@ -221,6 +224,22 @@ public class MiniGameManager8 : MonoBehaviour
         {
             Debug.LogWarning("El índice del baked lightmap no es válido.");
         }
+    }
+
+
+    public void activeInteract(bool active)
+    {
+        if (active)
+        {
+            interact.gameObject.SetActive(true);
+        }
+        else
+        {
+            interact.gameObject.SetActive(false);
+        }
+
+
+
     }
 
 }

@@ -51,10 +51,7 @@ public class Laser : MonoBehaviour
             else if (Input.GetMouseButtonUp(0))
                 Deactivate();
         }
-    }
 
-    private void FixedUpdate()
-    {
         // Laser behavior for phase 1
         if (miniGameManager.currentPhase == 1 && _beam.enabled)
         {
@@ -72,24 +69,22 @@ public class Laser : MonoBehaviour
             // Si el rayo láser golpea un objeto, verifica si es "CatchAble" y reduce su vida
             if (cast && hit.collider.CompareTag("CatchAble"))
             {
-                
                 if (hit.collider.gameObject != null)
                 {
                     var catchableObject = hit.collider.GetComponent<ObjectToExplote>();
                     if (catchableObject != null)
                     {
-                        catchableObject.TakeDamage(0.2f); // Puedes ajustar el daño aquí
-                        
+                        catchableObject.TakeDamage(0.1f); // Puedes ajustar el daño aquí
                     }
-                  
                 }
             }
-
-            
+            else
+            {
+                miniGameManager.activeInteract(false);
+            }
         }
 
-
-        if (miniGameManager.currentPhase == 2 )
+        if (miniGameManager.currentPhase == 2)
         {
             // Logic for phase 2
             Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -98,40 +93,42 @@ public class Laser : MonoBehaviour
 
             // Establece la longitud del rayo
             Vector3 hitPosition = cast ? hit.point : ray.origin + ray.direction * _maxLength;
-            if (cast && hit.collider.CompareTag("PlantArea") && miniGameManager.haveSeeds==true)
+
+            if (hit.collider.CompareTag("PlantArea") && miniGameManager.haveSeeds == true)
             {
-                print("Se puede plantar");
+                miniGameManager.activeInteract(true);
+                print("Puedes plantar");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+
+                    miniGameManager.activeInteract(false);
+
                     print("Se ha plantado");
                     miniGameManager.isPlanting = true;
                     hit.collider.gameObject.SetActive(false);
-
                 }
-
             }
-         
-
-            if (cast && hit.collider.CompareTag("CatchAble"))
+            else if (cast && hit.collider.CompareTag("CatchAble"))
             {
-                
-                    // Incrementar el proceso de la barra de progreso
+                miniGameManager.activeInteract(true);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+
                     miniGameManager.haveSeeds = true;
-                    hit.collider.gameObject.SetActive(false);   
+                    hit.collider.gameObject.SetActive(false);
                     print("Se ha recogido la semilla");
-                
+                }
             }
+            else
+            {
+                miniGameManager.activeInteract(false);
+            }
+
             print(miniGameManager.haveSeeds);
         }
-        
-
-
-
-
-
 
         // Laser behavior for phase 3
-        if (miniGameManager.currentPhase == 3 )
+        if (miniGameManager.currentPhase == 3)
         {
             Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             bool cast = Physics.Raycast(ray, out RaycastHit hit, _maxLength);
@@ -149,9 +146,21 @@ public class Laser : MonoBehaviour
                 var catchableObject = hit.collider.GetComponent<ApplyMaterial>();
                 if (catchableObject != null)
                 {
-                    catchableObject.AddHeight(0.1f);
+                    catchableObject.AddHeight(0.05f);
                 }
+            }
+            else
+            {
+                miniGameManager.activeInteract(false);
             }
         }
     }
+
+
+
+
 }
+
+   
+
+

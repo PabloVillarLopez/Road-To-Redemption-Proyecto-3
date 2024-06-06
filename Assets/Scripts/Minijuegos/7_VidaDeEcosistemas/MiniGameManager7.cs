@@ -83,6 +83,7 @@ public class MiniGameManager7 : MonoBehaviour
     public int lightmapIndexToUse; // Índice del baked lightmap que deseas que se utilice
 
     public GameObject[] tress;
+    public Image interact;
 
 
     private void Awake()
@@ -101,6 +102,7 @@ public class MiniGameManager7 : MonoBehaviour
         manageWalls();
         secondCamera.enabled = false;
         mainCam = Camera.main;
+        activeInteract(false);
 
         foreach (GameObject obj in wallsBad)
         {
@@ -453,8 +455,10 @@ public class MiniGameManager7 : MonoBehaviour
         {
             case 0:
 
-                dialogue.spanishLines = new string[] { "Excelente trabajo, después de toda esta basura que has reciclado mientras solucionabamos la averia no hemos contaminado la capa de ozono buen trabajo.En esta fase, plantarás árboles y plantas para restaurar la biodiversidad del santuario. Observa las diferentes cajas de almacenamiento que contienen las semillas y plántalas en las áreas designadas.\r\n\r\n" };
-                dialogue.dialoguePanel = panel;
+                dialogue.spanishLines = new string[]
+                {
+    "¡Excelente trabajo! Gracias a todo el reciclaje que has hecho mientras solucionábamos la avería, no hemos contaminado la capa de ozono. ¡Buen trabajo! En esta fase, plantarás árboles y plantas para restaurar la biodiversidad del santuario. Observa las diferentes cajas de almacenamiento que contienen las semillas y plántalas en las áreas designadas."
+                }; dialogue.dialoguePanel = panel;
 
                 dialogue.dialogueText = text;
                 dialogue.StartSpanishDialogue();
@@ -473,11 +477,13 @@ public class MiniGameManager7 : MonoBehaviour
                 dialogue.StartSpanishDialogue();
                 break;
                 case 3:
-
-                dialogue.spanishLines = new string[] { "Excelente trabajo, has logrado reparar la capa de ozono, ahora la naturaleza se recuperara.\r\n" };
+                if (dialogue.dialogueFinished && dialogue.dialoguePanel.activeSelf == false)
+                {
+                    dialogue.spanishLines = new string[] { "Excelente trabajo, has logrado reparar la capa de ozono, ahora la naturaleza se recuperara.\r\n" };
                     dialogue.dialoguePanel = panel;
                     dialogue.dialogueText = text;
                     dialogue.StartSpanishDialogue();
+                    }
                 break;
 
 
@@ -529,7 +535,7 @@ public class MiniGameManager7 : MonoBehaviour
        
             mainCam.enabled = false;
             secondCamera.enabled = true;
-        Invoke("ChangeSceneMain", 15f);
+        Invoke("ChangeSceneMain", 10f);
         reminders(3);
 
         foreach (GameObject obj in scrapt)
@@ -585,6 +591,23 @@ public class MiniGameManager7 : MonoBehaviour
         {
             Debug.LogWarning("El índice del baked lightmap no es válido.");
         }
+    }
+
+
+
+    public void activeInteract(bool active)
+    {
+        if (active)
+        {
+            interact.gameObject.SetActive(true);
+        }
+        else
+        {
+            interact.gameObject.SetActive(false);
+        }
+
+
+
     }
 }
 #endregion

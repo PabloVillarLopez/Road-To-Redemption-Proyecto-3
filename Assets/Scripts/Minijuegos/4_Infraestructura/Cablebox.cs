@@ -27,7 +27,7 @@ public class Cablebox : MonoBehaviour
         gameManager = FindObjectOfType<MiniGameManager4>();
         AssingColorsPartLeft();
         AssingColorsPartRight();
-       
+       cursor.enabled = false;
     }
 
     void Update()

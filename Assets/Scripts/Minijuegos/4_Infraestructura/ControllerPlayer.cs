@@ -25,102 +25,98 @@ public class ControllerPlayer : MonoBehaviour
 
     void CastRayFromMousePosition()
     {
-        if(Camera.main != null) { 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        if (Camera.main != null)
         {
-            if (hit.collider != null && hit.collider.CompareTag("CatchAble"))
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
             {
-
-                if (Input.GetKeyDown(KeyCode.E))
+                if (hit.collider != null && hit.collider.CompareTag("CatchAble"))
                 {
-                    if (hit.collider.GetComponent<ObjectToCatch>() != null && hit.collider.GetComponent<ObjectToCatch>().id == gameManager.idMaterial1)
+                    gameManager.activeInteract(true);
+
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
-                        gameManager.countMaterial1++;
-                        hit.collider.gameObject.SetActive(false);
+                        ObjectToCatch objectToCatch = hit.collider.GetComponent<ObjectToCatch>();
+                        if (objectToCatch != null)
+                        {
+                            if (objectToCatch.id == gameManager.idMaterial1)
+                            {
+                                gameManager.countMaterial1++;
+                                hit.collider.gameObject.SetActive(false);
+                            }
+                            else if (objectToCatch.id == gameManager.idMaterial2)
+                            {
+                                gameManager.countMaterial2++;
+                                hit.collider.gameObject.SetActive(false);
+                            }
+                            else if (objectToCatch.id == gameManager.idMaterial3)
+                            {
+                                gameManager.countMaterial3++;
+                                hit.collider.gameObject.SetActive(false);
+                            }
 
-
+                            gameManager.updateTextsProgress();
+                        }
                     }
-                    else if (hit.collider.GetComponent<ObjectToCatch>() != null && hit.collider.GetComponent<ObjectToCatch>().id == gameManager.idMaterial2)
+                }
+                else if (hit.collider != null && hit.collider.CompareTag("Respawn"))
+                {
+                    gameManager.activeInteract(true);
+                    if (Input.GetKeyDown(KeyCode.E) && gameManager.phaseState == 3 && gameManager.phaseBuild == 0)
                     {
-                        gameManager.countMaterial2++;
-                        hit.collider.gameObject.SetActive(false);
-
+                        gameManager.onlyDescriptionMode();
+                        gameManager.PhaseMode(4);
+                        Debug.Log("Elige donde plantar");
                     }
-                    else if (hit.collider.GetComponent<ObjectToCatch>() != null && hit.collider.GetComponent<ObjectToCatch>().id == gameManager.idMaterial3)
+                    else if (Input.GetKeyDown(KeyCode.E) && gameManager.phaseState == 3 && gameManager.phaseBuild != 0)
                     {
-                        gameManager.countMaterial3++;
-
-                        hit.collider.gameObject.SetActive(false);
+                        Debug.Log("Planta la pieza");
+                        gameManager.onlyDescriptionMode();
+                        gameManager.PhaseMode(5);
                     }
+                }
+                else if (gameManager.phaseState == 4 && gameManager.phaseBuild == 0 && hit.collider.CompareTag("PlantArea"))
+                {
+                    gameManager.activeInteract(true);
 
-                    gameManager.updateTextsProgress();
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        gameManager.ChooseAreaToSpawn(hit.point);
+                        Debug.Log("Cojo punto de referencia");
+                    }
+                }
+                else if (hit.collider != null && hit.collider.CompareTag("Pipeline") && gameManager.phaseState == 5 && gameManager.phaseBuild != 0 && gameManager.phaseBuild != 5)
+                {
+                    gameManager.activeInteract(true);
+
+                    if (Input.GetKeyDown(KeyCode.E) && gameManager.phaseState == 5)
+                    {
+                        Transform child = hit.collider.gameObject.transform;
+                        if (child.parent != null)
+                        {
+                            Transform parentTransform = child.parent;
+                            parentTransform.gameObject.GetComponent<BuildObjectsByParts>().BuildObject();
+                            Debug.Log("Añado punto de pieza");
+                        }
+
+                        gameManager.resetTextsProgress();
+                        gameManager.PhaseMode(6);
+                    }
+                }
+                else
+                {
+                    // Si el collider no tiene ninguno de los tags especificados, desactiva la interacción
+                    gameManager.activeInteract(false);
                 }
             }
-
-
-            
-
-            if (hit.collider != null && hit.collider.CompareTag("Respawn"))
+            else
             {
-
-                if (Input.GetKeyDown(KeyCode.E) && gameManager.phaseState == 3 && gameManager.phaseBuild==0)
-                {
-                    gameManager.onlyDescriptionMode();
-                    gameManager.PhaseMode(4);
-                    Debug.Log("Elige donde plantar");
-
-                }
-                else if (Input.GetKeyDown(KeyCode.E) && gameManager.phaseState == 3 && gameManager.phaseBuild != 0)
-                {
-                    Debug.Log("Planta la pieza");
-                    gameManager.onlyDescriptionMode();
-                    gameManager.PhaseMode(5);
-                }
-            }
-            
-
-            if (gameManager.phaseState == 4 && gameManager.phaseBuild==0)
-            {
-                if (Input.GetKeyDown(KeyCode.E) && hit.collider.CompareTag("PlantArea"))
-                {
-                    gameManager.ChooseAreaToSpawn(hit.point);
-                    Debug.Log("Cojo punto de referencia");
-
-                }
-
-            }
-
-            if (hit.collider != null && hit.collider.CompareTag("Pipeline") && gameManager.phaseState==5 && gameManager.phaseBuild != 0 && gameManager.phaseBuild != 5)
-            {
-                
-                if (Input.GetKeyDown(KeyCode.E) && gameManager.phaseState == 5)
-                {
-               
-
-                    Transform child = hit.collider.gameObject.transform;
-                    if (child.parent != null)
-                    {
-                        // Obtenemos el transform del padre
-                        Transform parentTransform = child.parent;
-                        parentTransform.gameObject.GetComponent<BuildObjectsByParts>().BuildObject();
-                        Debug.Log("Añado punto de pieza");
-
-                    }
-
-
-
-
-                    gameManager.resetTextsProgress();
-                    gameManager.PhaseMode(6);
-
-
-
-                }
-               }
+                // Si no se ha detectado ningún collider, también desactiva la interacción
+                gameManager.activeInteract(false);
             }
         }
     }
+
 }

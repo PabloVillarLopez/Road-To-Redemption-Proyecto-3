@@ -232,18 +232,26 @@ public class MiniGameManager1 : MonoBehaviour
 
     public void reminderNotCatch()
     {
-        dialog.spanishLines = new string[] { "Primero planta las semillas que has cogido.\r\n" };
-        dialog.dialoguePanel = panel;
-        dialog.dialogueText = text;
-        dialog.StartSpanishDialogue();
+        if (dialog.dialogueFinished && dialog.dialoguePanel.activeSelf == false)
+        {
+
+            dialog.spanishLines = new string[] { "Primero planta las semillas que has cogido.\r\n" };
+            dialog.dialoguePanel = panel;
+            dialog.dialogueText = text;
+            dialog.StartSpanishDialogue();
+        }
     }
 
     public void reminderNotRecollect()
     {
-        dialog.spanishLines = new string[] { "Esta planta todavia no está lista para ser recogida. Además de tener una mayor biodisponibilidad de antioxidantes y nutrientes clave, lo que mejora su valor nutricional\r\n" };
-        dialog.dialoguePanel = panel;
-        dialog.dialogueText = text;
-        dialog.StartSpanishDialogue();
+        if (dialog.dialogueFinished && dialog.dialoguePanel.activeSelf == false)
+        {
+
+            dialog.spanishLines = new string[] { "Esta planta todavia no está lista para ser recogida. Además de tener una mayor biodisponibilidad de antioxidantes y nutrientes clave, lo que mejora su valor nutricional\r\n" };
+            dialog.dialoguePanel = panel;
+            dialog.dialogueText = text;
+            dialog.StartSpanishDialogue();
+        }
     }
     #endregion
 
@@ -442,11 +450,13 @@ public class MiniGameManager1 : MonoBehaviour
         "Increíble. ¡Has salvado suficiente comida para alimentar a 100 familias! Cada acción cuenta en nuestra misión de alcanzar el Hambre Cero. ¡Gracias por tu compromiso!\r\n"
     };
             }
-
-            // Inicia el diálogo
-            dialog.dialoguePanel = panel;
-            dialog.dialogueText = text;
-            dialog.StartSpanishDialogue();
+            
+                dialog.dialoguePanel = panel;
+                dialog.dialogueText = text;
+                dialog.StartSpanishDialogue();
+           
+                // Inicia el diálogo
+                
 
             if (goodFood > 0)
             {
@@ -460,6 +470,10 @@ public class MiniGameManager1 : MonoBehaviour
 
     public void Reminders()
     {
+        if (dialog.dialogueFinished && dialog.dialoguePanel.activeSelf == false)
+        {
+            
+       
         if (goodFood == 5)
         {
             dialog.spanishLines = new string[] { "Vaya, recluso no esperaba que fueras tan bueno, te han dicho alguna vez que se echa a perder mucha comida a lo largo del año?\r\n" };
@@ -481,6 +495,7 @@ public class MiniGameManager1 : MonoBehaviour
             dialog.dialoguePanel = panel;
             dialog.dialogueText = text;
             dialog.StartSpanishDialogue();
+        }
         }
     }
 

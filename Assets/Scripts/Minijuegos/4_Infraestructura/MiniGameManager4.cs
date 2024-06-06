@@ -57,7 +57,10 @@ public class MiniGameManager4 : MonoBehaviour
     public TMPro.TextMeshProUGUI thirdText;
     private bool conectingCable;
     public int lightmapIndexToUse; // Índice del baked lightmap que deseas que se utilice
-    // Start is called before the first frame update
+                                   // Start is called before the first frame update
+
+    public Image interact;
+
     void Start()
     {
         PhaseMode(1);
@@ -66,6 +69,8 @@ public class MiniGameManager4 : MonoBehaviour
         thirdCanvas.enabled = false;
         dialogue = GetComponent<DialogueScript>();
         ApplyLightmapToScene();
+        activeInteract(false);
+
     }
 
     // Update is called once per frame
@@ -89,15 +94,15 @@ public class MiniGameManager4 : MonoBehaviour
         {
             case 1: // Base
                 nameObject = "Base molino";
-                nameMaterial1 = "Botella azul";
+                nameMaterial1 = "Botella plástico";
                 idMaterial1 = 0;
                 HowManyMaterial1 = 1;
 
-                nameMaterial2 = "Botella morada";
+                nameMaterial2 = "Vidrio";
                 idMaterial2 = 1;
                 HowManyMaterial2 = 1;
 
-                nameMaterial3 = "Botella verde";
+                nameMaterial3 = "Pila";
                 idMaterial3 = 2;
                 HowManyMaterial3 = 1;
                 break;
@@ -105,30 +110,30 @@ public class MiniGameManager4 : MonoBehaviour
             case 2: // Blades
                 nameObject = "Cuerpo";
                 idMaterial1 = 1;
-                nameMaterial1 = "Botella morada";
+                nameMaterial1 = "Vidrio";
                 HowManyMaterial1 = 1;
 
                 idMaterial2 = 1;
-                nameMaterial2 = "Botella verde";
+                nameMaterial2 = "Pila";
                 HowManyMaterial2 = 1;
 
                 idMaterial3 = 0;
-                nameMaterial3 = "Botella azul";
+                nameMaterial3 = "Botella plástico";
                 HowManyMaterial3 = 1;
                 break;
 
             case 3: // Gearbox
                 nameObject = "Hélices";
                 idMaterial1 = 2;
-                nameMaterial1 = "Botella verde";
+                nameMaterial1 = "Pila";
                 HowManyMaterial1 =1;
 
                 idMaterial2 = 0;
-                nameMaterial2 = "Botella azul";
+                nameMaterial2 = "Botella plástico";
                 HowManyMaterial2 = 1;
 
                 idMaterial3 = 1;
-                nameMaterial3 = "Botella morada";
+                nameMaterial3 = "Vidrio";
                 HowManyMaterial3 = 1;
                 break;
 
@@ -416,7 +421,20 @@ public class MiniGameManager4 : MonoBehaviour
             ChangeCameraFinishGame();
         }
     }
+    public void activeInteract(bool active)
+    {
+        if (active)
+        {
+            interact.gameObject.SetActive(true);
+        }
+        else
+        {
+            interact.gameObject.SetActive(false);
+        }
 
+
+
+    }
     public void ChangeCameraFinishGame()
     {
         if (mainCam.enabled)
@@ -430,7 +448,7 @@ public class MiniGameManager4 : MonoBehaviour
             dialogue.dialogueText = thirdText;
             dialogue.StartSpanishDialogue();
 
-            Invoke("ChangeSceneMain", 15f);
+            Invoke("ChangeSceneMain", 7f);
 
         }
 
