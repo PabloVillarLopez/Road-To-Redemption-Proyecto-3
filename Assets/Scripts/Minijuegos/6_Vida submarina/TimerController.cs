@@ -58,7 +58,7 @@ public class TimerController : MonoBehaviour
         if (ShootTrash.points >= 31)
         {
             timerOn = false;
-            MinigamesCompleted.minigame3Finished = true;
+            MinigamesCompleted.minigame6Finished = true;
             StartCoroutine(Wait());
         }
     }
