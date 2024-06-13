@@ -46,6 +46,7 @@ public class MainMenu : MonoBehaviour
     public GameObject startButton;
     public GameObject leftArrow;
     public GameObject rightArrow;
+    public GameObject firstMenuCanvas;
     //public GameObject engButton;
     //public GameObject espButton;
 
@@ -152,6 +153,7 @@ public class MainMenu : MonoBehaviour
 
         if (!MinigamesCompleted.minigame1Finished)
         {
+            firstMenuCanvas.SetActive(true);
             startButton.SetActive(true);
             leftArrow.SetActive(false);
             rightArrow.SetActive(false);
@@ -160,6 +162,7 @@ public class MainMenu : MonoBehaviour
         }
         else if (MinigamesCompleted.minigame1Finished)
         {
+            firstMenuCanvas.SetActive(false);
             startButton.SetActive(false);
             leftArrow.SetActive(true);
             rightArrow.SetActive(true);

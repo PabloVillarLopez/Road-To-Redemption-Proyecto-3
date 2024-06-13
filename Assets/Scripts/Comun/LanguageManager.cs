@@ -9,7 +9,7 @@ public class LanguageManager : MonoBehaviour
         English
     }
 
-    public static Language currentLanguage;
+    public static Language currentLanguage = Language.English;
 
     public void ChangeLanguageToSpanish()
     {
