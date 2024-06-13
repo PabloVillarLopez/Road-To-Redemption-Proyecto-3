@@ -62,6 +62,10 @@ public class RotateClue : MonoBehaviour
         {
             angleAddedY = 0;
         }
+        else if (angleAddedY < 0)
+        {
+            angleAddedY += 360;
+        }
 
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, angleAddedY, transform.eulerAngles.z);
         CheckCorrectRotation();
@@ -81,6 +85,10 @@ public class RotateClue : MonoBehaviour
         {
             angleAddedY = 0;
         }
+        else if (angleAddedY < 0)
+        {
+            angleAddedY += 360;
+        }
 
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, angleAddedY, transform.eulerAngles.z);
         CheckCorrectRotation();
@@ -92,7 +100,7 @@ public class RotateClue : MonoBehaviour
 
     private void CheckCorrectRotation()
     {
-        if (transform.eulerAngles == correctRotation || angleAddedY == correctRotation.y)
+        if (transform.eulerAngles == correctRotation || angleAddedY == correctRotation.y || angleAddedY == correctRotation2.y)
         {
             clueIsInCorrectRotation = true;
             angleAddedY = 0;

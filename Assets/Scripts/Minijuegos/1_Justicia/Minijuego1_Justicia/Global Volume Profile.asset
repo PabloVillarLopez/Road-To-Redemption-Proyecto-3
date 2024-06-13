@@ -62,7 +62,7 @@ MonoBehaviour:
     m_Value: 10
   gaussianEnd:
     m_OverrideState: 1
-    m_Value: 30
+    m_Value: 222.8
   gaussianMaxRadius:
     m_OverrideState: 1
     m_Value: 1
@@ -362,7 +362,7 @@ MonoBehaviour:
     m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.248
+    m_Value: 0.074
   clamp:
     m_OverrideState: 1
     m_Value: 0.05

@@ -176,7 +176,7 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 2f, -2f); //Place the camera in front of the correct clue
         clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
 
         clueIndex = 0;
@@ -217,7 +217,7 @@ public class ObserveObject : MonoBehaviour
 
         analyzeButton1.SetActive(false);
 
-        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[0].transform.position + new Vector3(0, 2f, -2f); //Place the camera in front of the correct clue
         clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
 
         clueIndex = 0;
@@ -231,7 +231,7 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0.9f, -1.7f); //Place the camera in front of the correct clue
         //clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
         clueIndex = 1;
         ManageUIClueType();
@@ -245,7 +245,7 @@ public class ObserveObject : MonoBehaviour
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
         analyzeButton2.SetActive(false);
-        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[1].transform.position + new Vector3(0, 0.9f, -1.7f); //Place the camera in front of the correct clue
         //clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
 
         if (panelFader.canvGroup.alpha >= 1)
@@ -285,7 +285,7 @@ public class ObserveObject : MonoBehaviour
     {
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
-        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0.7f, -0.5f); //Place the camera in front of the correct clue
         //clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
         clueIndex = 2;
         ManageUIClueType();
@@ -299,7 +299,7 @@ public class ObserveObject : MonoBehaviour
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
         analyzeButton3.SetActive(false);
-        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0.5f, -0.5f); //Place the camera in front of the correct clue
+        clueCamera.transform.position = clues[2].transform.position + new Vector3(0, 0.7f, -0.5f); //Place the camera in front of the correct clue
         //clueCamera.transform.eulerAngles = clueCamera.transform.eulerAngles + new Vector3(45, 0, 0);
         if (panelFader.canvGroup.alpha >= 1)
         {
