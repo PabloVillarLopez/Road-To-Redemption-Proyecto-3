@@ -43,10 +43,16 @@ public class MainMenu : MonoBehaviour
     // Reference to the text that will display the current pivot point
     public Text pivotPointText;
 
-    public GameObject startButton;
+    public GameObject pulsaAIcono;
+    public GameObject pressAIcon;
+    public GameObject pulsaDIcono;
+    public GameObject pressDIcon;
+    public GameObject chooseWithIcon;
+    public GameObject eligeConIcono;
     public GameObject leftArrow;
     public GameObject rightArrow;
-    public GameObject firstMenuCanvas;
+    public GameObject firstMenuCanvasEnglish;
+    public GameObject firstMenuCanvasSpanish;
     //public GameObject engButton;
     //public GameObject espButton;
 
@@ -143,7 +149,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Minijuego1_Justicia");
+        SceneManager.LoadScene("Minijuego1_Paz");
     }
 
     private void HandleMenuUI()
@@ -151,19 +157,47 @@ public class MainMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        if (!MinigamesCompleted.minigame1Finished)
+        if (!MinigamesCompleted.minigame1Finished && LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
-            firstMenuCanvas.SetActive(true);
-            startButton.SetActive(true);
+            firstMenuCanvasEnglish.SetActive(true);
             leftArrow.SetActive(false);
             rightArrow.SetActive(false);
             stamp1.SetActive(false);
             planetRenderer.sharedMaterial = phase0Material;
         }
-        else if (MinigamesCompleted.minigame1Finished)
+        else if (!MinigamesCompleted.minigame1Finished && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
-            firstMenuCanvas.SetActive(false);
-            startButton.SetActive(false);
+            firstMenuCanvasSpanish.SetActive(true);
+            leftArrow.SetActive(false);
+            rightArrow.SetActive(false);
+            stamp1.SetActive(false);
+            planetRenderer.sharedMaterial = phase0Material;
+        }
+        else if (MinigamesCompleted.minigame1Finished && LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            firstMenuCanvasEnglish.SetActive(false);
+            firstMenuCanvasSpanish.SetActive(false);
+            pressAIcon.SetActive(true);
+            pulsaAIcono.SetActive(false);
+            pressDIcon.SetActive(true);
+            pulsaDIcono.SetActive(false);
+            chooseWithIcon.SetActive(true);
+            eligeConIcono.SetActive(false);
+            leftArrow.SetActive(true);
+            rightArrow.SetActive(true);
+            stamp1.SetActive(true);
+            planetRenderer.sharedMaterial = phase1Material;
+        }
+        else if (MinigamesCompleted.minigame1Finished && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            firstMenuCanvasEnglish.SetActive(false);
+            firstMenuCanvasSpanish.SetActive(false);
+            pressAIcon.SetActive(false);
+            pulsaAIcono.SetActive(true);
+            pressDIcon.SetActive(false);
+            pulsaDIcono.SetActive(true);
+            chooseWithIcon.SetActive(false);
+            eligeConIcono.SetActive(true);
             leftArrow.SetActive(true);
             rightArrow.SetActive(true);
             stamp1.SetActive(true);
