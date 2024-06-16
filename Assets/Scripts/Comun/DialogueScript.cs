@@ -13,6 +13,8 @@ public class DialogueScript : MonoBehaviour
     public float textSpeed = 0.1f;
     public bool dialogueStarted;
     public bool dialogueFinished;
+    public GameObject nextImageEnglishInteractor;
+    public GameObject nextImageSpanishInteractor;
 
     #endregion Reference Variables
 
@@ -41,6 +43,8 @@ public class DialogueScript : MonoBehaviour
     {
         dialoguePanel.SetActive(false);
         dialogueText.text = string.Empty;
+        nextImageEnglishInteractor.SetActive(false);
+        nextImageSpanishInteractor.SetActive(false);
     }
 
     // Update is called once per frame
@@ -102,6 +106,7 @@ public class DialogueScript : MonoBehaviour
         spanishIndex = 0;
         dialogueText.text = string.Empty;
         dialoguePanel.SetActive(true);
+        nextImageSpanishInteractor.SetActive(true);
         dialogueStarted = true;
         dialogueFinished = false;
 
@@ -129,6 +134,7 @@ public class DialogueScript : MonoBehaviour
         else
         {
             dialoguePanel.SetActive(false);
+            nextImageSpanishInteractor.SetActive(false);
             dialogueStarted = false;
         }
     }
@@ -152,6 +158,7 @@ public class DialogueScript : MonoBehaviour
         englishIndex = 0;
         dialogueText.text = string.Empty;
         dialoguePanel.SetActive(true);
+        nextImageEnglishInteractor.SetActive(true);
         dialogueStarted = true;
         dialogueFinished = false;
 
@@ -179,6 +186,7 @@ public class DialogueScript : MonoBehaviour
         else
         {
             dialoguePanel.SetActive(false);
+            nextImageEnglishInteractor.SetActive(false);
             dialogueStarted = false;
         }
     }

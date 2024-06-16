@@ -210,9 +210,14 @@ public class PlayerController : MonoBehaviour
             //dialogueStarted = true;
         }
 
-        if (other.gameObject.CompareTag("CanDialogue") && interactIndicator != null)
+        if (other.gameObject.CompareTag("CanDialogue") && interactIndicator != null && !dialogueScript.dialoguePanel.activeInHierarchy)
         {
             interactIndicator.SetActive(true);
+        }
+
+        if (other.gameObject.CompareTag("CanDialogue") && interactIndicator != null && dialogueScript.dialoguePanel.activeInHierarchy)
+        {
+            interactIndicator.SetActive(false);
         }
 
         if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.English && canDialogue)

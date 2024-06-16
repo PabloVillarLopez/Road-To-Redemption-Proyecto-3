@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5458205360135920647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1086857219793557701}
+  - component: {fileID: 4311221229547197252}
+  m_Layer: 0
+  m_Name: MinigameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1086857219793557701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5458205360135920647}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6765585, y: 3.6414247, z: 8.618516}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4311221229547197252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5458205360135920647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f16794cbda6c13b46b0a90845b8ca3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phase: 0
+  cablePanelFader: {fileID: 0}
+  cablePanel: {fileID: 0}
+  congratulationsPhase3Panel: {fileID: 0}
+  globalElectricityText: {fileID: 0}
+  slotScript: {fileID: 0}
+  cable1: {fileID: 0}
+  cable2: {fileID: 0}
+  cable3: {fileID: 0}
+  cable4: {fileID: 0}
+  cable5: {fileID: 0}
+  cable6: {fileID: 0}
+  solarLightPlace1: {fileID: 0}
+  solarLightPlace2: {fileID: 0}
+  solarLightPlace3: {fileID: 0}
+  solarLightPlace4: {fileID: 0}
+  instructionsPanel: {fileID: 0}
+  instructionsPanelText: {fileID: 0}
+  slotCables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stampPanel: {fileID: 0}
+  canCheckElectricity: 1
+  cableCamera: {fileID: 0}
