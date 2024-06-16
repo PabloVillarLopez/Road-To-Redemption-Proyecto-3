@@ -50,8 +50,8 @@ public class ShootTrash : MonoBehaviour
         else if (Input.GetMouseButtonUp(0))
             Desactivate();
 
-
-        pointsText.text = "Points: " + points + " / " + totalNeededPoints;
+        if (pointsText != null) { pointsText.text = "Points: " + points + " / " + totalNeededPoints; }
+       
 
         beamUpdate();
 
