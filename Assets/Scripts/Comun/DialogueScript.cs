@@ -43,8 +43,18 @@ public class DialogueScript : MonoBehaviour
     {
         dialoguePanel.SetActive(false);
         dialogueText.text = string.Empty;
-        nextImageEnglishInteractor.SetActive(false);
-        nextImageSpanishInteractor.SetActive(false);
+        // Verificamos si nextImageEnglishInteractor no es nulo antes de desactivarlo
+        if (nextImageEnglishInteractor != null)
+        {
+            nextImageEnglishInteractor.SetActive(false);
+        }
+
+        // Verificamos si nextImageSpanishInteractor no es nulo antes de desactivarlo
+        if (nextImageSpanishInteractor != null)
+        {
+            nextImageSpanishInteractor.SetActive(false);
+        }
+
     }
 
     // Update is called once per frame
@@ -106,7 +116,10 @@ public class DialogueScript : MonoBehaviour
         spanishIndex = 0;
         dialogueText.text = string.Empty;
         dialoguePanel.SetActive(true);
-        nextImageSpanishInteractor.SetActive(true);
+        if (nextImageSpanishInteractor != null)
+        {
+            nextImageSpanishInteractor.SetActive(false);
+        }
         dialogueStarted = true;
         dialogueFinished = false;
 
@@ -134,7 +147,10 @@ public class DialogueScript : MonoBehaviour
         else
         {
             dialoguePanel.SetActive(false);
-            nextImageSpanishInteractor.SetActive(false);
+            if (nextImageSpanishInteractor != null)
+            {
+                nextImageSpanishInteractor.SetActive(false);
+            }
             dialogueStarted = false;
         }
     }
@@ -158,7 +174,10 @@ public class DialogueScript : MonoBehaviour
         englishIndex = 0;
         dialogueText.text = string.Empty;
         dialoguePanel.SetActive(true);
-        nextImageEnglishInteractor.SetActive(true);
+        if (nextImageEnglishInteractor != null)
+        {
+            nextImageEnglishInteractor.SetActive(false);
+        }
         dialogueStarted = true;
         dialogueFinished = false;
 
@@ -186,7 +205,10 @@ public class DialogueScript : MonoBehaviour
         else
         {
             dialoguePanel.SetActive(false);
-            nextImageEnglishInteractor.SetActive(false);
+            if (nextImageEnglishInteractor != null)
+            {
+                nextImageEnglishInteractor.SetActive(false);
+            }
             dialogueStarted = false;
         }
     }

@@ -60,6 +60,9 @@ public class MiniGameManager4 : MonoBehaviour
                                    // Start is called before the first frame update
 
     public Image interact;
+    public Image Ninteract;
+    public Sprite interactEnglish;
+    public Sprite NinteractEnglish;
 
     void Start()
     {
@@ -70,7 +73,12 @@ public class MiniGameManager4 : MonoBehaviour
         dialogue = GetComponent<DialogueScript>();
         ApplyLightmapToScene();
         activeInteract(false);
+          if (LanguageManager.currentLanguage == LanguageManager.Language.English)
 
+        {
+            interact.sprite = interactEnglish;
+            Ninteract.sprite = NinteractEnglish;
+        }
     }
 
     // Update is called once per frame
@@ -89,64 +97,100 @@ public class MiniGameManager4 : MonoBehaviour
     private void SetMaterialsForObject()
     {
         idObjectPhase++;
-        description = "Recoge materiales para " + nameObject;
+
+        // Descripción inicial de recolección de materiales, sin el nombre específico del objeto
+        if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            description = "Recoge materiales para " + nameObject;
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            description = "Collect materials for " + nameObject;
+        }
+
         switch (idObjectPhase)
         {
             case 1: // Base
-                nameObject = "Base molino";
-                nameMaterial1 = "Botella plástico";
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    nameObject = "Base del molino";
+                    nameMaterial1 = "Botella de plástico";
+                    nameMaterial2 = "Vidrio";
+                    nameMaterial3 = "Pila";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    nameObject = "Windmill base";
+                    nameMaterial1 = "Plastic bottle";
+                    nameMaterial2 = "Glass";
+                    nameMaterial3 = "Battery";
+                }
+
                 idMaterial1 = 0;
                 HowManyMaterial1 = 1;
-
-                nameMaterial2 = "Vidrio";
                 idMaterial2 = 1;
                 HowManyMaterial2 = 1;
-
-                nameMaterial3 = "Pila";
                 idMaterial3 = 2;
                 HowManyMaterial3 = 1;
                 break;
 
             case 2: // Blades
-                nameObject = "Cuerpo";
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    nameObject = "Cuerpo";
+                    nameMaterial1 = "Vidrio";
+                    nameMaterial2 = "Pila";
+                    nameMaterial3 = "Botella de plástico";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    nameObject = "Body";
+                    nameMaterial1 = "Glass";
+                    nameMaterial2 = "Battery";
+                    nameMaterial3 = "Plastic bottle";
+                }
+
                 idMaterial1 = 1;
-                nameMaterial1 = "Vidrio";
                 HowManyMaterial1 = 1;
-
                 idMaterial2 = 1;
-                nameMaterial2 = "Pila";
                 HowManyMaterial2 = 1;
-
                 idMaterial3 = 0;
-                nameMaterial3 = "Botella plástico";
                 HowManyMaterial3 = 1;
                 break;
 
             case 3: // Gearbox
-                nameObject = "Hélices";
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    nameObject = "Hélices";
+                    nameMaterial1 = "Pila";
+                    nameMaterial2 = "Botella de plástico";
+                    nameMaterial3 = "Vidrio";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    nameObject = "Blades";
+                    nameMaterial1 = "Battery";
+                    nameMaterial2 = "Plastic bottle";
+                    nameMaterial3 = "Glass";
+                }
+
                 idMaterial1 = 2;
-                nameMaterial1 = "Pila";
-                HowManyMaterial1 =1;
-
+                HowManyMaterial1 = 1;
                 idMaterial2 = 0;
-                nameMaterial2 = "Botella plástico";
                 HowManyMaterial2 = 1;
-
                 idMaterial3 = 1;
-                nameMaterial3 = "Vidrio";
                 HowManyMaterial3 = 1;
                 break;
-
-            
         }
+
+        // Actualizar el texto de progreso
         updateTextsProgress();
     }
 
     #endregion
 
 
-    public void  PhaseMode(int phase)
-    
+    public void PhaseMode(int phase)
     {
         phaseState = phase;
 
@@ -158,22 +202,44 @@ public class MiniGameManager4 : MonoBehaviour
                 break;
             case 2:
                 SetMaterialsForObject();
-
                 break;
-
             case 3:
-                description = "Mete los materiales en el reciclador";
+                // Configurar descripción basada en el idioma
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    description = "Mete los materiales en el reciclador";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    description = "Put the materials into the recycler";
+                }
                 descriptionText.text = description;
                 break;
             case 4:
-                description = "Busca un sitio para plantar el molino";
+                // Configurar descripción basada en el idioma
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    description = "Busca un sitio para plantar el molino";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    description = "Find a place to plant the windmill";
+                }
                 descriptionText.text = description;
-
                 break;
             case 5:
-                description = "Monta la pieza reciclada";
+                // Configurar descripción basada en el idioma
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    description = "Monta la pieza reciclada";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    description = "Assemble the recycled piece";
+                }
                 descriptionText.text = description;
                 break;
+      
                 case 6:
                 
                 countBuilds++;
@@ -439,18 +505,38 @@ public class MiniGameManager4 : MonoBehaviour
     {
         if (mainCam.enabled)
         {
+            // Desactivar la cámara principal y activar la tercera cámara
             mainCam.enabled = false;
             thirdCamera.enabled = true;
+
+            // Desactivar el Canvas principal y activar el tercer Canvas
             CanvasMain.enabled = false;
             thirdCanvas.enabled = true;
-            dialogue.spanishLines = new string[] { "Excelente trabajo, ahora que las farolas están en funcionamiento esta ciudad conseguirá luz sin tener que usar energía  renovable.\r\n" };
-            dialogue.dialoguePanel = thirdPanel;
-            dialogue.dialogueText = thirdText;
-            dialogue.StartSpanishDialogue();
 
+            // Verificar el idioma actual y asignar las líneas de diálogo en consecuencia
+            if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                dialogue.spanishLines = new string[] {
+            "Excelente trabajo, ahora que las farolas están en funcionamiento esta ciudad conseguirá luz sin tener que usar energía renovable.\r\n"
+        };
+                dialogue.dialoguePanel = thirdPanel;
+                dialogue.dialogueText = thirdText;
+                dialogue.StartSpanishDialogue();
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                dialogue.englishLines = new string[] {
+            "Great job! Now that the streetlights are working, this city will get light without needing to use renewable energy.\r\n"
+        };
+                dialogue.dialoguePanel = thirdPanel;
+                dialogue.dialogueText = thirdText;
+                dialogue.StartEnglishDialogue();
+            }
+
+            // Invocar el cambio de escena después de 7 segundos
             Invoke("ChangeSceneMain", 7f);
-
         }
+
 
     }
 

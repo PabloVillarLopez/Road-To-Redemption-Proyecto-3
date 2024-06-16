@@ -5487,8 +5487,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 46, y: 218}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 7.644, y: 207.824}
+  m_SizeDelta: {x: 326.339, y: 90.026}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &514599281
 MonoBehaviour:
@@ -5510,7 +5510,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 834693ed329aa284fabe4915ac001dd8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 39e4e9af7c1d5b647b388c1ccfee3de5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18065,9 +18065,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 725.88916, y: -852}
-  m_SizeDelta: {x: 436.253, y: 1062.172}
-  m_Pivot: {x: 0.50000006, y: 0.49999988}
+  m_AnchoredPosition: {x: 827, y: -1109.2}
+  m_SizeDelta: {x: 903.96, y: 1069.995}
+  m_Pivot: {x: 0.53493965, y: 0.41097525}
 --- !u!114 &1475939854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18088,7 +18088,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 403d2e5c6259d6241b163e6be79813b3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b4db476dcb80a6b4a8fcd81f038a54d1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -23178,6 +23178,9 @@ MonoBehaviour:
   isDialogueFinished: 0
   dayTime: 1
   interact: {fileID: 514599281}
+  Ninteract: {fileID: 0}
+  interactEnglish: {fileID: 21300000, guid: 1e2497cc93e691740ab3690f703d14aa, type: 3}
+  NinteractEnglish: {fileID: 21300000, guid: c909feb4666e98648b93d41495f9da95, type: 3}
   dispenser: {fileID: 465341895}
   panel: {fileID: 639173353}
   text: {fileID: 1660014437}
@@ -23214,6 +23217,8 @@ MonoBehaviour:
   textSpeed: 0.05
   dialogueStarted: 0
   dialogueFinished: 0
+  nextImageEnglishInteractor: {fileID: 0}
+  nextImageSpanishInteractor: {fileID: 0}
   spanishLines:
   - "Saludos, Recluso Gronk. Bienvenido a la regi\xF3n de Nutritia. Soy el Robot
     Policial de la Unidad de Seguridad y Prevenci\xF3n de Delitos en Entornos Urbanos
@@ -24784,7 +24789,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 10dc13dc2d78aeb448078e736e30b93e,
+      objectReference: {fileID: 21300000, guid: 6f5b6b5b940b11048907f561aab3f614,
         type: 3}
     - target: {fileID: 2515275447433301539, guid: a3589b4458f2c26468ff933243c3d902,
         type: 3}
@@ -24849,7 +24854,7 @@ PrefabInstance:
     - target: {fileID: 5432855553381711728, guid: a3589b4458f2c26468ff933243c3d902,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 3457.792
+      value: 3097.94
       objectReference: {fileID: 0}
     - target: {fileID: 5432855553381711728, guid: a3589b4458f2c26468ff933243c3d902,
         type: 3}
@@ -24904,7 +24909,7 @@ PrefabInstance:
     - target: {fileID: 5432855553381711728, guid: a3589b4458f2c26468ff933243c3d902,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 383
+      value: 417.92426
       objectReference: {fileID: 0}
     - target: {fileID: 5432855553381711728, guid: a3589b4458f2c26468ff933243c3d902,
         type: 3}

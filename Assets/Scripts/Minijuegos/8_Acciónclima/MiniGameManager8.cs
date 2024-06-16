@@ -36,9 +36,17 @@ public class MiniGameManager8 : MonoBehaviour
     public int lightmapIndexToUse; // Índice del baked lightmap que deseas que se utilice
 
     public Image interact;
-
+    public Image Ninteract;
+    public Sprite interactEnglish;
+    public Sprite NinteractEnglish;
     void Start()
     {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+
+        {
+            interact.sprite = interactEnglish;
+            Ninteract.sprite = NinteractEnglish;
+        }
         // Initialization goes here
         overlay.gameObject.SetActive(false);
         dialogue = GetComponent<DialogueScript>();
@@ -56,6 +64,7 @@ public class MiniGameManager8 : MonoBehaviour
             overlay.gameObject.SetActive(true);
             UpdateTimer();
             textPoints.gameObject.SetActive(true);
+            activeInteract(false );
         }
         else 
         {
@@ -177,10 +186,27 @@ public class MiniGameManager8 : MonoBehaviour
             monitoring = false;
             StopAllCoroutines();
             CancelInvoke("SpawnObject");
-            dialogue.spanishLines = new string[] { "Excelente trabajo, después de toda esta basura que has reciclado mientras solucionabamos la averia no hemos contaminado la capa de ozono buen trabajo.\r\n" };
-            dialogue.dialoguePanel = panel;
-            dialogue.dialogueText = text;
-            dialogue.StartSpanishDialogue();
+            if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                dialogue.spanishLines = new string[]
+                {
+                "Excelente trabajo, después de toda esta basura que has reciclado mientras solucionábamos la avería, no hemos contaminado la capa de ozono. ¡Buen trabajo!"
+                };
+                dialogue.dialoguePanel = panel;
+                dialogue.dialogueText = text;
+                dialogue.StartSpanishDialogue();
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                dialogue.englishLines = new string[]
+                {
+                "Excellent job! After all the trash you recycled while fixing the issue, we haven't polluted the ozone layer. Great work!"
+                };
+                dialogue.dialoguePanel = panel;
+                dialogue.dialogueText = text;
+                dialogue.StartEnglishDialogue();
+            }
+            
             move = false;
 
             Invoke("ChangeSceneMain", 7f);

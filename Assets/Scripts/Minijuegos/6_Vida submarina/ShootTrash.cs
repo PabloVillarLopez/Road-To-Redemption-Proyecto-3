@@ -26,10 +26,14 @@ public class ShootTrash : MonoBehaviour
     public TextMeshProUGUI subtitleFeedbackText;
     public TextMeshProUGUI descriptionFeedbackText;
     public TextMeshProUGUI pointsText;
+    [SerializeField] private LineRenderer _beam;
+    [SerializeField] private Transform _muzzlePoint;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        _beam.enabled = false;
         trashFeedbackPanel.SetActive(false);
     }
 
@@ -41,8 +45,41 @@ public class ShootTrash : MonoBehaviour
             Shoot();
             Debug.Log("Mouse presionado");
         }
+        if (Input.GetMouseButtonDown(0))
+            Activate();
+        else if (Input.GetMouseButtonUp(0))
+            Desactivate();
+
 
         pointsText.text = "Points: " + points + " / " + totalNeededPoints;
+
+        beamUpdate();
+
+    }
+    private void Activate()
+    {
+        _beam.enabled = true;
+    }
+
+    private void beamUpdate ()
+    {
+        if (_beam)
+        { Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);  
+        
+        bool cast = Physics.Raycast(ray, out RaycastHit hit, 20);
+
+        // Establece la longitud del rayo
+        Vector3 hitPosition = cast ? hit.point : ray.origin + ray.direction * 20;
+
+        _beam.SetPosition(0, _muzzlePoint.position);
+        _beam.SetPosition(1, hitPosition);
+        }
+    }
+
+    // Deactivate the laser beam
+    private void Desactivate()
+    {
+        _beam.enabled = false;
     }
 
     private void Shoot()

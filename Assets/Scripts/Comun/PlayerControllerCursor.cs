@@ -159,12 +159,14 @@ public class PlayerControllerCursor : MonoBehaviour
                             countSeeds++;
                             caughtObject.transform.parent = transform;
                             caughtObject.SetActive(false);
+                            manager.activeInteract(false);
 
                             ObjectInfo info = caughtObject.GetComponent<ObjectInfo>();
                             int id = info.GetobjectInfo();
                         }
                         else
                         {
+                            if(manager !=null )
                             manager.reminderNotCatch();
                         }
                     }
