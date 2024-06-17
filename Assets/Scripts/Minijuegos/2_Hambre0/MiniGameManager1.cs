@@ -67,6 +67,10 @@ public class MiniGameManager1 : MonoBehaviour
     public TMPro.TextMeshProUGUI text;
     public GameObject markGuide;
 
+
+    public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
+    public AudioSource audioSource; // Referencia al componente AudioSource
+    public AudioSource audioSourceBackground;
     #endregion
 
     #region Unity Methods
@@ -75,9 +79,13 @@ public class MiniGameManager1 : MonoBehaviour
     {
         CheckDialogue();
         greenHouse = GameObject.Find("GreenHouse");
-        
         Level(1);
-        
+
+
+        audioSourceBackground.clip = soundClips[0];
+        audioSourceBackground .Play();
+
+
         SpawnObjectsOnSpawner();
         SpawnOchards();
         activeInteract(false);
@@ -242,7 +250,26 @@ public class MiniGameManager1 : MonoBehaviour
         }
     }
 
-
+    public void PlaySound(int sound)
+    {
+        audioSource.clip = soundClips[sound];
+        audioSource.Play();
+    }
+    public bool PlantSound(bool planting) { 
+    
+    if (planting)
+        {
+            audioSource.clip = soundClips[1];
+            audioSource.Play();
+        }
+    else
+        {
+            audioSource.Stop();
+        }
+    return planting;
+    
+    
+    }
 
     public void reminderNotCatch()
     {
@@ -341,6 +368,8 @@ public class MiniGameManager1 : MonoBehaviour
 
     public void checkBadFood()
     {
+        audioSource.clip = soundClips[2];
+        audioSource.Play();
         badFood++;
         // Actualizamos el texto según el idioma actual
         if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
@@ -355,6 +384,8 @@ public class MiniGameManager1 : MonoBehaviour
 
     public void checkGoodFood()
     {
+        audioSource.clip = soundClips[1];
+        audioSource.Play();
         goodFood++;
         // Actualizamos el texto según el idioma actual
         if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)

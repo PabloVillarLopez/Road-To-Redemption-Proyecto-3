@@ -71,6 +71,15 @@ public class PlayerControllerCursor : MonoBehaviour
             ChangeMainCamera();
             
         }
+        if (isPlanting && manager.PlantSound(false) == false)
+        {
+            manager.PlantSound(true);
+
+        }
+        else { 
+           manager.PlantSound(false);
+        
+        }
     }
     #endregion
 
@@ -160,7 +169,7 @@ public class PlayerControllerCursor : MonoBehaviour
                             caughtObject.transform.parent = transform;
                             caughtObject.SetActive(false);
                             manager.activeInteract(false);
-
+                            manager.PlaySound(4);
                             ObjectInfo info = caughtObject.GetComponent<ObjectInfo>();
                             int id = info.GetobjectInfo();
                         }
@@ -202,6 +211,7 @@ public class PlayerControllerCursor : MonoBehaviour
                         {
                             hit.collider.gameObject.GetComponent<ObjectInfo>().Recollect();
                             manager.Reminders();
+                            manager.PlaySound(2);
                         }
                         else
                         {
@@ -217,30 +227,50 @@ public class PlayerControllerCursor : MonoBehaviour
                     manager.activeInteract(true);
                     if (Input.GetKeyDown(KeyCode.E))
                     {
+                        manager.PlaySound(5);
+
                         manager.SpawnObjectsOnSpawner();
                     }
                 }
 
                 // Manejar colisiones con Hot, Neutral, y Cold
-                if (hit.collider.CompareTag("Hot") && Input.GetKeyDown(KeyCode.E))
+                if (hit.collider.CompareTag("Hot") )
                 {
-                    CultiveZone cultiveZone = hit.collider.transform.parent.gameObject.GetComponent<CultiveZone>();
-                    if (cultiveZone != null)
+                    manager.activeInteract(true);
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
-                        cultiveZone.state = "Hot";
+                        manager.PlaySound(5);
+                        GameObject hitObject = hit.collider.transform.parent.gameObject;
+                        hitObject.GetComponent<CultiveZone>().state = "Hot";
+                        
                     }
                 }
 
-                if (hit.collider.CompareTag("Neutral") && Input.GetKeyDown(KeyCode.E))
+                if (hit.collider.CompareTag("Neutral"))
                 {
-                    GameObject hitObject = hit.collider.transform.parent.gameObject;
-                    hitObject.GetComponent<CultiveZone>().state = "Neutral";
+
+                    manager.activeInteract(true);
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        manager.PlaySound(5);
+
+                        GameObject hitObject = hit.collider.transform.parent.gameObject;
+                        hitObject.GetComponent<CultiveZone>().state = "Neutral";
+                    }
+                    
                 }
 
-                if (hit.collider.CompareTag("Cold") && Input.GetKeyDown(KeyCode.E))
+                if (hit.collider.CompareTag("Cold") )
                 {
-                    GameObject hitObject = hit.collider.transform.parent.gameObject;
-                    hitObject.GetComponent<CultiveZone>().state = "Cold";
+                    manager.activeInteract(true);
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        manager.PlaySound(5);
+
+                        GameObject hitObject = hit.collider.transform.parent.gameObject;
+                        hitObject.GetComponent<CultiveZone>().state = "Cold";
+                    }
                 }
 
                 
