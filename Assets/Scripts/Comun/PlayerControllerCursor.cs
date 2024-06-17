@@ -77,8 +77,12 @@ public class PlayerControllerCursor : MonoBehaviour
 
         }
         else { 
-           manager.PlantSound(false);
-        
+           
+            if (manager != null)
+            {
+                manager.PlantSound(false);
+            }
+
         }
     }
     #endregion
