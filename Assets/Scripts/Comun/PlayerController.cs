@@ -34,7 +34,8 @@ public class PlayerController : MonoBehaviour
     public bool canDialogue;
     public bool dialogueStarted;
 
-    public GameObject interactIndicator;
+    public GameObject interactIndicatorSpanish;
+    public GameObject interactIndicatorEnglish;
 
     #endregion Dialogue Reference Variable
 
@@ -57,11 +58,16 @@ public class PlayerController : MonoBehaviour
         rigy = GetComponent<Rigidbody>();
         orientation = transform.GetChild(3).transform;
 
-        if (interactIndicator != null)
+        if (interactIndicatorEnglish != null)
         {
-            interactIndicator.SetActive(false);
+            interactIndicatorEnglish.SetActive(false);
         }
-        
+
+        if (interactIndicatorSpanish != null)
+        {
+            interactIndicatorSpanish.SetActive(false);
+        }
+
     }
 
     #endregion Start
@@ -165,11 +171,15 @@ public class PlayerController : MonoBehaviour
             pipeRotateX = other.gameObject.GetComponent<PipelineForeground>().rotationAddedX;
             pipeRotateY = other.gameObject.GetComponent<PipelineForeground>().rotationAddedY;
 
-            if (!pipelineEnteredHasBeenAlreadyRotated)
+            if (!pipelineEnteredHasBeenAlreadyRotated && LanguageManager.currentLanguage == LanguageManager.Language.English)
             {
-                interactIndicator.SetActive(true);
+                interactIndicatorEnglish.SetActive(true);
             }
-            
+
+            if (!pipelineEnteredHasBeenAlreadyRotated && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                interactIndicatorSpanish.SetActive(true);
+            }
         }
 
         if (other.gameObject.CompareTag("PipelineDecontaminate"))
@@ -179,9 +189,14 @@ public class PlayerController : MonoBehaviour
             pipelineEntered = other.gameObject;
             pipelineEnteredHasBeenAlreadyDecontaminated = other.gameObject.GetComponent<PipelineForeground>().alreadyDecontaminated;
             
-            if (!pipelineEnteredHasBeenAlreadyDecontaminated)
+            if (!pipelineEnteredHasBeenAlreadyDecontaminated && LanguageManager.currentLanguage == LanguageManager.Language.English)
             {
-                interactIndicator.SetActive(true);
+                interactIndicatorEnglish.SetActive(true);
+            }
+
+            if (!pipelineEnteredHasBeenAlreadyDecontaminated && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                interactIndicatorSpanish.SetActive(true);
             }
         }
 
@@ -210,14 +225,24 @@ public class PlayerController : MonoBehaviour
             //dialogueStarted = true;
         }
 
-        if (other.gameObject.CompareTag("CanDialogue") && interactIndicator != null && !dialogueScript.dialoguePanel.activeInHierarchy)
+        if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.English && interactIndicatorEnglish != null && !dialogueScript.dialoguePanel.activeInHierarchy)
         {
-            interactIndicator.SetActive(true);
+            interactIndicatorEnglish.SetActive(true);
         }
 
-        if (other.gameObject.CompareTag("CanDialogue") && interactIndicator != null && dialogueScript.dialoguePanel.activeInHierarchy)
+        if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.English && interactIndicatorEnglish != null && dialogueScript.dialoguePanel.activeInHierarchy)
         {
-            interactIndicator.SetActive(false);
+            interactIndicatorEnglish.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.Spanish && interactIndicatorSpanish != null && !dialogueScript.dialoguePanel.activeInHierarchy)
+        {
+            interactIndicatorEnglish.SetActive(true);
+        }
+
+        if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.Spanish && interactIndicatorSpanish != null && dialogueScript.dialoguePanel.activeInHierarchy)
+        {
+            interactIndicatorEnglish.SetActive(false);
         }
 
         if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.English && canDialogue)
@@ -238,7 +263,16 @@ public class PlayerController : MonoBehaviour
             pipelineEnteredHasBeenAlreadyRotated = false;
             pipeRotateX = 0;
             pipeRotateY = 0;
-            interactIndicator.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("PipelineRotate") && MiniGameManager.canInteractWithRotatePipelines && LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            interactIndicatorEnglish.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("PipelineRotate") && MiniGameManager.canInteractWithRotatePipelines && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            interactIndicatorSpanish.SetActive(false);
         }
 
         if (other.gameObject.CompareTag("PipelineDecontaminate"))
@@ -247,7 +281,16 @@ public class PlayerController : MonoBehaviour
             pipelineEnteredID = 0;
             pipelineEntered = null;
             pipelineEnteredHasBeenAlreadyDecontaminated = false;
-            interactIndicator.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("PipelineDecontaminate") && LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            interactIndicatorEnglish.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("PipelineDecontaminate") && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            interactIndicatorSpanish.SetActive(false);
         }
 
         if (other.gameObject.CompareTag("JusticeClue1"))
@@ -265,9 +308,15 @@ public class PlayerController : MonoBehaviour
             playerEnteredInObjectClue3Area = false;
         }
 
-        if (other.gameObject.CompareTag("CanDialogue") && interactIndicator != null)
+        if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.English && interactIndicatorEnglish != null)
         {
-            interactIndicator.SetActive(false);
+            interactIndicatorEnglish.SetActive(false);
+            //dialogueStarted = false;
+        }
+
+        if (other.gameObject.CompareTag("CanDialogue") && LanguageManager.currentLanguage == LanguageManager.Language.Spanish && interactIndicatorSpanish != null)
+        {
+            interactIndicatorSpanish.SetActive(false);
             //dialogueStarted = false;
         }
 

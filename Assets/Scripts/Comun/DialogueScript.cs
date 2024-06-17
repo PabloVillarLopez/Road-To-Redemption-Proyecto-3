@@ -118,7 +118,7 @@ public class DialogueScript : MonoBehaviour
         dialoguePanel.SetActive(true);
         if (nextImageSpanishInteractor != null)
         {
-            nextImageSpanishInteractor.SetActive(false);
+            nextImageSpanishInteractor.SetActive(true);
         }
         dialogueStarted = true;
         dialogueFinished = false;
@@ -176,7 +176,7 @@ public class DialogueScript : MonoBehaviour
         dialoguePanel.SetActive(true);
         if (nextImageEnglishInteractor != null)
         {
-            nextImageEnglishInteractor.SetActive(false);
+            nextImageEnglishInteractor.SetActive(true);
         }
         dialogueStarted = true;
         dialogueFinished = false;

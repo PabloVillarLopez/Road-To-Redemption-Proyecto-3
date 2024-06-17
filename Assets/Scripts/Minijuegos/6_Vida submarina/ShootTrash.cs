@@ -45,7 +45,7 @@ public class ShootTrash : MonoBehaviour
             Shoot();
             Debug.Log("Mouse presionado");
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !PauseMenuManager.gameIsPaused)
             Activate();
         else if (Input.GetMouseButtonUp(0))
             Desactivate();
@@ -85,7 +85,8 @@ public class ShootTrash : MonoBehaviour
     private void Shoot()
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.GetChild(0).transform.forward); //playerCamera.ScreenPointToRay(Input.mousePosition);
+        //Ray ray = new Ray(_muzzlePoint.position, _muzzlePoint.forward); //transform.GetChild(0).transform.forward); //playerCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         Debug.Log("Intentado disparar");
         Debug.DrawLine(transform.position, transform.position + new Vector3(0,0, 1000), Color.yellow);
 

@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCanvas: {fileID: 1412571325670135599}
   id: 0
+  initPosition: {x: 0, y: 0}
   canResetPosition: 1
   individualElectricity: 3
   isPositioned: 0
@@ -197,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCanvas: {fileID: 1412571325670135599}
   id: 0
+  initPosition: {x: 0, y: 0}
   canResetPosition: 1
   individualElectricity: 3
   isPositioned: 0
@@ -303,6 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCanvas: {fileID: 1412571325670135599}
   id: 0
+  initPosition: {x: 0, y: 0}
   canResetPosition: 1
   individualElectricity: 3
   isPositioned: 0
@@ -409,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCanvas: {fileID: 1412571325670135599}
   id: 0
+  initPosition: {x: 0, y: 0}
   canResetPosition: 1
   individualElectricity: 3
   isPositioned: 0
@@ -517,6 +521,11 @@ MonoBehaviour:
   electricityFailSpawnPoint: {fileID: 0}
   electricityPanel: {fileID: 2039919784302692120}
   cablePanelFader: {fileID: 0}
+  cableCamera: {fileID: 0}
+  currentCamera: {fileID: 0}
+  slotIndividualElectricity: 0
+  initialSlotIndividualElectricity: 0
+  tapaCuadro: {fileID: 0}
 --- !u!1 &836627721336086811
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,6 +617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCanvas: {fileID: 1412571325670135599}
   id: 0
+  initPosition: {x: 0, y: 0}
   canResetPosition: 1
   individualElectricity: 3
   isPositioned: 0
@@ -895,6 +905,11 @@ MonoBehaviour:
   electricityFailSpawnPoint: {fileID: 0}
   electricityPanel: {fileID: 2039919784302692120}
   cablePanelFader: {fileID: 0}
+  cableCamera: {fileID: 0}
+  currentCamera: {fileID: 0}
+  slotIndividualElectricity: 0
+  initialSlotIndividualElectricity: 0
+  tapaCuadro: {fileID: 0}
 --- !u!1 &2499250076813278424
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,6 +1003,11 @@ MonoBehaviour:
   electricityFailSpawnPoint: {fileID: 0}
   electricityPanel: {fileID: 2039919784302692120}
   cablePanelFader: {fileID: 0}
+  cableCamera: {fileID: 0}
+  currentCamera: {fileID: 0}
+  slotIndividualElectricity: 0
+  initialSlotIndividualElectricity: 0
+  tapaCuadro: {fileID: 0}
 --- !u!1 &3815184557652952486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,6 +1099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCanvas: {fileID: 1412571325670135599}
   id: 0
+  initPosition: {x: 0, y: 0}
   canResetPosition: 1
   individualElectricity: 3
   isPositioned: 0
@@ -1455,6 +1476,11 @@ MonoBehaviour:
   electricityFailSpawnPoint: {fileID: 0}
   electricityPanel: {fileID: 2039919784302692120}
   cablePanelFader: {fileID: 0}
+  cableCamera: {fileID: 0}
+  currentCamera: {fileID: 0}
+  slotIndividualElectricity: 0
+  initialSlotIndividualElectricity: 0
+  tapaCuadro: {fileID: 0}
 --- !u!1 &6457692863886272701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,6 +1572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCanvas: {fileID: 1412571325670135599}
   id: 0
+  initPosition: {x: 0, y: 0}
   canResetPosition: 1
   individualElectricity: 3
   isPositioned: 0
@@ -1757,6 +1784,11 @@ MonoBehaviour:
   electricityFailSpawnPoint: {fileID: 0}
   electricityPanel: {fileID: 2039919784302692120}
   cablePanelFader: {fileID: 0}
+  cableCamera: {fileID: 0}
+  currentCamera: {fileID: 0}
+  slotIndividualElectricity: 0
+  initialSlotIndividualElectricity: 0
+  tapaCuadro: {fileID: 0}
 --- !u!1 &8070154062153519122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,6 +1882,11 @@ MonoBehaviour:
   electricityFailSpawnPoint: {fileID: 0}
   electricityPanel: {fileID: 2039919784302692120}
   cablePanelFader: {fileID: 0}
+  cableCamera: {fileID: 0}
+  currentCamera: {fileID: 0}
+  slotIndividualElectricity: 0
+  initialSlotIndividualElectricity: 0
+  tapaCuadro: {fileID: 0}
 --- !u!1 &8329424002528119501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1943,3 +1980,8 @@ MonoBehaviour:
   electricityFailSpawnPoint: {fileID: 0}
   electricityPanel: {fileID: 2039919784302692120}
   cablePanelFader: {fileID: 0}
+  cableCamera: {fileID: 0}
+  currentCamera: {fileID: 0}
+  slotIndividualElectricity: 0
+  initialSlotIndividualElectricity: 0
+  tapaCuadro: {fileID: 0}

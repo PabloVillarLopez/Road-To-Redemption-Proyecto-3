@@ -6,21 +6,39 @@ using UnityEngine.SceneManagement;
 
 public class TimerController : MonoBehaviour
 {
-    public int min, sec;
+    [Header("Timer / Temporizador")]
+    public int min;
+    public int sec;
     public TMP_Text timeText;
 
     private float timeLeft;
     private bool timerOn = true;
 
+    [Header("References / Referencias")]
     public GameObject sellosPanelPanel;
     public GameObject sellosPanel;
     public GameObject gameOverPanel;
+    public GameObject pauseIndicatorEnglish;
+    public GameObject pauseIndicatorSpanish;
 
     private void Awake()
     {
         sellosPanelPanel.SetActive(false);
         sellosPanel.SetActive(false);
         gameOverPanel.SetActive(false);
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            pauseIndicatorEnglish.SetActive(true);
+            pauseIndicatorSpanish.SetActive(false);
+        }
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            pauseIndicatorEnglish.SetActive(false);
+            pauseIndicatorSpanish.SetActive(true);
+        }
+
         timeLeft = (min * 60) + sec;
     }
 
