@@ -21,7 +21,8 @@ public class PieceMountingManager : MonoBehaviour
     public GameObject congratulationsPanel;
     public TextMeshProUGUI pressLeftClickText;
     private Animator currentAnimator;
-    public GameObject interactIndicator;
+    public GameObject interactIndicatorEnglish;
+    public GameObject interactIndicatorSpanish;
 
     [Header("Instructions Panel")]
     public GameObject instructionsPanel;
@@ -112,7 +113,16 @@ public class PieceMountingManager : MonoBehaviour
 
     private IEnumerator MountPiece()
     {
-        interactIndicator.SetActive(false);
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            interactIndicatorEnglish.SetActive(false);
+        }
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            interactIndicatorSpanish.SetActive(false);
+        }
+        
         player.SetActive(false);
         piecesMounted++;
         pressLeftClickText.gameObject.SetActive(false);
