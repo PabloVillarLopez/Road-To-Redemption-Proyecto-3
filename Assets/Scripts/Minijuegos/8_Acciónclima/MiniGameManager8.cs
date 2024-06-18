@@ -39,6 +39,11 @@ public class MiniGameManager8 : MonoBehaviour
     public Image Ninteract;
     public Sprite interactEnglish;
     public Sprite NinteractEnglish;
+
+    public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
+    public AudioSource audioSource; // Referencia al componente AudioSource
+
+
     void Start()
     {
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
@@ -84,7 +89,7 @@ public class MiniGameManager8 : MonoBehaviour
             Random.Range(0f, 360f), // Random rotation around the y-axis
             Random.Range(0f, 360f)  // Random rotation around the z-axis
         );
-
+        PlaySound(2);
         // Instantiate the selected prefab object at the spawn point with the random rotation
         GameObject spawnedObject = Instantiate(objectsToSpawn[randomIndex], spawnPointEmpty.transform.position, randomRotation);
 
@@ -142,13 +147,15 @@ public class MiniGameManager8 : MonoBehaviour
     public void AddPoints()
     {
         points=points +5; 
-        UpdatePointText(); 
+        UpdatePointText();
+        PlaySound(0);
     }
 
     public void SubtractPoints()
     {
         points = points - 1; 
-        UpdatePointText(); 
+        UpdatePointText();
+        PlaySound(1);
     }
 
     void UpdatePointText()
@@ -266,6 +273,12 @@ public class MiniGameManager8 : MonoBehaviour
 
 
 
+    }
+
+    public void PlaySound(int sound)
+    {
+        audioSource.clip = soundClips[sound];
+        audioSource.Play();
     }
 
 }

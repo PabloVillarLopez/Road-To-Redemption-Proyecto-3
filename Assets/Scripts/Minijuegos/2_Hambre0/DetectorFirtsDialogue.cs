@@ -10,25 +10,59 @@ public class DetectorFirtsDialogue : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // Comprobar si gameManager no es null y tiene el método requerido
-        if (firstTime && gameManager != null && gameManager is MiniGameManager8)
+        if (firstTime && gameManager != null)
         {
             firstTime = false;
-            (gameManager as MiniGameManager8).GetComponent<DialogueScript>().StartSpanishDialogue(); ;
-        }
-        else if (firstTime && gameManager != null && gameManager is MiniGameManager1)
-        {
-            firstTime = false;
-            (gameManager as MiniGameManager1).GetComponent<DialogueScript>().StartSpanishDialogue(); ;
-        }
-        else if (firstTime && gameManager != null && gameManager is MiniGameManager4)
-        {
-            firstTime = false;
-            (gameManager as MiniGameManager4).GetComponent<DialogueScript>().StartSpanishDialogue(); ;
-        }
-        else if (firstTime && gameManager != null && gameManager is MiniGameManager7)
-        {
-            firstTime = false;
-            (gameManager as MiniGameManager7).GetComponent<DialogueScript>().StartSpanishDialogue(); ;
+            var dialogueScript = gameManager.GetComponent<DialogueScript>();
+
+            // Verificar el idioma actual
+            bool isSpanish = LanguageManager.currentLanguage == LanguageManager.Language.Spanish;
+
+            // Seleccionar el tipo de gameManager y ejecutar el diálogo correspondiente
+            if (gameManager is MiniGameManager8)
+            {
+                if (isSpanish)
+                {
+                    dialogueScript.StartSpanishDialogue();
+                }
+                else
+                {
+                    dialogueScript.StartEnglishDialogue();
+                }
+            }
+            else if (gameManager is MiniGameManager1)
+            {
+                if (isSpanish)
+                {
+                    dialogueScript.StartSpanishDialogue();
+                }
+                else
+                {
+                    dialogueScript.StartEnglishDialogue();
+                }
+            }
+            else if (gameManager is MiniGameManager4)
+            {
+                if (isSpanish)
+                {
+                    dialogueScript.StartSpanishDialogue();
+                }
+                else
+                {
+                    dialogueScript.StartEnglishDialogue();
+                }
+            }
+            else if (gameManager is MiniGameManager7)
+            {
+                if (isSpanish)
+                {
+                    dialogueScript.StartSpanishDialogue();
+                }
+                else
+                {
+                    dialogueScript.StartEnglishDialogue();
+                }
+            }
         }
         // Puedes añadir más condiciones si hay más tipos de MiniGameManagers
     }
