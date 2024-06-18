@@ -145,15 +145,19 @@ public class SolarLight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             {
                 case 1:
                     plaqueMounted.transform.localPosition = spawnPoint1.transform.position;
+                    plaqueMounted.transform.localScale = new Vector3(15f, 15f, 15f);
                     break;
                 case 2:
                     plaqueMounted.transform.localPosition = spawnPoint2.transform.position;
+                    plaqueMounted.transform.localScale = new Vector3(15f, 15f, 15f);
                     break;
                 case 3:
                     plaqueMounted.transform.localPosition = spawnPoint3.transform.position;
+                    plaqueMounted.transform.localScale = new Vector3(15f, 15f, 15f);
                     break;
                 case 4:
                     plaqueMounted.transform.localPosition = spawnPoint4.transform.position;
+                    plaqueMounted.transform.localScale = new Vector3(15f, 15f, 15f);
                     break;
                 default:
                     break;

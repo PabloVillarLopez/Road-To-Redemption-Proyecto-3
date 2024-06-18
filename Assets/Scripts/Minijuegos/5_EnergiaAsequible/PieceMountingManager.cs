@@ -131,7 +131,7 @@ public class PieceMountingManager : MonoBehaviour
         playerCamera.gameObject.SetActive(false); //desactivaría la cámara del personaje
         currentAnimator.Play("Mounting"); //daría play a la animación según que pieza sea
         yield return new WaitForSeconds(3f); //esperar unos segundos
-        if (piecesMounted >= 4)
+        if (piecesMounted >= 3)
         {
             for (int i = 0; i < pieces.Length; i++)
             {
@@ -145,13 +145,11 @@ public class PieceMountingManager : MonoBehaviour
         }
         else
         {
+            player.SetActive(true);
             playerCamera.gameObject.SetActive(true); //volvería a activar la cámara del personaje
             mountingCamera.gameObject.SetActive(false); //volvería a desactivar la cámara de montar piezas
             instructionsPanel.SetActive(true);
         }
-
-        player.SetActive(true);
-        
     }
 
     public void BackToPlayerCamera()
