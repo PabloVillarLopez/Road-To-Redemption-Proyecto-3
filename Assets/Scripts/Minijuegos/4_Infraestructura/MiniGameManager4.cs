@@ -426,9 +426,9 @@ public class MiniGameManager4 : MonoBehaviour
         material2Text.text = nameMaterial2 + ": (" + countMaterial2 + "/" + HowManyMaterial2 + ")";
         material3Text.text = nameMaterial3 + ": (" + countMaterial3 + "/" + HowManyMaterial3 + ")";
 
-        material1Text.color = Color.black;
-        material2Text.color = Color.black;
-        material3Text.color = Color.black;
+        material1Text.color = Color.white;
+        material2Text.color = Color.white;
+        material3Text.color = Color.white;
     }
 
     public void onlyDescriptionMode()

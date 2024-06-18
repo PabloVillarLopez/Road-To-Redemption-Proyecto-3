@@ -5,13 +5,15 @@ using static energyMinigameManager;
 
 public class ControllerPlayer : MonoBehaviour
 {
-
+    private Animator animator;
     private MiniGameManager4 gameManager;
+    public string animation;
    
     // Start is called before the first frame update
     void Start()
     {
         gameManager = FindObjectOfType<MiniGameManager4>();
+       
 
     }
 
@@ -64,14 +66,23 @@ public class ControllerPlayer : MonoBehaviour
                 else if (hit.collider != null && hit.collider.CompareTag("Respawn"))
                 {
                     gameManager.activeInteract(true);
+                   
+
                     if (Input.GetKeyDown(KeyCode.E) && gameManager.phaseState == 3 && gameManager.phaseBuild == 0)
                     {
+
+                        animator = hit.collider.gameObject.GetComponent<Animator>();
+
+                        StartCoroutine(PlayAnimationAfterDelay(animator));
                         gameManager.onlyDescriptionMode();
                         gameManager.PhaseMode(4);
                         Debug.Log("Elige donde plantar");
                     }
                     else if (Input.GetKeyDown(KeyCode.E) && gameManager.phaseState == 3 && gameManager.phaseBuild != 0)
                     {
+                        animator = hit.collider.gameObject.GetComponent<Animator>();
+
+                        StartCoroutine(PlayAnimationAfterDelay(animator));
                         Debug.Log("Planta la pieza");
                         gameManager.onlyDescriptionMode();
                         gameManager.PhaseMode(5);
@@ -83,6 +94,9 @@ public class ControllerPlayer : MonoBehaviour
 
                     if (Input.GetKeyDown(KeyCode.E))
                     {
+                        animator = hit.collider.gameObject.GetComponent<Animator>();
+
+                        StartCoroutine(PlayAnimationAfterDelay(animator));
                         gameManager.ChooseAreaToSpawn(hit.point);
                         Debug.Log("Cojo punto de referencia");
                     }
@@ -117,6 +131,20 @@ public class ControllerPlayer : MonoBehaviour
                 gameManager.activeInteract(false);
             }
         }
+    }
+
+    IEnumerator PlayAnimationAfterDelay(Animator hitAnimator)
+    {
+
+        hitAnimator.SetBool("hit", true);
+        hitAnimator.Play("Maquina");
+        // Esperar el tiempo especificado antes de reproducir la animación
+        yield return new WaitForSeconds(2f);
+        hitAnimator.speed=0f;
+        animator.Play("Any State");
+        // También puedes restaurar el estado de los booleanos o parámetros según sea necesario
+        hitAnimator.SetBool("hit", false);
+
     }
 
 }
