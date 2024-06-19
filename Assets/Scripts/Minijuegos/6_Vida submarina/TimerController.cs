@@ -20,26 +20,48 @@ public class TimerController : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject pauseIndicatorEnglish;
     public GameObject pauseIndicatorSpanish;
+    public GameObject initialInstructionsEnglish;
+    public GameObject initialInstructionsSpanish;
+    public GameObject tutorialEnglish;
+    public GameObject tutorialSpanish;
+    public GameObject finalMessageEnglish;
+    public GameObject finalMessageSpanish;
 
     private void Awake()
     {
         sellosPanelPanel.SetActive(false);
         sellosPanel.SetActive(false);
         gameOverPanel.SetActive(false);
+        tutorialEnglish.SetActive(false);
+        tutorialSpanish.SetActive(false);
+        finalMessageEnglish.SetActive(false);
+        finalMessageSpanish.SetActive(false);
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             pauseIndicatorEnglish.SetActive(true);
             pauseIndicatorSpanish.SetActive(false);
+            initialInstructionsEnglish.SetActive(true);
+            initialInstructionsSpanish.SetActive(false);   
         }
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
             pauseIndicatorEnglish.SetActive(false);
             pauseIndicatorSpanish.SetActive(true);
+            initialInstructionsEnglish.SetActive(false);
+            initialInstructionsSpanish.SetActive(true);
         }
 
         timeLeft = (min * 60) + sec;
+    }
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        MouseLook.canLook = false;
+        ObserveObject.cantMove = true;
     }
 
     // Update is called once per frame
@@ -62,7 +84,8 @@ public class TimerController : MonoBehaviour
                 else
                 {
                     MinigamesCompleted.minigame3Finished = true;
-                    StartCoroutine(Wait());
+                    //StartCoroutine(Wait());
+                    FinishGame();
                 }
                 
             }
@@ -76,8 +99,10 @@ public class TimerController : MonoBehaviour
         if (ShootTrash.points >= 31)
         {
             timerOn = false;
-            MinigamesCompleted.minigame6Finished = true;
-            StartCoroutine(Wait());
+            FinishGame();
+            //MinigamesCompleted.minigame6Finished = true;
+            //StartCoroutine(Wait());
+
         }
     }
 
@@ -98,6 +123,50 @@ public class TimerController : MonoBehaviour
 
     public void ReturnToLevelSelector()
     {
+        SceneManager.LoadScene("LevelSelector");
+    }
+
+    public void ShowTutorialPanel()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            initialInstructionsEnglish.SetActive(false);
+            tutorialEnglish.SetActive(true);
+            tutorialSpanish.SetActive(false);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            initialInstructionsSpanish.SetActive(false);
+            tutorialEnglish.SetActive(false);
+            tutorialSpanish.SetActive(true);
+        }
+    }
+
+    public void HideTutorials()
+    {
+        tutorialEnglish.SetActive(false);
+        tutorialSpanish.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        MouseLook.canLook = true;
+        ObserveObject.cantMove = false;
+    }
+
+    private void FinishGame()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            finalMessageEnglish.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            finalMessageSpanish.SetActive(true);
+        }
+    }
+
+    public void FinishMinigame()
+    {
+        MinigamesCompleted.minigame6Finished = true;
         SceneManager.LoadScene("LevelSelector");
     }
 }

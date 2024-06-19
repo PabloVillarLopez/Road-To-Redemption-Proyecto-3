@@ -44,7 +44,7 @@ public class ObserveObject : MonoBehaviour
         JUDGMENT
     }
 
-    public JusticePhases phases;
+    public static JusticePhases phases;
     public GameObject lenseAimGlass;
     public GameObject judgementPanel;
 
@@ -82,8 +82,10 @@ public class ObserveObject : MonoBehaviour
 
     #endregion UI Handle depending on Language
 
-    public GameObject sellosPanel;
-    public GameObject SellosPanelPanel;
+    //public GameObject sellosPanel;
+    //public GameObject SellosPanelPanel;
+
+    [Header("UI References")]
     public GameObject interactIndicator;
     public GameObject analyzeButton1;
     public GameObject analyzeButton2;
@@ -95,11 +97,33 @@ public class ObserveObject : MonoBehaviour
     private bool canShowArrowsJustice = true;
     private float arrowsJusticeCont = 0;
 
+    [Header("UI Instructions")]
+    public GameObject initialInstructionsEnglish;
+    public GameObject initialInstructionsSpanish;
+    public GameObject tutorialEnglish;
+    public GameObject tutorialAnalysisEnglish;
+    public GameObject tutorialSpanish;
+    public GameObject tutorialAnalysisSpanish;
+    public GameObject finalMessageEnglish;
+    public GameObject finalMessageSpanish;
+    public GameObject worldCanvasInitialInstructionsEnglish;
+    public GameObject worldCanvasInitialInstructionsSpanish;
+    public GameObject worldCanvasTutorialEnglish;
+    public GameObject worldCanvasTutorialSpanish;
+    public GameObject pauseIndicatorEnglish;
+    public GameObject pauseIndicatorSpanish;
+    public GameObject holdClickIndicatorEnglish;
+    public GameObject holdClickIndicatorSpanish;
+
     #region Start
 
     // Start is called before the first frame update
     void Start()
     {
+        cantMove = true;
+        MouseLook.canLook = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         clueCamera.SetActive(false);
         playerCamera.SetActive(true);
         RotateUI.SetActive(false);
@@ -112,13 +136,43 @@ public class ObserveObject : MonoBehaviour
         tick3.SetActive(false);
         analyzeButton.gameObject.SetActive(false);
         analyzeSlider.gameObject.SetActive(false);
-        sellosPanel.SetActive(false);
-        SellosPanelPanel.SetActive(false);
+        //sellosPanel.SetActive(false);
+        //SellosPanelPanel.SetActive(false);
         errorJudgementPanel.SetActive(false);
         arrowJustice1.SetActive(false);
         arrowJustice2.SetActive(false);
         arrowJustice3.SetActive(false);
-        lenseAimGlass.SetActive(true);
+        lenseAimGlass.SetActive(false);
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            initialInstructionsEnglish.SetActive(true);
+            initialInstructionsSpanish.SetActive(false);
+            worldCanvasInitialInstructionsEnglish.SetActive(true);
+            worldCanvasInitialInstructionsSpanish.SetActive(false);
+            worldCanvasTutorialEnglish.SetActive(true);
+            worldCanvasTutorialSpanish.SetActive(false);
+            pauseIndicatorEnglish.SetActive(true);
+            pauseIndicatorSpanish.SetActive(false);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            initialInstructionsEnglish.SetActive(false);
+            initialInstructionsSpanish.SetActive(true);
+            worldCanvasInitialInstructionsEnglish.SetActive(false);
+            worldCanvasInitialInstructionsSpanish.SetActive(true);
+            worldCanvasTutorialEnglish.SetActive(false);
+            worldCanvasTutorialSpanish.SetActive(true);
+            pauseIndicatorEnglish.SetActive(false);
+            pauseIndicatorSpanish.SetActive(true);
+        }
+
+        tutorialEnglish.SetActive(false);
+        tutorialSpanish.SetActive(false);
+        finalMessageEnglish.SetActive(false);
+        finalMessageSpanish.SetActive(false);
+        tutorialAnalysisEnglish.SetActive(false);
+        tutorialAnalysisSpanish.SetActive(false);
     }
 
     #endregion Start
@@ -128,7 +182,7 @@ public class ObserveObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInObjectClue1Area)
+        /*if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInObjectClue1Area)
         {
             Clue1CameraChange();
         }
@@ -161,7 +215,7 @@ public class ObserveObject : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             LanguageManager.currentLanguage = LanguageManager.Language.English;
-        }
+        }*/
 
         HandleMinigamePhases();
         CheckCameraAnalysis();
@@ -415,7 +469,7 @@ public class ObserveObject : MonoBehaviour
                 
                 judgementPanel.SetActive(false);
                 notAnalyzing = true;
-                cantMove = false;
+                //cantMove = false;
                 canDeactivateClues = true;
 
                 arrowsJusticeCont += Time.deltaTime;
@@ -443,9 +497,12 @@ public class ObserveObject : MonoBehaviour
                 }
                 break;
             case JusticePhases.ANALYSIS:
+                holdClickIndicatorEnglish.SetActive(false);
+                holdClickIndicatorSpanish.SetActive(false);
                 judgementPanel.SetActive(false);
                 lenseAimGlass.SetActive(false);
                 interactIndicator.SetActive(false);
+
                 notAnalyzing = false;
                 analyzing = true;
                 cantMove = true;
@@ -650,15 +707,32 @@ public class ObserveObject : MonoBehaviour
     public void SelectGuiltyAndFinishMinigame1()
     {
         MinigamesCompleted.minigame1Finished = true;
-        SellosPanelPanel.SetActive(true);
-        sellosPanel.SetActive(true);
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            finalMessageEnglish.SetActive(true);
+            finalMessageSpanish.SetActive(false);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            finalMessageEnglish.SetActive(false);
+            finalMessageSpanish.SetActive(true);
+        }
+
+        //SellosPanelPanel.SetActive(true);
+        //sellosPanel.SetActive(true);
         Debug.Log("Button pressed");
-        StartCoroutine(Wait());   
+        //StartCoroutine(Wait());   
     }
 
     public IEnumerator Wait()
     {
         yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("LevelSelector");
+    }
+
+    public void FinishMinigame1()
+    {
         SceneManager.LoadScene("LevelSelector");
     }
 
@@ -672,5 +746,43 @@ public class ObserveObject : MonoBehaviour
         errorJudgementPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
         errorJudgementPanel.SetActive(false);
+    }
+
+    public void ShowTutorial()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            initialInstructionsEnglish.SetActive(false);
+            tutorialEnglish.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            initialInstructionsSpanish.SetActive(false);
+            tutorialSpanish.SetActive(true);
+        }
+    }
+
+    public void HideTutorial()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            initialInstructionsEnglish.SetActive(false);
+            tutorialEnglish.SetActive(false);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            initialInstructionsSpanish.SetActive(false);
+            tutorialSpanish.SetActive(false);
+        }
+
+        ComeBackToLookAndMove();
+    }
+
+    public void ComeBackToLookAndMove()
+    {
+        MouseLook.canLook = true;
+        cantMove = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

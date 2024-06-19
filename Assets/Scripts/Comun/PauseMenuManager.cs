@@ -63,4 +63,39 @@ public class PauseMenuManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
+
+    public void ContinueGameMinigame1()
+    {
+        englishPausePanel.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+        ManageCursorMinigame1();
+    }
+
+    public void ContinuarJuegoMinijuego1()
+    {
+        spanishPausePanel.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+        ManageCursorMinigame1();
+    }
+
+    public void ManageCursorMinigame1()
+    {
+        if (ObserveObject.phases == ObserveObject.JusticePhases.INVESTIGATION)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else if (ObserveObject.phases == ObserveObject.JusticePhases.ANALYSIS)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else if (ObserveObject.phases == ObserveObject.JusticePhases.JUDGMENT)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
 }

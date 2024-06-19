@@ -21,6 +21,9 @@ TagManager:
   - Coral
   - Rock
   - WallsAndFloor
+  - Clue1Area
+  - Clue2Area
+  - Clue3Area
   layers:
   - Default
   - TransparentFX

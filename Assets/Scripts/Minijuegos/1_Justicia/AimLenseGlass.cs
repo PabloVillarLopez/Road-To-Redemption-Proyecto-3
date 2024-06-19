@@ -12,7 +12,8 @@ public class AimLenseGlass : MonoBehaviour
     public float aimSpeed;
     public Camera playerCam;
     public GameObject aimPoint;
-    public TextMeshProUGUI PressLeftClickText;
+    public GameObject pressLeftClickIndicatorEnglish;
+    public GameObject pressLeftClickIndicatorSpanish;
     public TextMeshProUGUI InvestigatingText;
 
     #endregion Aim with Lense Variables
@@ -31,17 +32,23 @@ public class AimLenseGlass : MonoBehaviour
 
     #endregion Show Clues Icons Variables
 
-    #region Start
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         for (int i = 0; i < clueIcons.Length; i++)
         {
             clueIcons[i].SetActive(false);
         }
+    }
 
+    #region Start
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
         aproachAimPose = new Vector3(0.020f, -0.3f, 1f);
+
+        CheckLanguageAndShowLeftClickInteractor();
     }
 
     #endregion Start
@@ -77,7 +84,8 @@ public class AimLenseGlass : MonoBehaviour
         transform.localPosition = Vector3.Slerp(transform.localPosition, aimPose, aimSpeed * Time.deltaTime);
         playerCam.fieldOfView -= 40 * Time.deltaTime;
         playerCam.fieldOfView = Mathf.Clamp(playerCam.fieldOfView, 30, 60);
-        PressLeftClickText.text = string.Empty;
+        HideInteractors();
+        //PressLeftClickText.text = string.Empty;
         InvestigatingText.text = "Investigando...";
     }
 
@@ -89,7 +97,8 @@ public class AimLenseGlass : MonoBehaviour
         transform.localPosition = Vector3.Slerp(transform.localPosition, normalPose, aimSpeed * Time.deltaTime);
         playerCam.fieldOfView += 40 * Time.deltaTime;
         playerCam.fieldOfView = Mathf.Clamp(playerCam.fieldOfView, 30, 60);
-        PressLeftClickText.text = "Press Left Click";
+        CheckLanguageAndShowLeftClickInteractor();
+        //PressLeftClickText.text = "Press Left Click";
         InvestigatingText.text = string.Empty;
     }
 
@@ -113,10 +122,31 @@ public class AimLenseGlass : MonoBehaviour
 
         if (takenClues >= 3)
         {
-            PressLeftClickText.text = string.Empty;
+            //PressLeftClickText.text = string.Empty;
+            HideInteractors();
             InvestigatingText.text = string.Empty;
         }
     }
 
     #endregion Take Clues
+
+    private void CheckLanguageAndShowLeftClickInteractor()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            pressLeftClickIndicatorEnglish.SetActive(true);
+            pressLeftClickIndicatorSpanish.SetActive(false);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            pressLeftClickIndicatorEnglish.SetActive(false);
+            pressLeftClickIndicatorSpanish.SetActive(true);
+        }
+    }
+
+    private void HideInteractors()
+    {
+        pressLeftClickIndicatorEnglish.SetActive(false);
+        pressLeftClickIndicatorSpanish.SetActive(false);
+    }
 }
