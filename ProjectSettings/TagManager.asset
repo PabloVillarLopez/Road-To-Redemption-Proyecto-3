@@ -18,6 +18,9 @@ TagManager:
   - SeedPlanted
   - PipelineRotate
   - PipelineDecontaminate
+  - Coral
+  - Rock
+  - WallsAndFloor
   layers:
   - Default
   - TransparentFX
@@ -39,9 +42,9 @@ TagManager:
   - CardBoard
   - Metal
   - SolarPieces
-  - 
-  - 
-  - 
+  - Apple
+  - Batteries
+  - GlassBottle
   - 
   - 
   - 

@@ -118,6 +118,7 @@ public class ObserveObject : MonoBehaviour
         arrowJustice1.SetActive(false);
         arrowJustice2.SetActive(false);
         arrowJustice3.SetActive(false);
+        lenseAimGlass.SetActive(true);
     }
 
     #endregion Start
@@ -411,7 +412,7 @@ public class ObserveObject : MonoBehaviour
         switch (phases)
         {
             case JusticePhases.INVESTIGATION:
-                lenseAimGlass.SetActive(true);
+                
                 judgementPanel.SetActive(false);
                 notAnalyzing = true;
                 cantMove = false;

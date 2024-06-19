@@ -7,15 +7,11 @@ public class ShootTrash : MonoBehaviour
 {
     public LayerMask Trash;
     public LayerMask PlasticBottle;
-    public LayerMask KeyChain;
     public LayerMask WoodMaterialObjects;
-    public LayerMask Cork;
-    public LayerMask MetalTube;
-    public LayerMask TVScreen;
-    public LayerMask Cushion;
-    public LayerMask Rubber;
     public LayerMask CardBoard;
-    public LayerMask Metal;
+    public LayerMask Apple;
+    public LayerMask Batteries;
+    public LayerMask GlassBottle;
     public Vector3 relocationPosition;
     public static int points;
     public int totalNeededPoints = 31;
@@ -51,6 +47,18 @@ public class ShootTrash : MonoBehaviour
 
         _beam.enabled = false;
         trashFeedbackPanel.SetActive(false);
+        appleFeedbackPanel.SetActive(false);
+        plasticBottleFeedbackPanel.SetActive(false);
+        glassBottleFeedbackPanel.SetActive(false);
+        cardboardBoxFeedbackPanel.SetActive(false);
+        woodFeedbackPanel.SetActive(false);
+        batteriesFeedbackPanel.SetActive(false);
+        manzanaFeedbackPanel.SetActive(false);
+        botellaPlasticoFeedbackPanel.SetActive(false);
+        botellaVidrioFeedbackPanel.SetActive(false);
+        cajaCartonFeedbackPanel.SetActive(false);
+        maderaFeedbackPanel.SetActive(false);
+        pilasFeedbackPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -130,11 +138,94 @@ public class ShootTrash : MonoBehaviour
             titleFeedbackText.text = "Botella de plástico";
             subtitleFeedbackText.text = string.Empty;
             descriptionFeedbackText.text = "Tarda de 100 a 1.000 años en degradarse.";
-            StartCoroutine(ShowTrashFeedbackPanel());
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                StartCoroutine(ShowPlasticBottleFeedbackPanel());
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                StartCoroutine(ShowBotellaPlasticoFeedbackPanel());
+            }
+
+            
             points++;
         }
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, KeyChain))
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, GlassBottle))
+        {
+            Debug.Log("Rayo sale");
+            Debug.DrawLine(transform.position, hit.point, Color.yellow);
+            //hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
+            //relocationPosition += new Vector3(2f, 0, 0);
+            hit.transform.gameObject.SetActive(false);
+            titleFeedbackText.text = "Botella de plástico";
+            subtitleFeedbackText.text = string.Empty;
+            descriptionFeedbackText.text = "Tarda de 100 a 1.000 años en degradarse.";
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                StartCoroutine(ShowGlassBottleFeedbackPanel());
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                StartCoroutine(ShowBotellaVidrioFeedbackPanel());
+            }
+
+
+            points++;
+        }
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, Batteries))
+        {
+            Debug.Log("Rayo sale");
+            Debug.DrawLine(transform.position, hit.point, Color.yellow);
+            //hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
+            //relocationPosition += new Vector3(2f, 0, 0);
+            hit.transform.gameObject.SetActive(false);
+            titleFeedbackText.text = "Botella de plástico";
+            subtitleFeedbackText.text = string.Empty;
+            descriptionFeedbackText.text = "Tarda de 100 a 1.000 años en degradarse.";
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                StartCoroutine(ShowBatteriesFeedbackPanel());
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                StartCoroutine(ShowPilasFeedbackPanel());
+            }
+
+
+            points++;
+        }
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, Apple))
+        {
+            Debug.Log("Rayo sale");
+            Debug.DrawLine(transform.position, hit.point, Color.yellow);
+            //hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
+            //relocationPosition += new Vector3(2f, 0, 0);
+            hit.transform.gameObject.SetActive(false);
+            titleFeedbackText.text = "Botella de plástico";
+            subtitleFeedbackText.text = string.Empty;
+            descriptionFeedbackText.text = "Tarda de 100 a 1.000 años en degradarse.";
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                StartCoroutine(ShowAppleFeedbackPanel());
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                StartCoroutine(ShowManzanaFeedbackPanel());
+            }
+
+
+            points++;
+        }
+
+        /*if (Physics.Raycast(ray, out hit, Mathf.Infinity, KeyChain))
         {
             Debug.Log("Rayo sale");
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
@@ -160,7 +251,7 @@ public class ShootTrash : MonoBehaviour
             descriptionFeedbackText.text = "Tarda de 50 a 100 años en degradarse, aunque también se puede alargar hasta los 500 años si llega a ser de cobre.";
             StartCoroutine(ShowTrashFeedbackPanel());
             points++;
-        }
+        }*/
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, WoodMaterialObjects))
         {
@@ -172,11 +263,21 @@ public class ShootTrash : MonoBehaviour
             titleFeedbackText.text = "Objeto de madera";
             subtitleFeedbackText.text = string.Empty;
             descriptionFeedbackText.text = "Tarda de 1 a 5 años en degradarse.";
-            StartCoroutine(ShowTrashFeedbackPanel());
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                StartCoroutine(ShowWoodFeedbackPanel());
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                StartCoroutine(ShowMaderaFeedbackPanel());
+            }
+
+            
             points++;
         }
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, Cork))
+        /*if (Physics.Raycast(ray, out hit, Mathf.Infinity, Cork))
         {
             Debug.Log("Rayo sale");
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
@@ -244,7 +345,7 @@ public class ShootTrash : MonoBehaviour
             descriptionFeedbackText.text = "Tarda de 50 a 80 años en degradarse.";
             StartCoroutine(ShowTrashFeedbackPanel());
             points++;
-        }
+        }*/
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, CardBoard))
         {
@@ -256,7 +357,17 @@ public class ShootTrash : MonoBehaviour
             titleFeedbackText.text = "Caja de cartón";
             subtitleFeedbackText.text = string.Empty;
             descriptionFeedbackText.text = "Tarda de 2 a 5 meses en degradarse.";
-            StartCoroutine(ShowTrashFeedbackPanel());
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                StartCoroutine(ShowCardboardBoxFeedbackPanel());
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                StartCoroutine(ShowCajaCartonFeedbackPanel());
+            }
+
+            
             points++;
         }
     }
@@ -272,4 +383,90 @@ public class ShootTrash : MonoBehaviour
         yield return new WaitForSeconds(3.5f);
         trashFeedbackPanel.SetActive(false);
     }
+
+    private IEnumerator ShowAppleFeedbackPanel()
+    {
+        appleFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        appleFeedbackPanel.SetActive(false);
+    }
+
+    private IEnumerator ShowPlasticBottleFeedbackPanel()
+    {
+        plasticBottleFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        plasticBottleFeedbackPanel.SetActive(false);
+    }
+
+    private IEnumerator ShowGlassBottleFeedbackPanel()
+    {
+        glassBottleFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        glassBottleFeedbackPanel.SetActive(false);
+    }
+
+    private IEnumerator ShowCardboardBoxFeedbackPanel()
+    {
+        cardboardBoxFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        cardboardBoxFeedbackPanel.SetActive(false);
+    }
+
+    private IEnumerator ShowWoodFeedbackPanel()
+    {
+        woodFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        woodFeedbackPanel.SetActive(false);
+    }
+
+    private IEnumerator ShowBatteriesFeedbackPanel()
+    {
+        batteriesFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        batteriesFeedbackPanel.SetActive(false);
+    }
+
+
+    private IEnumerator ShowManzanaFeedbackPanel()
+    {
+        manzanaFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        manzanaFeedbackPanel.SetActive(false);
+    }
+
+    private IEnumerator ShowBotellaPlasticoFeedbackPanel()
+    {
+        botellaPlasticoFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        botellaPlasticoFeedbackPanel.SetActive(false);
+    }
+
+    private IEnumerator ShowBotellaVidrioFeedbackPanel()
+    {
+        botellaVidrioFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        botellaVidrioFeedbackPanel.SetActive(false);
+    }
+
+    private IEnumerator ShowCajaCartonFeedbackPanel()
+    {
+        cajaCartonFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        cajaCartonFeedbackPanel.SetActive(false);
+    }
+
+    private IEnumerator ShowMaderaFeedbackPanel()
+    {
+        maderaFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        maderaFeedbackPanel.SetActive(false);
+    }
+
+    private IEnumerator ShowPilasFeedbackPanel()
+    {
+        pilasFeedbackPanel.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        pilasFeedbackPanel.SetActive(false);
+    }
+
 }

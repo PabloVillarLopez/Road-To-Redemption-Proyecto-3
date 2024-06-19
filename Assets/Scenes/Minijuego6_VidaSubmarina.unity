@@ -281,6 +281,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 3 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -443,6 +448,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -568,6 +578,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -744,6 +759,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -837,6 +857,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -932,6 +957,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 3 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -943,6 +973,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 291803517}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &309409387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 309409388}
+  m_Layer: 0
+  m_Name: CollidersRocks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &309409388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309409387}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.547108, y: 2.0106008, z: 21.53173}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 664683532}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &316921102
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +1039,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.528015, y: 93.371}
+  m_AnchoredPosition: {x: 6.527954, y: 93.37103}
   m_SizeDelta: {x: -626.159, y: -418.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &316921104
@@ -1308,6 +1370,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1401,6 +1468,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1732,6 +1804,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1826,6 +1903,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 3 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1914,6 +1996,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2009,6 +2096,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2103,6 +2195,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2191,6 +2288,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2312,7 +2414,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.528015, y: 93.371}
+  m_AnchoredPosition: {x: 6.527954, y: 93.37103}
   m_SizeDelta: {x: -626.159, y: -418.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &577912440
@@ -2445,6 +2547,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &664683531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 664683532}
+  - component: {fileID: 664683533}
+  m_Layer: 0
+  m_Name: Collider1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &664683532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664683531}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.04, y: 0, z: 4.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 309409388}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &664683533
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664683531}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 13.3401165, y: 1, z: 8.527962}
+  m_Center: {x: 0.48754597, y: -1.94, z: 3.7639809}
 --- !u!1001 &665211082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2527,6 +2682,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2616,6 +2776,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2861,6 +3026,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3004,6 +3174,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3098,6 +3273,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3143,7 +3323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.528015, y: 93.371}
+  m_AnchoredPosition: {x: 6.527954, y: 93.37103}
   m_SizeDelta: {x: -626.159, y: -418.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &853155815
@@ -3251,6 +3431,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3363,12 +3548,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943396978}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.005, y: 0.96, z: 2.802}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0050000343, y: 0.96, z: 2.801999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6411102177341239597}
+  m_Father: {fileID: 1621097263}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &943396980
 LineRenderer:
@@ -3557,6 +3742,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3646,6 +3836,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3734,6 +3929,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3828,6 +4028,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 3 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3982,6 +4187,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 3 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4076,6 +4286,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4169,6 +4384,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 3 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4334,6 +4554,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (31)
       objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4379,7 +4604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.528015, y: 93.371}
+  m_AnchoredPosition: {x: 6.527954, y: 93.37103}
   m_SizeDelta: {x: -626.159, y: -418.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1256823195
@@ -4578,6 +4803,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4672,6 +4902,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piedras_Escenario
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fa86aa35eaeb5c14794adbca2f8465a3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Rock
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4754,6 +4989,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4849,6 +5089,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4894,7 +5139,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.528015, y: 93.371}
+  m_AnchoredPosition: {x: 6.527954, y: 93.37103}
   m_SizeDelta: {x: -626.159, y: -418.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1468185523
@@ -5017,6 +5262,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5249,6 +5499,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 3 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5343,6 +5598,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5354,6 +5614,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1583429852}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1621097262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621097263}
+  m_Layer: 0
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1621097263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621097262}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7101191873208680177}
+  - {fileID: 1154645349335239809}
+  - {fileID: 7933947552382327600}
+  - {fileID: 943396979}
+  m_Father: {fileID: 6411102177341239597}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1648247000
 GameObject:
   m_ObjectHideFlags: 0
@@ -5512,6 +5807,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5606,6 +5906,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 3 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5651,7 +5956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.528015, y: 93.371}
+  m_AnchoredPosition: {x: 6.527954, y: 93.37103}
   m_SizeDelta: {x: -626.159, y: -418.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1659261894
@@ -5760,6 +6065,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5853,6 +6163,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5948,6 +6263,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6026,6 +6346,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6116,6 +6441,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6189,6 +6519,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6359,6 +6694,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6452,6 +6792,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 3 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6622,6 +6967,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6791,6 +7141,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 3 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6885,6 +7240,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piedras_Escenario (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fa86aa35eaeb5c14794adbca2f8465a3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Rock
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6972,6 +7332,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 1 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0052ae01c9b4f4b40909476add473b32,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7132,6 +7497,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7225,6 +7595,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coral 3 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 904499e0b8157b249b814f3c90008acc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7966,7 +8341,7 @@ GameObject:
   - component: {fileID: 3981753884344718965}
   - component: {fileID: 1199927027549266623}
   - component: {fileID: 3981753884344718966}
-  m_Layer: 9
+  m_Layer: 22
   m_Name: Botella_BASURA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8848,12 +9223,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2422911543452191799}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.999992, y: 0, z: 0, w: -0.003997291}
-  m_LocalPosition: {x: -0.13207886, y: 0.9996973, z: -0.016213683}
-  m_LocalScale: {x: 0.543017, y: 0.543126, z: 0.538332}
+  m_LocalRotation: {x: 0.999992, y: 1.1641532e-10, z: -0.000000029802322, w: -0.003997291}
+  m_LocalPosition: {x: -0.13207911, y: 0.99969727, z: -0.016213257}
+  m_LocalScale: {x: 0.543017, y: 0.54312605, z: 0.5383319}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6411102177341239597}
+  m_Father: {fileID: 1621097263}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1162566046345042902
 GameObject:
@@ -9204,7 +9579,7 @@ GameObject:
   - component: {fileID: 2996768539733916712}
   - component: {fileID: 1040998170541623522}
   - component: {fileID: 2996768539733916713}
-  m_Layer: 7
+  m_Layer: 20
   m_Name: Manzana (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9223,7 +9598,7 @@ GameObject:
   - component: {fileID: 2996768539735608841}
   - component: {fileID: 1040998170543340227}
   - component: {fileID: 2996768539735608842}
-  m_Layer: 7
+  m_Layer: 20
   m_Name: Manzana (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9242,7 +9617,7 @@ GameObject:
   - component: {fileID: 2996768537709453089}
   - component: {fileID: 1040998172004838379}
   - component: {fileID: 2996768537709453090}
-  m_Layer: 7
+  m_Layer: 20
   m_Name: Manzana (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9261,7 +9636,7 @@ GameObject:
   - component: {fileID: 2996768538603369801}
   - component: {fileID: 1040998171558658435}
   - component: {fileID: 2996768538603369802}
-  m_Layer: 7
+  m_Layer: 20
   m_Name: Manzana (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10305,7 +10680,7 @@ GameObject:
   - component: {fileID: 1477794907429147733}
   - component: {fileID: 3703887345123254431}
   - component: {fileID: 3703887345123254432}
-  m_Layer: 7
+  m_Layer: 21
   m_Name: Pila
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10872,7 +11247,7 @@ GameObject:
   - component: {fileID: 1162931378088719880}
   - component: {fileID: 4019313840959439554}
   - component: {fileID: 4019313840959439555}
-  m_Layer: 7
+  m_Layer: 20
   m_Name: Manzana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12023,7 +12398,7 @@ GameObject:
   - component: {fileID: 8379898372573795164}
   - component: {fileID: 6030203774750058390}
   - component: {fileID: 8379898372573795165}
-  m_Layer: 9
+  m_Layer: 22
   m_Name: Botella_BASURA (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12042,7 +12417,7 @@ GameObject:
   - component: {fileID: 8379898371328950995}
   - component: {fileID: 6030203775451346457}
   - component: {fileID: 8379898371328950996}
-  m_Layer: 9
+  m_Layer: 22
   m_Name: Botella_BASURA (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12061,7 +12436,7 @@ GameObject:
   - component: {fileID: 8379898371137357642}
   - component: {fileID: 6030203775528252288}
   - component: {fileID: 8379898371137357643}
-  m_Layer: 9
+  m_Layer: 22
   m_Name: Botella_BASURA (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12080,7 +12455,7 @@ GameObject:
   - component: {fileID: 8379898371149448941}
   - component: {fileID: 6030203775471071783}
   - component: {fileID: 8379898371149448942}
-  m_Layer: 9
+  m_Layer: 22
   m_Name: Botella_BASURA (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12662,6 +13037,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6411102177341239597}
+  - component: {fileID: 6411102177341239599}
+  - component: {fileID: 6411102177341239598}
+  - component: {fileID: 6411102177341239600}
   m_Layer: 0
   m_Name: pistola
   m_TagString: Untagged
@@ -12889,12 +13267,64 @@ Transform:
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 7101191873208680177}
-  - {fileID: 1154645349335239809}
-  - {fileID: 7933947552382327600}
-  - {fileID: 943396979}
+  - {fileID: 1621097263}
   m_Father: {fileID: 4403818257937340448}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6411102177341239598
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6031199350927403927}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.18, z: 1}
+  m_Center: {x: 0, y: -0.29, z: -1.43}
+--- !u!65 &6411102177341239599
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6031199350927403927}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.5847166, z: 5.562241}
+  m_Center: {x: -0.000000694164, y: 1.0670681, z: -0.05473345}
+--- !u!114 &6411102177341239600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6031199350927403927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a89fec4a1d6c81845871d916c7c3683a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun: {fileID: 1621097262}
 --- !u!224 &6495027251346922794
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13164,12 +13594,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5371055711229297661}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000008146034, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1172721, y: 1.9528352, z: -0.8505056}
-  m_LocalScale: {x: 1, y: 1, z: 1.111721}
+  m_LocalRotation: {x: 0.00000008146035, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.11727212, y: 1.9528351, z: -0.85050535}
+  m_LocalScale: {x: 1, y: 1, z: 1.1117209}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6411102177341239597}
+  m_Father: {fileID: 1621097263}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7124498109470602782
 Transform:
@@ -13481,7 +13911,7 @@ GameObject:
   - component: {fileID: 6156586570035034555}
   - component: {fileID: 8256331305796504945}
   - component: {fileID: 8256331305796504946}
-  m_Layer: 7
+  m_Layer: 21
   m_Name: Pila (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13500,7 +13930,7 @@ GameObject:
   - component: {fileID: 6156586570838080124}
   - component: {fileID: 8256331305523777206}
   - component: {fileID: 8256331305523777207}
-  m_Layer: 7
+  m_Layer: 21
   m_Name: Pila (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13519,7 +13949,7 @@ GameObject:
   - component: {fileID: 6156586568920282140}
   - component: {fileID: 8256331306896441558}
   - component: {fileID: 8256331306896441559}
-  m_Layer: 7
+  m_Layer: 21
   m_Name: Pila (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13658,12 +14088,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5700329968800685354}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.11765808, y: 1.0221668, z: 2.4133735}
-  m_LocalScale: {x: 1, y: 1, z: 11.347498}
+  m_LocalRotation: {x: 0.000000021855696, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.117657766, y: 1.0221668, z: 2.4133735}
+  m_LocalScale: {x: 1, y: 1, z: 11.347497}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6411102177341239597}
+  m_Father: {fileID: 1621097263}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7984548454453179336
 MonoBehaviour:
@@ -13912,33 +14342,21 @@ MonoBehaviour:
   PlasticBottle:
     serializedVersion: 2
     m_Bits: 512
-  KeyChain:
-    serializedVersion: 2
-    m_Bits: 1024
   WoodMaterialObjects:
     serializedVersion: 2
     m_Bits: 2048
-  Cork:
-    serializedVersion: 2
-    m_Bits: 4096
-  MetalTube:
-    serializedVersion: 2
-    m_Bits: 8192
-  TVScreen:
-    serializedVersion: 2
-    m_Bits: 16384
-  Cushion:
-    serializedVersion: 2
-    m_Bits: 32768
-  Rubber:
-    serializedVersion: 2
-    m_Bits: 65536
   CardBoard:
     serializedVersion: 2
     m_Bits: 131072
-  Metal:
+  Apple:
     serializedVersion: 2
-    m_Bits: 262144
+    m_Bits: 1048576
+  Batteries:
+    serializedVersion: 2
+    m_Bits: 2097152
+  GlassBottle:
+    serializedVersion: 2
+    m_Bits: 4194304
   relocationPosition: {x: 0, y: 0, z: 0}
   totalNeededPoints: 31
   playerCamera: {fileID: 3209015832681520918}
@@ -13949,6 +14367,18 @@ MonoBehaviour:
   pointsText: {fileID: 3678366850095345097}
   _beam: {fileID: 943396980}
   _muzzlePoint: {fileID: 943396979}
+  appleFeedbackPanel: {fileID: 1648247000}
+  plasticBottleFeedbackPanel: {fileID: 33252971}
+  glassBottleFeedbackPanel: {fileID: 1200905282}
+  cardboardBoxFeedbackPanel: {fileID: 2136303601}
+  woodFeedbackPanel: {fileID: 1956835484}
+  batteriesFeedbackPanel: {fileID: 1517525824}
+  manzanaFeedbackPanel: {fileID: 328560020}
+  botellaPlasticoFeedbackPanel: {fileID: 802460940}
+  botellaVidrioFeedbackPanel: {fileID: 902002573}
+  cajaCartonFeedbackPanel: {fileID: 1815389037}
+  maderaFeedbackPanel: {fileID: 1283330146}
+  pilasFeedbackPanel: {fileID: 558332224}
 --- !u!224 &8246936553792796627
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14619,7 +15049,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.528015, y: 93.371}
+  m_AnchoredPosition: {x: 6.527954, y: 93.37103}
   m_SizeDelta: {x: -626.159, y: -418.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8816862855311796454
@@ -14805,6 +15235,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: coral 1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4146305201526132764, guid: 29a5113cd3c44f64e9c550e8d3653802,
+        type: 3}
+      propertyPath: m_TagString
+      value: Coral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14923,3 +15358,4 @@ SceneRoots:
   - {fileID: 1073339224}
   - {fileID: 135812353}
   - {fileID: 4066449091534236969}
+  - {fileID: 309409388}
