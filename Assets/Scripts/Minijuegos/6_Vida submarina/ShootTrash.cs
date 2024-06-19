@@ -29,6 +29,22 @@ public class ShootTrash : MonoBehaviour
     [SerializeField] private LineRenderer _beam;
     [SerializeField] private Transform _muzzlePoint;
 
+    [Header("English Info Panels")]
+    [SerializeField] private GameObject appleFeedbackPanel;
+    [SerializeField] private GameObject plasticBottleFeedbackPanel;
+    [SerializeField] private GameObject glassBottleFeedbackPanel;
+    [SerializeField] private GameObject cardboardBoxFeedbackPanel;
+    [SerializeField] private GameObject woodFeedbackPanel;
+    [SerializeField] private GameObject batteriesFeedbackPanel;
+
+    [Header("Paneles Info Espanol")]
+    [SerializeField] private GameObject manzanaFeedbackPanel;
+    [SerializeField] private GameObject botellaPlasticoFeedbackPanel;
+    [SerializeField] private GameObject botellaVidrioFeedbackPanel;
+    [SerializeField] private GameObject cajaCartonFeedbackPanel;
+    [SerializeField] private GameObject maderaFeedbackPanel;
+    [SerializeField] private GameObject pilasFeedbackPanel;
+
     // Start is called before the first frame update
     void Start()
     {
