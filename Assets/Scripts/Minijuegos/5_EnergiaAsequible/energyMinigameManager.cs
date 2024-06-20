@@ -18,7 +18,7 @@ public class energyMinigameManager : MonoBehaviour
 
     [Header("Minigame Phase")]
     [Tooltip("Tres fases: Montaje placa solar, Instalación placas y Cableado")]
-    public Phase phase;
+    public static Phase phase;
     public PanelFader cablePanelFader;
 
     #endregion Minigame Phases
@@ -59,7 +59,7 @@ public class energyMinigameManager : MonoBehaviour
     public GameObject[] slotCables;
 
     [Header("Stamp Panel")]
-    public GameObject stampPanel;
+    //public GameObject stampPanel;
     public bool canCheckElectricity = true;
 
     [Header("Cable Camera")]
@@ -75,6 +75,8 @@ public class energyMinigameManager : MonoBehaviour
     public GameObject tutorial2Spanish;
     public GameObject finishPanelEnglish;
     public GameObject finishPanelSpanish;
+    public GameObject pauseIndicatorEnglish;
+    public GameObject pauseIndicatorSpanish;
 
     #region Start
 
@@ -87,11 +89,11 @@ public class energyMinigameManager : MonoBehaviour
         }
 
         cablePanel.SetActive(false);
-        instructionsPanel.SetActive(true);
-        instructionsPanelText.text = "Fase 1. Encuentra las partes de la placa solar y mira alrededor de ellas hasta que salga que puedes hacer click izquierdo sobre ellas.";
+        instructionsPanel.SetActive(false);
+        //instructionsPanelText.text = "Fase 1. Encuentra las partes de la placa solar y mira alrededor de ellas hasta que salga que puedes hacer click izquierdo sobre ellas.";
         congratulationsPhase3Panel.SetActive(false);
         slotScript.electricityFailObject.SetActive(false);
-        stampPanel.SetActive(false);
+        //stampPanel.SetActive(false);
         cableCamera.gameObject.SetActive(false);
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
@@ -115,6 +117,9 @@ public class energyMinigameManager : MonoBehaviour
         ObserveObject.cantMove = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        PauseMenuManager.canPause = false;
+        pauseIndicatorEnglish.SetActive(false);
+        pauseIndicatorSpanish.SetActive(false);
     }
 
     #endregion Start
@@ -195,16 +200,20 @@ public class energyMinigameManager : MonoBehaviour
             if (globalElectricity == 5 && canCheckElectricity)
             {
                 Debug.Log("Congratulations");
-                congratulationsPhase3Panel.SetActive(true);
+                //congratulationsPhase3Panel.SetActive(true);
                 //StartCoroutine(ShowStampPanel());
 
                 if (LanguageManager.currentLanguage == LanguageManager.Language.English)
                 {
                     finishPanelEnglish.SetActive(true);
+                    pauseIndicatorEnglish.SetActive(false);
+                    PauseMenuManager.canPause = false;
                 }
                 else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
                 {
                     finishPanelSpanish.SetActive(true);
+                    pauseIndicatorSpanish.SetActive(false);
+                    PauseMenuManager.canPause = false;
                 }
 
                 canCheckElectricity = false;
@@ -272,7 +281,7 @@ public class energyMinigameManager : MonoBehaviour
     private IEnumerator ShowStampPanel()
     {
         yield return new WaitForSeconds(2f);
-        stampPanel.SetActive(true);
+        //stampPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
         MinigamesCompleted.minigame5Finished = true;
         SceneManager.LoadScene("LevelSelector");
@@ -308,10 +317,21 @@ public class energyMinigameManager : MonoBehaviour
         ObserveObject.cantMove = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        PauseMenuManager.canPause = true;
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            pauseIndicatorEnglish.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            pauseIndicatorSpanish.SetActive(true);
+        }
     }
 
     public void FinishMinigame()
     {
+        PauseMenuManager.canPause = true;
         MinigamesCompleted.minigame5Finished = true;
         SceneManager.LoadScene("LevelSelector");
     }

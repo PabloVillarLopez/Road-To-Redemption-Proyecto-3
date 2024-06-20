@@ -19,10 +19,13 @@ public class PieceMountingManager : MonoBehaviour
     public GameObject solarPlaqueMounted;
     public GameObject[] pieces;
     public GameObject congratulationsPanel;
-    public TextMeshProUGUI pressLeftClickText;
+    //public TextMeshProUGUI pressLeftClickText;
+    public GameObject pressLeftClickInteractorEnglish;
+    public GameObject pressLeftClickInteractorSpanish;
     private Animator currentAnimator;
     public GameObject interactIndicatorEnglish;
     public GameObject interactIndicatorSpanish;
+    public GameObject middleSight;
 
     [Header("Instructions Panel")]
     public GameObject instructionsPanel;
@@ -41,7 +44,11 @@ public class PieceMountingManager : MonoBehaviour
         phase2Camera.gameObject.SetActive(false);
         solarPlaqueMounted.SetActive(false);
         congratulationsPanel.SetActive(false);
-        pressLeftClickText.gameObject.SetActive(false);
+
+        pressLeftClickInteractorEnglish.SetActive(false);
+        pressLeftClickInteractorSpanish.SetActive(false);
+        //pressLeftClickText.gameObject.SetActive(false);
+
     }
 
     #endregion Start
@@ -94,7 +101,17 @@ public class PieceMountingManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, solarPieces) && playerCamera.gameObject.activeInHierarchy)
         {
             Debug.Log("Ha dado");
-            pressLeftClickText.gameObject.SetActive(true);
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                pressLeftClickInteractorEnglish.SetActive(true);
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                pressLeftClickInteractorSpanish.SetActive(true);
+            }
+
+            //pressLeftClickText.gameObject.SetActive(true);
 
             currentAnimator = hit.collider.gameObject.GetComponent<Animator>();
 
@@ -105,7 +122,9 @@ public class PieceMountingManager : MonoBehaviour
         }
         else
         {
-            pressLeftClickText.gameObject.SetActive(false);
+            //pressLeftClickText.gameObject.SetActive(false);
+            pressLeftClickInteractorEnglish.SetActive(false);
+            pressLeftClickInteractorSpanish.SetActive(false);
         }
 
         
@@ -113,6 +132,9 @@ public class PieceMountingManager : MonoBehaviour
 
     private IEnumerator MountPiece()
     {
+        PauseMenuManager.canPause = false;
+        middleSight.SetActive(false);
+
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             interactIndicatorEnglish.SetActive(false);
@@ -125,7 +147,9 @@ public class PieceMountingManager : MonoBehaviour
         
         player.SetActive(false);
         piecesMounted++;
-        pressLeftClickText.gameObject.SetActive(false);
+        pressLeftClickInteractorEnglish.SetActive(false);
+        pressLeftClickInteractorSpanish.SetActive(false);
+        //pressLeftClickText.gameObject.SetActive(false);
         instructionsPanel.SetActive(false);
         mountingCamera.gameObject.SetActive(true); //activaría la cámara de montar piezas
         playerCamera.gameObject.SetActive(false); //desactivaría la cámara del personaje
@@ -142,14 +166,21 @@ public class PieceMountingManager : MonoBehaviour
             congratulationsPanel.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            middleSight.SetActive(false);
+            energyMinigameManager.phase = energyMinigameManager.Phase.PHASE2;
         }
         else
         {
             player.SetActive(true);
             playerCamera.gameObject.SetActive(true); //volvería a activar la cámara del personaje
             mountingCamera.gameObject.SetActive(false); //volvería a desactivar la cámara de montar piezas
-            instructionsPanel.SetActive(true);
+            instructionsPanel.SetActive(false);
+            middleSight.SetActive(true);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
+
+        PauseMenuManager.canPause = true;
     }
 
     public void BackToPlayerCamera()
@@ -158,9 +189,11 @@ public class PieceMountingManager : MonoBehaviour
         solarPlaqueMounted.SetActive(false);
         phase2Camera.gameObject.SetActive(true);
         SolarLight.canShowSunPercent = true;
-        instructionsPanel.SetActive(true);
-        instructionsPanel.transform.localPosition = new Vector3(67, -377, 0);
-        instructionsPanelText.text = "Fase 2. Selecciona la parte del tejado que más porcentaje de sol tenga en ese momento para colocar la placa solar.";
+        //instructionsPanel.SetActive(true);
+        //instructionsPanel.transform.localPosition = new Vector3(67, -377, 0);
+        //instructionsPanelText.text = "Fase 2. Selecciona la parte del tejado que más porcentaje de sol tenga en ese momento para colocar la placa solar.";
+
+
         //playerCamera.gameObject.SetActive(true);
         //Cursor.lockState = CursorLockMode.None;
         //Cursor.visible = false;

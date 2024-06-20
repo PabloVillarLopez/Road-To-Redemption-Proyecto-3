@@ -98,4 +98,42 @@ public class PauseMenuManager : MonoBehaviour
             Cursor.visible = true;
         }
     }
+
+    public void ContinueGameMinigame5()
+    {
+        englishPausePanel.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+        ManageCursorMinigame5();
+    }
+
+    public void ContinuarJuegoMinijuego5()
+    {
+        spanishPausePanel.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+        ManageCursorMinigame5();
+    }
+
+    public void ManageCursorMinigame5()
+    {
+        if (energyMinigameManager.phase == energyMinigameManager.Phase.PHASE1)
+        {
+            if (canPause)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+        else if (energyMinigameManager.phase == energyMinigameManager.Phase.PHASE2)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else if (energyMinigameManager.phase == energyMinigameManager.Phase.PHASE3)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
 }
