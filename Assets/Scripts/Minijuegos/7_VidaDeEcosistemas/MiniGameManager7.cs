@@ -465,86 +465,91 @@ public class MiniGameManager7 : MonoBehaviour
         switch (phaseReminder)
         {
             case 0:
-                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
-                {
-                    dialogue.spanishLines = new string[]
-                    {
-                "¡Excelente trabajo! Gracias a todo el reciclaje que has hecho mientras solucionábamos la avería, no hemos contaminado la capa de ozono. ¡Buen trabajo! En esta fase, plantarás árboles y plantas para restaurar la biodiversidad del santuario. Observa las diferentes cajas de almacenamiento que contienen las semillas y plántalas en las áreas designadas."
-                    };
-                }
-                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
-                {
-                    dialogue.englishLines = new string[]
-                    {
-                "Great job! Thanks to all the recycling you did while fixing the issue, we haven't polluted the ozone layer. Good work! In this phase, you will plant trees and plants to restore the sanctuary's biodiversity. Look at the different storage boxes containing seeds and plant them in the designated areas."
-                    };
-                }
-                dialogue.dialoguePanel = panel;
-                dialogue.dialogueText = text;
-                dialogue.StartEnglishDialogue();  // Assuming this method handles both languages
+                //if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                //{
+                //    dialogue.spanishLines = new string[]
+                //    {
+                //"¡Excelente trabajo! Gracias a todo el reciclaje que has hecho mientras solucionábamos la avería, no hemos contaminado la capa de ozono. ¡Buen trabajo! En esta fase, plantarás árboles y plantas para restaurar la biodiversidad del santuario. Observa las diferentes cajas de almacenamiento que contienen las semillas y plántalas en las áreas designadas."
+                //    };
+                //}
+                //else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                //{
+                //    dialogue.englishLines = new string[]
+                //    {
+                //"Great job! Thanks to all the recycling you did while fixing the issue, we haven't polluted the ozone layer. Good work! In this phase, you will plant trees and plants to restore the sanctuary's biodiversity. Look at the different storage boxes containing seeds and plant them in the designated areas."
+                //    };
+                //}
+                //dialogue.dialoguePanel = panel;
+                //dialogue.dialogueText = text;
+                //dialogue.StartEnglishDialogue();  // Assuming this method handles both languages
+                DialogueByImage.GetComponent<DialogueByImage>().ShowImageByIndex(2);
+
                 break;
 
             case 1:
-                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
-                {
-                    dialogue.spanishLines = new string[]
-                    {
-                "Has hecho un trabajo excepcional en la fase de reforestación. Ahora, avanzamos hacia la fase final de nuestra misión. Para proteger nuestro santuario de intrusiones no deseadas, necesitamos reparar estas vallas dañadas. Toma el kit de reparación y disparales para arreglarlas."
-                    };
-                }
-                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
-                {
-                    dialogue.englishLines = new string[]
-                    {
-                "You have done an exceptional job in the reforestation phase. Now, we move on to the final phase of our mission. To protect our sanctuary from unwanted intrusions, we need to repair these damaged fences. Take the repair kit and shoot them to fix them."
-                    };
-                }
-                dialogue.dialoguePanel = panel;
-                dialogue.dialogueText = text;
-                dialogue.StartEnglishDialogue(); // Assuming this method handles both languages
+                //if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                //{
+                //    dialogue.spanishLines = new string[]
+                //    {
+                //"Has hecho un trabajo excepcional en la fase de reforestación. Ahora, avanzamos hacia la fase final de nuestra misión. Para proteger nuestro santuario de intrusiones no deseadas, necesitamos reparar estas vallas dañadas. Toma el kit de reparación y disparales para arreglarlas."
+                //    };
+                //}
+                //else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                //{
+                //    dialogue.englishLines = new string[]
+                //    {
+                //"You have done an exceptional job in the reforestation phase. Now, we move on to the final phase of our mission. To protect our sanctuary from unwanted intrusions, we need to repair these damaged fences. Take the repair kit and shoot them to fix them."
+                //    };
+                //}
+                //dialogue.dialoguePanel = panel;
+                //dialogue.dialogueText = text;
+                //dialogue.StartEnglishDialogue(); // Assuming this method handles both languages
+                DialogueByImage.GetComponent<DialogueByImage>().ShowImageByIndex(3);
                 break;
 
             case 2:
-                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
-                {
-                    dialogue.spanishLines = new string[]
-                    {
-                "¡Increíble trabajo, guardián! Las vallas reparadas asegurarán que nuestro santuario esté protegido y sus habitantes estén seguros. Recuerda siempre la importancia de proteger nuestros hábitats naturales."
-                    };
-                }
-                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
-                {
-                    dialogue.englishLines = new string[]
-                    {
-                "Incredible work, guardian! The repaired fences will ensure our sanctuary is protected and its inhabitants are safe. Always remember the importance of protecting our natural habitats."
-                    };
-                }
-                dialogue.dialoguePanel = panel;
-                dialogue.dialogueText = text;
-                dialogue.StartEnglishDialogue();  // Assuming this method handles both languages
+                //if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                //{
+                //    dialogue.spanishLines = new string[]
+                //    {
+                //"¡Increíble trabajo, guardián! Las vallas reparadas asegurarán que nuestro santuario esté protegido y sus habitantes estén seguros. Recuerda siempre la importancia de proteger nuestros hábitats naturales."
+                //    };
+                //}
+                //else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                //{
+                //    dialogue.englishLines = new string[]
+                //    {
+                //"Incredible work, guardian! The repaired fences will ensure our sanctuary is protected and its inhabitants are safe. Always remember the importance of protecting our natural habitats."
+                //    };
+                //}
+                //dialogue.dialoguePanel = panel;
+                //dialogue.dialogueText = text;
+                //dialogue.StartEnglishDialogue();  // Assuming this method handles both languages
+                DialogueByImage.GetComponent<DialogueByImage>().ShowImageByIndex(4);
                 break;
 
             case 3:
-                if (dialogue.dialogueFinished && !dialogue.dialoguePanel.activeSelf)
-                {
-                    if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
-                    {
-                        dialogue.spanishLines = new string[]
-                        {
-                    "Excelente trabajo, has logrado reparar la capa de ozono, ahora la naturaleza se recuperará."
-                        };
-                    }
-                    else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
-                    {
-                        dialogue.englishLines = new string[]
-                        {
-                    "Excellent work, you have managed to repair the ozone layer, and now nature will recover."
-                        };
-                    }
-                    dialogue.dialoguePanel = panel;
-                    dialogue.dialogueText = text;
-                    dialogue.StartEnglishDialogue();  // Assuming this method handles both languages
-                }
+                //if (dialogue.dialogueFinished && !dialogue.dialoguePanel.activeSelf)
+                //{
+                //    if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                //    {
+                //        dialogue.spanishLines = new string[]
+                //        {
+                //    "Excelente trabajo, has logrado reparar la capa de ozono, ahora la naturaleza se recuperará."
+                //        };
+                //    }
+                //    else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                //    {
+                //        dialogue.englishLines = new string[]
+                //        {
+                //    "Excellent work, you have managed to repair the ozone layer, and now nature will recover."
+                //        };
+                //    }
+                //    dialogue.dialoguePanel = panel;
+                //    dialogue.dialogueText = text;
+                //    dialogue.StartEnglishDialogue();  // Assuming this method handles both languages
+                //}
+                DialogueByImage.GetComponent<DialogueByImage>().ShowImageByIndex(5);
                 break;
         }
 
@@ -675,7 +680,6 @@ public class MiniGameManager7 : MonoBehaviour
             isDialogueFinished = true;
 
             List<int> index = new List<int> { 0, 1 };
-            print("text");
             DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
 
         }
@@ -683,7 +687,6 @@ public class MiniGameManager7 : MonoBehaviour
         {
             // Llama a la corrutina original
             yield return new WaitForSeconds(1f);
-            print("test");
             yield return StartCoroutine(CheckDialogue());
 
 

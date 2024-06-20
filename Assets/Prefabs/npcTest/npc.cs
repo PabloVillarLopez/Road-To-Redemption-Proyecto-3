@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class npc : MonoBehaviour
 {
@@ -6,6 +7,9 @@ public class npc : MonoBehaviour
     public float floatAmplitude = 0.5f; // Amplitud de la flotación
     public float floatFrequency = 1f;   // Frecuencia de la flotación
     private Vector3 initialPosition;    // Posición inicial del NPC
+    public Image DialogueByImage;
+
+
 
     void Start()
     {

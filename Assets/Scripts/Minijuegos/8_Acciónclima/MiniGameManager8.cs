@@ -43,7 +43,8 @@ public class MiniGameManager8 : MonoBehaviour
     public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
     public AudioSource audioSource; // Referencia al componente AudioSource
 
-
+    public Image DialogueByImage;
+    private bool isDialogueFinished;
     void Start()
     {
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
@@ -57,6 +58,7 @@ public class MiniGameManager8 : MonoBehaviour
         dialogue = GetComponent<DialogueScript>();
         ApplyLightmapToScene();
         activeInteract(false);
+        StartCoroutine(CheckDialogue());
 
     }
 
@@ -69,9 +71,9 @@ public class MiniGameManager8 : MonoBehaviour
             overlay.gameObject.SetActive(true);
             UpdateTimer();
             textPoints.gameObject.SetActive(true);
-            activeInteract(false );
+            activeInteract(false);
         }
-        else 
+        else
         {
             overlay.gameObject.SetActive(false);
             textPoints.gameObject.SetActive(false);
@@ -135,9 +137,9 @@ public class MiniGameManager8 : MonoBehaviour
     public void StartGame()
     {
         monitoring = true;
-        if (monitoring==true)
+        if (monitoring == true)
         {
-           InvokeRepeating("SpawnObject", 0f, spawnInterval);
+            InvokeRepeating("SpawnObject", 0f, spawnInterval);
             destination = pointB;
             StartCoroutine(MoveObjectRoutine());
             StartTimer();
@@ -146,14 +148,14 @@ public class MiniGameManager8 : MonoBehaviour
 
     public void AddPoints()
     {
-        points=points +5; 
+        points = points + 5;
         UpdatePointText();
         PlaySound(0);
     }
 
     public void SubtractPoints()
     {
-        points = points - 1; 
+        points = points - 1;
         UpdatePointText();
         PlaySound(1);
     }
@@ -162,9 +164,9 @@ public class MiniGameManager8 : MonoBehaviour
     {
         if (textPoints != null)
         {
-            textPoints.text = "Points: " + points.ToString(); 
+            textPoints.text = "Points: " + points.ToString();
         }
-        
+
     }
 
     public void StartTimer()
@@ -193,27 +195,28 @@ public class MiniGameManager8 : MonoBehaviour
             monitoring = false;
             StopAllCoroutines();
             CancelInvoke("SpawnObject");
-            if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
-            {
-                dialogue.spanishLines = new string[]
-                {
-                "Excelente trabajo, después de toda esta basura que has reciclado mientras solucionábamos la avería, no hemos contaminado la capa de ozono. ¡Buen trabajo!"
-                };
-                dialogue.dialoguePanel = panel;
-                dialogue.dialogueText = text;
-                dialogue.StartSpanishDialogue();
-            }
-            else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
-            {
-                dialogue.englishLines = new string[]
-                {
-                "Excellent job! After all the trash you recycled while fixing the issue, we haven't polluted the ozone layer. Great work!"
-                };
-                dialogue.dialoguePanel = panel;
-                dialogue.dialogueText = text;
-                dialogue.StartEnglishDialogue();
-            }
-            
+            //if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            //{
+            //    dialogue.spanishLines = new string[]
+            //    {
+            //    "Excelente trabajo, después de toda esta basura que has reciclado mientras solucionábamos la avería, no hemos contaminado la capa de ozono. ¡Buen trabajo!"
+            //    };
+            //    dialogue.dialoguePanel = panel;
+            //    dialogue.dialogueText = text;
+            //    dialogue.StartSpanishDialogue();
+            //}
+            //else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            //{
+            //    dialogue.englishLines = new string[]
+            //    {
+            //    "Excellent job! After all the trash you recycled while fixing the issue, we haven't polluted the ozone layer. Great work!"
+            //    };
+            //    dialogue.dialoguePanel = panel;
+            //    dialogue.dialogueText = text;
+            //    dialogue.StartEnglishDialogue();
+            //}
+            DialogueByImage.GetComponent<DialogueByImage>().ShowImageByIndex(2);
+
             move = false;
 
             Invoke("ChangeSceneMain", 7f);
@@ -281,4 +284,25 @@ public class MiniGameManager8 : MonoBehaviour
         audioSource.Play();
     }
 
+
+    IEnumerator CheckDialogue()
+    {
+
+        if (dialogue.dialogueFinished && dialogue.dialoguePanel.activeSelf == false)
+        {
+            isDialogueFinished = true;
+
+            List<int> index = new List<int> { 0, 1 };
+            DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
+
+        }
+        while (!isDialogueFinished)
+        {
+            // Llama a la corrutina original
+            yield return new WaitForSeconds(1f);
+            yield return StartCoroutine(CheckDialogue());
+
+
+        }
+    }
 }
