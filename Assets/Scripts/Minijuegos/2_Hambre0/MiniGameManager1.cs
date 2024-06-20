@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,6 +67,9 @@ public class MiniGameManager1 : MonoBehaviour
     public GameObject panel;
     public TMPro.TextMeshProUGUI text;
     public GameObject markGuide;
+    public Image DialogueByImage;
+
+
 
 
     public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
@@ -117,6 +121,8 @@ public class MiniGameManager1 : MonoBehaviour
                 {
                     Instantiate(markGuide, dispenser.transform.position + new Vector3(-3, 3, 3), Quaternion.identity);
                 }
+                List<int> index = new List<int> { 0, 1 }; 
+                DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
 
             }
         }
@@ -566,14 +572,23 @@ public class MiniGameManager1 : MonoBehaviour
 
             dialog.dialoguePanel = panel;
                 dialog.dialogueText = text;
-                dialog.StartSpanishDialogue();
-           
-                // Inicia el diálogo
-                
+
+            //if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            //{
+            //    dialog.StartSpanishDialogue();
+            //}
+            //else if (LanguageManager.currentLanguage != LanguageManager.Language.English)
+            //{
+            //    dialog.StartSpanishDialogue();
+
+            //}
+
 
             if (goodFood > 0)
             {
                 MinigamesCompleted.minigame2Finished = true;
+                DialogueByImage.GetComponent<DialogueByImage>().ShowImageByIndex(2);
+
             }
             // Invocar el cambio de escena después de 15 segundos
             Invoke("ChangeSceneMain", 15f);

@@ -63,7 +63,8 @@ public class MiniGameManager4 : MonoBehaviour
     public Image Ninteract;
     public Sprite interactEnglish;
     public Sprite NinteractEnglish;
-
+    public Image DialogueByImage;
+    private bool isDialogueFinished;
     void Start()
     {
         PhaseMode(1);
@@ -79,6 +80,8 @@ public class MiniGameManager4 : MonoBehaviour
             interact.sprite = interactEnglish;
             Ninteract.sprite = NinteractEnglish;
         }
+
+        StartCoroutine(CheckDialogue());
     }
 
     // Update is called once per frame
@@ -294,9 +297,32 @@ public class MiniGameManager4 : MonoBehaviour
         }
     }
 
-  
 
 
+    IEnumerator CheckDialogue()
+    {
+
+        if (dialogue.dialogueFinished && dialogue.dialoguePanel.activeSelf == false)
+        {
+            isDialogueFinished = true;
+
+            List<int> index = new List<int> { 0, 1,2 };
+
+            DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
+
+        }
+        while (!isDialogueFinished)
+        {
+            // Llama a la corrutina original
+            yield return new WaitForSeconds(1f);
+            yield return StartCoroutine(CheckDialogue());
+
+
+        }
+
+
+
+    }
 
 
     #region Object Spawning
@@ -521,7 +547,8 @@ public class MiniGameManager4 : MonoBehaviour
         };
                 dialogue.dialoguePanel = thirdPanel;
                 dialogue.dialogueText = thirdText;
-                dialogue.StartSpanishDialogue();
+                //dialogue.StartSpanishDialogue();
+                DialogueByImage.GetComponent<DialogueByImage>().ShowImageByIndex(3);
             }
             else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
             {
@@ -530,7 +557,9 @@ public class MiniGameManager4 : MonoBehaviour
         };
                 dialogue.dialoguePanel = thirdPanel;
                 dialogue.dialogueText = thirdText;
-                dialogue.StartEnglishDialogue();
+                //dialogue.StartEnglishDialogue();
+                DialogueByImage.GetComponent<DialogueByImage>().ShowImageByIndex(3);
+
             }
 
             // Invocar el cambio de escena después de 7 segundos

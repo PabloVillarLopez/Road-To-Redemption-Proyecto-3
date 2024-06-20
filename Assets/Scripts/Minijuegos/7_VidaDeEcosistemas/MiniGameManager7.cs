@@ -88,6 +88,8 @@ public class MiniGameManager7 : MonoBehaviour
     public Sprite interactEnglish;
     public Sprite NinteractEnglish;
 
+    private bool isDialogueFinished;
+    public Image DialogueByImage;
 
     private void Awake()
     {
@@ -106,6 +108,7 @@ public class MiniGameManager7 : MonoBehaviour
         secondCamera.enabled = false;
         mainCam = Camera.main;
         activeInteract(false);
+        StartCoroutine(CheckDialogue());
 
         foreach (GameObject obj in wallsBad)
         {
@@ -657,6 +660,33 @@ public class MiniGameManager7 : MonoBehaviour
         else
         {
             interact.gameObject.SetActive(false);
+        }
+
+
+
+    }
+
+
+    IEnumerator CheckDialogue()
+    {
+
+        if (dialogue.dialogueFinished && dialogue.dialoguePanel.activeSelf == false)
+        {
+            isDialogueFinished = true;
+
+            List<int> index = new List<int> { 0, 1 };
+            print("text");
+            DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
+
+        }
+        while (!isDialogueFinished)
+        {
+            // Llama a la corrutina original
+            yield return new WaitForSeconds(1f);
+            print("test");
+            yield return StartCoroutine(CheckDialogue());
+
+
         }
 
 
