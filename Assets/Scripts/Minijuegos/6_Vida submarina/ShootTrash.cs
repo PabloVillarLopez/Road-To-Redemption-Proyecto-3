@@ -41,6 +41,9 @@ public class ShootTrash : MonoBehaviour
     [SerializeField] private GameObject maderaFeedbackPanel;
     [SerializeField] private GameObject pilasFeedbackPanel;
 
+    [Header("Minigame Manager")]
+    public TimerController minigameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +69,7 @@ public class ShootTrash : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !PauseMenuManager.gameIsPaused && MouseLook.canLook)
         {
+            minigameManager.PlaySound(1);
             Shoot();
             Debug.Log("Mouse presionado");
         }
@@ -116,6 +120,7 @@ public class ShootTrash : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, Trash))
         {
+            minigameManager.PlaySound(2);
             Debug.Log("Rayo sale");
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
             //hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
@@ -130,6 +135,7 @@ public class ShootTrash : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, PlasticBottle))
         {
+            minigameManager.PlaySound(2);
             Debug.Log("Rayo sale");
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
             //hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
@@ -155,6 +161,7 @@ public class ShootTrash : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, GlassBottle))
         {
+            minigameManager.PlaySound(2);
             Debug.Log("Rayo sale");
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
             //hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
@@ -179,6 +186,7 @@ public class ShootTrash : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, Batteries))
         {
+            minigameManager.PlaySound(2);
             Debug.Log("Rayo sale");
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
             //hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
@@ -203,6 +211,7 @@ public class ShootTrash : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, Apple))
         {
+            minigameManager.PlaySound(2);
             Debug.Log("Rayo sale");
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
             //hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
@@ -255,6 +264,7 @@ public class ShootTrash : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, WoodMaterialObjects))
         {
+            minigameManager.PlaySound(2);
             Debug.Log("Rayo sale");
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
             //hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;
@@ -349,6 +359,7 @@ public class ShootTrash : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, CardBoard))
         {
+            minigameManager.PlaySound(2);
             Debug.Log("Rayo sale");
             Debug.DrawLine(transform.position, hit.point, Color.yellow);
             //hit.transform.gameObject.transform.position = relocationPosition; //+ new Vector3(Random.Range(10f, 20f),0,0) ;

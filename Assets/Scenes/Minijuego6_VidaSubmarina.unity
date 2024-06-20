@@ -774,6 +774,9 @@ MonoBehaviour:
   tutorialSpanish: {fileID: 853155813}
   finalMessageEnglish: {fileID: 316921102}
   finalMessageSpanish: {fileID: 1256823193}
+  soundClips: []
+  audioSource: {fileID: 0}
+  audioSourceBackground: {fileID: 0}
 --- !u!4 &196000578
 Transform:
   m_ObjectHideFlags: 0
@@ -15993,6 +15996,7 @@ MonoBehaviour:
   cajaCartonFeedbackPanel: {fileID: 1815389037}
   maderaFeedbackPanel: {fileID: 1283330146}
   pilasFeedbackPanel: {fileID: 558332224}
+  minigameManager: {fileID: 196000577}
 --- !u!224 &8246936553792796627
 RectTransform:
   m_ObjectHideFlags: 0

@@ -11116,6 +11116,9 @@ MonoBehaviour:
   pauseIndicatorSpanish: {fileID: 1169576300}
   holdClickIndicatorEnglish: {fileID: 1847630872}
   holdClickIndicatorSpanish: {fileID: 563157710}
+  soundClips: []
+  audioSource: {fileID: 0}
+  audioSourceBackground: {fileID: 0}
 --- !u!222 &2886957916634204876
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11626,6 +11629,7 @@ MonoBehaviour:
   analyzeSlider: {fileID: 4973174186124439005}
   leftArrow: {fileID: 8376559211967420675}
   rightArrow: {fileID: 5655850332226299046}
+  minigameManager: {fileID: 2870633071001236352}
 --- !u!65 &3469287836533084864
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11677,6 +11681,7 @@ MonoBehaviour:
   analyzeSlider: {fileID: 4973174186124439005}
   leftArrow: {fileID: 8376559211967420675}
   rightArrow: {fileID: 5655850332226299046}
+  minigameManager: {fileID: 2870633071001236352}
 --- !u!65 &3469287837413927299
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12839,6 +12844,7 @@ MonoBehaviour:
   - {fileID: 334985035723946081}
   - {fileID: 1201847925}
   - {fileID: 4752660888252284084}
+  minigameManager: {fileID: 2870633071001236352}
 --- !u!224 &4958864707298335179
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13148,6 +13154,7 @@ MonoBehaviour:
   buttonPressed: 0
   analyzeSlider: {fileID: 2009742708482511614}
   analyzeButton: {fileID: 8405201691652051618}
+  minigameManager: {fileID: 2870633071001236352}
 --- !u!114 &5255833141708495567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15195,6 +15202,7 @@ MonoBehaviour:
   analyzeSlider: {fileID: 4973174186124439005}
   leftArrow: {fileID: 8376559211967420675}
   rightArrow: {fileID: 5655850332226299046}
+  minigameManager: {fileID: 2870633071001236352}
 --- !u!65 &8077973238694452173
 BoxCollider:
   m_ObjectHideFlags: 0

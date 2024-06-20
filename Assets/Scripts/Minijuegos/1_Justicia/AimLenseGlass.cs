@@ -32,6 +32,9 @@ public class AimLenseGlass : MonoBehaviour
 
     #endregion Show Clues Icons Variables
 
+    [Header("Sound References")]
+    public ObserveObject minigameManager;
+
     private void Awake()
     {
         for (int i = 0; i < clueIcons.Length; i++)
@@ -111,6 +114,7 @@ public class AimLenseGlass : MonoBehaviour
 
         if (Physics.Raycast(aimPoint.transform.position, aimPoint.transform.TransformDirection(Vector3.forward), out hit, 10f, Clues)) //playerCam.transform.forward
         {
+            minigameManager.PlaySound(1);
             Debug.DrawRay(aimPoint.transform.position, aimPoint.transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow); //playerCam.transform.forward
             ObserveObject.TakenClues.Add(hit.transform.gameObject);
             hit.transform.gameObject.SetActive(false);

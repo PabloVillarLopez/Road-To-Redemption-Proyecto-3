@@ -27,6 +27,11 @@ public class TimerController : MonoBehaviour
     public GameObject finalMessageEnglish;
     public GameObject finalMessageSpanish;
 
+    [Header("Sound Variables")]
+    public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
+    public AudioSource audioSource; // Referencia al componente AudioSource
+    public AudioSource audioSourceBackground;
+
     private void Awake()
     {
         sellosPanelPanel.SetActive(false);
@@ -62,6 +67,12 @@ public class TimerController : MonoBehaviour
         Cursor.visible = true;
         MouseLook.canLook = false;
         ObserveObject.cantMove = true;
+
+        if (audioSourceBackground != null)
+        {
+            audioSourceBackground.clip = soundClips[0];
+            audioSourceBackground.Play();
+        }
     }
 
     // Update is called once per frame
@@ -116,6 +127,7 @@ public class TimerController : MonoBehaviour
 
     public void Restart()
     {
+        PlaySound(3);
         SceneManager.LoadScene("Minijuego6_VidaSubmarina");
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -123,11 +135,14 @@ public class TimerController : MonoBehaviour
 
     public void ReturnToLevelSelector()
     {
+        PlaySound(3);
         SceneManager.LoadScene("LevelSelector");
     }
 
     public void ShowTutorialPanel()
     {
+        PlaySound(3);
+
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             initialInstructionsEnglish.SetActive(false);
@@ -144,6 +159,7 @@ public class TimerController : MonoBehaviour
 
     public void HideTutorials()
     {
+        PlaySound(3);
         tutorialEnglish.SetActive(false);
         tutorialSpanish.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
@@ -166,7 +182,18 @@ public class TimerController : MonoBehaviour
 
     public void FinishMinigame()
     {
+        PlaySound(3);
         MinigamesCompleted.minigame6Finished = true;
         SceneManager.LoadScene("LevelSelector");
+    }
+
+    public void PlaySound(int sound)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = soundClips[sound];
+            audioSource.Play();
+        }
+
     }
 }

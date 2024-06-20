@@ -32,6 +32,7 @@ public class PieceMountingManager : MonoBehaviour
     public TextMeshProUGUI instructionsPanelText;
 
     private int piecesMounted = 0;
+    public energyMinigameManager minigameManager;
 
     #endregion Piece Variables
 
@@ -117,6 +118,7 @@ public class PieceMountingManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+                minigameManager.PlaySound(1);
                 StartCoroutine(MountPiece());
             }
         }
@@ -157,6 +159,7 @@ public class PieceMountingManager : MonoBehaviour
         yield return new WaitForSeconds(3f); //esperar unos segundos
         if (piecesMounted >= 3)
         {
+            minigameManager.PlaySound(2); //positive feedback sound
             for (int i = 0; i < pieces.Length; i++)
             {
                 pieces[i].SetActive(false);
@@ -185,6 +188,7 @@ public class PieceMountingManager : MonoBehaviour
 
     public void BackToPlayerCamera()
     {
+        minigameManager.PlaySound(3); //buttonSound
         mountingCamera.gameObject.SetActive(false);
         solarPlaqueMounted.SetActive(false);
         phase2Camera.gameObject.SetActive(true);

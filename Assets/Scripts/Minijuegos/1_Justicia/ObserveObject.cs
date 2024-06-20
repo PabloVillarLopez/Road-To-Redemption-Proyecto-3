@@ -115,6 +115,11 @@ public class ObserveObject : MonoBehaviour
     public GameObject holdClickIndicatorEnglish;
     public GameObject holdClickIndicatorSpanish;
 
+    [Header("Sound Variables")]
+    public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
+    public AudioSource audioSource; // Referencia al componente AudioSource
+    public AudioSource audioSourceBackground;
+
     #region Start
 
     // Start is called before the first frame update
@@ -173,6 +178,12 @@ public class ObserveObject : MonoBehaviour
         finalMessageSpanish.SetActive(false);
         tutorialAnalysisEnglish.SetActive(false);
         tutorialAnalysisSpanish.SetActive(false);
+
+        if (audioSourceBackground != null)
+        {
+            audioSourceBackground.clip = soundClips[0];
+            audioSourceBackground.Play();
+        }
     }
 
     #endregion Start
@@ -243,6 +254,8 @@ public class ObserveObject : MonoBehaviour
 
     public void Clue1AnalysisCameraChange()
     {
+        PlaySound(2);
+
         //panelFader.panelFaded = false;
         if (panelFader.canvGroup.alpha >= 1)
         {
@@ -297,6 +310,7 @@ public class ObserveObject : MonoBehaviour
 
     public void Clue2AnalysisCameraChange()
     {
+        PlaySound(2);
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
         analyzeButton2.SetActive(false);
@@ -351,6 +365,7 @@ public class ObserveObject : MonoBehaviour
 
     public void Clue3AnalysisCameraChange()
     {
+        PlaySound(2);
         clueCamera.SetActive(true);
         playerCamera.SetActive(false);
         analyzeButton3.SetActive(false);
@@ -706,6 +721,7 @@ public class ObserveObject : MonoBehaviour
 
     public void SelectGuiltyAndFinishMinigame1()
     {
+        PlaySound(4);
         MinigamesCompleted.minigame1Finished = true;
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
@@ -733,6 +749,7 @@ public class ObserveObject : MonoBehaviour
 
     public void FinishMinigame1()
     {
+        PlaySound(2);
         SceneManager.LoadScene("LevelSelector");
     }
 
@@ -743,6 +760,7 @@ public class ObserveObject : MonoBehaviour
 
     public IEnumerator ShowAndWait()
     {
+        PlaySound(3);
         errorJudgementPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
         errorJudgementPanel.SetActive(false);
@@ -750,6 +768,8 @@ public class ObserveObject : MonoBehaviour
 
     public void ShowTutorial()
     {
+        PlaySound(2);
+
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             initialInstructionsEnglish.SetActive(false);
@@ -764,6 +784,8 @@ public class ObserveObject : MonoBehaviour
 
     public void HideTutorial()
     {
+        PlaySound(2);
+
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             initialInstructionsEnglish.SetActive(false);
@@ -784,5 +806,15 @@ public class ObserveObject : MonoBehaviour
         cantMove = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public void PlaySound(int sound)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = soundClips[sound];
+            audioSource.Play();
+        }
+
     }
 }

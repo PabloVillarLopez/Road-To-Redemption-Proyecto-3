@@ -78,6 +78,11 @@ public class energyMinigameManager : MonoBehaviour
     public GameObject pauseIndicatorEnglish;
     public GameObject pauseIndicatorSpanish;
 
+    [Header("Sound Variables")]
+    public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
+    public AudioSource audioSource; // Referencia al componente AudioSource
+    public AudioSource audioSourceBackground;
+
     #region Start
 
     // Start is called before the first frame update
@@ -120,6 +125,13 @@ public class energyMinigameManager : MonoBehaviour
         PauseMenuManager.canPause = false;
         pauseIndicatorEnglish.SetActive(false);
         pauseIndicatorSpanish.SetActive(false);
+
+        if (audioSourceBackground != null)
+        {
+            audioSourceBackground.clip = soundClips[0];
+            audioSourceBackground.Play();
+        }
+        
     }
 
     #endregion Start
@@ -217,6 +229,7 @@ public class energyMinigameManager : MonoBehaviour
                 }
 
                 canCheckElectricity = false;
+                PlaySound(5);
             }
             else if (globalElectricity != 5 && canCheckElectricity)
             {
@@ -252,6 +265,8 @@ public class energyMinigameManager : MonoBehaviour
 
     public void PassToPhase2()
     {
+        PlaySound(3);
+
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             tutorial2English.SetActive(true);
@@ -271,6 +286,8 @@ public class energyMinigameManager : MonoBehaviour
 
     public void PassToPhase3()
     {
+        PlaySound(3);
+
         instructionsPanelText.text = "Fase 3. Conecta los cables por medio de arrastrarlos y soltarlos, de forma que sumen la electricidad necesaria.";
         instructionsPanel.transform.localPosition = new Vector3(438, 452, 0);
         instructionsPanel.transform.localScale = new Vector3(0.64f, 0.64f, 0.64f);
@@ -297,6 +314,8 @@ public class energyMinigameManager : MonoBehaviour
 
     public void ShowTutorial1()
     {
+        PlaySound(3);
+
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             initialInstructionsEnglish.SetActive(false);
@@ -311,6 +330,8 @@ public class energyMinigameManager : MonoBehaviour
 
     public void HideTutorials1()
     {
+        PlaySound(3);
+
         tutorial1English.SetActive(false);
         tutorial1Spanish.SetActive(false);
         MouseLook.canLook = true;
@@ -331,6 +352,8 @@ public class energyMinigameManager : MonoBehaviour
 
     public void FinishMinigame()
     {
+        PlaySound(3);
+
         PauseMenuManager.canPause = true;
         MinigamesCompleted.minigame5Finished = true;
         SceneManager.LoadScene("LevelSelector");
@@ -338,7 +361,18 @@ public class energyMinigameManager : MonoBehaviour
 
     public void HideTutorials2()
     {
+        PlaySound(3);
         tutorial2English.SetActive(false);
         tutorial2Spanish.SetActive(false);
+    }
+
+    public void PlaySound(int sound)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = soundClips[sound];
+            audioSource.Play();
+        }
+        
     }
 }

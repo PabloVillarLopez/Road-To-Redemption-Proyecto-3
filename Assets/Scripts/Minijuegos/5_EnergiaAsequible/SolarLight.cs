@@ -27,6 +27,9 @@ public class SolarLight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public GameObject spawnPoint3;
     public GameObject spawnPoint4;
 
+    [Header("Sound Reference")]
+    public energyMinigameManager minigameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +63,7 @@ public class SolarLight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        minigameManager.PlaySound(4); //some feedback sound
         Debug.Log(eventData.pointerEnter.gameObject);
         eventData.pointerEnter.gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
         //transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
@@ -137,6 +141,7 @@ public class SolarLight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (sunPercent == FindHighestSunValue())
         {
+            minigameManager.PlaySound(2);
             sunSelectedCorrectly = true;
             contratulationsPanelPhase2.SetActive(true);
             plaqueMounted.SetActive(true);
@@ -168,6 +173,7 @@ public class SolarLight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
         else
         {
+            minigameManager.PlaySound(5); //negative feedback sound
             mistakePanelPhase2.SetActive(true);
         }
     }

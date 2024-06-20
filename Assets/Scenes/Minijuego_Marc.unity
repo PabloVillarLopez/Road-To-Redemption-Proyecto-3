@@ -3449,6 +3449,7 @@ MonoBehaviour:
   spawnPoint2: {fileID: 1688396886}
   spawnPoint3: {fileID: 871896829}
   spawnPoint4: {fileID: 1026601265}
+  minigameManager: {fileID: 6852509856470525330}
 --- !u!1 &358503214
 GameObject:
   m_ObjectHideFlags: 0
@@ -9938,6 +9939,7 @@ MonoBehaviour:
   spawnPoint2: {fileID: 1688396886}
   spawnPoint3: {fileID: 871896829}
   spawnPoint4: {fileID: 1026601265}
+  minigameManager: {fileID: 6852509856470525330}
 --- !u!1 &1108056010
 GameObject:
   m_ObjectHideFlags: 0
@@ -28165,6 +28167,7 @@ MonoBehaviour:
   slotIndividualElectricity: 1
   initialSlotIndividualElectricity: 0
   tapaCuadro: {fileID: 919132148710391686}
+  minigameManager: {fileID: 0}
 --- !u!23 &1813916578629647815
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -28740,6 +28743,7 @@ MonoBehaviour:
   spawnPoint2: {fileID: 1688396886}
   spawnPoint3: {fileID: 871896829}
   spawnPoint4: {fileID: 1026601265}
+  minigameManager: {fileID: 6852509856470525330}
 --- !u!65 &1896135568397521486
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32507,6 +32511,7 @@ MonoBehaviour:
   spawnPoint2: {fileID: 1688396886}
   spawnPoint3: {fileID: 871896829}
   spawnPoint4: {fileID: 1026601265}
+  minigameManager: {fileID: 6852509856470525330}
 --- !u!222 &2568430874906638799
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -54842,6 +54847,7 @@ MonoBehaviour:
   slotIndividualElectricity: 2
   initialSlotIndividualElectricity: 0
   tapaCuadro: {fileID: 919132148710391686}
+  minigameManager: {fileID: 0}
 --- !u!222 &6513702198262167244
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -56808,6 +56814,9 @@ MonoBehaviour:
   finishPanelSpanish: {fileID: 1108056010}
   pauseIndicatorEnglish: {fileID: 351456214}
   pauseIndicatorSpanish: {fileID: 11500216}
+  soundClips: []
+  audioSource: {fileID: 0}
+  audioSourceBackground: {fileID: 0}
 --- !u!1 &6853689332481658953
 GameObject:
   m_ObjectHideFlags: 0
@@ -57140,6 +57149,7 @@ MonoBehaviour:
   slotIndividualElectricity: 1
   initialSlotIndividualElectricity: 0
   tapaCuadro: {fileID: 919132148710391686}
+  minigameManager: {fileID: 0}
 --- !u!4 &6934807508983987694
 Transform:
   m_ObjectHideFlags: 0
@@ -61453,6 +61463,7 @@ MonoBehaviour:
   slotIndividualElectricity: 3
   initialSlotIndividualElectricity: 0
   tapaCuadro: {fileID: 919132148710391686}
+  minigameManager: {fileID: 0}
 --- !u!23 &7801894877983428990
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62242,6 +62253,7 @@ MonoBehaviour:
   slotIndividualElectricity: 2
   initialSlotIndividualElectricity: 0
   tapaCuadro: {fileID: 919132148710391686}
+  minigameManager: {fileID: 0}
 --- !u!23 &7949434175290090186
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65282,6 +65294,7 @@ MonoBehaviour:
   middleSight: {fileID: 1764824362}
   instructionsPanel: {fileID: 3874688623582515251}
   instructionsPanelText: {fileID: 2037504583678194872}
+  minigameManager: {fileID: 6852509856470525330}
 --- !u!33 &8545971614296571307
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -68407,6 +68420,7 @@ MonoBehaviour:
   slotIndividualElectricity: 0
   initialSlotIndividualElectricity: 0
   tapaCuadro: {fileID: 919132148710391686}
+  minigameManager: {fileID: 0}
 --- !u!222 &9146349219258519078
 CanvasRenderer:
   m_ObjectHideFlags: 0

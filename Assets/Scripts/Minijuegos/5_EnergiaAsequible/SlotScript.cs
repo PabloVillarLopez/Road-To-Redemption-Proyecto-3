@@ -16,7 +16,8 @@ public class SlotScript : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
     public int slotIndividualElectricity;
     public int initialSlotIndividualElectricity;
     public GameObject tapaCuadro;
-    
+    public energyMinigameManager minigameManager;
+
     private void Start()
     {
         electricityFailObject.SetActive(false);
@@ -31,6 +32,7 @@ public class SlotScript : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
 
         if (eventData.pointerDrag != null)
         {
+            minigameManager.PlaySound(4); //some feedback sound
             gameObject.transform.GetComponent<Image>().color = new Color(217, 217, 217, 0);
             //gameObject.transform.GetComponent<Image>().sprite = null;
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = this.GetComponent<RectTransform>().anchoredPosition;
@@ -74,6 +76,7 @@ public class SlotScript : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
         //cableCamera.gameObject.transform.position = electricityFailSpawnPoint.position;
         electricityFailObject.transform.position = electricityFailSpawnPoint.position;
         electricityFailObject.SetActive(true);
+        minigameManager.PlaySound(6); //eletricity sound
 
         yield return new WaitForSeconds(5f);
         cablePanelFader.Fade();

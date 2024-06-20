@@ -31,6 +31,7 @@ public class RotateClue : MonoBehaviour
     public GameObject analyzeSlider;
     public GameObject leftArrow;
     public GameObject rightArrow;
+    public ObserveObject minigameManager;
 
     #region Start
 
@@ -56,6 +57,7 @@ public class RotateClue : MonoBehaviour
 
     public void RotateRightX()
     {
+        minigameManager.PlaySound(2);
         angleAddedY += 45f;
 
         if (angleAddedY == 360)
@@ -108,6 +110,7 @@ public class RotateClue : MonoBehaviour
             analyzeSlider.SetActive(true);
             leftArrow.SetActive(false);
             rightArrow.SetActive(false);
+            minigameManager.PlaySound(4);
         }
     }
 }

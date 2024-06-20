@@ -11,6 +11,7 @@ public class AnalyzeClue : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public bool buttonPressed;
     public Slider analyzeSlider;
     public GameObject analyzeButton;
+    public ObserveObject minigameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class AnalyzeClue : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             analyzeButton.SetActive(false);
             buttonPressed = false;
             timer = 0;
+            minigameManager.PlaySound(4);
         }
 
         if (!buttonPressed)
