@@ -66,6 +66,16 @@ public class energyMinigameManager : MonoBehaviour
     [Space]
     public Camera cableCamera;
 
+    [Header("UI Panels")]
+    public GameObject initialInstructionsEnglish;
+    public GameObject initialInstructionsSpanish;
+    public GameObject tutorial1English;
+    public GameObject tutorial1Spanish;
+    public GameObject tutorial2English;
+    public GameObject tutorial2Spanish;
+    public GameObject finishPanelEnglish;
+    public GameObject finishPanelSpanish;
+
     #region Start
 
     // Start is called before the first frame update
@@ -82,7 +92,29 @@ public class energyMinigameManager : MonoBehaviour
         congratulationsPhase3Panel.SetActive(false);
         slotScript.electricityFailObject.SetActive(false);
         stampPanel.SetActive(false);
-        cableCamera.gameObject.SetActive(false); 
+        cableCamera.gameObject.SetActive(false);
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            initialInstructionsEnglish.SetActive(true);
+            initialInstructionsSpanish.SetActive(false);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            initialInstructionsEnglish.SetActive(false);
+            initialInstructionsSpanish.SetActive(true);
+        }
+
+        tutorial1English.SetActive(false);
+        tutorial1Spanish.SetActive(false);
+        tutorial2English.SetActive(false);
+        tutorial2Spanish.SetActive(false);
+        finishPanelEnglish.SetActive(false);
+        finishPanelSpanish.SetActive(false);
+        MouseLook.canLook = false;
+        ObserveObject.cantMove = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     #endregion Start
@@ -164,7 +196,17 @@ public class energyMinigameManager : MonoBehaviour
             {
                 Debug.Log("Congratulations");
                 congratulationsPhase3Panel.SetActive(true);
-                StartCoroutine(ShowStampPanel());
+                //StartCoroutine(ShowStampPanel());
+
+                if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    finishPanelEnglish.SetActive(true);
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    finishPanelSpanish.SetActive(true);
+                }
+
                 canCheckElectricity = false;
             }
             else if (globalElectricity != 5 && canCheckElectricity)
@@ -201,6 +243,15 @@ public class energyMinigameManager : MonoBehaviour
 
     public void PassToPhase2()
     {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            tutorial2English.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            tutorial2Spanish.SetActive(true);
+        }
+
         SolarLight.randomCorroutinCanStart = true;
         solarLightPlace1.StartCoroutine(solarLightPlace1.RandomChangeSunPercent());
         solarLightPlace2.StartCoroutine(solarLightPlace2.RandomChangeSunPercent());
@@ -233,5 +284,41 @@ public class energyMinigameManager : MonoBehaviour
         {
             slotCables[i].GetComponent<SlotScript>().ResetSlot();
         }
+    }
+
+    public void ShowTutorial1()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            initialInstructionsEnglish.SetActive(false);
+            tutorial1English.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            initialInstructionsSpanish.SetActive(false);
+            tutorial1Spanish.SetActive(true);
+        }
+    }
+
+    public void HideTutorials1()
+    {
+        tutorial1English.SetActive(false);
+        tutorial1Spanish.SetActive(false);
+        MouseLook.canLook = true;
+        ObserveObject.cantMove = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void FinishMinigame()
+    {
+        MinigamesCompleted.minigame5Finished = true;
+        SceneManager.LoadScene("LevelSelector");
+    }
+
+    public void HideTutorials2()
+    {
+        tutorial2English.SetActive(false);
+        tutorial2Spanish.SetActive(false);
     }
 }
