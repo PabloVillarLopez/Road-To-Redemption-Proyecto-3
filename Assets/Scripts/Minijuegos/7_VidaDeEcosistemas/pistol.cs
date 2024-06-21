@@ -10,7 +10,11 @@ public class Laser : MonoBehaviour
     [SerializeField] private Camera _mainCamera; // Reference to the main camera
     [SerializeField] private float _maxLength; // Maximum length of the laser beam
     private MiniGameManager7 miniGameManager; // Reference to the MiniGameManager7 script
+    public GameObject spawnSeed;
+    public GameObject pauseSpanish;
+    public GameObject pauseEnglish;
 
+    private bool shoot;
     private void Awake()
     {
         _beam.enabled = false; // Disable the laser beam initially
@@ -30,12 +34,34 @@ public class Laser : MonoBehaviour
         _beam.enabled = false;
     }
 
+    public void checkPause () 
+    {
+        if (pauseSpanish.activeInHierarchy || pauseEnglish.activeInHierarchy)
+        {
+            // El GameObject 'pause' está activo
+            Debug.Log("El GameObject 'pause' está activo.");
+            shoot = false;
+
+            // Aquí puedes añadir el código que quieras ejecutar si 'pause' está activo.
+        }
+        else
+        {
+            // El GameObject 'pause' no está activo
+            shoot = true;
+            Debug.Log("El GameObject 'pause' no está activo.");
+
+            // Aquí puedes añadir el código que quieras ejecutar si 'pause' no está activo.
+        }
+
+
+    }
+
     private void Update()
     {
         // Check if the player can shoot based on the current phase
         if (miniGameManager.currentPhase == 1)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && shoot)
                 Activate();
             else if (Input.GetMouseButtonUp(0))
                 Deactivate();
@@ -51,7 +77,7 @@ public class Laser : MonoBehaviour
             else if (Input.GetMouseButtonUp(0))
                 Deactivate();
         }
-
+        checkPause();
         // Laser behavior for phase 1
         if (miniGameManager.currentPhase == 1 && _beam.enabled)
         {
@@ -100,12 +126,23 @@ public class Laser : MonoBehaviour
                 print("Puedes plantar");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-
-                    miniGameManager.activeInteract(false);
-
-                    print("Se ha plantado");
-                    miniGameManager.isPlanting = true;
+                    // Desactivar el GameObject actual
                     hit.collider.gameObject.SetActive(false);
+
+                    // Obtener la posición donde se hizo el hit
+                    Vector3 spawnPosition = hit.point;
+
+                    // Aquí puedes instanciar (spawnear) un nuevo GameObject
+                    GameObject objetoSpawn = Instantiate(spawnSeed, spawnPosition, Quaternion.identity);
+
+                    // Ajustar cualquier otra configuración necesaria para el nuevo objeto spawnado
+
+                    // Ejemplo de mensaje de debug
+                    Debug.Log("Se ha spawneado un nuevo GameObject en la posición del hit.");
+
+                    // Asegúrate de desactivar la lógica de plantación si es necesario
+                    miniGameManager.activeInteract(false);
+                    miniGameManager.isPlanting = true;
                 }
             }
             else if (cast && hit.collider.CompareTag("CatchAble"))

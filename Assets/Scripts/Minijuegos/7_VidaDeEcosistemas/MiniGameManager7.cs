@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -90,6 +91,9 @@ public class MiniGameManager7 : MonoBehaviour
 
     private bool isDialogueFinished;
     public Image DialogueByImage;
+    private string description;
+    public GameObject objectiveUI;
+
 
     private void Awake()
     {
@@ -97,6 +101,7 @@ public class MiniGameManager7 : MonoBehaviour
     }
     void Start()
     {
+        objectiveUI.SetActive(false);
         maxScraps = scrapt.Length;
         maxPlants = plantTargets.Length;
         maxRefText = maxScraps;
@@ -125,11 +130,7 @@ public class MiniGameManager7 : MonoBehaviour
 
     private void Update()
     {
-        //if (phasesProcess != currentPhase)
-        //{
-        //    phasesProcess = currentPhase;
-        //    Phases(phasesProcess);
-        //}
+        
 
 
 
@@ -306,13 +307,20 @@ public class MiniGameManager7 : MonoBehaviour
                 Debug.Log("Starting Phase 1");
 
                 countProgress = scrapt.Length;
-               
-                foreach(GameObject obj in scrapt)
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
                 {
-                    Instantiate(markGuide, obj.transform.position + new Vector3(0,3,0), Quaternion.identity);
+                    description = "Destruye basura: ";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    description = "Destroy trash: ";
+                }
+                foreach (GameObject obj in scrapt)
+                {
+                    Instantiate(markGuide, obj.transform.position + new Vector3(0, 3, 0), Quaternion.Euler(-90, 0, 0));
                 }
 
-                    break;
+                break;
             case 2:
                 currentPhase = 2;
                 reminders(0);
@@ -321,7 +329,14 @@ public class MiniGameManager7 : MonoBehaviour
                 Debug.Log("Starting Phase 2");
                 maxRefText = maxPlants;
                 countProgress = maxPlants ;
-                
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    description = "Reforesta las zonas: ";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    description = "Plant in the zones: ";
+                }
                 updateProgressText(-1);
                 foreach(GameObject obj in plantTargets)
                 {
@@ -336,6 +351,16 @@ public class MiniGameManager7 : MonoBehaviour
                 countProgress = 0;
                 maxScraps = 3;
                 countProgress = 3;
+
+                if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    description = "Repara las vallas: ";
+                }
+                else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    description = "Repare the walls: ";
+                }
+
                 updateProgressText(0);
                 Debug.Log("Starting Phase 3");
 
@@ -369,7 +394,9 @@ public class MiniGameManager7 : MonoBehaviour
     public void updateProgressText(int progress)
     {
         countProgress = countProgress + progress;
-        counterProgressText.text = countProgress.ToString()+ " /" + maxScraps.ToString()  ;
+        counterProgressText.text = description +
+                    $"<color=red>{countProgress}</color> / <color=red>{maxScraps}</color>";
+
         if (countProgress <= 0 && currentPhase==1)
         {
             Phases(2);
@@ -681,6 +708,7 @@ public class MiniGameManager7 : MonoBehaviour
 
             List<int> index = new List<int> { 0, 1 };
             DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
+            objectiveUI.SetActive(true);
 
         }
         while (!isDialogueFinished)

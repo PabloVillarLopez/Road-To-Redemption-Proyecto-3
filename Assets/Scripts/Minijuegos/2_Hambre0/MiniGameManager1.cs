@@ -34,8 +34,8 @@ public class MiniGameManager1 : MonoBehaviour
     Vector3 spawnPosition;
 
     // Variables de tipo int
-    private int badFood;
-    private int goodFood;
+    private int badFood = -1;
+    private int goodFood = -1 ;
 
     // Variables de tipo Text
     public Text TextBadFood;
@@ -69,7 +69,7 @@ public class MiniGameManager1 : MonoBehaviour
     public GameObject markGuide;
     public Image DialogueByImage;
 
-
+    public GameObject Objective;
 
 
     public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
@@ -84,7 +84,7 @@ public class MiniGameManager1 : MonoBehaviour
         CheckDialogue();
         greenHouse = GameObject.Find("GreenHouse");
         Level(1);
-
+        Objective.SetActive(false);
 
         audioSourceBackground.clip = soundClips[0];
         audioSourceBackground .Play();
@@ -123,7 +123,7 @@ public class MiniGameManager1 : MonoBehaviour
                 }
                 List<int> index = new List<int> { 0, 1 }; 
                 DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
-
+                activeObjective();
             }
         }
         while (!isDialogueFinished)
@@ -369,7 +369,15 @@ public class MiniGameManager1 : MonoBehaviour
 
     #region Inventory Management
 
+    private void activeObjective() 
+    
+    {
+        Objective.SetActive(true);
 
+        checkBadFood();
+        checkGoodFood();
+
+    }
 
 
     public void checkBadFood()
