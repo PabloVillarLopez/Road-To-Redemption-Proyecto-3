@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +6,6 @@ using UnityEngine.UIElements;
 using UnityEngine.Windows;
 using Input = UnityEngine.Input;
 using Slider = UnityEngine.UI.Slider;
-
 
 public class PlayerControllerCursor : MonoBehaviour
 {
@@ -34,89 +32,89 @@ public class PlayerControllerCursor : MonoBehaviour
     private float plantingTimer = 3f;
     public KeyCode plantingKey = KeyCode.E;
     private GameObject caughtObject;
-    public MiniGameManager1 manager;
+    public MiniGameManager1 manager; // Variable específica para MiniGameManager1
     #endregion
-
 
     #region MiniGame8 Variables
     public Camera newMainCamera;
     public Camera mainCamera;
     public bool monitoring;
-    
     #endregion
+
+    #region General Variables
+    private MonoBehaviour activeGameManager; // Variable para el GameManager dinámico
+    #endregion
+
     #region Start
-    // Start is called before the first frame update
     void Start()
     {
         rigy = GetComponent<Rigidbody>();
-        
-       
-            mainCamera = Camera.main;
-        
-        orientation = transform.GetChild(1).transform;
-        orientation = transform.GetChild(2).transform;
-        
 
+        mainCamera = Camera.main;
+
+        // Ajustar la orientación si hay múltiples hijos
+        if (transform.childCount > 2)
+        {
+            orientation = transform.GetChild(1).transform;
+            orientation = transform.GetChild(2).transform;
+        }
+        else
+        {
+            orientation = transform.GetChild(0).transform;
+        }
     }
     #endregion
 
     #region Update
-    // Update is called once per frame
     void Update()
     {
         SelectMode();
 
-        if (monitoring  &&  Input.GetKeyDown(KeyCode.E) && mode==2)
+        if (monitoring && Input.GetKeyDown(KeyCode.E) && mode == 2)
         {
             ChangeMainCamera();
-            
         }
+
         if (isPlanting && manager.PlantSound(false) == false)
         {
             manager.PlantSound(true);
-
         }
-        else { 
-           
+        else
+        {
             if (manager != null)
             {
                 manager.PlantSound(false);
             }
-
         }
+
+        TalkWithNpc(); // Llamar a la función TalkWithNpc en cada actualización
     }
     #endregion
 
     #region Fixed Update
     private void FixedUpdate()
     {
-        if (monitoring == false)
+        if (!monitoring)
         {
             MovePlayer();
         }
-        
     }
     #endregion
 
     #region Movement
-    #region Get Movement Input
-    private void MyInput() // Gets movement input in horizontal and vertical axis with AWSD and arrows
+    private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
     }
-    #endregion
 
-    #region Move Player with Direction
-    private void MovePlayer() // Moves player taking into account the direction the player is facing
+    private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rigy.AddForce(moveDirection.normalized * movementSpeed * 10, ForceMode.Force);
     }
-    #endregion
 
-    #region Max Speed Control
-    private void SpeedControl() // Limits the velocity to the max speed velocity and controls that max velocity
+    private void SpeedControl()
     {
         Vector3 flatVelocity = new Vector3(rigy.velocity.x, 0f, rigy.velocity.z);
         if (flatVelocity.magnitude > movementSpeed)
@@ -125,7 +123,6 @@ public class PlayerControllerCursor : MonoBehaviour
             rigy.velocity = new Vector3(limitedVelocity.x, rigy.velocity.y, limitedVelocity.z);
         }
     }
-    #endregion
     #endregion
 
     #region Cast Ray From Mouse Position
@@ -137,152 +134,24 @@ public class PlayerControllerCursor : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.CompareTag("CatchAble") && mode == 2  )
+                if (hit.collider.CompareTag("CatchAble") && mode == 2)
                 {
-                    GameObject manager = GameObject.Find("GameManager");
-                    manager.GetComponent<MiniGameManager8>().activeInteract(true);
-                     if (Input.GetKeyDown(KeyCode.E)) {
+                    GameObject managerObject = GameObject.Find("GameManager");
+                    managerObject.GetComponent<MiniGameManager8>().activeInteract(true);
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
                         ChangeCamera();
-                        
-                        manager.GetComponent<MiniGameManager8>().StartGame();
+                        managerObject.GetComponent<MiniGameManager8>().StartGame();
                     }
-                    
                 }
                 else if (mode == 2 && !hit.collider.CompareTag("CatchAble"))
                 {
-                    GameObject manager = GameObject.Find("GameManager");
-
-                    manager.GetComponent<MiniGameManager8>().activeInteract(false);
+                    GameObject managerObject = GameObject.Find("GameManager");
+                    managerObject.GetComponent<MiniGameManager8>().activeInteract(false);
                 }
-            }
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Manejar colisiones con CatchAble
-                if (hit.collider.CompareTag("CatchAble"))
-                {
-                    //manager.activeInteract(true);
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        caughtObject = hit.collider.gameObject;
-
-                        if (PickupObject(caughtObject))
-                        {
-                            caughtSeed[countSeeds] = caughtObject;
-                            countSeeds++;
-                            caughtObject.transform.parent = transform;
-                            caughtObject.SetActive(false);
-                            manager.activeInteract(false);
-                            manager.PlaySound(4);
-                            ObjectInfo info = caughtObject.GetComponent<ObjectInfo>();
-                            int id = info.GetobjectInfo();
-                        }
-                        else
-                        {
-                            if(manager !=null )
-                            manager.reminderNotCatch();
-                        }
-                    }
-                }
-                else if (hit.collider.CompareTag("SeedPlanted") && manager != null)
-                {
-                    manager.activeInteract(true);
-                }
-                else
-                {
-                    if (manager != null)
-                    manager.activeInteract(false);
-                }
-
-
-                // Manejar colisiones con PlantArea
-                if (hit.collider.CompareTag("PlantArea") && countSeeds > 0)
-                {
-                    planTarget = hit.collider.gameObject;
-                    isPlanting = true;
-                }
-                else
-                {
-                    isPlanting = false;
-                }
-
-                if (hit.collider.CompareTag("SeedPlanted"))
-                {
-                    manager.activeInteract(true);
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        if (hit.collider.gameObject.GetComponent<ObjectInfo>().timeToCollect >= 10 && hit.collider.gameObject.GetComponent<ObjectInfo>() != null)
-                        {
-                            hit.collider.gameObject.GetComponent<ObjectInfo>().Recollect();
-                            manager.Reminders();
-                            manager.PlaySound(2);
-                        }
-                        else
-                        {
-                            manager.reminderNotRecollect();
-                        }
-                    }
-
-
-                }
-
-                if (hit.collider.CompareTag("Respawn"))
-                {
-                    manager.activeInteract(true);
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        manager.PlaySound(5);
-
-                        manager.SpawnObjectsOnSpawner();
-                    }
-                }
-
-                // Manejar colisiones con Hot, Neutral, y Cold
-                if (hit.collider.CompareTag("Hot") )
-                {
-                    manager.activeInteract(true);
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        manager.PlaySound(5);
-                        GameObject hitObject = hit.collider.transform.parent.gameObject;
-                        hitObject.GetComponent<CultiveZone>().state = "Hot";
-                        
-                    }
-                }
-
-                if (hit.collider.CompareTag("Neutral"))
-                {
-
-                    manager.activeInteract(true);
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        manager.PlaySound(5);
-
-                        GameObject hitObject = hit.collider.transform.parent.gameObject;
-                        hitObject.GetComponent<CultiveZone>().state = "Neutral";
-                    }
-                    
-                }
-
-                if (hit.collider.CompareTag("Cold") )
-                {
-                    manager.activeInteract(true);
-
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        manager.PlaySound(5);
-
-                        GameObject hitObject = hit.collider.transform.parent.gameObject;
-                        hitObject.GetComponent<CultiveZone>().state = "Cold";
-                    }
-                }
-
-                
-
             }
         }
     }
-
     #endregion
 
     #region SetPlants
@@ -311,7 +180,6 @@ public class PlayerControllerCursor : MonoBehaviour
         }
         else
         {
-            
             return false;
         }
     }
@@ -354,45 +222,30 @@ public class PlayerControllerCursor : MonoBehaviour
     {
         if (countSeeds - 1 >= 0 && countSeeds - 1 < caughtSeed.Length && caughtSeed[countSeeds - 1] != null)
         {
-            
             GameObject seedSpawned;
             switch (currentSeed)
             {
-
-
-                
                 case 1:
-
-                seedSpawned = Instantiate(manager.seeds[0], planTarget.transform.position, Quaternion.identity);
+                    seedSpawned = Instantiate(manager.seeds[0], planTarget.transform.position, Quaternion.identity);
                     seedSpawned.GetComponent<ObjectInfo>().id = 0;
                     planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(seedSpawned.gameObject);
                     Debug.Log("Planted0");
                     break;
                 case 2:
-
-                    seedSpawned = Instantiate(manager.seeds[1], planTarget.transform.position, Quaternion.identity); 
+                    seedSpawned = Instantiate(manager.seeds[1], planTarget.transform.position, Quaternion.identity);
                     seedSpawned.GetComponent<ObjectInfo>().id = 1;
                     planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(seedSpawned.gameObject);
                     Debug.Log("Planted1");
                     break;
                 case 3:
-                    seedSpawned = Instantiate(manager.seeds[2], planTarget.transform.position, Quaternion.identity); 
+                    seedSpawned = Instantiate(manager.seeds[2], planTarget.transform.position, Quaternion.identity);
                     seedSpawned.GetComponent<ObjectInfo>().id = 2;
                     planTarget.transform.GetComponentInParent<CultiveZone>().AddChild(seedSpawned.gameObject);
-
                     Debug.Log("Planted2");
                     break;
             }
 
-       
-
-     
-
-           
             planTarget.SetActive(false);
-
-
-
             caughtSeed[countSeeds - 1] = null;
             countSeeds--;
 
@@ -404,28 +257,18 @@ public class PlayerControllerCursor : MonoBehaviour
     }
     #endregion
 
+    #region Camera Handling
     public void ChangeMainCamera()
     {
-        // Desactiva la cámara actualmente marcada como principal
-        
         mainCamera.enabled = false;
-        
-        // Activa la nueva cámara
         newMainCamera.enabled = true;
-
-        // Configura la nueva cámara como la cámara principal
         newMainCamera.tag = "MainCamera";
     }
 
     public void RevertToPreviousCamera()
     {
-        // Desactiva la nueva cámara
         newMainCamera.enabled = false;
-
-        // Activa la cámara anteriormente marcada como principal
         mainCamera.enabled = true;
-
-        // Configura la cámara anterior como la cámara principal
         mainCamera.tag = "MainCamera";
         monitoring = false;
     }
@@ -437,17 +280,15 @@ public class PlayerControllerCursor : MonoBehaviour
             RevertToPreviousCamera();
             monitoring = false;
         }
-        else if (monitoring == false)
+        else
         {
             ChangeMainCamera();
             monitoring = true;
-            
         }
-
-
     }
+    #endregion
 
-    
+    #region Mode Selection
     void SelectMode()
     {
         switch (mode)
@@ -455,7 +296,6 @@ public class PlayerControllerCursor : MonoBehaviour
             case 1:
                 MyInput();
                 SpeedControl();
-                
                 CastRayFromMousePosition();
                 if (isPlanting)
                 {
@@ -470,12 +310,10 @@ public class PlayerControllerCursor : MonoBehaviour
                 UpdatePlantingProcess();
                 break;
             case 2:
-                
                 MyInput();
-                if (monitoring) { 
-                SpeedControl();
-
-                
+                if (monitoring)
+                {
+                    SpeedControl();
                 }
                 CastRayFromMousePosition();
                 break;
@@ -486,10 +324,87 @@ public class PlayerControllerCursor : MonoBehaviour
             case 4:
                 MyInput();
                 SpeedControl();
-
                 break;
-
-
         }
     }
+    #endregion
+
+    #region NPC Interaction
+    private void TalkWithNpc()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 10))
+        {
+            if (hit.collider.CompareTag("NPC"))
+            {
+                if (activeGameManager == null)
+                {
+                    activeGameManager = FindActiveGameManager();
+                }
+
+                if (activeGameManager != null)
+                {
+                    CallActiveInteract(activeGameManager, true);
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        npc npcScript = hit.collider.gameObject.GetComponent<npc>();
+                        if (npcScript != null)
+                        {
+                            npcScript.showTutorial();
+                        }
+
+                        CallActiveInteract(activeGameManager, false);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (activeGameManager != null)
+            {
+                CallActiveInteract(activeGameManager, false);
+            }
+        }
+    }
+
+    private MonoBehaviour FindActiveGameManager()
+    {
+        // Nombres de los scripts de los GameManagers específicos dentro de los GameObjects "GameManager".
+        string[] managerNames = { "MiniGameManager1", "MiniGameManager4", "MiniGameManager7", "MiniGameManager8" };
+
+        // Buscar en cada GameObject llamado "GameManager".
+        foreach (string managerName in managerNames)
+        {
+            // Buscar el GameObject con el nombre "GameManager".
+            GameObject[] gameManagerObjects = GameObject.FindGameObjectsWithTag("GameController");
+
+            foreach (GameObject gameObject in gameManagerObjects)
+            {
+                // Intentar encontrar el componente MonoBehaviour con el nombre específico en el GameObject actual.
+                MonoBehaviour managerInstance = gameObject.GetComponent(managerName) as MonoBehaviour;
+
+                // Si se encuentra, devolverlo.
+                if (managerInstance != null)
+                {
+                    return managerInstance;
+                }
+            }
+        }
+
+        // Si no se encuentra ningún GameManager válido, devolver null.
+        return null;
+    }
+
+    private void CallActiveInteract(MonoBehaviour manager, bool active)
+    {
+        var method = manager.GetType().GetMethod("activeInteract");
+        if (method != null)
+        {
+            method.Invoke(manager, new object[] { active });
+        }
+    }
+    #endregion
 }

@@ -1966,7 +1966,7 @@ GameObject:
   - component: {fileID: 962071293}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5074,52 +5074,62 @@ PrefabInstance:
     - target: {fileID: 2685951743407850199, guid: 034494fc32199a14f833ea4a6b7be4bd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0272315
+      value: 1.724
       objectReference: {fileID: 0}
     - target: {fileID: 2685951743407850199, guid: 034494fc32199a14f833ea4a6b7be4bd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.67
+      value: 3.237
       objectReference: {fileID: 0}
     - target: {fileID: 2685951743407850199, guid: 034494fc32199a14f833ea4a6b7be4bd,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.47337744
+      value: -0.43092966
       objectReference: {fileID: 0}
     - target: {fileID: 2685951743407850199, guid: 034494fc32199a14f833ea4a6b7be4bd,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.8808597
+      value: 0.801872
       objectReference: {fileID: 0}
     - target: {fileID: 2685951743407850199, guid: 034494fc32199a14f833ea4a6b7be4bd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.19592403
       objectReference: {fileID: 0}
     - target: {fileID: 2685951743407850199, guid: 034494fc32199a14f833ea4a6b7be4bd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.36457464
       objectReference: {fileID: 0}
     - target: {fileID: 2685951743407850199, guid: 034494fc32199a14f833ea4a6b7be4bd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -123.492004
       objectReference: {fileID: 0}
     - target: {fileID: 2685951743407850199, guid: 034494fc32199a14f833ea4a6b7be4bd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 48.897995
       objectReference: {fileID: 0}
     - target: {fileID: 2685951743407850199, guid: 034494fc32199a14f833ea4a6b7be4bd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3563420777703166660, guid: 034494fc32199a14f833ea4a6b7be4bd,
+        type: 3}
+      propertyPath: DialogueByImage
+      value: 
+      objectReference: {fileID: 4187056077583538466}
     - target: {fileID: 7730027418607594622, guid: 034494fc32199a14f833ea4a6b7be4bd,
         type: 3}
       propertyPath: m_Name
       value: Npc
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730027418607594622, guid: 034494fc32199a14f833ea4a6b7be4bd,
+        type: 3}
+      propertyPath: m_TagString
+      value: NPC
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

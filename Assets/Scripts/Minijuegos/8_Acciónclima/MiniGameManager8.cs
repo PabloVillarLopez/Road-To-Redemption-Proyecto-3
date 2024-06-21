@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+
 public class MiniGameManager8 : MonoBehaviour
 {
     public GameObject[] objectsToSpawn; // Array of objects to spawn

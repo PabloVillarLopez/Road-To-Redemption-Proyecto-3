@@ -24,6 +24,7 @@ TagManager:
   - Clue1Area
   - Clue2Area
   - Clue3Area
+  - NPC
   layers:
   - Default
   - TransparentFX

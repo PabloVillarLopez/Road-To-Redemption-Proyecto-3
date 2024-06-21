@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,5 +25,13 @@ public class npc : MonoBehaviour
 
         // Actualizar la posición del NPC
         transform.position = new Vector3(initialPosition.x, newY, initialPosition.z);
+    }
+
+    public void showTutorial ()
+    {
+        List<int> index = new List<int> { 0, 1 };
+
+        DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
+
     }
 }

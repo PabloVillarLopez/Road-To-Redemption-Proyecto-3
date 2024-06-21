@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 6584144991872606345}
   m_Layer: 0
   m_Name: NpcToAsk
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,6 +343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatAmplitude: 0.23
   floatFrequency: 0.51
+  DialogueByImage: {fileID: 0}
 --- !u!64 &6584144991872606345
 MeshCollider:
   m_ObjectHideFlags: 0
