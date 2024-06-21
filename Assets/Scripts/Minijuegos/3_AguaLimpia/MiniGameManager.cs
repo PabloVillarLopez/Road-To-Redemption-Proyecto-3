@@ -253,8 +253,11 @@ public class MiniGameManager : MonoBehaviour
     private float arrowsContaminationCont = 0;
     private float arrowsRedirectionCont = 0;
 
-    [Header("Interact Indicator")]
-    public GameObject interactIndicator;
+    [Header("Interact Indicators")]
+    public GameObject interactIndicatorEnglish;
+    public GameObject interactIndicatorSpanish;
+    public GameObject pauseIndicatorEnglish;
+    public GameObject pauseIndicatorSpanish;
 
     [Header("Cinematic Camera")]
     public Camera cinematicCamera;
@@ -318,7 +321,8 @@ public class MiniGameManager : MonoBehaviour
 
         cinematicCamera.gameObject.SetActive(false);
         treatmentPlantRenderer = treatmentPlant.GetComponent<Renderer>();
-    //StartCoroutine(ContaminationTransition());
+        //StartCoroutine(ContaminationTransition());
+
 }
 
     #endregion Start
@@ -922,7 +926,9 @@ public class MiniGameManager : MonoBehaviour
 
     private void PipelineRotateCamera()
     {
-        interactIndicator.SetActive(false);
+        //interactIndicator.SetActive(false);
+        interactIndicatorEnglish.SetActive(false);
+        interactIndicatorSpanish.SetActive(false);
         playerCamera.SetActive(false);
 
         switch (PlayerController.pipelineRotateEnteredID)
@@ -1053,7 +1059,9 @@ public class MiniGameManager : MonoBehaviour
 
     private void PipelineDecontaminateCamera()
     {
-        interactIndicator.SetActive(false);
+        //interactIndicator.SetActive(false);
+        interactIndicatorEnglish.SetActive(false);
+        interactIndicatorSpanish.SetActive(false);
         playerCamera.SetActive(false);
 
         if (PlayerController.pipelineEnteredID == 2)

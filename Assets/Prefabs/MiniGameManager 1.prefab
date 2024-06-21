@@ -1,0 +1,169 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1703340896275892393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2848505023556202753}
+  - component: {fileID: 1803866923961147936}
+  m_Layer: 0
+  m_Name: MiniGameManager 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2848505023556202753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703340896275892393}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 181.49342, y: 33.20961, z: 2.0189967}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1803866923961147936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703340896275892393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca227236039eb8479e20c29a2d7436a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotatePipelineUI: {fileID: 0}
+  catastrophes: 0
+  waterContamination: 0
+  contaminationSpeed: 25
+  decontaminationSpeed: 200
+  contaminationSlider: {fileID: 0}
+  bacteriaContamination: 0
+  bacteriaContaminationSpeed: 25
+  bacteriaDecontaminationSpeed: 200
+  waterLeak: 0
+  waterMoreLeakSpeed: 25
+  waterLessLeakSpeed: 200
+  bacteriaSlider: {fileID: 0}
+  waterLeakSlider: {fileID: 0}
+  isWaterLeakCatastropheStarted: 0
+  isBacteriaCatastropheStarted: 0
+  isContaminationCatastropheStarted: 0
+  catastrophesCanStart: 0
+  BacteriaContaminationButton: {fileID: 0}
+  DecontaminationButton: {fileID: 0}
+  waterLeakWarningMessage: {fileID: 0}
+  contaminationWarningMessage: {fileID: 0}
+  bacterianWarningMessage: {fileID: 0}
+  waterLeakWarningPanelFader: {fileID: 0}
+  contaminationWarningPanelFader: {fileID: 0}
+  bacteriaWarningPanelFader: {fileID: 0}
+  waterLeakCoroutineRunning: 0
+  phases: 0
+  decontaminationCount: 0
+  bacteriaCleanedCount: 0
+  waterLeakedSolvedCount: 0
+  money: 1000
+  moneyText: {fileID: 0}
+  points: 0
+  pointsCanIncrease: 0
+  pointsCanDecrease: 0
+  pipelinesToRotate:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  pipelinesToDecontaminate:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  pipelinesToChangePipeline1: []
+  pipelinesToChangePipeline3: []
+  pipelinesToChangePipeline5: []
+  pipelinesIconsPipeline1: []
+  pipelinesIconsPipeline3: []
+  pipelinesIconsPipeline5: []
+  pipelinesInCorrectPlace: 0
+  selectedPipeline: 0
+  selectedPipelineIcon: 0
+  previousPipeline: 0
+  difficultyLevel: 0
+  pipelineActive: {fileID: 0}
+  RotateUI: {fileID: 0}
+  SelectUI: {fileID: 0}
+  waterOpenAndCloseUI: {fileID: 0}
+  decontaminationUI: {fileID: 0}
+  catastrophesPanel: {fileID: 0}
+  leftRotateButton: {fileID: 0}
+  rightRotateButton: {fileID: 0}
+  upRotateButton: {fileID: 0}
+  downRotateButton: {fileID: 0}
+  clickToDecontaminateCount: 0
+  clickToDecontaminateBacteriaCount: 0
+  maxNumOfMovements: 0
+  currentNumOfMovements: 0
+  remainingMovements: 0
+  waterLeakText: {fileID: 0}
+  contaminationText: {fileID: 0}
+  bacteriaText: {fileID: 0}
+  rotatePipelineText: {fileID: 0}
+  selectPipelineTypeText: {fileID: 0}
+  bacteriaBlinkingWarningTitleText: {fileID: 0}
+  bacteriaBlinkingWarningSubtitleText: {fileID: 0}
+  bacteriaBlinkingWarningDescriptionText: {fileID: 0}
+  contaminationBlinkingWarningTitleText: {fileID: 0}
+  contaminationBlinkingWarningSubtitleText: {fileID: 0}
+  contaminationBlinkingWarningDescriptionText: {fileID: 0}
+  waterLeakBlinkingWarningTitleText: {fileID: 0}
+  waterLeakBlinkingWarningSubtitleText: {fileID: 0}
+  waterLeakBlinkingWarningDescriptionText: {fileID: 0}
+  instructionsText: {fileID: 0}
+  instructionsPanel: {fileID: 0}
+  congratulationsPanel: {fileID: 0}
+  congratulationsPanelText: {fileID: 0}
+  mistakePanel: {fileID: 0}
+  mistakePanelText: {fileID: 0}
+  stampPanel: {fileID: 0}
+  selectUp1Button: {fileID: 0}
+  selectDonw1Button: {fileID: 0}
+  selectUp2Button: {fileID: 0}
+  selectDown2Button: {fileID: 0}
+  selectUp3Button: {fileID: 0}
+  selectDown3Button: {fileID: 0}
+  pipelineSelector1: {fileID: 0}
+  pipelineSelector2: {fileID: 0}
+  pipelineSelector3: {fileID: 0}
+  arrowContamination1: {fileID: 0}
+  arrowContamination2: {fileID: 0}
+  arrowContamination3: {fileID: 0}
+  arrowRedirection1: {fileID: 0}
+  arrowRedirection2: {fileID: 0}
+  arrowRedirection3: {fileID: 0}
+  arrowRedirection4: {fileID: 0}
+  arrowRedirection5: {fileID: 0}
+  arrowRedirection6: {fileID: 0}
+  arrowRedirection7: {fileID: 0}
+  interactIndicator: {fileID: 0}
+  cinematicCamera: {fileID: 0}
+  cleanWaterMaterial: {fileID: 2100000, guid: 6f31746b4922b5a47b0f88402846fef8, type: 2}
+  treatmentPlant: {fileID: 0}
+  canvas: {fileID: 0}
+  cornerNormalMaterial: {fileID: -1286386030097926558, guid: d03124eab42967642ab8add93a383987,
+    type: 3}
+  uNormalMaterial: {fileID: 8622231856638578679, guid: 7ad62348e5ea3a042b0cedeb1c8563fe,
+    type: 3}
