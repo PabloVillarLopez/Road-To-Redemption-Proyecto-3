@@ -128,12 +128,82 @@ public class PlayerControllerCursor : MonoBehaviour
     #region Cast Ray From Mouse Position
     void CastRayFromMousePosition()
     {
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+      {
+            if (hit.collider.CompareTag("CatchAble"))
+        {
+                manager.activeInteract(true);
+
+                if (Input.GetKeyDown(KeyCode.E))
+            {
+                caughtObject = hit.collider.gameObject;
+                if (PickupObject(caughtObject))
+                {
+                    caughtSeed[countSeeds] = caughtObject;
+                    countSeeds++;
+                    caughtObject.transform.parent = transform;
+                    caughtObject.SetActive(false);
+                    manager.activeInteract(false);
+                    manager.PlaySound(4);
+                    int id = caughtObject.GetComponent<ObjectInfo>().GetobjectInfo();
+                }
+                else
+                {
+                    if (manager != null) manager.reminderNotCatch();
+                }
+            }
+        }
+        else if (hit.collider.CompareTag("SeedPlanted"))
+        {
+            manager.activeInteract(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                var objectInfo = hit.collider.gameObject.GetComponent<ObjectInfo>();
+                if (objectInfo != null && objectInfo.timeToCollect >= 10)
+                {
+                    objectInfo.Recollect();
+                    manager.Reminders();
+                    manager.PlaySound(2);
+                }
+                else
+                {
+                    manager.reminderNotRecollect();
+                }
+            }
+        }
+        else if (hit.collider.CompareTag("PlantArea") && countSeeds > 0)
+        {
+            planTarget = hit.collider.gameObject;
+            isPlanting = true;
+        }
+        else if (hit.collider.CompareTag("Respawn"))
+        {
+            manager.activeInteract(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                manager.PlaySound(5);
+                manager.SpawnObjectsOnSpawner();
+            }
+        }
+        else
+        {
+            manager.activeInteract(false);
+            isPlanting = false;
+        }
+
+        HandleZoneTags(hit);
+    
+
+    
+
+
         if (!monitoring)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
+            
+            
                 if (hit.collider.CompareTag("CatchAble") && mode == 2)
                 {
                     GameObject managerObject = GameObject.Find("GameManager");
@@ -149,6 +219,38 @@ public class PlayerControllerCursor : MonoBehaviour
                     GameObject managerObject = GameObject.Find("GameManager");
                     managerObject.GetComponent<MiniGameManager8>().activeInteract(false);
                 }
+            }
+      }
+    }
+
+
+    private void HandleZoneTags(RaycastHit hit)
+    {
+        if (hit.collider.CompareTag("Hot"))
+        {
+            manager.activeInteract(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                manager.PlaySound(5);
+                hit.collider.transform.parent.gameObject.GetComponent<CultiveZone>().state = "Hot";
+            }
+        }
+        else if (hit.collider.CompareTag("Neutral"))
+        {
+            manager.activeInteract(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                manager.PlaySound(5);
+                hit.collider.transform.parent.gameObject.GetComponent<CultiveZone>().state = "Neutral";
+            }
+        }
+        else if (hit.collider.CompareTag("Cold"))
+        {
+            manager.activeInteract(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                manager.PlaySound(5);
+                hit.collider.transform.parent.gameObject.GetComponent<CultiveZone>().state = "Cold";
             }
         }
     }

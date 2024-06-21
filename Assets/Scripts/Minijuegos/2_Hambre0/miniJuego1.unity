@@ -9691,6 +9691,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: anim idle mejorado
       objectReference: {fileID: 0}
+    - target: {fileID: 2277029923116429713, guid: 951a267eb1f1b07479bc3ba9d41c3908,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837483498504718601, guid: 951a267eb1f1b07479bc3ba9d41c3908,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dce796949ef85cb45a9cf012ddfead7e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26078,11 +26088,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940cb90fe1b78b74e829a1ce031baf01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sensitivity: 322.7
+  Sensitivity: 468
   playerBody: {fileID: 3327678332563024801}
   orientation: {fileID: 2662240147681753183}
   player: {fileID: 5060776120780582723}
-  smoothing: 0.8
+  smoothing: 0.36
 --- !u!114 &6397386686271208585
 MonoBehaviour:
   m_ObjectHideFlags: 0
