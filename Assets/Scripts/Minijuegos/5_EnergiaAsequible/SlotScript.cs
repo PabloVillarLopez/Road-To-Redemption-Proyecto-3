@@ -17,6 +17,7 @@ public class SlotScript : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
     public int initialSlotIndividualElectricity;
     public GameObject tapaCuadro;
     public energyMinigameManager minigameManager;
+    public static bool canReset;
 
     private void Start()
     {
@@ -35,24 +36,27 @@ public class SlotScript : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
             minigameManager.PlaySound(4); //some feedback sound
             gameObject.transform.GetComponent<Image>().color = new Color(217, 217, 217, 0);
             //gameObject.transform.GetComponent<Image>().sprite = null;
-            eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = this.GetComponent<RectTransform>().anchoredPosition;
-            eventData.pointerDrag.GetComponent<NewDragAnDrop>().canResetPosition = false;
-            eventData.pointerDrag.GetComponent<NewDragAnDrop>().isPositioned = true;
-            if (eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity > 0 && eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity != slotIndividualElectricity || eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity < 0 && eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity != slotIndividualElectricity)
+
+            //eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = this.GetComponent<RectTransform>().anchoredPosition;
+            //eventData.pointerDrag.GetComponent<NewDragAnDrop>().canResetPosition = false;
+            //eventData.pointerDrag.GetComponent<NewDragAnDrop>().isPositioned = true;
+
+            /*if (eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity > 0 && eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity != slotIndividualElectricity || eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity < 0 && eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity != slotIndividualElectricity)
             {
                 slotIndividualElectricity = eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity;
             }
             else if (eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity == 0)
             {
                 slotIndividualElectricity = eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity;
-            }
+            }*/
             
             //energyMinigameManager.globalElectricity += eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity;
 
-            /*if (eventData.pointerDrag.GetComponent<NewDragAnDrop>().id == id)
+            if (eventData.pointerDrag.GetComponent<NewDragAnDrop>().id == id)
             {
                 eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = this.GetComponent<RectTransform>().anchoredPosition;
                 eventData.pointerDrag.GetComponent<NewDragAnDrop>().canResetPosition = false;
+                eventData.pointerDrag.GetComponent<NewDragAnDrop>().isPositioned = true;
                 energyMinigameManager.globalElectricity += eventData.pointerDrag.GetComponent<NewDragAnDrop>().individualElectricity;
                 Debug.Log("Correct");
             }
@@ -61,7 +65,8 @@ public class SlotScript : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
                 eventData.pointerDrag.GetComponent<NewDragAnDrop>().ResetPosition();
                 StartCoroutine(ShowElectrictyFail());
                 Debug.Log("Incorrect");
-            }*/
+                canReset = true;
+            }
 
 
         }

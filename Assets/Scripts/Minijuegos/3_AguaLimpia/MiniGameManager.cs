@@ -80,7 +80,7 @@ public class MiniGameManager : MonoBehaviour
     }
 
     [Header("Minigame Phases")]
-    public Phases phases;
+    public static Phases phases;
 
     public int decontaminationCount;
     public int bacteriaCleanedCount;
@@ -986,6 +986,7 @@ public class MiniGameManager : MonoBehaviour
         catastrophesCanStart = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        PauseMenuManager.canPause = true;
 
     }
 
@@ -999,6 +1000,7 @@ public class MiniGameManager : MonoBehaviour
         //interactIndicator.SetActive(false);
         interactIndicatorEnglish.SetActive(false);
         interactIndicatorSpanish.SetActive(false);
+        PauseMenuManager.canPause = false;
         playerCamera.SetActive(false);
 
         switch (PlayerController.pipelineRotateEnteredID)
@@ -1132,6 +1134,8 @@ public class MiniGameManager : MonoBehaviour
         //interactIndicator.SetActive(false);
         interactIndicatorEnglish.SetActive(false);
         interactIndicatorSpanish.SetActive(false);
+        PauseMenuManager.canPause = false;
+
         playerCamera.SetActive(false);
 
         if (PlayerController.pipelineEnteredID == 2)
@@ -1639,6 +1643,7 @@ public class MiniGameManager : MonoBehaviour
     public void FinishMinigame()
     {
         MinigamesCompleted.minigame3Finished = true;
+        PauseMenuManager.canPause = true;
         SceneManager.LoadScene("LevelSelector");
     }
 }

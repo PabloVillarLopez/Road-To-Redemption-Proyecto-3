@@ -136,4 +136,50 @@ public class PauseMenuManager : MonoBehaviour
             Cursor.visible = true;
         }
     }
+
+    public void ContinueGameMinigame3()
+    {
+        englishPausePanel.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+        ManageCursorMinigame3();
+    }
+
+    public void ContinuarJuegoMinijuego3()
+    {
+        spanishPausePanel.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+        ManageCursorMinigame3();
+    }
+
+    public void ManageCursorMinigame3()
+    {
+        if (MiniGameManager.phases == MiniGameManager.Phases.TREATMENTPLANT)
+        {
+            if (canPause)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else if (!canPause)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+        else if (MiniGameManager.phases == MiniGameManager.Phases.TOWN)
+        {
+            if (canPause)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else if (!canPause)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+    }
 }

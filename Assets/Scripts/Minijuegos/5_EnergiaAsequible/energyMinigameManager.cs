@@ -73,6 +73,8 @@ public class energyMinigameManager : MonoBehaviour
     public GameObject tutorial1Spanish;
     public GameObject tutorial2English;
     public GameObject tutorial2Spanish;
+    public GameObject tutorial3English;
+    public GameObject tutorial3Spanish;
     public GameObject finishPanelEnglish;
     public GameObject finishPanelSpanish;
     public GameObject pauseIndicatorEnglish;
@@ -116,6 +118,8 @@ public class energyMinigameManager : MonoBehaviour
         tutorial1Spanish.SetActive(false);
         tutorial2English.SetActive(false);
         tutorial2Spanish.SetActive(false);
+        tutorial3English.SetActive(false);
+        tutorial3Spanish.SetActive(false);
         finishPanelEnglish.SetActive(false);
         finishPanelSpanish.SetActive(false);
         MouseLook.canLook = false;
@@ -147,7 +151,7 @@ public class energyMinigameManager : MonoBehaviour
             HandleMinigamePhase();
         }*/
 
-        HandleGlobalElectricityUI();
+        //HandleGlobalElectricityUI();
         SumGlobalElectricity();
         CheckGlobalElectricity();
     }
@@ -209,27 +213,30 @@ public class energyMinigameManager : MonoBehaviour
     {
         if (cable1.isPositioned && cable2.isPositioned && cable3.isPositioned && cable4.isPositioned && cable5.isPositioned && cable6.isPositioned)
         {
-            if (globalElectricity == 5 && canCheckElectricity)
+            Debug.Log("Congratulations");
+            PlaySound(5);
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
             {
-                Debug.Log("Congratulations");
+                finishPanelEnglish.SetActive(true);
+                pauseIndicatorEnglish.SetActive(false);
+                PauseMenuManager.canPause = false;
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                finishPanelSpanish.SetActive(true);
+                pauseIndicatorSpanish.SetActive(false);
+                PauseMenuManager.canPause = false;
+            }
+
+            /*if (globalElectricity == 5 && canCheckElectricity)
+            {
+                
                 //congratulationsPhase3Panel.SetActive(true);
                 //StartCoroutine(ShowStampPanel());
 
-                if (LanguageManager.currentLanguage == LanguageManager.Language.English)
-                {
-                    finishPanelEnglish.SetActive(true);
-                    pauseIndicatorEnglish.SetActive(false);
-                    PauseMenuManager.canPause = false;
-                }
-                else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
-                {
-                    finishPanelSpanish.SetActive(true);
-                    pauseIndicatorSpanish.SetActive(false);
-                    PauseMenuManager.canPause = false;
-                }
-
                 canCheckElectricity = false;
-                PlaySound(5);
+                
             }
             else if (globalElectricity != 5 && canCheckElectricity)
             {
@@ -245,7 +252,19 @@ public class energyMinigameManager : MonoBehaviour
                 cable6.ResetPosition();
                 ResetSlots();
                 //canCheckElectricity = false;
-            }
+            }*/
+        }
+
+        if (SlotScript.canReset)
+        {
+            cable1.ResetPosition();
+            cable2.ResetPosition();
+            cable3.ResetPosition();
+            cable4.ResetPosition();
+            cable5.ResetPosition();
+            cable6.ResetPosition();
+            ResetSlots();
+            SlotScript.canReset = false;
         }
         
     }
@@ -287,6 +306,15 @@ public class energyMinigameManager : MonoBehaviour
     public void PassToPhase3()
     {
         PlaySound(3);
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            tutorial3English.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            tutorial3Spanish.SetActive(true);
+        }
 
         instructionsPanelText.text = "Fase 3. Conecta los cables por medio de arrastrarlos y soltarlos, de forma que sumen la electricidad necesaria.";
         instructionsPanel.transform.localPosition = new Vector3(438, 452, 0);
@@ -364,6 +392,13 @@ public class energyMinigameManager : MonoBehaviour
         PlaySound(3);
         tutorial2English.SetActive(false);
         tutorial2Spanish.SetActive(false);
+    }
+
+    public void HideTutorials3()
+    {
+        PlaySound(3);
+        tutorial3English.SetActive(false);
+        tutorial3Spanish.SetActive(false);
     }
 
     public void PlaySound(int sound)

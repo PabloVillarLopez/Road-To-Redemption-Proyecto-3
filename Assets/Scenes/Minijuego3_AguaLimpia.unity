@@ -16822,7 +16822,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3291607409109387829}
         m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
-        m_MethodName: ContinueGame
+        m_MethodName: ContinueGameMinigame3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22939,7 +22939,6 @@ MonoBehaviour:
   contaminationWarningPanelFader: {fileID: 2852129641094440856}
   bacteriaWarningPanelFader: {fileID: 5491625140446363797}
   waterLeakCoroutineRunning: 0
-  phases: 0
   decontaminationCount: 0
   bacteriaCleanedCount: 0
   waterLeakedSolvedCount: 0
@@ -29716,7 +29715,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3291607409109387829}
         m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
-        m_MethodName: ContinuarJuego
+        m_MethodName: ContinuarJuegoMinijuego3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
