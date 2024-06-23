@@ -35,6 +35,12 @@ public class AimLenseGlass : MonoBehaviour
     [Header("Sound References")]
     public ObserveObject minigameManager;
 
+    [Header("VFX Clues")]
+    public GameObject[] cluesVFX;
+
+    [Header("Arrows")]
+    public GameObject[] arrowsClues;
+
     private void Awake()
     {
         for (int i = 0; i < clueIcons.Length; i++)
@@ -119,6 +125,8 @@ public class AimLenseGlass : MonoBehaviour
             ObserveObject.TakenClues.Add(hit.transform.gameObject);
             hit.transform.gameObject.SetActive(false);
             clueIcons[hit.transform.gameObject.GetComponent<RotateClue>().id].SetActive(true);
+            cluesVFX[hit.transform.gameObject.GetComponent<RotateClue>().id].SetActive(false);
+            arrowsClues[hit.transform.gameObject.GetComponent<RotateClue>().id].SetActive(false);
             takenClues++;
         }
 

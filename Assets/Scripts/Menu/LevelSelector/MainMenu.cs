@@ -85,6 +85,10 @@ public class MainMenu : MonoBehaviour
     public Material phase7Material;
     public Material phase8Material;
 
+    [Header("Sound Variables")]
+    public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
+    public AudioSource audioSource; // Referencia al componente AudioSource
+
     private void Start()
     {
         spaceShipInteract.SetActive(false);
@@ -126,12 +130,14 @@ public class MainMenu : MonoBehaviour
     
     public void RotateToNextPivotPoint()
     {
+        PlaySound(1);
         StartCoroutine(WaitAndRotateToNext());
         StartCoroutine(ShowInteractAnimation());
     }
 
     public void RotateToPreviousPivotPoint()
     {
+        PlaySound(1);
         StartCoroutine(WaitAndRotateToPrevious());
         StartCoroutine(ShowInteractAnimation());  
     }
@@ -149,6 +155,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        PlaySound(0);
         SceneManager.LoadScene("Minijuego1_Paz");
     }
 
@@ -277,11 +284,13 @@ public class MainMenu : MonoBehaviour
 
     public void SelectSpanishLanguage()
     {
+        PlaySound(0);
         LanguageManager.currentLanguage = LanguageManager.Language.Spanish;
     }
 
     public void SelectEnglishLanguage()
     {
+        PlaySound(0);
         LanguageManager.currentLanguage = LanguageManager.Language.English;
     }
 
@@ -326,5 +335,15 @@ public class MainMenu : MonoBehaviour
         {
             DisplayPivotPointText();
         }
+    }
+
+    public void PlaySound(int sound)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = soundClips[sound];
+            audioSource.Play();
+        }
+
     }
 }

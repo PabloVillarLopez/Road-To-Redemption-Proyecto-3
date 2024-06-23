@@ -272,6 +272,35 @@ public class MiniGameManager : MonoBehaviour
     public Material uNormalMaterial;
     private Renderer pipelineRenderer;
 
+    [Header("VFX")]
+    public GameObject vfxDecontaminate1;
+    public GameObject vfxDecontaminate2;
+    public GameObject vfxDecontaminate3;
+    public GameObject vfxRotate1;
+    public GameObject vfxRotate2;
+    public GameObject vfxRotate3;
+    public GameObject vfxRotate4;
+    public GameObject vfxRotate5;
+    public GameObject vfxRotate6;
+    public GameObject vfxRotate7;
+
+    [Header("Sound Variables")]
+    public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
+    public AudioSource audioSource; // Referencia al componente AudioSource
+    public AudioSource audioSourceBackground;
+
+    [Header("UI Instructions")]
+    public GameObject initialInstructionsEnglish;
+    public GameObject initialInstructionsSpanish;
+    public GameObject tutorial1English;
+    public GameObject tutorial1Spanish;
+    public GameObject tutorial2English;
+    public GameObject tutorial2Spanish;
+    public GameObject finalMessageEnglish;
+    public GameObject finalMessageSpanish;
+    private bool canShowFinalMessage = true;
+    private bool canShowTutorial2 = true;
+
     #region Awake
 
     private void Awake()
@@ -322,8 +351,49 @@ public class MiniGameManager : MonoBehaviour
         cinematicCamera.gameObject.SetActive(false);
         treatmentPlantRenderer = treatmentPlant.GetComponent<Renderer>();
         //StartCoroutine(ContaminationTransition());
+        pauseIndicatorEnglish.SetActive(false);
+        pauseIndicatorSpanish.SetActive(false);
 
-}
+        vfxDecontaminate1.SetActive(true);
+        vfxDecontaminate2.SetActive(true);
+        vfxDecontaminate3.SetActive(true);
+        vfxRotate1.SetActive(false);
+        vfxRotate2.SetActive(false);
+        vfxRotate3.SetActive(false);
+        vfxRotate4.SetActive(false);
+        vfxRotate5.SetActive(false);
+        vfxRotate6.SetActive(false);
+        vfxRotate7.SetActive(false);
+
+        if (audioSourceBackground != null)
+        {
+            audioSourceBackground.clip = soundClips[0];
+            audioSourceBackground.Play();
+        }
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            initialInstructionsEnglish.SetActive(true);
+            initialInstructionsSpanish.SetActive(false);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            initialInstructionsEnglish.SetActive(false);
+            initialInstructionsSpanish.SetActive(true);
+        }
+
+        tutorial1English.SetActive(false);
+        tutorial1Spanish.SetActive(false);
+        tutorial2English.SetActive(false);
+        tutorial2Spanish.SetActive(false);
+        finalMessageEnglish.SetActive(false);
+        finalMessageSpanish.SetActive(false);
+        MouseLook.canLook = false;
+        ObserveObject.cantMove = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        PauseMenuManager.canPause = false;
+    }
 
     #endregion Start
 
@@ -1071,12 +1141,12 @@ public class MiniGameManager : MonoBehaviour
         }
         else if (PlayerController.pipelineEnteredID == 3)
         {
-            pipelineCamera.transform.position = pipelinesToDecontaminate[2].transform.position - new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
-            pipelineCamera.transform.eulerAngles = new Vector3(0, 0, 0);
+            pipelineCamera.transform.position = pipelinesToDecontaminate[2].transform.position + new Vector3(1.7f, 0, -0.3f); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+            pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
         }
         else if (PlayerController.pipelineEnteredID == 4)
         {
-            pipelineCamera.transform.position = pipelinesToDecontaminate[1].transform.position + new Vector3(2, 0, -1); //+ new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+            pipelineCamera.transform.position = pipelinesToDecontaminate[1].transform.position + new Vector3(2, 0, -0.1f); //+ new Vector3(0, 0, 2); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
             pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
         }
 
@@ -1217,6 +1287,12 @@ public class MiniGameManager : MonoBehaviour
                 arrowContamination2.SetActive(false);
                 arrowContamination3.SetActive(false);
 
+                if (canShowTutorial2)
+                {
+                    ShowTutorial2();
+                    canShowTutorial2 = false;
+                }
+
                 canInteractWithRotatePipelines = true;
 
                 if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
@@ -1249,7 +1325,7 @@ public class MiniGameManager : MonoBehaviour
                 {
                     Debug.Log("Minigame Finished");
 
-                    StartCoroutine(WaitAndFinish());
+                    ShowFinalMessage();
                 }
 
                 break;
@@ -1475,6 +1551,95 @@ public class MiniGameManager : MonoBehaviour
         canvas.gameObject.SetActive(true);
         pipelineCamera.SetActive(true);
         cinematicCamera.gameObject.SetActive(false);
+    }
+
+    public void PlaySound(int sound)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = soundClips[sound];
+            audioSource.Play();
+        }
+
+    }
+
+    public void ShowTutorial1()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            initialInstructionsEnglish.SetActive(false);
+            tutorial1English.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            initialInstructionsSpanish.SetActive(false);
+            tutorial1Spanish.SetActive(true);
+        }
+    }
+
+    public void HideTutorials1()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            pauseIndicatorEnglish.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            pauseIndicatorSpanish.SetActive(true);
+        }
+
+        tutorial1English.SetActive(false);
+        tutorial1Spanish.SetActive(false);
+        MouseLook.canLook = true;
+        ObserveObject.cantMove = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        PauseMenuManager.canPause = true;
+    }
+
+    public void HideTutorials2()
+    {
+        tutorial2English.SetActive(false);
+        tutorial2Spanish.SetActive(false);
+    }
+
+    public void ShowTutorial2()
+    {
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            tutorial2English.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            tutorial2Spanish.SetActive(true);
+        }
+    }
+
+    public void ShowFinalMessage()
+    {
+        if (canShowFinalMessage)
+        {
+            RotatePipelineUI.SetActive(false);
+            congratulationsPanel.SetActive(false);
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                finalMessageEnglish.SetActive(true);
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                finalMessageSpanish.SetActive(true);
+            }
+
+            canShowFinalMessage = false;
+        }
+        
+    }
+
+    public void FinishMinigame()
+    {
+        MinigamesCompleted.minigame3Finished = true;
+        SceneManager.LoadScene("LevelSelector");
     }
 }
 

@@ -27,7 +27,7 @@ public class EnterMinigames : MonoBehaviour
                 SceneManager.LoadScene("miniJuego1");
                 break;
             case 2: //Agua limpia
-                SceneManager.LoadScene("Minijuego3");
+                SceneManager.LoadScene("Minijuego3_AguaLimpia");
                 break;
             case 3: //Infraestructrua
                 SceneManager.LoadScene("MinujuegoInfraestructura");

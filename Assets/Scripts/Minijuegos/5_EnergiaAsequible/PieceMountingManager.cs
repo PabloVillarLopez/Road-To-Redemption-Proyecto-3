@@ -118,6 +118,7 @@ public class PieceMountingManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+                hit.collider.gameObject.transform.GetChild(0).gameObject.SetActive(false);
                 minigameManager.PlaySound(1);
                 StartCoroutine(MountPiece());
             }

@@ -144,9 +144,9 @@ public class ObserveObject : MonoBehaviour
         //sellosPanel.SetActive(false);
         //SellosPanelPanel.SetActive(false);
         errorJudgementPanel.SetActive(false);
-        arrowJustice1.SetActive(false);
-        arrowJustice2.SetActive(false);
-        arrowJustice3.SetActive(false);
+        arrowJustice1.SetActive(true);
+        arrowJustice2.SetActive(true);
+        arrowJustice3.SetActive(true);
         lenseAimGlass.SetActive(false);
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
@@ -488,13 +488,13 @@ public class ObserveObject : MonoBehaviour
                 canDeactivateClues = true;
 
                 arrowsJusticeCont += Time.deltaTime;
-                if (canShowArrowsJustice && arrowsJusticeCont >= 15f)
+                /*if (canShowArrowsJustice && arrowsJusticeCont >= 15f)
                 {
                     arrowJustice1.SetActive(true);
                     arrowJustice2.SetActive(true);
                     arrowJustice3.SetActive(true);
                     canShowArrowsJustice = false;
-                }
+                }*/
 
                 //if (canDeactivateClues)
                 //{
