@@ -17,10 +17,15 @@ public class PipelineSelector : MonoBehaviour
     private int selectedPipeline = 0;
     private int previousPipeline = -1;
 
+    private void Awake()
+    {
+        
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        //SelectPipeline();
+        SelectPipeline();
         leftButton.onClick.AddListener(SelectPipelineLeft);
         rightButton.onClick.AddListener(SelectPipelineRight);
     }

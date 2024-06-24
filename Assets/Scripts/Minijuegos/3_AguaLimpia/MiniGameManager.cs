@@ -393,6 +393,9 @@ public class MiniGameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         PauseMenuManager.canPause = false;
+        arrowContamination1.SetActive(true);
+        arrowContamination2.SetActive(true);
+        arrowContamination3.SetActive(true);
     }
 
     #endregion Start
@@ -1264,13 +1267,7 @@ public class MiniGameManager : MonoBehaviour
                 }
 
                 arrowsContaminationCont += Time.deltaTime;
-                if (canShowArrowsContamination && arrowsContaminationCont >= 15f)
-                {
-                    arrowContamination1.SetActive(true);
-                    arrowContamination2.SetActive(true);
-                    arrowContamination3.SetActive(true);
-                    canShowArrowsContamination = false;
-                }
+                
 
                 if (decontaminationCount == 1 && bacteriaCleanedCount == 1 && waterLeakedSolvedCount == 1)
                 {

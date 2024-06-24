@@ -107,6 +107,18 @@ public class PipelineForeground : MonoBehaviour
         rotationAddedY = this.transform.eulerAngles.y;
         initialRotation = this.transform.eulerAngles;
         ShowCorrectWaterFlowButton();
+
+        if (pipelineType == PipelineType.REDIRECTION || pipelineType == PipelineType.REDIRECTIONANDSELECT)
+        {
+            waterfallRedirection1.SetActive(true);
+            waterfallRedirection2.SetActive(false);
+            waterfallRedirection3.SetActive(false);
+            waterfallRedirection4.SetActive(false);
+            waterfallRedirection5.SetActive(false);
+            waterfallRedirection6.SetActive(false);
+            waterfallRedirection7.SetActive(true);
+        }
+        
     }
 
     #endregion Start
@@ -388,11 +400,11 @@ public class PipelineForeground : MonoBehaviour
             GameObject pipe = PlayerController.pipelineEntered;
             PipelineForeground pipeScript = pipe.GetComponent<PipelineForeground>();
 
-            if (pipeScript.isWaterFlowingInThisPipeline)
+            if (pipeScript != null && pipeScript.isWaterFlowingInThisPipeline)
             {
                 waterFlowStatusText.text = "Estado: Flujo de agua abierto";
             }
-            else if (!pipeScript.isWaterFlowingInThisPipeline)
+            else if (pipeScript != null && !pipeScript.isWaterFlowingInThisPipeline)
             {
                 waterFlowStatusText.text = "Estado: Flujo de agua cerrado";
             }
@@ -499,9 +511,11 @@ public class PipelineForeground : MonoBehaviour
             {
                 case 0:
                     waterfallRedirection1.SetActive(false);
+                    waterfallRedirection2.SetActive(true);
                     break;
                 case 1:
                     waterfallRedirection2.SetActive(false);
+                    waterfallRedirection3.SetActive(true);
                     break;
                 case 2:
                     waterfallRedirection3.SetActive(false);
@@ -511,12 +525,15 @@ public class PipelineForeground : MonoBehaviour
                     break;
                 case 4:
                     waterfallRedirection5.SetActive(false);
+                    waterfallRedirection4.SetActive(true);
                     break;
                 case 5:
                     waterfallRedirection6.SetActive(false);
+                    waterfallRedirection5.SetActive(false);
                     break;
                 case 6:
                     waterfallRedirection7.SetActive(false);
+                    waterfallRedirection6.SetActive(true);
                     break;
                 default:
                     break;
