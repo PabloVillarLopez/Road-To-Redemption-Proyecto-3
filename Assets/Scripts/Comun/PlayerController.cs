@@ -50,6 +50,19 @@ public class PlayerController : MonoBehaviour
     public Animator armsIdleAimController;
     public Animator armsRunAimController;
 
+    [Header("Walking Sounds")]
+    public List<AudioClip> walkingSoundsMetalOrSand = new List<AudioClip>(); // Lista de clips de sonido 
+    public AudioSource walkingSound;
+    public enum Minigames
+    {
+        Minigame1,
+        Minigame3,
+        Minigame5,
+        Minigame6
+    }
+
+    public Minigames currentMinigame;
+
     #region Start
 
     // Start is called before the first frame update
@@ -84,6 +97,9 @@ public class PlayerController : MonoBehaviour
         {
             canDialogue = true;
         }
+
+        Debug.Log(pipelineEntered);
+        //Debug.Log()
     }
 
     #endregion Update
@@ -105,6 +121,18 @@ public class PlayerController : MonoBehaviour
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
+
+            if (verticalInput != 0 || horizontalInput != 0)
+            {
+                CheckWalkingSound();
+            }
+            else
+            {
+                if (walkingSound != null)
+                {
+                    walkingSound.Stop();
+                }
+            }
 
             if ((verticalInput != 0 && armsIdle != null && armsRun != null) || (horizontalInput != 0 && armsIdle != null && armsRun != null))
             {
@@ -184,20 +212,24 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("PipelineDecontaminate"))
         {
-            playerEnteredInDecontaminatePipelineArea = true;
-            pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
-            pipelineEntered = other.gameObject;
-            pipelineEnteredHasBeenAlreadyDecontaminated = other.gameObject.GetComponent<PipelineForeground>().alreadyDecontaminated;
-            
-            if (!pipelineEnteredHasBeenAlreadyDecontaminated && LanguageManager.currentLanguage == LanguageManager.Language.English)
+            if (!other.gameObject.GetComponent<PipelineForeground>().alreadyDecontaminated)
             {
-                interactIndicatorEnglish.SetActive(true);
-            }
+                playerEnteredInDecontaminatePipelineArea = true;
+                pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
+                pipelineEntered = other.gameObject;
+                pipelineEnteredHasBeenAlreadyDecontaminated = other.gameObject.GetComponent<PipelineForeground>().alreadyDecontaminated;
 
-            if (!pipelineEnteredHasBeenAlreadyDecontaminated && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
-            {
-                interactIndicatorSpanish.SetActive(true);
+                if (!pipelineEnteredHasBeenAlreadyDecontaminated && LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    interactIndicatorEnglish.SetActive(true);
+                }
+
+                if (!pipelineEnteredHasBeenAlreadyDecontaminated && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    interactIndicatorSpanish.SetActive(true);
+                }
             }
+            
         }
 
         if (other.gameObject.CompareTag("JusticeClue1"))
@@ -255,7 +287,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("PipelineRotate") && MiniGameManager.canInteractWithRotatePipelines)
+        if (other.gameObject.CompareTag("PipelineRotate") && MiniGameManager.canInteractWithRotatePipelines && this.gameObject.activeInHierarchy)
         {
             playerEnteredInRotatePipelineArea = false;
             pipelineEnteredID = 0;
@@ -327,4 +359,37 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion Triggers
+
+    private void CheckWalkingSound()
+    {
+        if (walkingSound != null)
+        {
+            if (!walkingSound.isPlaying)
+            {
+                switch (currentMinigame)
+                {
+                    case Minigames.Minigame1:
+                        walkingSound.clip = walkingSoundsMetalOrSand[0];
+                        walkingSound.Play();
+                        break;
+                    case Minigames.Minigame3:
+                        walkingSound.clip = walkingSoundsMetalOrSand[0];
+                        walkingSound.Play();
+                        break;
+                    case Minigames.Minigame5:
+                        walkingSound.clip = walkingSoundsMetalOrSand[0];
+                        walkingSound.Play();
+                        break;
+                    case Minigames.Minigame6:
+                        walkingSound.clip = walkingSoundsMetalOrSand[1];
+                        walkingSound.Play();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+        }
+        
+    }
 }

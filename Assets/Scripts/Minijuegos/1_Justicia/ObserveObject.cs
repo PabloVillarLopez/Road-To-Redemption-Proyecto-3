@@ -129,6 +129,7 @@ public class ObserveObject : MonoBehaviour
         MouseLook.canLook = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        PauseMenuManager.canPause = false;
         clueCamera.SetActive(false);
         playerCamera.SetActive(true);
         RotateUI.SetActive(false);
@@ -148,6 +149,8 @@ public class ObserveObject : MonoBehaviour
         arrowJustice2.SetActive(true);
         arrowJustice3.SetActive(true);
         lenseAimGlass.SetActive(false);
+        pauseIndicatorEnglish.SetActive(false);
+        pauseIndicatorSpanish.SetActive(false);
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
@@ -157,8 +160,6 @@ public class ObserveObject : MonoBehaviour
             worldCanvasInitialInstructionsSpanish.SetActive(false);
             worldCanvasTutorialEnglish.SetActive(true);
             worldCanvasTutorialSpanish.SetActive(false);
-            pauseIndicatorEnglish.SetActive(true);
-            pauseIndicatorSpanish.SetActive(false);
         }
         else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
@@ -168,8 +169,6 @@ public class ObserveObject : MonoBehaviour
             worldCanvasInitialInstructionsSpanish.SetActive(true);
             worldCanvasTutorialEnglish.SetActive(false);
             worldCanvasTutorialSpanish.SetActive(true);
-            pauseIndicatorEnglish.SetActive(false);
-            pauseIndicatorSpanish.SetActive(true);
         }
 
         tutorialEnglish.SetActive(false);
@@ -790,11 +789,15 @@ public class ObserveObject : MonoBehaviour
         {
             initialInstructionsEnglish.SetActive(false);
             tutorialEnglish.SetActive(false);
+            pauseIndicatorEnglish.SetActive(true);
+            pauseIndicatorSpanish.SetActive(false);
         }
         else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
             initialInstructionsSpanish.SetActive(false);
             tutorialSpanish.SetActive(false);
+            pauseIndicatorEnglish.SetActive(false);
+            pauseIndicatorSpanish.SetActive(true);
         }
 
         ComeBackToLookAndMove();
@@ -806,6 +809,7 @@ public class ObserveObject : MonoBehaviour
         cantMove = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        PauseMenuManager.canPause = true;
     }
 
     public void PlaySound(int sound)

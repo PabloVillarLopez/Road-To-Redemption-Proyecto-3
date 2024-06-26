@@ -14,6 +14,10 @@ public class LanguageManager : MonoBehaviour
 
     public static Language currentLanguage = Language.English;
 
+    [Header("Sound Variables")]
+    public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
+    public AudioSource audioSource; // Referencia al componente AudioSource
+
     public void ChangeLanguageToSpanish()
     {
         currentLanguage = Language.Spanish;
@@ -21,6 +25,7 @@ public class LanguageManager : MonoBehaviour
 
     public void ChangeLanguageToSpanishAndFeedback()
     {
+        PlaySound(0);
         currentLanguage = Language.Spanish;
         StartCoroutine(ShowSpanishFeedbackPanel());
     }
@@ -32,6 +37,7 @@ public class LanguageManager : MonoBehaviour
 
     public void ChangeLanguageToEnglishAndFeedback()
     {
+        PlaySound(0);
         currentLanguage = Language.Spanish;
         StartCoroutine(ShowEnglishFeedbackPanel());
     }
@@ -50,5 +56,15 @@ public class LanguageManager : MonoBehaviour
         panelLanguageChangedToEnglish.SetActive(true);
         yield return new WaitForSeconds(2f);
         panelLanguageChangedToEnglish.SetActive(false);
+    }
+
+    public void PlaySound(int sound)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = soundClips[sound];
+            audioSource.Play();
+        }
+
     }
 }

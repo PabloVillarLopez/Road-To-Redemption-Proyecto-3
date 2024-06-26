@@ -150,6 +150,7 @@ public class MainMenu : MonoBehaviour
 
     public void Exit()
     {
+        PlaySound(0);
         Application.Quit();
     }
 
@@ -345,5 +346,10 @@ public class MainMenu : MonoBehaviour
             audioSource.Play();
         }
 
+    }
+
+    public void PlaysSoundButton()
+    {
+        PlaySound(0);
     }
 }

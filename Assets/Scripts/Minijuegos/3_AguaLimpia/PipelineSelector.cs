@@ -17,6 +17,9 @@ public class PipelineSelector : MonoBehaviour
     private int selectedPipeline = 0;
     private int previousPipeline = -1;
 
+    [Header("Minigame Manager")]
+    public MiniGameManager minigameManager;
+
     private void Awake()
     {
         
@@ -54,10 +57,22 @@ public class PipelineSelector : MonoBehaviour
         {
             if (i == selectedPipeline)
             {
+                minigameManager.PlaySound(3);
                 pipeline.SetActive(true);
                 PlayerController.pipelineEntered = pipeline;
+                minigameManager.pipelineActiveGameObject = pipeline;
+                if (pipeline.transform.parent.GetComponent<PipelineForeground>() != null)
+                {
+                    minigameManager.pipelineActive = pipeline.transform.parent.GetComponent<PipelineForeground>();
+                    minigameManager.pipelineActiveGameObject = pipeline.transform.parent.gameObject;
+                }
+                else
+                {
+                    minigameManager.pipelineActive = pipeline.GetComponent<PipelineForeground>();
+                }
+                
                 pipelinesIcons[i].gameObject.SetActive(true);
-                pipeline.transform.position = pipelinesToRotateAndSelect[0].transform.position;
+                //pipeline.transform.position = pipelinesToRotateAndSelect[0].transform.position;
                 //PipelineForeground pipelineActive = pipeline.GetComponent<PipelineForeground>();
             }
             else

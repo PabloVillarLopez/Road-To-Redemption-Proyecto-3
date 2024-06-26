@@ -141,6 +141,7 @@ public class MiniGameManager : MonoBehaviour
     #region Pipeline Reference
 
     public PipelineForeground pipelineActive;
+    public GameObject pipelineActiveGameObject;
 
     #endregion Pipeline Reference
 
@@ -250,6 +251,7 @@ public class MiniGameManager : MonoBehaviour
     public GameObject arrowRedirection7;
     private bool canShowArrowsContamination = true;
     private bool canShowArrowsRedirection = false;
+    private bool canShowVfxRedirection = false;
     private float arrowsContaminationCont = 0;
     private float arrowsRedirectionCont = 0;
 
@@ -411,11 +413,13 @@ public class MiniGameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInRotatePipelineArea && canInteractWithRotatePipelines && !PlayerController.pipelineEnteredHasBeenAlreadyRotated)
         {
+            PlaySound(1); //some feedback
             PipelineRotateCamera();
         }
 
         if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInDecontaminatePipelineArea && !PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated)
         {
+            PlaySound(1); //some feedback
             PipelineDecontaminateCamera();
         }
 
@@ -438,7 +442,7 @@ public class MiniGameManager : MonoBehaviour
         bacteriaSlider.value = bacteriaContamination;
         waterLeakSlider.value = waterLeak;
 
-        if (Input.GetKeyDown(KeyCode.C))
+        /*if (Input.GetKeyDown(KeyCode.C))
         {
             LanguageManager.currentLanguage = LanguageManager.Language.Spanish;
         }
@@ -446,7 +450,7 @@ public class MiniGameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             LanguageManager.currentLanguage = LanguageManager.Language.English;
-        }
+        }*/
 
         HandleUIDependingOnLanguage();
     }
@@ -768,7 +772,12 @@ public class MiniGameManager : MonoBehaviour
     {
         if (PlayerController.pipelineEntered != null)
         {
-            pipelineActive = PlayerController.pipelineEntered.GetComponent<PipelineForeground>();
+            if (playerCamera.activeInHierarchy)
+            {
+                pipelineActive = PlayerController.pipelineEntered.GetComponent<PipelineForeground>();
+                pipelineActiveGameObject = PlayerController.pipelineEntered;
+            }
+            
         }
         
         if (pipelineActive != null)
@@ -904,6 +913,7 @@ public class MiniGameManager : MonoBehaviour
 
         if (clickToDecontaminateCount >= 5)
         {
+            PlaySound(2); //decontaminating sound
             contaminationCoroutineRunning = false;
             //StopCoroutine(contaminationTransitionCoroutine);
             //StopCoroutine(BlinkingContaminationWarning());
@@ -920,6 +930,7 @@ public class MiniGameManager : MonoBehaviour
             //PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated = true;
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().alreadyDecontaminated = true;
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
+            PlayerController.pipelineEntered.GetComponent<PipelineForeground>().vfxAsociated.SetActive(false);
             pipelineRenderer = PlayerController.pipelineEntered.GetComponent<Renderer>();
             pipelineRenderer.sharedMaterial = cornerNormalMaterial;
 
@@ -931,6 +942,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void ClickToCleanBacteria()
     {
+        PlaySound(2); //decontaminating sound
         clickToDecontaminateBacteriaCount++;
 
         if (clickToDecontaminateBacteriaCount >= 5)
@@ -950,6 +962,7 @@ public class MiniGameManager : MonoBehaviour
             congratulationsPanelText.text = "Congratulations on decontamining the water of bacteria.";
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().alreadyDecontaminated = true;
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
+            PlayerController.pipelineEntered.GetComponent<PipelineForeground>().vfxAsociated.SetActive(false);
             pipelineRenderer = PlayerController.pipelineEntered.GetComponent<Renderer>();
             pipelineRenderer.sharedMaterial = uNormalMaterial;
             //PlayerController.pipelineEnteredHasBeenAlreadyDecontaminated = true;
@@ -982,6 +995,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void ComeBackToPlayerCameraAfterEvent()
     {
+        PlaySound(3); //button sound
         playerCamera.SetActive(true);
         pipelineCamera.SetActive(false);
         pipelineCameraActive = false;
@@ -1008,9 +1022,9 @@ public class MiniGameManager : MonoBehaviour
 
         switch (PlayerController.pipelineRotateEnteredID)
         {
-            case 0:
-                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(0, 0, 4); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
-                pipelineCamera.transform.eulerAngles = new Vector3(0, -180, 0);
+            case 0: //ya revisada
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(1.6f, 0.28f, 0.3f); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
 
                 selectDonw1Button.SetActive(true);
                 selectUp1Button.SetActive(true);
@@ -1026,7 +1040,7 @@ public class MiniGameManager : MonoBehaviour
                 //pipelineSelector2.SetActive(false);
                 //pipelineSelector3.SetActive(false);
                 break;
-            case 1:
+            case 1: //ya revisada
                 pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, 0); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
                 pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
 
@@ -1037,8 +1051,8 @@ public class MiniGameManager : MonoBehaviour
                 selectDown3Button.SetActive(false);
                 selectUp3Button.SetActive(false);
                 break;
-            case 2:
-                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, 1); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+            case 2: //ya revisada
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(2.7f, -0.5f, 1); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
                 pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
 
                 selectDonw1Button.SetActive(false);
@@ -1055,9 +1069,9 @@ public class MiniGameManager : MonoBehaviour
                 pipelineSelector3.GetComponent<PipelineSelector>().DeactivatePipelines();
                 //pipelineSelector3.SetActive(false);
                 break;
-            case 3:
-                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, -1); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
-                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+            case 3: //ya revisada
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(-2, 0.4f, 0.1f); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, 90, 0);
 
                 selectDonw1Button.SetActive(false);
                 selectUp1Button.SetActive(false);
@@ -1066,9 +1080,9 @@ public class MiniGameManager : MonoBehaviour
                 selectDown3Button.SetActive(false);
                 selectUp3Button.SetActive(false);
                 break;
-            case 4:
-                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, -1); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
-                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+            case 4: //ya revisada
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(-2.6f, 0, -0.3f); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, 90, 0);
 
                 selectDown2Button.SetActive(false);
                 selectUp2Button.SetActive(false);
@@ -1085,9 +1099,9 @@ public class MiniGameManager : MonoBehaviour
                 pipelineSelector3.SetActive(true);
                 pipelineSelector3.GetComponent<PipelineSelector>().SelectPipeline();
                 break;
-            case 5:
-                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, 0); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
-                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+            case 5: //ya revisada
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(-2f, -0.6f, 0); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, 90, 0);
 
                 selectDonw1Button.SetActive(false);
                 selectUp1Button.SetActive(false);
@@ -1096,9 +1110,9 @@ public class MiniGameManager : MonoBehaviour
                 selectDown3Button.SetActive(false);
                 selectUp3Button.SetActive(false);
                 break;
-            case 6:
-                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(4, 0, 0); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
-                pipelineCamera.transform.eulerAngles = new Vector3(0, -90, 0);
+            case 6: //ya revisada
+                pipelineCamera.transform.position = pipelinesToRotate[PlayerController.pipelineRotateEnteredID].transform.position + new Vector3(-2f, -0.1f, 0); //pipelines[0].transform.position + new Vector3(0, 0, -5); //Place the camera in front of the correct pipeline
+                pipelineCamera.transform.eulerAngles = new Vector3(0, 90, 0);
 
                 selectDonw1Button.SetActive(false);
                 selectUp1Button.SetActive(false);
@@ -1273,6 +1287,7 @@ public class MiniGameManager : MonoBehaviour
                 {
                     phases = Phases.TOWN;
                     canShowArrowsRedirection = true;
+                    canShowVfxRedirection = true;
 
                     if (cinematicCleanWaterCanStart)
                     {
@@ -1309,8 +1324,8 @@ public class MiniGameManager : MonoBehaviour
                     instructionsText.text = "Rota las tuberías que están mal colocadas. Tuberías bien colocadas: " + (pipelinesInCorrectPlace) + " / 7";
                 }
 
-                arrowsRedirectionCont += Time.deltaTime;
-                if (canShowArrowsRedirection && arrowsRedirectionCont >= 15f)
+                //arrowsRedirectionCont += Time.deltaTime;
+                if (canShowArrowsRedirection)
                 {
                     arrowRedirection1.SetActive(true);
                     arrowRedirection2.SetActive(true);
@@ -1320,6 +1335,18 @@ public class MiniGameManager : MonoBehaviour
                     arrowRedirection6.SetActive(true);
                     arrowRedirection7.SetActive(true);
                     canShowArrowsRedirection = false;
+                }
+
+                if (canShowVfxRedirection)
+                {
+                    vfxRotate1.SetActive(true);
+                    vfxRotate2.SetActive(true);
+                    vfxRotate3.SetActive(true);
+                    vfxRotate4.SetActive(true);
+                    vfxRotate5.SetActive(true);
+                    vfxRotate6.SetActive(true);
+                    vfxRotate7.SetActive(true);
+                    canShowVfxRedirection = false;
                 }
 
                 if (pipelinesInCorrectPlace >= 7)
@@ -1543,6 +1570,7 @@ public class MiniGameManager : MonoBehaviour
 
     public IEnumerator CinematicCleanWater()
     {
+        PlaySound(4); //good feedback sound
         canvas.gameObject.SetActive(false);
         cinematicCamera.gameObject.SetActive(true);
         pipelineCamera.SetActive(false);
@@ -1566,6 +1594,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void ShowTutorial1()
     {
+        PlaySound(3);
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             initialInstructionsEnglish.SetActive(false);
@@ -1580,6 +1609,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void HideTutorials1()
     {
+        PlaySound(3);
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             pauseIndicatorEnglish.SetActive(true);
@@ -1600,6 +1630,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void HideTutorials2()
     {
+        PlaySound(3);
         tutorial2English.SetActive(false);
         tutorial2Spanish.SetActive(false);
     }
@@ -1639,6 +1670,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void FinishMinigame()
     {
+        PlaySound(3);
         MinigamesCompleted.minigame3Finished = true;
         PauseMenuManager.canPause = true;
         SceneManager.LoadScene("LevelSelector");

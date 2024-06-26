@@ -81,6 +81,7 @@ public class RotateClue : MonoBehaviour
 
     public void RotateLeftX()
     {
+        minigameManager.PlaySound(2);
         angleAddedY -= 45f;
 
         if (angleAddedY == 360)

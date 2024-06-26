@@ -44,16 +44,14 @@ public class TimerController : MonoBehaviour
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
-            pauseIndicatorEnglish.SetActive(true);
-            pauseIndicatorSpanish.SetActive(false);
+            
             initialInstructionsEnglish.SetActive(true);
             initialInstructionsSpanish.SetActive(false);   
         }
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
-            pauseIndicatorEnglish.SetActive(false);
-            pauseIndicatorSpanish.SetActive(true);
+            
             initialInstructionsEnglish.SetActive(false);
             initialInstructionsSpanish.SetActive(true);
         }
@@ -67,6 +65,9 @@ public class TimerController : MonoBehaviour
         Cursor.visible = true;
         MouseLook.canLook = false;
         ObserveObject.cantMove = true;
+        PauseMenuManager.canPause = false;
+        pauseIndicatorEnglish.SetActive(false);
+        pauseIndicatorSpanish.SetActive(false);
 
         if (audioSourceBackground != null)
         {
@@ -166,6 +167,19 @@ public class TimerController : MonoBehaviour
         Cursor.visible = false;
         MouseLook.canLook = true;
         ObserveObject.cantMove = false;
+        PauseMenuManager.canPause = true;
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            pauseIndicatorEnglish.SetActive(true);
+            pauseIndicatorSpanish.SetActive(false);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            pauseIndicatorEnglish.SetActive(false);
+            pauseIndicatorSpanish.SetActive(true);
+        }
+        
     }
 
     private void FinishGame()

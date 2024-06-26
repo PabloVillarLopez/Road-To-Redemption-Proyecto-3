@@ -12,6 +12,12 @@ public class PauseMenuManager : MonoBehaviour
     public GameObject englishPausePanel;
     public static bool gameIsPaused;
 
+    [Header("Minigames Musics")]
+    public AudioSource minigame1Music;
+    public AudioSource minigame3Music;
+    public AudioSource minigame5Music;
+    public AudioSource minigame6Music;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +28,9 @@ public class PauseMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && LanguageManager.currentLanguage == LanguageManager.Language.Spanish && !spanishPausePanel.activeInHierarchy)
+        if (Input.GetKeyDown(KeyCode.Escape) && LanguageManager.currentLanguage == LanguageManager.Language.Spanish && !spanishPausePanel.activeInHierarchy && canPause)
         {
+            ManagerToPauseMinigameMusic();
             Time.timeScale = 0f;
             spanishPausePanel.SetActive(true);
             gameIsPaused = true;
@@ -31,8 +38,9 @@ public class PauseMenuManager : MonoBehaviour
             Cursor.visible = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && LanguageManager.currentLanguage == LanguageManager.Language.English && !englishPausePanel.activeInHierarchy)
+        if (Input.GetKeyDown(KeyCode.Escape) && LanguageManager.currentLanguage == LanguageManager.Language.English && !englishPausePanel.activeInHierarchy && canPause)
         {
+            ManagerToPauseMinigameMusic();
             Time.timeScale = 0f;
             englishPausePanel.SetActive(true);
             gameIsPaused = true;
@@ -48,6 +56,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void ContinueGame()
     {
+        ManagerToContinueMinigameMusic();
         englishPausePanel.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -57,6 +66,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void ContinuarJuego()
     {
+        ManagerToContinueMinigameMusic();
         spanishPausePanel.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -66,6 +76,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void ContinueGameMinigame1()
     {
+        ManagerToContinueMinigameMusic();
         englishPausePanel.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -74,6 +85,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void ContinuarJuegoMinijuego1()
     {
+        ManagerToContinueMinigameMusic();
         spanishPausePanel.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -101,6 +113,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void ContinueGameMinigame5()
     {
+        ManagerToContinueMinigameMusic();
         englishPausePanel.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -109,6 +122,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void ContinuarJuegoMinijuego5()
     {
+        ManagerToContinueMinigameMusic();
         spanishPausePanel.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -139,6 +153,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void ContinueGameMinigame3()
     {
+        ManagerToContinueMinigameMusic();
         englishPausePanel.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -147,6 +162,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void ContinuarJuegoMinijuego3()
     {
+        ManagerToContinueMinigameMusic();
         spanishPausePanel.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -180,6 +196,52 @@ public class PauseMenuManager : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
+        }
+    }
+
+    private void ManagerToPauseMinigameMusic()
+    {
+        if (minigame1Music != null)
+        {
+            minigame1Music.Stop();
+        }
+
+        if (minigame3Music != null)
+        {
+            minigame3Music.Stop();
+        }
+
+        if (minigame5Music != null)
+        {
+            minigame5Music.Stop();
+        }
+
+        if (minigame6Music != null)
+        {
+            minigame6Music.Stop();
+        }
+    }
+
+    private void ManagerToContinueMinigameMusic()
+    {
+        if (minigame1Music != null)
+        {
+            minigame1Music.Play();
+        }
+
+        if (minigame3Music != null)
+        {
+            minigame3Music.Play();
+        }
+
+        if (minigame5Music != null)
+        {
+            minigame5Music.Play();
+        }
+
+        if (minigame6Music != null)
+        {
+            minigame6Music.Play();
         }
     }
 }

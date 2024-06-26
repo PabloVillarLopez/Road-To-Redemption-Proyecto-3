@@ -70,6 +70,7 @@ public class PipelineForeground : MonoBehaviour
     private int rotationCount = 0;
     public GameObject player;
     public GameObject arrowAsociated;
+    public GameObject vfxAsociated;
 
     [Header("Waterfalls")]
     public GameObject waterfallContamination;
@@ -84,6 +85,9 @@ public class PipelineForeground : MonoBehaviour
     [Header("Material change contamination pipeline")]
     public Material straightPipelineMaterial;
     private Renderer pipelineRenderer;
+
+    [Header("Minigame Manager")]
+    public MiniGameManager minigameManager;
 
     #region Awake
 
@@ -310,8 +314,10 @@ public class PipelineForeground : MonoBehaviour
 
         rotationCount++;
 
-        GameObject pipe = PlayerController.pipelineEntered;
-        PipelineForeground pipeScript = pipe.GetComponent<PipelineForeground>();
+        //GameObject pipe = PlayerController.pipelineEntered;
+        //PipelineForeground pipeScript = pipe.GetComponent<PipelineForeground>();
+        GameObject pipe = minigameManager.pipelineActiveGameObject;
+        PipelineForeground pipeScript = minigameManager.pipelineActive;
 
         pipeScript.rotationAddedX += deltaX;
         pipeScript.rotationAddedY += deltaY;
@@ -334,6 +340,8 @@ public class PipelineForeground : MonoBehaviour
 
     public void OpenWaterFlow()
     {
+        minigameManager.PlaySound(3);
+
         GameObject pipe = PlayerController.pipelineEntered;
         PipelineForeground pipeScript = pipe.GetComponent<PipelineForeground>();
 
@@ -343,8 +351,13 @@ public class PipelineForeground : MonoBehaviour
 
     public void CloseWaterFlow()
     {
+        minigameManager.PlaySound(3);
+
         GameObject pipe = PlayerController.pipelineEntered;
         PipelineForeground pipeScript = pipe.GetComponent<PipelineForeground>();
+
+        //GameObject pipe = minigameManager.pipelineActiveGameObject;
+        //PipelineForeground pipeScript = minigameManager.pipelineActive;
 
         pipeScript.isWaterFlowingInThisPipeline = false;
 
@@ -362,6 +375,7 @@ public class PipelineForeground : MonoBehaviour
             gameManager.congratulationsPanelText.text = "Congratulations on controlling efficiently the water flow.";
             alreadyDecontaminated = true;
             PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
+            PlayerController.pipelineEntered.GetComponent<PipelineForeground>().vfxAsociated.SetActive(false);
             pipelineRenderer = PlayerController.pipelineEntered.GetComponent<Renderer>();
             pipelineRenderer.sharedMaterial = straightPipelineMaterial;
             closeWaterFlowButton.SetActive(false);
@@ -399,6 +413,9 @@ public class PipelineForeground : MonoBehaviour
         {
             GameObject pipe = PlayerController.pipelineEntered;
             PipelineForeground pipeScript = pipe.GetComponent<PipelineForeground>();
+
+            //GameObject pipe = minigameManager.pipelineActiveGameObject;
+            //PipelineForeground pipeScript = minigameManager.pipelineActive;
 
             if (pipeScript != null && pipeScript.isWaterFlowingInThisPipeline)
             {
@@ -476,8 +493,11 @@ public class PipelineForeground : MonoBehaviour
 
     public void VerifyCorrectRotation()
     {
-        GameObject pipe = PlayerController.pipelineEntered;
-        PipelineForeground pipeScript = pipe.GetComponent<PipelineForeground>();
+        //GameObject pipe = PlayerController.pipelineEntered;
+        //PipelineForeground pipeScript = pipe.GetComponent<PipelineForeground>();
+
+        GameObject pipe = minigameManager.pipelineActiveGameObject;
+        PipelineForeground pipeScript = minigameManager.pipelineActive;
 
         Debug.Log("Rotación tubería: " + pipeScript.rotationAddedX + ", " + pipeScript.rotationAddedY);
         Debug.Log("Rotación tubería real: " + pipe.transform.eulerAngles.x + " , " + pipe.transform.eulerAngles.y + " , " + pipe.transform.eulerAngles.z);
@@ -485,6 +505,7 @@ public class PipelineForeground : MonoBehaviour
 
         if (IsRotationCorrect(pipe.transform.eulerAngles))
         {
+            minigameManager.PlaySound(5); //good feedback sound
             Debug.Log("Aquí llego");
             pipelineInCorrecRotation = true;
             gameManager.points += 10;
@@ -502,10 +523,10 @@ public class PipelineForeground : MonoBehaviour
             rotationCount = 0;
             gameManager.pipelinesInCorrectPlace++;
 
-            if (pipeScript.pipelineRotateId == 1)
+            /*if (pipeScript.pipelineRotateId == 1)
             {
                 player.transform.position = new Vector3(-5.88999987f, 1.02022767f, 0.893214941f);
-            }
+            }*/
 
             switch (pipeScript.pipelineRotateId)
             {
@@ -528,7 +549,7 @@ public class PipelineForeground : MonoBehaviour
                     waterfallRedirection4.SetActive(true);
                     break;
                 case 5:
-                    waterfallRedirection6.SetActive(false);
+                    waterfallRedirection6.SetActive(true);
                     waterfallRedirection5.SetActive(false);
                     break;
                 case 6:
@@ -539,7 +560,12 @@ public class PipelineForeground : MonoBehaviour
                     break;
             }
 
-            PlayerController.pipelineEntered.GetComponent<PipelineForeground>().arrowAsociated.SetActive(false);
+            pipeScript.arrowAsociated.SetActive(false);
+            pipeScript.vfxAsociated.SetActive(false);
+        }
+        else
+        {
+            minigameManager.PlaySound(6); //negative feedback
         }
 
 
