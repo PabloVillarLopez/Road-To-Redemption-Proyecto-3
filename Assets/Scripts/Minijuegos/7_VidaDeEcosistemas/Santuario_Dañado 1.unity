@@ -1583,7 +1583,7 @@ PrefabInstance:
     - target: {fileID: 849459910252743907, guid: 0fb73a93dc70555499d1b6fa1b99d2fa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 426
       objectReference: {fileID: 0}
     - target: {fileID: 849459910252743907, guid: 0fb73a93dc70555499d1b6fa1b99d2fa,
         type: 3}
@@ -1672,13 +1672,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3237408385494863118, guid: 0fb73a93dc70555499d1b6fa1b99d2fa,
         type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0214
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237408385494863118, guid: 0fb73a93dc70555499d1b6fa1b99d2fa,
+        type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0024414062
+      value: 538.99756
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370349496078228953, guid: 0fb73a93dc70555499d1b6fa1b99d2fa,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.555272
       objectReference: {fileID: 0}
     - target: {fileID: 5370349496078228953, guid: 0fb73a93dc70555499d1b6fa1b99d2fa,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 539
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12512,9 +12522,18 @@ MonoBehaviour:
     fase. Y, por si lo est\xE1s pensando, la pistola solo teletransporta basura,
     no puedes huir con ella granuja."
   englishLines:
-  - sdfsfsdfsdfsdf
-  - sdfsdfsdfsdfsdfs
-  - sdfsdfsdfsdfsdfs
+  - Greetings, Inmate Gronk. Welcome to the Diverse Natural Sanctuary of the Newfoundland
+    region. I am the Police Robot from the Unit of Security and Crime Prevention
+    in Advanced Urban Environments Model X8-7000, but you can call me X8.
+  - As you can see, the sanctuary is in a deplorable state due to the accumulation
+    of garbage and environmental degradation. But all is not lost.
+  - With your help, we can restore this beautiful place to its former glory.
+  - First of all, we need to clean up the trash. To do this, use the teleporter gun.
+    Hold down the left mouse button to shoot a beam that will teleport the garbage
+    to the container.
+  - "Clean up the three areas: the meadow, the pond, and the forest, to proceed to
+    the next phase. And in case you\u2019re thinking about it, the gun only teleports
+    trash\u2014you can\u2019t escape with it, rascal."
 --- !u!114 &2007620582348857445
 MonoBehaviour:
   m_ObjectHideFlags: 0

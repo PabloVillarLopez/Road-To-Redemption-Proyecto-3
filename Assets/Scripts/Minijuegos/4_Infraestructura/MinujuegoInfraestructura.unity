@@ -10914,7 +10914,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: eeb98880bb276d14f9c29d897157c110, type: 2}
+      objectReference: {fileID: 2100000, guid: 879c5e273200e7f42bbb62053ce913d4, type: 2}
     - target: {fileID: 8879528566716807029, guid: 951a267eb1f1b07479bc3ba9d41c3908,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13496,6 +13496,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pause
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370349496078228953, guid: 0fb73a93dc70555499d1b6fa1b99d2fa,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 551.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370349496078228953, guid: 0fb73a93dc70555499d1b6fa1b99d2fa,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 310.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370349496078228953, guid: 0fb73a93dc70555499d1b6fa1b99d2fa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370349496078228953, guid: 0fb73a93dc70555499d1b6fa1b99d2fa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 540
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

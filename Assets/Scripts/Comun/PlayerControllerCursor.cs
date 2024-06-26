@@ -135,7 +135,10 @@ public class PlayerControllerCursor : MonoBehaviour
       {
             if (hit.collider.CompareTag("CatchAble"))
         {
-                manager.activeInteract(true);
+                if (manager != null)
+                {
+                    manager.activeInteract(true);
+                }
 
                 if (Input.GetKeyDown(KeyCode.E))
             {
@@ -190,8 +193,12 @@ public class PlayerControllerCursor : MonoBehaviour
         }
         else
         {
-            manager.activeInteract(false);
-            isPlanting = false;
+            if (manager !=null)
+                {
+                    manager.activeInteract(false);
+                    isPlanting = false;
+                }
+               
         }
 
         HandleZoneTags(hit);
@@ -221,6 +228,8 @@ public class PlayerControllerCursor : MonoBehaviour
                 }
             }
       }
+
+
     }
 
 
