@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class EnterMinigames : MonoBehaviour
 {
     public int minigameID;
+    public SpriteRenderer[] unlockedIcons;
+    public Sprite[] lockedIcons;
+    public MainMenu menuManager;
 
     // Start is called before the first frame update
     void Start()
@@ -24,25 +27,88 @@ public class EnterMinigames : MonoBehaviour
         switch (minigameID)
         {
             case 1: //Hambre cero
-                SceneManager.LoadScene("miniJuego1");
+                if (!MinigamesCompleted.minigame2Finished)
+                {
+                    menuManager.PlaySound(0);
+                    SceneManager.LoadScene("miniJuego1");
+                }
+                else if (MinigamesCompleted.minigame2Finished)
+                {
+                    menuManager.PlaySound(2); //negative feedback
+                    unlockedIcons[0].sprite = lockedIcons[0];
+                }
                 break;
             case 2: //Agua limpia
-                SceneManager.LoadScene("Minijuego3_AguaLimpia");
+                if (!MinigamesCompleted.minigame3Finished)
+                {
+                    menuManager.PlaySound(0);
+                    SceneManager.LoadScene("Minijuego3_AguaLimpia");
+                }
+                else if (MinigamesCompleted.minigame3Finished)
+                {
+                    menuManager.PlaySound(2); //negative feedback
+                    unlockedIcons[1].sprite = lockedIcons[1];
+                }
                 break;
             case 3: //Infraestructrua
-                SceneManager.LoadScene("MinujuegoInfraestructura");
+                if (!MinigamesCompleted.minigame4Finished)
+                {
+                    menuManager.PlaySound(0);
+                    SceneManager.LoadScene("MinujuegoInfraestructura");
+                }
+                else if (MinigamesCompleted.minigame4Finished)
+                {
+                    menuManager.PlaySound(2); //negative feedback
+                    unlockedIcons[2].sprite = lockedIcons[2];
+                }
                 break;
             case 4: //Energía asequible
-                SceneManager.LoadScene("Minijuego_Marc");
+                if (!MinigamesCompleted.minigame5Finished)
+                {
+                    menuManager.PlaySound(0);
+                    SceneManager.LoadScene("Minijuego_Marc");
+                }
+                else if (MinigamesCompleted.minigame5Finished)
+                {
+                    menuManager.PlaySound(2); //negative feedback
+                    unlockedIcons[3].sprite = lockedIcons[3];
+                }
                 break;
             case 5: //Vida submarina
-                SceneManager.LoadScene("Minijuego6_VidaSubmarina");
+                if (!MinigamesCompleted.minigame6Finished)
+                {
+                    menuManager.PlaySound(0);
+                    SceneManager.LoadScene("Minijuego6_VidaSubmarina");
+                }
+                else if (MinigamesCompleted.minigame6Finished)
+                {
+                    menuManager.PlaySound(2); //negative feedback
+                    unlockedIcons[4].sprite = lockedIcons[4];
+                }
                 break;
             case 6: //Vida de ecosistemas terrestres
-                SceneManager.LoadScene("Santuario_Dañado 1");
+                if (!MinigamesCompleted.minigame7Finished)
+                {
+                    menuManager.PlaySound(0);
+                    SceneManager.LoadScene("Santuario_Dañado 1");
+                }
+                else if (MinigamesCompleted.minigame7Finished)
+                {
+                    menuManager.PlaySound(2); //negative feedback
+                    unlockedIcons[5].sprite = lockedIcons[5];
+                }
                 break;
             case 7: //Acción por el clima
-                SceneManager.LoadScene("MiniGame_8");
+                if (!MinigamesCompleted.minigame8Finished)
+                {
+                    menuManager.PlaySound(0);
+                    SceneManager.LoadScene("MiniGame_8");
+                }
+                else if (MinigamesCompleted.minigame8Finished)
+                {
+                    menuManager.PlaySound(2); //negative feedback
+                    unlockedIcons[6].sprite = lockedIcons[6];
+                }
                 break;
             default:
                 break;

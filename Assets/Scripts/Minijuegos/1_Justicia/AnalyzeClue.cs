@@ -31,6 +31,52 @@ public class AnalyzeClue : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (timer >= 5)
         {
             cluesAnalyzed++;
+
+            switch (cluesAnalyzed)
+            {
+                case 1:
+                    if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                    {
+                        minigameManager.note0English.SetActive(false);
+                        minigameManager.note1English.SetActive(true);
+                    }
+                    else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                    {
+                        minigameManager.note0Spanish.SetActive(false);
+                        minigameManager.note1Spanish.SetActive(true);
+                    }
+                    break;
+                case 2:
+                    if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                    {
+                        minigameManager.note1English.SetActive(false);
+                        minigameManager.note2English.SetActive(true);
+                    }
+                    else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                    {
+                        minigameManager.note1Spanish.SetActive(false);
+                        minigameManager.note2Spanish.SetActive(true);
+                    }
+                    break;
+                case 3:
+                    if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                    {
+                        minigameManager.note2English.SetActive(false);
+                        minigameManager.note3English.SetActive(true);
+                    }
+                    else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                    {
+                        minigameManager.note2Spanish.SetActive(false);
+                        minigameManager.note3Spanish.SetActive(true);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            
+
+            
             Debug.Log(cluesAnalyzed);
             analyzeSlider.gameObject.SetActive(false);
             analyzeButton.SetActive(false);

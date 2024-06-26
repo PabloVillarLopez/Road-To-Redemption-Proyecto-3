@@ -2033,6 +2033,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameID: 7
+  unlockedIcons:
+  - {fileID: 1567881412}
+  - {fileID: 837332243}
+  - {fileID: 1182232674}
+  - {fileID: 1053016798}
+  - {fileID: 1981599224}
+  - {fileID: 15315924}
+  - {fileID: 670472653}
+  lockedIcons:
+  - {fileID: 21300000, guid: 00290e9bebbc2e64bb47620f5d84b931, type: 3}
+  - {fileID: 21300000, guid: 6edfd1f678c8f0743ac2111603f8e10a, type: 3}
+  - {fileID: 21300000, guid: baa6f640214154c41a8a95b77f943318, type: 3}
+  - {fileID: 21300000, guid: 47fbb9ceeec388242a760bc4937a1d1a, type: 3}
+  - {fileID: 21300000, guid: 92ab29b0e312904469b600df79fee679, type: 3}
+  - {fileID: 21300000, guid: b6bd70c33138f744ebb34f85b848463a, type: 3}
+  - {fileID: 21300000, guid: 30c6b4ec995383d4da4f932aa43449d5, type: 3}
+  menuManager: {fileID: 8218986179526144025}
 --- !u!1 &403788786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2424,6 +2441,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameID: 2
+  unlockedIcons:
+  - {fileID: 1567881412}
+  - {fileID: 837332243}
+  - {fileID: 1182232674}
+  - {fileID: 1053016798}
+  - {fileID: 1981599224}
+  - {fileID: 15315924}
+  - {fileID: 670472653}
+  lockedIcons:
+  - {fileID: 21300000, guid: 00290e9bebbc2e64bb47620f5d84b931, type: 3}
+  - {fileID: 21300000, guid: 6edfd1f678c8f0743ac2111603f8e10a, type: 3}
+  - {fileID: 21300000, guid: baa6f640214154c41a8a95b77f943318, type: 3}
+  - {fileID: 21300000, guid: 47fbb9ceeec388242a760bc4937a1d1a, type: 3}
+  - {fileID: 21300000, guid: 92ab29b0e312904469b600df79fee679, type: 3}
+  - {fileID: 21300000, guid: b6bd70c33138f744ebb34f85b848463a, type: 3}
+  - {fileID: 21300000, guid: 30c6b4ec995383d4da4f932aa43449d5, type: 3}
+  menuManager: {fileID: 8218986179526144025}
 --- !u!1 &462086426
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,6 +4802,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameID: 4
+  unlockedIcons:
+  - {fileID: 1567881412}
+  - {fileID: 837332243}
+  - {fileID: 1182232674}
+  - {fileID: 1053016798}
+  - {fileID: 1981599224}
+  - {fileID: 15315924}
+  - {fileID: 670472653}
+  lockedIcons:
+  - {fileID: 21300000, guid: 00290e9bebbc2e64bb47620f5d84b931, type: 3}
+  - {fileID: 21300000, guid: 6edfd1f678c8f0743ac2111603f8e10a, type: 3}
+  - {fileID: 21300000, guid: baa6f640214154c41a8a95b77f943318, type: 3}
+  - {fileID: 21300000, guid: 47fbb9ceeec388242a760bc4937a1d1a, type: 3}
+  - {fileID: 21300000, guid: 92ab29b0e312904469b600df79fee679, type: 3}
+  - {fileID: 21300000, guid: b6bd70c33138f744ebb34f85b848463a, type: 3}
+  - {fileID: 21300000, guid: 30c6b4ec995383d4da4f932aa43449d5, type: 3}
+  menuManager: {fileID: 8218986179526144025}
 --- !u!1 &938255277
 GameObject:
   m_ObjectHideFlags: 0
@@ -5889,6 +5940,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameID: 6
+  unlockedIcons:
+  - {fileID: 1567881412}
+  - {fileID: 837332243}
+  - {fileID: 1182232674}
+  - {fileID: 1053016798}
+  - {fileID: 1981599224}
+  - {fileID: 15315924}
+  - {fileID: 670472653}
+  lockedIcons:
+  - {fileID: 21300000, guid: 00290e9bebbc2e64bb47620f5d84b931, type: 3}
+  - {fileID: 21300000, guid: 6edfd1f678c8f0743ac2111603f8e10a, type: 3}
+  - {fileID: 21300000, guid: baa6f640214154c41a8a95b77f943318, type: 3}
+  - {fileID: 21300000, guid: 47fbb9ceeec388242a760bc4937a1d1a, type: 3}
+  - {fileID: 21300000, guid: 92ab29b0e312904469b600df79fee679, type: 3}
+  - {fileID: 21300000, guid: b6bd70c33138f744ebb34f85b848463a, type: 3}
+  - {fileID: 21300000, guid: 30c6b4ec995383d4da4f932aa43449d5, type: 3}
+  menuManager: {fileID: 8218986179526144025}
 --- !u!1 &1291934423
 GameObject:
   m_ObjectHideFlags: 0
@@ -6747,6 +6815,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameID: 5
+  unlockedIcons:
+  - {fileID: 1567881412}
+  - {fileID: 837332243}
+  - {fileID: 1182232674}
+  - {fileID: 1053016798}
+  - {fileID: 1981599224}
+  - {fileID: 15315924}
+  - {fileID: 670472653}
+  lockedIcons:
+  - {fileID: 21300000, guid: 00290e9bebbc2e64bb47620f5d84b931, type: 3}
+  - {fileID: 21300000, guid: 6edfd1f678c8f0743ac2111603f8e10a, type: 3}
+  - {fileID: 21300000, guid: baa6f640214154c41a8a95b77f943318, type: 3}
+  - {fileID: 21300000, guid: 47fbb9ceeec388242a760bc4937a1d1a, type: 3}
+  - {fileID: 21300000, guid: 92ab29b0e312904469b600df79fee679, type: 3}
+  - {fileID: 21300000, guid: b6bd70c33138f744ebb34f85b848463a, type: 3}
+  - {fileID: 21300000, guid: 30c6b4ec995383d4da4f932aa43449d5, type: 3}
+  menuManager: {fileID: 8218986179526144025}
 --- !u!1 &1366944795
 GameObject:
   m_ObjectHideFlags: 0
@@ -7424,6 +7509,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameID: 3
+  unlockedIcons:
+  - {fileID: 1567881412}
+  - {fileID: 837332243}
+  - {fileID: 1182232674}
+  - {fileID: 1053016798}
+  - {fileID: 1981599224}
+  - {fileID: 15315924}
+  - {fileID: 670472653}
+  lockedIcons:
+  - {fileID: 21300000, guid: 00290e9bebbc2e64bb47620f5d84b931, type: 3}
+  - {fileID: 21300000, guid: 6edfd1f678c8f0743ac2111603f8e10a, type: 3}
+  - {fileID: 21300000, guid: baa6f640214154c41a8a95b77f943318, type: 3}
+  - {fileID: 21300000, guid: 47fbb9ceeec388242a760bc4937a1d1a, type: 3}
+  - {fileID: 21300000, guid: 92ab29b0e312904469b600df79fee679, type: 3}
+  - {fileID: 21300000, guid: b6bd70c33138f744ebb34f85b848463a, type: 3}
+  - {fileID: 21300000, guid: 30c6b4ec995383d4da4f932aa43449d5, type: 3}
+  menuManager: {fileID: 8218986179526144025}
 --- !u!1 &1567881410
 GameObject:
   m_ObjectHideFlags: 0
@@ -9407,6 +9509,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameID: 1
+  unlockedIcons:
+  - {fileID: 1567881412}
+  - {fileID: 837332243}
+  - {fileID: 1182232674}
+  - {fileID: 1053016798}
+  - {fileID: 1981599224}
+  - {fileID: 15315924}
+  - {fileID: 670472653}
+  lockedIcons:
+  - {fileID: 21300000, guid: 00290e9bebbc2e64bb47620f5d84b931, type: 3}
+  - {fileID: 21300000, guid: 6edfd1f678c8f0743ac2111603f8e10a, type: 3}
+  - {fileID: 21300000, guid: baa6f640214154c41a8a95b77f943318, type: 3}
+  - {fileID: 21300000, guid: 47fbb9ceeec388242a760bc4937a1d1a, type: 3}
+  - {fileID: 21300000, guid: 92ab29b0e312904469b600df79fee679, type: 3}
+  - {fileID: 21300000, guid: b6bd70c33138f744ebb34f85b848463a, type: 3}
+  - {fileID: 21300000, guid: 30c6b4ec995383d4da4f932aa43449d5, type: 3}
+  menuManager: {fileID: 8218986179526144025}
 --- !u!1 &2087366047
 GameObject:
   m_ObjectHideFlags: 0
@@ -9526,6 +9645,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameID: 0
+  unlockedIcons: []
+  lockedIcons: []
+  menuManager: {fileID: 0}
 --- !u!1 &2140024828
 GameObject:
   m_ObjectHideFlags: 0
@@ -13062,6 +13184,7 @@ MonoBehaviour:
   soundClips:
   - {fileID: 8300000, guid: ab5ce77260a8e734daad66aa46ed651f, type: 3}
   - {fileID: 8300000, guid: 2089450ae4648594c8c9f0b3d2857d7c, type: 3}
+  - {fileID: 8300000, guid: d77b92ef594e9894dbffb7da3da88258, type: 3}
   audioSource: {fileID: 1894987628}
 --- !u!135 &8218986179526144026
 SphereCollider:

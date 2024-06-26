@@ -115,6 +115,16 @@ public class ObserveObject : MonoBehaviour
     public GameObject holdClickIndicatorEnglish;
     public GameObject holdClickIndicatorSpanish;
 
+    [Header("Analysis Notes")]
+    public GameObject note0Spanish;
+    public GameObject note1Spanish;
+    public GameObject note2Spanish;
+    public GameObject note3Spanish;
+    public GameObject note0English;
+    public GameObject note1English;
+    public GameObject note2English;
+    public GameObject note3English;
+
     [Header("Sound Variables")]
     public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
     public AudioSource audioSource; // Referencia al componente AudioSource
@@ -151,6 +161,14 @@ public class ObserveObject : MonoBehaviour
         lenseAimGlass.SetActive(false);
         pauseIndicatorEnglish.SetActive(false);
         pauseIndicatorSpanish.SetActive(false);
+        note0English.SetActive(false);
+        note1English.SetActive(false);
+        note2English.SetActive(false);
+        note3English.SetActive(false);
+        note0Spanish.SetActive(false);
+        note1Spanish.SetActive(false);
+        note2Spanish.SetActive(false);
+        note3Spanish.SetActive(false);
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
@@ -572,6 +590,16 @@ public class ObserveObject : MonoBehaviour
         if (canFadeIn)
         {
             panelFader.Fade();
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                note0English.SetActive(true);
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                note0Spanish.SetActive(true);
+            }
+
             canFadeIn = false;
         }
         
@@ -704,6 +732,16 @@ public class ObserveObject : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         phases = JusticePhases.JUDGMENT;
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            note3English.SetActive(false);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            note3Spanish.SetActive(false);
+        }
+        //desactivar note 3 según idioma
     }
 
     private void FixWaitForJudgment()
