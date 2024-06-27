@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Runtime.InteropServices;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Video;
 
 public class MainMenu : MonoBehaviour
 {
@@ -89,9 +90,22 @@ public class MainMenu : MonoBehaviour
     public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
     public AudioSource audioSource; // Referencia al componente AudioSource
 
+    [Header("Cinematic After Completing Minigame 1 References")]
+    public VideoPlayer videoAfterMinigame1English;
+    public VideoPlayer videoAfterMinigame1Spanish;
+    public RawImage outputVideoAfterMinigame1English;
+    public RawImage outputVideoAfterMinigame1Spanish;
+    private bool canPlaySecondAnimation = true;
+
     private void Start()
     {
         spaceShipInteract.SetActive(false);
+        videoAfterMinigame1English.loopPointReached += HideVideo2English;
+        videoAfterMinigame1Spanish.loopPointReached += HideVideo2Spanish;
+        videoAfterMinigame1English.gameObject.SetActive(false);
+        videoAfterMinigame1Spanish.gameObject.SetActive(false);
+        outputVideoAfterMinigame1English.gameObject.SetActive(false);
+        outputVideoAfterMinigame1Spanish.gameObject.SetActive(false);
         planetRenderer = planet.GetComponent<Renderer>();
         HandleMenuUI();
     }
@@ -210,6 +224,29 @@ public class MainMenu : MonoBehaviour
             rightArrow.SetActive(true);
             stamp1.SetActive(true);
             planetRenderer.sharedMaterial = phase1Material;
+        }
+
+        if (MinigamesCompleted.minigame1Finished && LanguageManager.currentLanguage == LanguageManager.Language.English && !MinigamesCompleted.minigame2Finished
+            && !MinigamesCompleted.minigame3Finished && !MinigamesCompleted.minigame4Finished && !MinigamesCompleted.minigame5Finished && !MinigamesCompleted.minigame6Finished
+            && !MinigamesCompleted.minigame7Finished && !MinigamesCompleted.minigame8Finished)
+        {
+            if (canPlaySecondAnimation)
+            {
+                videoAfterMinigame1English.gameObject.SetActive(true);
+                outputVideoAfterMinigame1English.gameObject.SetActive(true);
+                videoAfterMinigame1English.Play();
+                canPlaySecondAnimation = false;
+            }
+        }
+        else if (MinigamesCompleted.minigame1Finished && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            if (canPlaySecondAnimation)
+            {
+                videoAfterMinigame1Spanish.gameObject.SetActive(true);
+                outputVideoAfterMinigame1Spanish.gameObject.SetActive(true);
+                videoAfterMinigame1Spanish.Play();
+                canPlaySecondAnimation = false;
+            }
         }
 
         if (MinigamesCompleted.minigame2Finished)
@@ -351,5 +388,17 @@ public class MainMenu : MonoBehaviour
     public void PlaysSoundButton()
     {
         PlaySound(0);
+    }
+
+    void HideVideo2English(VideoPlayer vp)
+    {
+        outputVideoAfterMinigame1English.gameObject.SetActive(false);
+        videoAfterMinigame1English.gameObject.SetActive(false);
+    }
+
+    void HideVideo2Spanish(VideoPlayer vp)
+    {
+        outputVideoAfterMinigame1Spanish.gameObject.SetActive(false);
+        videoAfterMinigame1Spanish.gameObject.SetActive(false);
     }
 }
