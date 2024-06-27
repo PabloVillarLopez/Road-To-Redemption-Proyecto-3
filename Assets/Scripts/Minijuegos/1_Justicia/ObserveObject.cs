@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class ObserveObject : MonoBehaviour
 {
@@ -91,6 +92,7 @@ public class ObserveObject : MonoBehaviour
     public GameObject analyzeButton2;
     public GameObject analyzeButton3;
     public GameObject errorJudgementPanel;
+    public TextMeshProUGUI errorJudgmentPanelText;
     public GameObject arrowJustice1;
     public GameObject arrowJustice2;
     public GameObject arrowJustice3;
@@ -114,6 +116,10 @@ public class ObserveObject : MonoBehaviour
     public GameObject pauseIndicatorSpanish;
     public GameObject holdClickIndicatorEnglish;
     public GameObject holdClickIndicatorSpanish;
+    public GameObject instructionsIndicatorEnglish;
+    public GameObject instructionsIndicatorSpanish;
+    public GameObject robotIcon;
+    private bool canShowInstructions = true;
 
     [Header("Analysis Notes")]
     public GameObject note0Spanish;
@@ -129,6 +135,12 @@ public class ObserveObject : MonoBehaviour
     public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
     public AudioSource audioSource; // Referencia al componente AudioSource
     public AudioSource audioSourceBackground;
+
+    [Header("Initial Cinematic")]
+    public VideoPlayer cinematicInitialEnglishVideo;
+    public VideoPlayer cinematicInitialSpanishVideo;
+    public RawImage outputCinematicInitialEnglish;
+    public RawImage outputCinematicInitialSpanish;
 
     #region Start
 
@@ -169,9 +181,19 @@ public class ObserveObject : MonoBehaviour
         note1Spanish.SetActive(false);
         note2Spanish.SetActive(false);
         note3Spanish.SetActive(false);
+        instructionsIndicatorEnglish.SetActive(false);
+        instructionsIndicatorSpanish.SetActive(false);
+        robotIcon.SetActive(false);
+        cinematicInitialEnglishVideo.loopPointReached += HideVideoEnglish;
+        cinematicInitialSpanishVideo.loopPointReached += HideVideoSpanish;
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
+            cinematicInitialEnglishVideo.gameObject.SetActive(true);
+            cinematicInitialSpanishVideo.gameObject.SetActive(false);
+            outputCinematicInitialEnglish.gameObject.SetActive(true);
+            outputCinematicInitialSpanish.gameObject.SetActive(false);
+            cinematicInitialEnglishVideo.Play();
             initialInstructionsEnglish.SetActive(true);
             initialInstructionsSpanish.SetActive(false);
             worldCanvasInitialInstructionsEnglish.SetActive(true);
@@ -181,6 +203,11 @@ public class ObserveObject : MonoBehaviour
         }
         else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
+            cinematicInitialEnglishVideo.gameObject.SetActive(false);
+            cinematicInitialSpanishVideo.gameObject.SetActive(true);
+            outputCinematicInitialEnglish.gameObject.SetActive(false);
+            outputCinematicInitialSpanish.gameObject.SetActive(true);
+            cinematicInitialSpanishVideo.Play();
             initialInstructionsEnglish.SetActive(false);
             initialInstructionsSpanish.SetActive(true);
             worldCanvasInitialInstructionsEnglish.SetActive(false);
@@ -210,6 +237,7 @@ public class ObserveObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         /*if (Input.GetKeyDown(KeyCode.E) && PlayerController.playerEnteredInObjectClue1Area)
         {
             Clue1CameraChange();
@@ -249,6 +277,7 @@ public class ObserveObject : MonoBehaviour
         CheckCameraAnalysis();
         HandleAnalyzingUI();
         HandleAnalyzingUIDependingOnLanguage();
+        ShowInstructions();
     }
 
     #endregion Update
@@ -593,10 +622,12 @@ public class ObserveObject : MonoBehaviour
 
             if (LanguageManager.currentLanguage == LanguageManager.Language.English)
             {
+                tutorialAnalysisEnglish.SetActive(true);
                 note0English.SetActive(true);
             }
             else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
             {
+                tutorialAnalysisSpanish.SetActive(true);
                 note0Spanish.SetActive(true);
             }
 
@@ -799,12 +830,23 @@ public class ObserveObject : MonoBehaviour
     {
         PlaySound(3);
         errorJudgementPanel.SetActive(true);
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            errorJudgmentPanelText.text = "We are sorry, you can't judge an innocent character. \n \nTry again in your choice about the guilty of the crime to condemn.";
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            errorJudgmentPanelText.text = "Lo sentimos, no puedes juzgar a un personaje inocente. \n \nPrueba de nuevo en tu elección sobre el culpable del crimen al que condenar.";
+        }
+
         yield return new WaitForSeconds(2f);
         errorJudgementPanel.SetActive(false);
     }
 
     public void ShowTutorial()
     {
+        canShowInstructions = false;
         PlaySound(2);
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
@@ -821,6 +863,10 @@ public class ObserveObject : MonoBehaviour
 
     public void HideTutorial()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        robotIcon.SetActive(true);
+        canShowInstructions = true;
         PlaySound(2);
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
@@ -829,6 +875,8 @@ public class ObserveObject : MonoBehaviour
             tutorialEnglish.SetActive(false);
             pauseIndicatorEnglish.SetActive(true);
             pauseIndicatorSpanish.SetActive(false);
+            instructionsIndicatorEnglish.SetActive(true);
+            instructionsIndicatorSpanish.SetActive(false);
         }
         else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
@@ -836,9 +884,27 @@ public class ObserveObject : MonoBehaviour
             tutorialSpanish.SetActive(false);
             pauseIndicatorEnglish.SetActive(false);
             pauseIndicatorSpanish.SetActive(true);
+            instructionsIndicatorEnglish.SetActive(false);
+            instructionsIndicatorSpanish.SetActive(true);
         }
 
         ComeBackToLookAndMove();
+    }
+
+    public void HideTutorialAnalysis()
+    {
+        PlaySound(2);
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            tutorialAnalysisEnglish.SetActive(false);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            tutorialAnalysisSpanish.SetActive(false);
+        }
+
+        //ComeBackToLookAndMove();
     }
 
     public void ComeBackToLookAndMove()
@@ -858,5 +924,68 @@ public class ObserveObject : MonoBehaviour
             audioSource.Play();
         }
 
+    }
+
+    private void ShowInstructions()
+    {
+        switch (phases)
+        {
+            case JusticePhases.INVESTIGATION:
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (LanguageManager.currentLanguage == LanguageManager.Language.English && !initialInstructionsEnglish.activeInHierarchy && canShowInstructions
+                        || LanguageManager.currentLanguage == LanguageManager.Language.English && !tutorialEnglish.activeInHierarchy && canShowInstructions)
+                    {
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        initialInstructionsEnglish.SetActive(true);
+                        robotIcon.SetActive(false);
+                        instructionsIndicatorEnglish.SetActive(false);
+                        instructionsIndicatorSpanish.SetActive(false);
+                        canShowInstructions = false;
+                    }
+                    else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish && !initialInstructionsSpanish.activeInHierarchy && canShowInstructions
+                        || LanguageManager.currentLanguage == LanguageManager.Language.Spanish && !tutorialSpanish.activeInHierarchy && canShowInstructions)
+                    {
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        initialInstructionsSpanish.SetActive(true);
+                        robotIcon.SetActive(false);
+                        instructionsIndicatorEnglish.SetActive(false);
+                        instructionsIndicatorSpanish.SetActive(false);
+                        canShowInstructions = false;
+                    }
+                    
+                }
+                break;
+            case JusticePhases.ANALYSIS:
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (LanguageManager.currentLanguage == LanguageManager.Language.English && !tutorialAnalysisEnglish)
+                    {
+                        tutorialAnalysisEnglish.SetActive(true);
+                    }
+                    else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish && !tutorialAnalysisSpanish)
+                    {
+                        tutorialAnalysisSpanish.SetActive(true);
+                    }
+
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void HideVideoEnglish(VideoPlayer vp)
+    {
+        outputCinematicInitialEnglish.gameObject.SetActive(false);
+        cinematicInitialEnglishVideo.gameObject.SetActive(false);
+    }
+
+    private void HideVideoSpanish(VideoPlayer vp)
+    {
+        outputCinematicInitialSpanish.gameObject.SetActive(false);
+        cinematicInitialSpanishVideo.gameObject.SetActive(false);
     }
 }

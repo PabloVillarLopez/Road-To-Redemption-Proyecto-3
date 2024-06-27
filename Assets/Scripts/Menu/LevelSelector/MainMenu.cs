@@ -97,6 +97,13 @@ public class MainMenu : MonoBehaviour
     public RawImage outputVideoAfterMinigame1Spanish;
     private bool canPlaySecondAnimation = true;
 
+    [Header("Cinematic Ending Game 1 References")]
+    public VideoPlayer videoEndingEnglish;
+    public VideoPlayer videoEndingSpanish;
+    public RawImage outputVideoEndingEnglish;
+    public RawImage outputVideoEndingSpanish;
+    private bool canPlayLastCinematic = true;
+
     private void Start()
     {
         spaceShipInteract.SetActive(false);
@@ -106,6 +113,14 @@ public class MainMenu : MonoBehaviour
         videoAfterMinigame1Spanish.gameObject.SetActive(false);
         outputVideoAfterMinigame1English.gameObject.SetActive(false);
         outputVideoAfterMinigame1Spanish.gameObject.SetActive(false);
+
+        videoEndingEnglish.loopPointReached += BackToFirstMenu;
+        videoEndingSpanish.loopPointReached += BackToFirstMenu;
+        videoEndingEnglish.gameObject.SetActive(false);
+        videoEndingSpanish.gameObject.SetActive(false);
+        outputVideoEndingEnglish.gameObject.SetActive(false);
+        outputVideoEndingSpanish.gameObject.SetActive(false);
+
         planetRenderer = planet.GetComponent<Renderer>();
         HandleMenuUI();
     }
@@ -238,7 +253,9 @@ public class MainMenu : MonoBehaviour
                 canPlaySecondAnimation = false;
             }
         }
-        else if (MinigamesCompleted.minigame1Finished && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        else if (MinigamesCompleted.minigame1Finished && LanguageManager.currentLanguage == LanguageManager.Language.Spanish && !MinigamesCompleted.minigame2Finished
+            && !MinigamesCompleted.minigame3Finished && !MinigamesCompleted.minigame4Finished && !MinigamesCompleted.minigame5Finished && !MinigamesCompleted.minigame6Finished
+            && !MinigamesCompleted.minigame7Finished && !MinigamesCompleted.minigame8Finished)
         {
             if (canPlaySecondAnimation)
             {
@@ -317,6 +334,20 @@ public class MainMenu : MonoBehaviour
         else if (!MinigamesCompleted.minigame8Finished)
         {
             stamp8.SetActive(false);
+        }
+
+        if (MinigamesCompleted.minigame1Finished && MinigamesCompleted.minigame2Finished && MinigamesCompleted.minigame3Finished
+            && MinigamesCompleted.minigame4Finished && MinigamesCompleted.minigame5Finished && MinigamesCompleted.minigame6Finished
+            && MinigamesCompleted.minigame7Finished && MinigamesCompleted.minigame8Finished)
+        {
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                StartCoroutine(WaitASecondAndLastCinematicEnglish());
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                StartCoroutine(WaitASecondAndLastCinematicSpanish());
+            }
         }
     }
 
@@ -400,5 +431,42 @@ public class MainMenu : MonoBehaviour
     {
         outputVideoAfterMinigame1Spanish.gameObject.SetActive(false);
         videoAfterMinigame1Spanish.gameObject.SetActive(false);
+    }
+
+    void BackToFirstMenu(VideoPlayer vp)
+    {
+        MinigamesCompleted.minigame1Finished = false;
+        MinigamesCompleted.minigame2Finished = false;
+        MinigamesCompleted.minigame3Finished = false;
+        MinigamesCompleted.minigame4Finished = false;
+        MinigamesCompleted.minigame5Finished = false;
+        MinigamesCompleted.minigame6Finished = false;
+        MinigamesCompleted.minigame7Finished = false;
+        MinigamesCompleted.minigame8Finished = false;
+        SceneManager.LoadScene("LevelSelector");
+    }
+
+    private IEnumerator WaitASecondAndLastCinematicEnglish()
+    {
+        if (canPlayLastCinematic)
+        {
+            yield return new WaitForSeconds(1f);
+            videoEndingEnglish.gameObject.SetActive(true);
+            outputVideoEndingEnglish.gameObject.SetActive(true);
+            videoEndingEnglish.Play();
+            canPlayLastCinematic = false;
+        }
+    }
+
+    private IEnumerator WaitASecondAndLastCinematicSpanish()
+    {
+        if (canPlayLastCinematic)
+        {
+            yield return new WaitForSeconds(1f);
+            videoEndingSpanish.gameObject.SetActive(true);
+            outputVideoEndingSpanish.gameObject.SetActive(true);
+            videoEndingSpanish.Play();
+            canPlayLastCinematic = false;
+        }
     }
 }

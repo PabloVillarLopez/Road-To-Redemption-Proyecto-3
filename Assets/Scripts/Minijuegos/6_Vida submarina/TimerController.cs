@@ -26,6 +26,10 @@ public class TimerController : MonoBehaviour
     public GameObject tutorialSpanish;
     public GameObject finalMessageEnglish;
     public GameObject finalMessageSpanish;
+    public GameObject robotIcon;
+    public GameObject instructionsIndicatorEnglish;
+    public GameObject instructionsIndicatorSpanish;
+    private bool canShowInstructions = false;
 
     [Header("Sound Variables")]
     public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
@@ -41,6 +45,9 @@ public class TimerController : MonoBehaviour
         tutorialSpanish.SetActive(false);
         finalMessageEnglish.SetActive(false);
         finalMessageSpanish.SetActive(false);
+        robotIcon.SetActive(false);
+        instructionsIndicatorEnglish.SetActive(false);
+        instructionsIndicatorSpanish.SetActive(false);
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
@@ -79,6 +86,8 @@ public class TimerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ShowInstructions();
+
         if (timerOn == true)
         {
             timeLeft -= Time.deltaTime;
@@ -163,6 +172,8 @@ public class TimerController : MonoBehaviour
         PlaySound(3);
         tutorialEnglish.SetActive(false);
         tutorialSpanish.SetActive(false);
+        robotIcon.SetActive(true);
+        canShowInstructions = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         MouseLook.canLook = true;
@@ -173,11 +184,13 @@ public class TimerController : MonoBehaviour
         {
             pauseIndicatorEnglish.SetActive(true);
             pauseIndicatorSpanish.SetActive(false);
+            instructionsIndicatorEnglish.SetActive(true);
         }
         else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
             pauseIndicatorEnglish.SetActive(false);
             pauseIndicatorSpanish.SetActive(true);
+            instructionsIndicatorSpanish.SetActive(true);
         }
         
     }
@@ -209,5 +222,31 @@ public class TimerController : MonoBehaviour
             audioSource.Play();
         }
 
+    }
+
+    private void ShowInstructions()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && canShowInstructions)
+        {
+            robotIcon.SetActive(false);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            MouseLook.canLook = false;
+            ObserveObject.cantMove = true;
+            PauseMenuManager.canPause = false;
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                initialInstructionsEnglish.SetActive(true);
+                instructionsIndicatorEnglish.SetActive(false);
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                initialInstructionsSpanish.SetActive(true);
+                instructionsIndicatorSpanish.SetActive(false);
+            }
+
+            canShowInstructions = false;
+        }
     }
 }

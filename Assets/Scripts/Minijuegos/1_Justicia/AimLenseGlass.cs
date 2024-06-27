@@ -95,7 +95,16 @@ public class AimLenseGlass : MonoBehaviour
         playerCam.fieldOfView = Mathf.Clamp(playerCam.fieldOfView, 30, 60);
         HideInteractors();
         //PressLeftClickText.text = string.Empty;
-        InvestigatingText.text = "Investigando...";
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            InvestigatingText.text = "Investigating...";
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            InvestigatingText.text = "Investigando...";
+        }
+        
     }
 
     #endregion Start Lense Aim
