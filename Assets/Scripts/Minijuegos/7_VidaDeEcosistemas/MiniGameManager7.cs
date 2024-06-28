@@ -113,7 +113,10 @@ public class MiniGameManager7 : MonoBehaviour
         secondCamera.enabled = false;
         mainCam = Camera.main;
         activeInteract(false);
-        StartCoroutine(CheckDialogue());
+        //StartCoroutine(CheckDialogue());
+        StartCoroutine(ShowDialogueAndObjective());
+
+
 
         foreach (GameObject obj in wallsBad)
         {
@@ -722,6 +725,25 @@ public class MiniGameManager7 : MonoBehaviour
 
 
 
+    }
+
+
+    IEnumerator ShowDialogueAndObjective()
+    {
+        yield return new WaitForSeconds(1f);
+
+        // Lista de índices para el método ShowCustomSequence
+        List<int> index = new List<int> { 1, 0 };
+
+      
+            // Llama al método ShowCustomSequence con los índices
+            DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
+
+            // Activa el UI de objetivo
+            objectiveUI.SetActive(true);
+
+            // Espera 1 segundo antes de la siguiente iteración
+       
     }
 }
 #endregion

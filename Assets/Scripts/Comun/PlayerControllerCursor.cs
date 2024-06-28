@@ -443,42 +443,47 @@ public class PlayerControllerCursor : MonoBehaviour
     #region NPC Interaction
     private void TalkWithNpc()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 10))
+        
+        if (Camera.main != null)
         {
-            if (hit.collider.CompareTag("NPC"))
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 10))
             {
-                if (activeGameManager == null)
+                if (hit.collider.CompareTag("NPC"))
                 {
-                    activeGameManager = FindActiveGameManager();
-                }
-
-                if (activeGameManager != null)
-                {
-                    CallActiveInteract(activeGameManager, true);
-
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (activeGameManager == null)
                     {
-                        npc npcScript = hit.collider.gameObject.GetComponent<npc>();
-                        if (npcScript != null)
-                        {
-                            npcScript.showTutorial();
-                        }
+                        activeGameManager = FindActiveGameManager();
+                    }
 
-                        CallActiveInteract(activeGameManager, false);
+                    if (activeGameManager != null)
+                    {
+                        CallActiveInteract(activeGameManager, true);
+
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            npc npcScript = hit.collider.gameObject.GetComponent<npc>();
+                            if (npcScript != null)
+                            {
+                                npcScript.showTutorial();
+                            }
+
+                            CallActiveInteract(activeGameManager, false);
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            if (activeGameManager != null)
+            else
             {
-                CallActiveInteract(activeGameManager, false);
+                if (activeGameManager != null)
+                {
+                    CallActiveInteract(activeGameManager, false);
+                }
             }
         }
+        
     }
 
     private MonoBehaviour FindActiveGameManager()

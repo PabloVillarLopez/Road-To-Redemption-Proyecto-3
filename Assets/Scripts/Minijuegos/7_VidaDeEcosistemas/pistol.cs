@@ -11,6 +11,7 @@ public class Laser : MonoBehaviour
     [SerializeField] private float _maxLength; // Maximum length of the laser beam
     private MiniGameManager7 miniGameManager; // Reference to the MiniGameManager7 script
     public GameObject spawnSeed;
+    public GameObject spawnSeed2;
     public GameObject pauseSpanish;
     public GameObject pauseEnglish;
 
@@ -112,56 +113,107 @@ public class Laser : MonoBehaviour
 
         if (miniGameManager.currentPhase == 2)
         {
-            // Logic for phase 2
+            // Fase 2: Lógica de rayos
             Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             bool cast = Physics.Raycast(ray, out RaycastHit hit, _maxLength);
-            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+            Debug.DrawRay(ray.origin, ray.direction * (cast ? hit.distance : _maxLength), Color.green);
 
-            // Establece la longitud del rayo
+            // Establece la posición de hit o la longitud máxima del rayo
             Vector3 hitPosition = cast ? hit.point : ray.origin + ray.direction * _maxLength;
+            Debug.Log($"Posición de hit: {hitPosition}");
 
-            if (hit.collider.CompareTag("PlantArea") && miniGameManager.haveSeeds == true)
+            if (cast && hit.collider != null)
             {
-                miniGameManager.activeInteract(true);
-                print("Puedes plantar");
-                if (Input.GetKeyDown(KeyCode.E))
+                if (hit.collider.CompareTag("PlantArea") && miniGameManager.haveSeeds == true)
                 {
-                    // Desactivar el GameObject actual
-                    hit.collider.gameObject.SetActive(false);
+                    // Habilitar la interacción de plantación
+                    miniGameManager.activeInteract(true);
+                    Debug.Log("Puedes plantar en la 'PlantArea'.");
 
-                    // Obtener la posición donde se hizo el hit
-                    Vector3 spawnPosition = hit.point;
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        // Desactivar el GameObject actual
+                        hit.collider.gameObject.SetActive(false);
+                        Debug.Log("El GameObject en 'PlantArea' ha sido desactivado.");
 
-                    // Aquí puedes instanciar (spawnear) un nuevo GameObject
-                    GameObject objetoSpawn = Instantiate(spawnSeed, spawnPosition, Quaternion.identity);
+                        // Obtener la posición donde se hizo el hit
+                        Vector3 spawnPosition = hit.point;
 
-                    // Ajustar cualquier otra configuración necesaria para el nuevo objeto spawnado
+                        // Rotación por defecto
+                        Quaternion rotacionPorDefecto = Quaternion.Euler(0, 0, 0);
 
-                    // Ejemplo de mensaje de debug
-                    Debug.Log("Se ha spawneado un nuevo GameObject en la posición del hit.");
+                        // Ajustar la altura de la posición de spawn en -1.5 unidades
+                        Vector3 posicionAjustada = spawnPosition;
+                        posicionAjustada.y -= 1.5f;
+                        Debug.Log($"Posición ajustada para el spawn: {posicionAjustada}");
 
-                    // Asegúrate de desactivar la lógica de plantación si es necesario
-                    miniGameManager.activeInteract(false);
-                    miniGameManager.isPlanting = true;
+                        // Verificar el objeto padre
+                        if (hit.collider.transform.parent != null)
+                        {
+                            string nombrePadre = hit.collider.transform.parent.name;
+                            Debug.Log($"Nombre del objeto padre: {nombrePadre}");
+
+                            if (nombrePadre == "BOSQUE")
+                            {
+                                // Rotación específica para el objeto en el BOSQUE
+                                Quaternion rotacionBosque = Quaternion.Euler(0, 0, 0);
+                                GameObject objetoSpawn = Instantiate(spawnSeed2, posicionAjustada, rotacionBosque);
+                                Debug.Log("Objeto instanciado en el BOSQUE.");
+                            }
+                            else if (nombrePadre == "LAGO")
+                            {
+                                // Usar la rotación por defecto para el objeto en el LAGO
+                                GameObject objetoSpawn = Instantiate(spawnSeed, posicionAjustada, rotacionPorDefecto);
+                                Debug.Log("Objeto instanciado en el LAGO.");
+                            }
+                            else
+                            {
+                                Debug.Log("El objeto padre no es ni 'BOSQUE' ni 'LAGO'.");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogWarning("El collider no tiene un objeto padre.");
+                        }
+
+                        // Confirmación de spawn
+                        Debug.Log("Se ha spawneado un nuevo GameObject en la posición del hit.");
+
+                        // Desactivar la lógica de plantación
+                        miniGameManager.activeInteract(false);
+                        miniGameManager.isPlanting = true;
+                        Debug.Log("Interacción de plantar desactivada. Estado de plantación activado.");
+                    }
                 }
-            }
-            else if (cast && hit.collider.CompareTag("CatchAble"))
-            {
-                miniGameManager.activeInteract(true);
-                if (Input.GetKeyDown(KeyCode.E))
+                else if (hit.collider.CompareTag("CatchAble"))
                 {
+                    // Habilitar la interacción de recolección
+                    miniGameManager.activeInteract(true);
+                    Debug.Log("Puedes recoger el objeto 'CatchAble'.");
 
-                    miniGameManager.haveSeeds = true;
-                    hit.collider.gameObject.SetActive(false);
-                    print("Se ha recogido la semilla");
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        miniGameManager.haveSeeds = true;
+                        hit.collider.gameObject.SetActive(false);
+                        Debug.Log("Se ha recogido la semilla y el objeto 'CatchAble' ha sido desactivado.");
+                    }
+                }
+                else
+                {
+                    // Desactivar la interacción
+                    miniGameManager.activeInteract(false);
+                    Debug.Log("El collider no tiene el tag 'PlantArea' o 'CatchAble'.");
                 }
             }
             else
             {
+                // Raycast no golpeó nada o no hay collider válido
                 miniGameManager.activeInteract(false);
+                Debug.Log("El Raycast no golpeó nada o no se detectó un collider.");
             }
 
-            print(miniGameManager.haveSeeds);
+            // Estado de semillas
+            Debug.Log($"Estado de haveSeeds: {miniGameManager.haveSeeds}");
         }
 
         // Laser behavior for phase 3
