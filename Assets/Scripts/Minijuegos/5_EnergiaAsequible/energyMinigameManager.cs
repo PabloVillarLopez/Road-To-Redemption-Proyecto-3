@@ -79,6 +79,10 @@ public class energyMinigameManager : MonoBehaviour
     public GameObject finishPanelSpanish;
     public GameObject pauseIndicatorEnglish;
     public GameObject pauseIndicatorSpanish;
+    public GameObject robotIcon;
+    public GameObject instructionsIndicatorEnglish;
+    public GameObject instructionsIndicatorSpanish;
+    private bool canShowInstructions = false;
 
     [Header("Sound Variables")]
     public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
@@ -102,6 +106,9 @@ public class energyMinigameManager : MonoBehaviour
         slotScript.electricityFailObject.SetActive(false);
         //stampPanel.SetActive(false);
         cableCamera.gameObject.SetActive(false);
+        robotIcon.SetActive(false);
+        instructionsIndicatorEnglish.SetActive(false);
+        instructionsIndicatorSpanish.SetActive(false);
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
@@ -154,6 +161,7 @@ public class energyMinigameManager : MonoBehaviour
         //HandleGlobalElectricityUI();
         SumGlobalElectricity();
         CheckGlobalElectricity();
+        ShowInstructions();
     }
 
     #endregion Update
@@ -367,14 +375,18 @@ public class energyMinigameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PauseMenuManager.canPause = true;
+        robotIcon.SetActive(true);
+        canShowInstructions = true;
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             pauseIndicatorEnglish.SetActive(true);
+            instructionsIndicatorEnglish.SetActive(true);
         }
         else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
             pauseIndicatorSpanish.SetActive(true);
+            instructionsIndicatorSpanish.SetActive(true);
         }
     }
 
@@ -392,6 +404,17 @@ public class energyMinigameManager : MonoBehaviour
         PlaySound(3);
         tutorial2English.SetActive(false);
         tutorial2Spanish.SetActive(false);
+        robotIcon.SetActive(true);
+        canShowInstructions = true;
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            instructionsIndicatorEnglish.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            instructionsIndicatorSpanish.SetActive(true);
+        }
     }
 
     public void HideTutorials3()
@@ -399,6 +422,17 @@ public class energyMinigameManager : MonoBehaviour
         PlaySound(3);
         tutorial3English.SetActive(false);
         tutorial3Spanish.SetActive(false);
+        robotIcon.SetActive(true);
+        canShowInstructions = true;
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            instructionsIndicatorEnglish.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            instructionsIndicatorSpanish.SetActive(true);
+        }
     }
 
     public void PlaySound(int sound)
@@ -409,5 +443,56 @@ public class energyMinigameManager : MonoBehaviour
             audioSource.Play();
         }
         
+    }
+
+    private void ShowInstructions()
+    {
+        
+
+        if (Input.GetKeyDown(KeyCode.E) && canShowInstructions)
+        {
+            switch (phase)
+            {
+                case Phase.PHASE1:
+                    MouseLook.canLook = false;
+                    ObserveObject.cantMove = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    PauseMenuManager.canPause = false;
+
+                    if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                    {
+                        initialInstructionsEnglish.SetActive(true);
+                    }
+                    else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                    {
+                        initialInstructionsSpanish.SetActive(true);
+                    }
+
+                    break;
+                case Phase.PHASE2:
+                    if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                    {
+                        tutorial2English.SetActive(true);
+                    }
+                    else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                    {
+                        tutorial2Spanish.SetActive(true);
+                    }
+                    break;
+                case Phase.PHASE3:
+                    if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                    {
+                        tutorial3English.SetActive(true);
+                    }
+                    else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                    {
+                        tutorial3Spanish.SetActive(true);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

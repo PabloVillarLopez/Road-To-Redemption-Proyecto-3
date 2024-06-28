@@ -894,14 +894,20 @@ public class ObserveObject : MonoBehaviour
     public void HideTutorialAnalysis()
     {
         PlaySound(2);
+        robotIcon.SetActive(true);
+        canShowInstructions = true;
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             tutorialAnalysisEnglish.SetActive(false);
+            instructionsIndicatorEnglish.SetActive(true);
+            instructionsIndicatorSpanish.SetActive(false);
         }
         else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
             tutorialAnalysisSpanish.SetActive(false);
+            instructionsIndicatorEnglish.SetActive(false);
+            instructionsIndicatorSpanish.SetActive(true);
         }
 
         //ComeBackToLookAndMove();
