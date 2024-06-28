@@ -64,6 +64,13 @@ public class CultiveZone : MonoBehaviour
                     float porcentaje = objectInfo.timeLife / 20f;
                     health[i].GetComponent<Slider>().value = porcentaje;
                 }
+                else
+                {
+                    tempTextArray[i].text = objectInfo.temp.ToString("");
+                    health[i].GetComponent<Slider>().value = 0;
+
+
+                }
             }
         }
     }

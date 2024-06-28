@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,9 +20,9 @@ public class MiniGameManager1 : MonoBehaviour
     // Variables de tipo float
     public float offSetYSpawn;
     public float offSetZSpawn;
-    public float dayTimeInSeconds = 150f;
+    public float dayTimeInSeconds = 200f;
     private float elapsedTime = 0f;
-    public float temperatureChangePerSecond = 0.001f;
+    public float temperatureChangePerSecond = 0.0001f;
     public float temperature = 20;
     float duration = 300f;
     float cutoffThreshold = 12.5f;
@@ -86,9 +87,9 @@ public class MiniGameManager1 : MonoBehaviour
         Level(1);
         Objective.SetActive(false);
 
-        audioSourceBackground.clip = soundClips[0];
-        audioSourceBackground .Play();
-
+        //audioSourceBackground.clip = soundClips[0];
+        //audioSourceBackground .Play();
+       
 
         SpawnObjectsOnSpawner();
         SpawnOchards();
@@ -121,18 +122,19 @@ public class MiniGameManager1 : MonoBehaviour
                 {
                     Instantiate(markGuide, dispenser.transform.position + new Vector3(-3, 3, 3), Quaternion.identity);
                 }
-                List<int> index = new List<int> { 0, 1 }; 
+                List<int> index = new List<int> { 1, 0 }; 
                 DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
                 activeObjective();
             }
         }
         while (!isDialogueFinished)
         {
+            PlaySound(3);
+            print("22");
             // Llama a la corrutina original
             yield return new WaitForSeconds(1f);
             yield return StartCoroutine(CheckDialogue());
-
-
+            
         }
 
 
@@ -258,7 +260,20 @@ public class MiniGameManager1 : MonoBehaviour
 
     public void PlaySound(int sound)
     {
+        if (sound < 0 || sound >= soundClips.Count)
+        {
+            Debug.LogError($"Índice de sonido fuera de rango: {sound}");
+            return;
+        }
+
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource no asignado.");
+            return;
+        }
+
         audioSource.clip = soundClips[sound];
+        Debug.Log($"Reproduciendo sonido: {audioSource.clip.name}");
         audioSource.Play();
     }
     public bool PlantSound(bool planting) { 
@@ -347,7 +362,7 @@ public class MiniGameManager1 : MonoBehaviour
         temperature += temperatureChangePerSecond * Time.deltaTime;
         dayTime = true;
 
-        float exposure = Mathf.Lerp(0.2f, 1.5f, elapsedTime / dayTimeInSeconds);
+        float exposure = Mathf.Lerp(0.05f, 1.5f, elapsedTime / dayTimeInSeconds);
         RenderSettings.skybox.SetFloat("_Exposure", exposure);
         DynamicGI.UpdateEnvironment();
     }
@@ -358,7 +373,7 @@ public class MiniGameManager1 : MonoBehaviour
         dayTime = false;
 
         float nightElapsedTime = elapsedTime - dayTimeInSeconds;
-        float exposure = Mathf.Lerp(1.5f, 0.2f, nightElapsedTime / fullNightDurationInSeconds);
+        float exposure = Mathf.Lerp(1.5f, 0.05f, nightElapsedTime / fullNightDurationInSeconds);
         RenderSettings.skybox.SetFloat("_Exposure", exposure);
         DynamicGI.UpdateEnvironment();
     }
@@ -470,7 +485,7 @@ public class MiniGameManager1 : MonoBehaviour
                 if (renderer != null)
                 {
                     float currentCutoffHeight = renderer.material.GetFloat("_CutoffHeight");
-                    float incremento = 0.1f * Time.deltaTime;
+                    float incremento = 0.05f * Time.deltaTime;
                     float newCutoffHeight = currentCutoffHeight + incremento;
                     renderer.material.SetFloat("_CutoffHeight", newCutoffHeight);
 
@@ -610,7 +625,7 @@ public class MiniGameManager1 : MonoBehaviour
         {
             if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
             {
-                if (goodFood == 5)
+                if (goodFood == 1)
                 {
                     dialog.spanishLines = new string[] {
                 "Vaya, recluso no esperaba que fueras tan bueno, ¿te han dicho alguna vez que se echa a perder mucha comida a lo largo del año?\r\n"
@@ -619,7 +634,7 @@ public class MiniGameManager1 : MonoBehaviour
                     dialog.dialogueText = text;
                     dialog.StartSpanishDialogue();
                 }
-                else if (goodFood == 10)
+                else if (goodFood == 5)
                 {
                     dialog.spanishLines = new string[] {
                 "Excelente trabajo, con la comida que has salvado se van a poder alimentar 50 familias\r\n"
@@ -628,19 +643,11 @@ public class MiniGameManager1 : MonoBehaviour
                     dialog.dialogueText = text;
                     dialog.StartSpanishDialogue();
                 }
-                else if (badFood == 2)
-                {
-                    dialog.spanishLines = new string[] {
-                "¿Cuidado muchacho, quieres volver a tener problemas? ¿Sabes cuánta gente podría alimentarse con esa comida que se ha echado a perder?\r\n"
-            };
-                    dialog.dialoguePanel = panel;
-                    dialog.dialogueText = text;
-                    dialog.StartSpanishDialogue();
-                }
+                
             }
             else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
             {
-                if (goodFood == 5)
+                if (goodFood == 1)
                 {
                     dialog.englishLines = new string[] {
                 "Wow, inmate, I didn't expect you to be so good. Have you ever been told that a lot of food goes to waste throughout the year?\r\n"
@@ -649,7 +656,7 @@ public class MiniGameManager1 : MonoBehaviour
                     dialog.dialogueText = text;
                     dialog.StartEnglishDialogue();
                 }
-                else if (goodFood == 10)
+                else if (goodFood == 6)
                 {
                     dialog.englishLines = new string[] {
                 "Excellent work, with the food you've saved, 50 families will be able to eat.\r\n"
@@ -658,15 +665,8 @@ public class MiniGameManager1 : MonoBehaviour
                     dialog.dialogueText = text;
                     dialog.StartEnglishDialogue();
                 }
-                else if (badFood == 2)
-                {
-                    dialog.englishLines = new string[] {
-                "Watch out, boy, do you want to get in trouble again? Do you know how many people could be fed with the food that's been wasted?\r\n"
-            };
-                    dialog.dialoguePanel = panel;
-                    dialog.dialogueText = text;
-                    dialog.StartEnglishDialogue();
-                }
+              
+                
             }
         }
 
@@ -695,7 +695,7 @@ public class MiniGameManager1 : MonoBehaviour
                 dialog.StartEnglishDialogue();
             }
         }
-        else if (badFood == 5)
+        else if (badFood == 3)
         {
             if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
             {
@@ -716,7 +716,7 @@ public class MiniGameManager1 : MonoBehaviour
                 dialog.StartEnglishDialogue();
             }
         }
-        else if (badFood == 10)
+        else if (badFood == 6)
         {
             if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
             {

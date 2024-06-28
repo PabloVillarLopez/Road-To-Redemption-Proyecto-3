@@ -230,7 +230,7 @@ public class Laser : MonoBehaviour
             _beam.SetPosition(1, hitPosition);
 
             // Si el rayo láser golpea un objeto, verifica si es "CatchAble" y reduce su vida
-            if (cast && hit.collider.CompareTag("CatchAble"))
+            if (cast && hit.collider.CompareTag("PipelineRotate"))
             {
                 var catchableObject = hit.collider.GetComponent<ApplyMaterial>();
                 if (catchableObject != null)
