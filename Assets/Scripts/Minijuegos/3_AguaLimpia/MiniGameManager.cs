@@ -302,6 +302,11 @@ public class MiniGameManager : MonoBehaviour
     public GameObject finalMessageSpanish;
     private bool canShowFinalMessage = true;
     private bool canShowTutorial2 = true;
+    public GameObject instructionsIndicatorEnglish;
+    public GameObject instructionsIndicatorSpanish;
+    public GameObject robotIcon;
+    private bool canShowInstructions = false;
+    private bool canShowCursor = true;
 
     #region Awake
 
@@ -366,6 +371,9 @@ public class MiniGameManager : MonoBehaviour
         vfxRotate5.SetActive(false);
         vfxRotate6.SetActive(false);
         vfxRotate7.SetActive(false);
+        robotIcon.SetActive(false);
+        instructionsIndicatorEnglish.SetActive(false);
+        instructionsIndicatorSpanish.SetActive(false);
 
         if (audioSourceBackground != null)
         {
@@ -453,6 +461,7 @@ public class MiniGameManager : MonoBehaviour
         }*/
 
         HandleUIDependingOnLanguage();
+        ShowInstructions();
     }
 
     #endregion Update
@@ -989,6 +998,7 @@ public class MiniGameManager : MonoBehaviour
             catastrophesCanStart = false;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            canShowCursor = false;
         }
 
     }
@@ -1004,6 +1014,7 @@ public class MiniGameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PauseMenuManager.canPause = true;
+        canShowCursor = false;
 
     }
 
@@ -1019,6 +1030,7 @@ public class MiniGameManager : MonoBehaviour
         interactIndicatorSpanish.SetActive(false);
         PauseMenuManager.canPause = false;
         playerCamera.SetActive(false);
+        canShowCursor = true;
 
         switch (PlayerController.pipelineRotateEnteredID)
         {
@@ -1152,6 +1164,7 @@ public class MiniGameManager : MonoBehaviour
         interactIndicatorEnglish.SetActive(false);
         interactIndicatorSpanish.SetActive(false);
         PauseMenuManager.canPause = false;
+        canShowCursor = true;
 
         playerCamera.SetActive(false);
 
@@ -1613,10 +1626,12 @@ public class MiniGameManager : MonoBehaviour
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             pauseIndicatorEnglish.SetActive(true);
+            instructionsIndicatorEnglish.SetActive(true);
         }
         else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
         {
             pauseIndicatorSpanish.SetActive(true);
+            instructionsIndicatorEnglish.SetActive(true);
         }
 
         tutorial1English.SetActive(false);
@@ -1626,6 +1641,13 @@ public class MiniGameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PauseMenuManager.canPause = true;
+        canShowInstructions = true;
+        robotIcon.SetActive(true);
+
+        if (playerCamera.activeInHierarchy)
+        {
+            canShowCursor = false;
+        } 
     }
 
     public void HideTutorials2()
@@ -1633,6 +1655,24 @@ public class MiniGameManager : MonoBehaviour
         PlaySound(3);
         tutorial2English.SetActive(false);
         tutorial2Spanish.SetActive(false);
+        canShowInstructions = true;
+        robotIcon.SetActive(true);
+
+        if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+        {
+            pauseIndicatorEnglish.SetActive(true);
+            instructionsIndicatorEnglish.SetActive(true);
+        }
+        else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+        {
+            pauseIndicatorSpanish.SetActive(true);
+            instructionsIndicatorEnglish.SetActive(true);
+        }
+
+        if (playerCamera.activeInHierarchy)
+        {
+            canShowCursor = false;
+        }
     }
 
     public void ShowTutorial2()
@@ -1653,6 +1693,9 @@ public class MiniGameManager : MonoBehaviour
         {
             RotatePipelineUI.SetActive(false);
             congratulationsPanel.SetActive(false);
+            canShowInstructions = false;
+            instructionsIndicatorEnglish.SetActive(false);
+            instructionsIndicatorSpanish.SetActive(false);
 
             if (LanguageManager.currentLanguage == LanguageManager.Language.English)
             {
@@ -1674,6 +1717,64 @@ public class MiniGameManager : MonoBehaviour
         MinigamesCompleted.minigame3Finished = true;
         PauseMenuManager.canPause = true;
         SceneManager.LoadScene("LevelSelector");
+    }
+
+    private void ShowInstructions()
+    {
+        if (Input.GetKeyDown(KeyCode.N) && canShowInstructions)
+        {
+            canShowCursor = true;
+            robotIcon.SetActive(false);
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                instructionsIndicatorEnglish.SetActive(false);
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                instructionsIndicatorEnglish.SetActive(false);
+            }
+
+            switch (phases)
+            {
+                case Phases.TREATMENTPLANT:
+                    if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                    {
+                        tutorial1English.SetActive(true);
+                    }
+                    else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                    {
+                        tutorial1English.SetActive(true);
+                    }
+                    break;
+                case Phases.TOWN:
+                    if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+                    {
+                        tutorial2English.SetActive(true);
+                    }
+                    else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                    {
+                        tutorial2English.SetActive(true);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            canShowInstructions = false;
+            
+        }
+
+        if (!canShowCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else if (canShowCursor)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }
 
