@@ -35,24 +35,23 @@ public class ApplyMaterial : MonoBehaviour
         float newHeight = currentHeight + additionalHeight;
         material.SetFloat("_CutoffHeight", newHeight);
         Debug.Log(newHeight);
-        if(newHeight >= 20 && newHeight <=32)
+
+        if (newHeight >= 20 && newHeight <= 32)
         {
             material.SetFloat("_CutoffHeight", 50);
             minigame.updateProgressText(-1);
-            
-            for(int i = 0; i <= minigame.wallsBad.Length; i++) 
-            
+
+            // Corregir el límite del bucle for para evitar el error fuera de índice
+            for (int i = 0; i < minigame.wallsBad.Length; i++) // Cambiado <= por <
             {
                 if (minigame.wallsBad[i] != null && minigame.wallsBad[i] == gameObject)
                 {
-                    
                     minigame.wallsBad[i].SetActive(false);
                     minigame.wallsGood[i].SetActive(true);
-                    print("Desactivo valla");
+                    Debug.Log("Desactivo valla"); // Cambiado print por Debug.Log
+                    break; // Salir del bucle una vez encontrado el objeto
                 }
-            
             }
-
         }
     }
 

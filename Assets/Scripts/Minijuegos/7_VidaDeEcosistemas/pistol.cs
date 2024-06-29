@@ -1,11 +1,12 @@
 using System.Diagnostics;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Debug = UnityEngine.Debug;
 
 public class Laser : MonoBehaviour
 {
-    [SerializeField] private LineRenderer _beam; // LineRenderer component used for the laser beam
+    [SerializeField] public LineRenderer _beam; // LineRenderer component used for the laser beam
     [SerializeField] private Transform _muzzlePoint; // Transform representing the point where the laser originates
     [SerializeField] private Camera _mainCamera; // Reference to the main camera
     [SerializeField] private float _maxLength; // Maximum length of the laser beam
@@ -30,7 +31,7 @@ public class Laser : MonoBehaviour
     }
 
     // Deactivate the laser beam
-    private void Deactivate()
+    public void Deactivate()
     {
         _beam.enabled = false;
     }
@@ -42,7 +43,7 @@ public class Laser : MonoBehaviour
             // El GameObject 'pause' está activo
             Debug.Log("El GameObject 'pause' está activo.");
             shoot = false;
-
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
             // Aquí puedes añadir el código que quieras ejecutar si 'pause' está activo.
         }
         else
@@ -50,7 +51,7 @@ public class Laser : MonoBehaviour
             // El GameObject 'pause' no está activo
             shoot = true;
             Debug.Log("El GameObject 'pause' no está activo.");
-
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             // Aquí puedes añadir el código que quieras ejecutar si 'pause' no está activo.
         }
 

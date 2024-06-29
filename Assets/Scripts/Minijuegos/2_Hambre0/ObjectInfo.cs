@@ -51,7 +51,6 @@ public class ObjectInfo : MonoBehaviour
                 timeLife = 7f;
                 break;
             case 5:
-                Debug.Log("Heloude");
                 break;
             case 6:
                 break;
@@ -115,41 +114,49 @@ public class ObjectInfo : MonoBehaviour
         {
             float temperature = miniGameManager.temperature;
 
-            // Verificar si temp está fuera del rango
-            if (temp < minTemp || temp > maxTemp)
+            // Verificar si la temperatura está fuera del rango
+            if (temperature < minTemp || temperature > maxTemp)
             {
-
                 // Reducir el tiempo de vida y verificar si llega a cero
                 timeLife -= speedLoseLife * Time.deltaTime;
 
                 if (timeLife <= 0)
                 {
-                    miniGameManager.checkBadFood();
-                    miniGameManager.badReminders();
+                    // Asegurarse de que miniGameManager no sea null antes de llamar métodos
+                    if (miniGameManager != null)
+                    {
+                        miniGameManager.checkBadFood();
+                        miniGameManager.badReminders();
+                    }
+
                     gameObject.SetActive(false);
-                    Cultive.GetComponent<CultiveZone>().RemoveChild(gameObject);
+
+                    // Asegurarse de que Cultive y su componente CultiveZone no sean null
+                    if (Cultive != null)
+                    {
+                        Cultive.GetComponent<CultiveZone>()?.RemoveChild(gameObject);
+                    }
                 }
             }
-            else {
+            else
+            {
+                // Incrementar el tiempo para recolectar
                 timeToCollect += speedLoseLife * Time.deltaTime;
-                    
-                 }
+            }
 
+            // Activar el hijo 1 después de cierto tiempo
             if (timeToCollect >= 5)
             {
-
                 ActiveChild(1);
-
             }
+
+            // Activar el hijo 2 después de cierto tiempo
             if (timeToCollect >= 10)
             {
-
-               
-
                 ActiveChild(2);
             }
-
         }
+
     }
 
     public void Recollect()

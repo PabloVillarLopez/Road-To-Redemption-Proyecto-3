@@ -44,7 +44,7 @@ public class MiniGameManager8 : MonoBehaviour
 
     public List<AudioClip> soundClips = new List<AudioClip>(); // Lista de clips de sonido
     public AudioSource audioSource; // Referencia al componente AudioSource
-
+    public AudioSource audioSourceBackground;
     public Image DialogueByImage;
     private bool isDialogueFinished;
     void Start()
@@ -99,8 +99,7 @@ public class MiniGameManager8 : MonoBehaviour
 
         spawnedObject.GetComponent<TrashInfo>().AddForce();
 
-        // Optionally: If you only want random rotation around the y-axis, use this instead
-        // spawnedObject.transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+       
     }
 
 
@@ -294,7 +293,7 @@ public class MiniGameManager8 : MonoBehaviour
         {
             isDialogueFinished = true;
 
-            List<int> index = new List<int> { 0, 1 };
+            List<int> index = new List<int> { 1, 0 };
             DialogueByImage.GetComponent<DialogueByImage>().ShowCustomSequence(index);
 
         }

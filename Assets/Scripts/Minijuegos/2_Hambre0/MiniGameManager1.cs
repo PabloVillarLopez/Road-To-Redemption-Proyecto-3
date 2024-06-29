@@ -129,10 +129,8 @@ public class MiniGameManager1 : MonoBehaviour
         }
         while (!isDialogueFinished)
         {
-            PlaySound(3);
-            print("22");
             // Llama a la corrutina original
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
             yield return StartCoroutine(CheckDialogue());
             
         }
@@ -273,20 +271,20 @@ public class MiniGameManager1 : MonoBehaviour
         }
 
         audioSource.clip = soundClips[sound];
-        Debug.Log($"Reproduciendo sonido: {audioSource.clip.name}");
+        Debug.Log($"Reproduciendo sonido: {audioSource.clip}");
         audioSource.Play();
     }
     public bool PlantSound(bool planting) { 
     
-    if (planting)
-        {
-            audioSource.clip = soundClips[1];
-            audioSource.Play();
-        }
-    else
-        {
-            audioSource.Stop();
-        }
+    //if (planting)
+    //    {
+    //        audioSource.clip = soundClips[1];
+    //        audioSource.Play(0);
+    //    }
+    //else
+    //    {
+    //        audioSource.Stop();
+    //    }
     return planting;
     
     
@@ -297,10 +295,31 @@ public class MiniGameManager1 : MonoBehaviour
         if (dialog.dialogueFinished && dialog.dialoguePanel.activeSelf == false)
         {
 
-            dialog.spanishLines = new string[] { "Primero planta las semillas que has cogido.\r\n" };
-            dialog.dialoguePanel = panel;
-            dialog.dialogueText = text;
-            dialog.StartSpanishDialogue();
+
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                dialog.spanishLines = new string[]
+                {
+        "Primero planta las semillas que has cogido.\r\n"
+                };
+                dialog.dialoguePanel = panel;
+                dialog.dialogueText = text;
+                dialog.StartSpanishDialogue();
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                dialog.englishLines = new string[]
+                {
+        "First, plant the seeds you have collected.\r\n"
+                };
+                dialog.dialoguePanel = panel;
+                dialog.dialogueText = text;
+                dialog.StartEnglishDialogue();
+            }
+
+
+
         }
     }
 
@@ -308,11 +327,26 @@ public class MiniGameManager1 : MonoBehaviour
     {
         if (dialog.dialogueFinished && dialog.dialoguePanel.activeSelf == false)
         {
-
-            dialog.spanishLines = new string[] { "Esta planta todavia no está lista para ser recogida. Además de tener una mayor biodisponibilidad de antioxidantes y nutrientes clave, lo que mejora su valor nutricional\r\n" };
-            dialog.dialoguePanel = panel;
-            dialog.dialogueText = text;
-            dialog.StartSpanishDialogue();
+            if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                dialog.spanishLines = new string[]
+                {
+            "Esta planta todavía no está lista para ser recogida. Además de tener una mayor biodisponibilidad de antioxidantes y nutrientes clave, lo que mejora su valor nutricional.\r\n"
+                };
+                dialog.dialoguePanel = panel;
+                dialog.dialogueText = text;
+                dialog.StartSpanishDialogue();
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                dialog.englishLines = new string[]
+                {
+            "This plant is not ready to be harvested yet. It also has a higher bioavailability of antioxidants and key nutrients, enhancing its nutritional value.\r\n"
+                };
+                dialog.dialoguePanel = panel;
+                dialog.dialogueText = text;
+                dialog.StartEnglishDialogue();
+            }
         }
     }
     #endregion
@@ -397,8 +431,7 @@ public class MiniGameManager1 : MonoBehaviour
 
     public void checkBadFood()
     {
-        audioSource.clip = soundClips[2];
-        audioSource.Play();
+        PlaySound(3);
         badFood++;
         // Actualizamos el texto según el idioma actual
         if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
@@ -413,8 +446,7 @@ public class MiniGameManager1 : MonoBehaviour
 
     public void checkGoodFood()
     {
-        audioSource.clip = soundClips[1];
-        audioSource.Play();
+        PlaySound(4);
         goodFood++;
         // Actualizamos el texto según el idioma actual
         if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
@@ -447,7 +479,7 @@ public class MiniGameManager1 : MonoBehaviour
                 {
                     fruit[0] = new object[] { "Strawberry", 20, 30 };
                     fruit[1] = new object[] { "Tomato", 15, 25 };
-                    fruit[2] = new object[] { "Bell Pepper", 22, 31 };
+                    fruit[2] = new object[] { "Bell Pepper", 13, 31 };
                 }
                 break;
             case 2:
@@ -485,7 +517,7 @@ public class MiniGameManager1 : MonoBehaviour
                 if (renderer != null)
                 {
                     float currentCutoffHeight = renderer.material.GetFloat("_CutoffHeight");
-                    float incremento = 0.05f * Time.deltaTime;
+                    float incremento = 0.07f * Time.deltaTime;
                     float newCutoffHeight = currentCutoffHeight + incremento;
                     renderer.material.SetFloat("_CutoffHeight", newCutoffHeight);
 
@@ -596,16 +628,7 @@ public class MiniGameManager1 : MonoBehaviour
             dialog.dialoguePanel = panel;
                 dialog.dialogueText = text;
 
-            //if (LanguageManager.currentLanguage == LanguageManager.Language.English)
-            //{
-            //    dialog.StartSpanishDialogue();
-            //}
-            //else if (LanguageManager.currentLanguage != LanguageManager.Language.English)
-            //{
-            //    dialog.StartSpanishDialogue();
-
-            //}
-
+        
 
             if (goodFood > 0)
             {

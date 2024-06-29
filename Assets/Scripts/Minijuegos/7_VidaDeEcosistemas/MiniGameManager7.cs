@@ -93,7 +93,7 @@ public class MiniGameManager7 : MonoBehaviour
     public Image DialogueByImage;
     private string description;
     public GameObject objectiveUI;
-
+    public GameObject pistolScript;
 
     private void Awake()
     {
@@ -349,7 +349,10 @@ public class MiniGameManager7 : MonoBehaviour
                 break;
             case 3:
                 currentPhase = 3;
+
                 pistol.SetActive(true);
+                pistolScript.GetComponent<Laser>().Deactivate();
+
                 reminders(1);
                 countProgress = 0;
                 maxScraps = 3;

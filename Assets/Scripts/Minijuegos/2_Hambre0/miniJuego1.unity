@@ -5482,7 +5482,7 @@ RectTransform:
   m_GameObject: {fileID: 514599279}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.0405, y: 2.0405, z: 2.0405}
+  m_LocalScale: {x: 1.3397106, y: 1.3397106, z: 1.3397106}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1885623008}
@@ -18672,14 +18672,14 @@ RectTransform:
   m_GameObject: {fileID: 1475939852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.42424, y: 0.42424, z: 0.42424}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 639173356}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 827, y: -1109.2}
+  m_AnchoredPosition: {x: 762, y: -1327}
   m_SizeDelta: {x: 903.96, y: 1069.995}
   m_Pivot: {x: 0.53493965, y: 0.41097525}
 --- !u!114 &1475939854
@@ -23808,8 +23808,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 100b5a8763e68d148a9575ac0c2abc26, type: 3}
   - {fileID: 8300000, guid: 3b029db7b4faf8d489275b11262a8768, type: 3}
   - {fileID: 8300000, guid: 55b04dbccc8836442bf2682154a2009c, type: 3}
-  audioSource: {fileID: 8483609391321105174}
-  audioSourceBackground: {fileID: 6397386686271208586}
+  audioSource: {fileID: 7467836232520337192}
+  audioSourceBackground: {fileID: 8483609391321105174}
 --- !u!4 &1993614764
 Transform:
   m_ObjectHideFlags: 0
@@ -23845,49 +23845,64 @@ MonoBehaviour:
   nextImageEnglishInteractor: {fileID: 0}
   nextImageSpanishInteractor: {fileID: 0}
   spanishLines:
-  - "Saludos, Recluso Gronk. Bienvenido a la regi\xF3n de Nutritia. Soy el Robot
-    Policial de la Unidad de Seguridad y Prevenci\xF3n de Delitos en Entornos Urbanos
-    Avanzados Modelo X8-1000, pero puedes llamarme X8. "
-  - "Te preguntar\xE1s qu\xE9 haces aqu\xED en medio del campo, \xBFverdad? Pues
-    te hemos tra\xEDdo para que gestiones la comida de la ciudad. Hemos tenido un
-    problema con el invernadero que ten\xEDamos y, debido a la temperatura, no podemos
-    gestionarlo adecuadamente."
-  - "Tienes tres cultivos frente a ti, cada uno preparado para plantar diferentes
-    semillas que ves a tu derecha. Una vez las hayas plantado, tendr\xE1s que trabajar
-    r\xE1pido porque el tiempo vuela. Tu objetivo es durante la construcci\xF3n del
-    invernadero recolectar la m\xE1xima comida posible para que los ciudadanos puedan
-    alimentarse."
-  - "Cada alimento tiene una temperatura m\xEDnima y m\xE1xima en la que crece correctamente
-    es importante leer los letreros. Por eso, deber\xE1s gestionar la temperatura
-    de los cultivos utilizando los botones que se encuentran cerca de ellos."
-  - "Una vez que los alimentos se hayan cultivado,deber\xE1s recogerlos. Ten en cuenta
-    que todos los alimentos tienen el mismo valor, as\xED que no priorices ninguno. "
-  - "Si tienes todo claro, \xA1a plantar se ha dicho! "
+  - "Bienvenido, Kronk. Soy el Asistente de Gesti\xF3n de Cultivos de esta estaci\xF3n.
+    Nos encontramos en Nutritia, una naci\xF3n que enfrenta una crisis alimentaria
+    devastadora. Las sequ\xEDas y olas de calor han arrasado con las cosechas, y
+    la supervivencia de su gente depende de nuestra labor."
+  - "Tu misi\xF3n aqu\xED es crucial. Detr\xE1s de ti, el equipo est\xE1 trabajando
+    arduamente en la construcci\xF3n de un invernadero automatizado que ser\xE1 capaz
+    de mantener la temperatura ideal para las plantas de manera independiente."
+  - "Pero hasta que el invernadero est\xE9 listo, tu tarea ser\xE1 asegurar el crecimiento
+    de las plantas manualmente. Frente a ti, est\xE1 el m\xF3dulo de cultivo. Este
+    macetero especial es donde empezar\xE1s a plantar semillas."
+  - "Primero, selecciona una semilla de la bandeja a tu derecha y pl\xE1ntala en
+    el macetero. Cada semilla es una esperanza para Nutritia, un paso hacia el Hambre
+    Cero."
+  - "Despu\xE9s de plantar la semilla, tu desaf\xEDo ser\xE1 mantener la temperatura
+    adecuada para su crecimiento. Justo sobre el macetero, ver\xE1s una serie de
+    botones de control de temperatura."
+  - Estos controles son vitales para crear el ambiente perfecto. Nutritia sufre de
+    un clima extremo e impredecible, y cada ajuste que hagas en la temperatura puede
+    significar la diferencia entre la vida y la muerte de tu planta.
+  - "Kronk, cada planta que logres cultivar es un paso hacia la meta de Hambre Cero,
+    un futuro donde nadie pase hambre en Nutritia. Tu \xE9xito aqu\xED no solo contribuir\xE1
+    a tu redenci\xF3n, sino que tambi\xE9n proporcionar\xE1 sustento y esperanza
+    a quienes m\xE1s lo necesitan."
+  - "Una vez que el invernadero est\xE9 completo, podr\xE1 gestionar la temperatura
+    de forma aut\xF3noma, permitiendo una producci\xF3n estable y continua de alimentos.
+    Esto ser\xE1 un pilar fundamental para construir una base s\xF3lida en la lucha
+    contra el hambre en Nutritia."
+  - "Es hora de comenzar. Planta la semilla, ajusta la temperatura y trabaja mientras
+    el invernadero se construye. Cada ajuste que haces es un paso hacia un mundo
+    sin hambre. Buena suerte, Kronk. Nutritia conf\xEDa en ti."
   englishLines:
-  - 'Greetings, Inmate Gronk. Welcome to the Nutritia region. I am the Police Robot
-    of the Security and Crime Prevention in Advanced Urban Environments Unit, Model
-    X8-1000, but you can call me X8.  '
-  - 'You might be wondering what you are doing out here in the middle of the field,
-    right? Well, we brought you here to manage the food supply for the city. We have
-    had a problem with the greenhouse we used to have, and due to the temperature,
-    we cannot manage it properly.  '
-  - 'You have four crops in front of you, each ready to plant different seeds you
-    can see on your left. Once you''ve planted them, you''ll have to work quickly
-    because time flies. Your goal is to collect as much food as possible over the
-    next two days so that the citizens can eat.  '
-  - 'Each type of food has a minimum and maximum temperature at which it grows correctly.
-    Therefore, you must manage the temperature of the crops using the buttons located
-    near them.  '
-  - 'Each type of food has a minimum and maximum temperature at which it grows correctly.
-    Therefore, you must manage the temperature of the crops using the buttons located
-    near them.  '
-  - 'Once the food has grown, it will be automatically harvested. Keep in mind that
-    all foods have the same value, so don''t prioritize any particular one.  '
-  - 'In addition, you must build an automated greenhouse that will manage itself
-    using renewable energy. You have a panel on your left where you can start constructing
-    it once you see the crops are growing well. This will ensure that the crops continue
-    to grow even when you''re not around.  '
-  - 'If you understand everything, let''s get planting!  '
+  - Welcome, Kronk. I am the Crop Management Assistant of this station. We are in
+    Nutritia, a nation facing a devastating food crisis. Droughts and heatwaves have
+    ravaged the crops, and the survival of its people depends on our efforts.
+  - Your mission here is crucial. Behind you, the team is working tirelessly to build
+    an automated greenhouse that will maintain the ideal temperature for the plants
+    independently.
+  - But until the greenhouse is ready, your task will be to ensure the growth of
+    the plants manually. In front of you is the cultivation module. This special
+    planter is where you will start planting seeds.
+  - First, select a seed from the tray on your right and plant it in the planter.
+    Each seed is a hope for Nutritia, a step towards Zero Hunger.
+  - After planting the seed, your challenge will be to maintain the right temperature
+    for its growth. Just above the planter, you will see a set of temperature control
+    buttons.
+  - These controls are vital for creating the perfect environment. Nutritia suffers
+    from extreme and unpredictable weather, and every adjustment you make to the
+    temperature can mean the difference between life and death for your plant.
+  - Kronk, every plant you successfully cultivate is a step towards the goal of Zero
+    Hunger, a future where no one in Nutritia goes hungry. Your success here will
+    not only contribute to your redemption but also provide sustenance and hope to
+    those who need it most.
+  - Once the greenhouse is complete, it will autonomously manage the temperature,
+    allowing for stable and continuous food production. This will be a fundamental
+    pillar in building a solid foundation in the fight against hunger in Nutritia.
+  - It's time to begin. Plant the seed, adjust the temperature, and work while the
+    greenhouse is being built. Every adjustment you make is a step towards a world
+    without hunger. Good luck, Kronk. Nutritia is counting on you.
 --- !u!1 &2004510832
 GameObject:
   m_ObjectHideFlags: 0
@@ -26044,7 +26059,6 @@ GameObject:
   - component: {fileID: 6397386686271208584}
   - component: {fileID: 2230857301310612782}
   - component: {fileID: 6397386686271208585}
-  - component: {fileID: 6397386686271208586}
   m_Layer: 0
   m_Name: Charapter
   m_TagString: Player
@@ -26180,19 +26194,111 @@ MonoBehaviour:
   newMainCamera: {fileID: 0}
   mainCamera: {fileID: 0}
   monitoring: 0
---- !u!82 &6397386686271208586
+--- !u!1 &6804117855987682671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3327678332563024801}
+  - component: {fileID: 7467836232520337191}
+  - component: {fileID: 4497142941750116695}
+  - component: {fileID: 2171611524627557124}
+  - component: {fileID: 7467836232520337192}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &7457522204034384833
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323499920305276085}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!20 &7467836232520337191
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6804117855987682671}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 2
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 26.95244
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 48
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!82 &7467836232520337192
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5293572246622590585}
+  m_GameObject: {fileID: 6804117855987682671}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 06f1514425cc78d458b4510fd8c34171, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.01
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -26276,97 +26382,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &6804117855987682671
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3327678332563024801}
-  - component: {fileID: 7467836232520337191}
-  - component: {fileID: 4497142941750116695}
-  - component: {fileID: 2171611524627557124}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &7457522204034384833
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 323499920305276085}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!20 &7467836232520337191
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6804117855987682671}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 2
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 26.95244
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 48
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!33 &8364761902974986892
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -26518,11 +26533,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e46ab29ccc0503a45a55fc9c9ab83d86, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.03
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -26608,11 +26623,11 @@ AudioSource:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1148388121}
   - {fileID: 1305564194}
   - {fileID: 78487073}
   - {fileID: 1593434597}
   - {fileID: 5060776120780582723}
-  - {fileID: 1148388121}
   - {fileID: 8473382596628001977}
   - {fileID: 1885623008}
   - {fileID: 1993614764}

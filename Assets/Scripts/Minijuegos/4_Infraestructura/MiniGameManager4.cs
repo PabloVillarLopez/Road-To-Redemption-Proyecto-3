@@ -529,42 +529,17 @@ public class MiniGameManager4 : MonoBehaviour
     }
     public void ChangeCameraFinishGame()
     {
-        if (mainCam.enabled)
-        {
-            // Desactivar la cámara principal y activar la tercera cámara
-            mainCam.enabled = false;
-            thirdCamera.enabled = true;
-
-            // Desactivar el Canvas principal y activar el tercer Canvas
-            CanvasMain.enabled = false;
-            thirdCanvas.enabled = true;
+       
+         
+            
 
             // Verificar el idioma actual y asignar las líneas de diálogo en consecuencia
-            if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
-            {
-                dialogue.spanishLines = new string[] {
-            "Excelente trabajo, ahora que las farolas están en funcionamiento esta ciudad conseguirá luz sin tener que usar energía renovable.\r\n"
-        };
-                dialogue.dialoguePanel = thirdPanel;
-                dialogue.dialogueText = thirdText;
-                //dialogue.StartSpanishDialogue();
-                DialogueByImage.GetComponent<DialogueByImage>().ShowImageByIndex(3);
-            }
-            else if (LanguageManager.currentLanguage == LanguageManager.Language.English)
-            {
-                dialogue.englishLines = new string[] {
-            "Great job! Now that the streetlights are working, this city will get light without needing to use renewable energy.\r\n"
-        };
-                dialogue.dialoguePanel = thirdPanel;
-                dialogue.dialogueText = thirdText;
-                //dialogue.StartEnglishDialogue();
+           
                 DialogueByImage.GetComponent<DialogueByImage>().ShowImageByIndex(3);
 
-            }
-
-            // Invocar el cambio de escena después de 7 segundos
+         
             Invoke("ChangeSceneMain", 7f);
-        }
+      
 
 
     }
