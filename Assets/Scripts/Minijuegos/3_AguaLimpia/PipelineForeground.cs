@@ -89,6 +89,10 @@ public class PipelineForeground : MonoBehaviour
     [Header("Minigame Manager")]
     public MiniGameManager minigameManager;
 
+    [Header("Blocking Pipeline")]
+    public bool canInteract;
+    public GameObject[] pipelinesRotate;
+
     #region Awake
 
     private void Awake()
@@ -522,6 +526,7 @@ public class PipelineForeground : MonoBehaviour
             gameManager.downRotateButton.gameObject.SetActive(false);
             rotationCount = 0;
             gameManager.pipelinesInCorrectPlace++;
+            pipeScript.canInteract = false;
 
             /*if (pipeScript.pipelineRotateId == 1)
             {
@@ -531,10 +536,16 @@ public class PipelineForeground : MonoBehaviour
             switch (pipeScript.pipelineRotateId)
             {
                 case 0:
+                    pipelinesRotate[1].GetComponent<PipelineForeground>().canInteract = true;
+                    pipelinesRotate[1].GetComponent<PipelineForeground>().arrowAsociated.SetActive(true);
+                    pipelinesRotate[1].GetComponent<PipelineForeground>().vfxAsociated.SetActive(true);
                     waterfallRedirection1.SetActive(false);
                     waterfallRedirection2.SetActive(true);
                     break;
                 case 1:
+                    pipelinesRotate[2].GetComponent<PipelineForeground>().canInteract = true;
+                    pipelinesRotate[2].GetComponent<PipelineForeground>().arrowAsociated.SetActive(true);
+                    pipelinesRotate[2].GetComponent<PipelineForeground>().vfxAsociated.SetActive(true);
                     waterfallRedirection2.SetActive(false);
                     waterfallRedirection3.SetActive(true);
                     break;
@@ -545,14 +556,23 @@ public class PipelineForeground : MonoBehaviour
                     waterfallRedirection4.SetActive(false);
                     break;
                 case 4:
+                    pipelinesRotate[3].GetComponent<PipelineForeground>().canInteract = true;
+                    pipelinesRotate[3].GetComponent<PipelineForeground>().arrowAsociated.SetActive(true);
+                    pipelinesRotate[3].GetComponent<PipelineForeground>().vfxAsociated.SetActive(true);
                     waterfallRedirection5.SetActive(false);
                     waterfallRedirection4.SetActive(true);
                     break;
                 case 5:
-                    waterfallRedirection6.SetActive(true);
-                    waterfallRedirection5.SetActive(false);
+                    pipelinesRotate[4].GetComponent<PipelineForeground>().canInteract = true;
+                    pipelinesRotate[4].GetComponent<PipelineForeground>().arrowAsociated.SetActive(true);
+                    pipelinesRotate[4].GetComponent<PipelineForeground>().vfxAsociated.SetActive(true);
+                    waterfallRedirection6.SetActive(false);
+                    waterfallRedirection5.SetActive(true);
                     break;
                 case 6:
+                    pipelinesRotate[5].GetComponent<PipelineForeground>().canInteract = true;
+                    pipelinesRotate[5].GetComponent<PipelineForeground>().arrowAsociated.SetActive(true);
+                    pipelinesRotate[5].GetComponent<PipelineForeground>().vfxAsociated.SetActive(true);
                     waterfallRedirection7.SetActive(false);
                     waterfallRedirection6.SetActive(true);
                     break;

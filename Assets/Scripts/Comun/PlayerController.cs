@@ -190,24 +190,28 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("PipelineRotate") && MiniGameManager.canInteractWithRotatePipelines)
         {
-            playerEnteredInRotatePipelineArea = true;
-            pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
-            pipelineRotateEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineRotateId;
-            pipelineEntered = other.gameObject;
-            pipelineEnteredHasBeenAlreadyRotated = other.gameObject.GetComponent<PipelineForeground>().pipelineInCorrecRotation;
-            MiniGameManager.canAddRotateToButton = true;
-            pipeRotateX = other.gameObject.GetComponent<PipelineForeground>().rotationAddedX;
-            pipeRotateY = other.gameObject.GetComponent<PipelineForeground>().rotationAddedY;
-
-            if (!pipelineEnteredHasBeenAlreadyRotated && LanguageManager.currentLanguage == LanguageManager.Language.English)
+            if (other.gameObject.GetComponent<PipelineForeground>().canInteract)
             {
-                interactIndicatorEnglish.SetActive(true);
-            }
+                playerEnteredInRotatePipelineArea = true;
+                pipelineEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineId;
+                pipelineRotateEnteredID = other.gameObject.GetComponent<PipelineForeground>().pipelineRotateId;
+                pipelineEntered = other.gameObject;
+                pipelineEnteredHasBeenAlreadyRotated = other.gameObject.GetComponent<PipelineForeground>().pipelineInCorrecRotation;
+                MiniGameManager.canAddRotateToButton = true;
+                pipeRotateX = other.gameObject.GetComponent<PipelineForeground>().rotationAddedX;
+                pipeRotateY = other.gameObject.GetComponent<PipelineForeground>().rotationAddedY;
 
-            if (!pipelineEnteredHasBeenAlreadyRotated && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
-            {
-                interactIndicatorSpanish.SetActive(true);
+                if (!pipelineEnteredHasBeenAlreadyRotated && LanguageManager.currentLanguage == LanguageManager.Language.English)
+                {
+                    interactIndicatorEnglish.SetActive(true);
+                }
+
+                if (!pipelineEnteredHasBeenAlreadyRotated && LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+                {
+                    interactIndicatorSpanish.SetActive(true);
+                }
             }
+            
         }
 
         if (other.gameObject.CompareTag("PipelineDecontaminate"))

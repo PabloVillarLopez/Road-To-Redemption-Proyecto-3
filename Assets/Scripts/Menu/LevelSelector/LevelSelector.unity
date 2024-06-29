@@ -13863,10 +13863,10 @@ MonoBehaviour:
   videoAfterMinigame1Spanish: {fileID: 1488152160}
   outputVideoAfterMinigame1English: {fileID: 1109289642}
   outputVideoAfterMinigame1Spanish: {fileID: 110469728}
-  videoEndingEnglish: {fileID: 0}
-  videoEndingSpanish: {fileID: 0}
-  outputVideoEndingEnglish: {fileID: 0}
-  outputVideoEndingSpanish: {fileID: 0}
+  videoEndingEnglish: {fileID: 478353953}
+  videoEndingSpanish: {fileID: 1390931542}
+  outputVideoEndingEnglish: {fileID: 838539184}
+  outputVideoEndingSpanish: {fileID: 216803968}
 --- !u!135 &8218986179526144026
 SphereCollider:
   m_ObjectHideFlags: 0

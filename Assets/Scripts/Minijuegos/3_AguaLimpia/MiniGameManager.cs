@@ -1340,11 +1340,11 @@ public class MiniGameManager : MonoBehaviour
                 //arrowsRedirectionCont += Time.deltaTime;
                 if (canShowArrowsRedirection)
                 {
-                    arrowRedirection1.SetActive(true);
-                    arrowRedirection2.SetActive(true);
-                    arrowRedirection3.SetActive(true);
-                    arrowRedirection4.SetActive(true);
-                    arrowRedirection5.SetActive(true);
+                    //arrowRedirection1.SetActive(true);
+                    //arrowRedirection2.SetActive(true);
+                    //arrowRedirection3.SetActive(true);
+                    //arrowRedirection4.SetActive(true);
+                    //arrowRedirection5.SetActive(true);
                     arrowRedirection6.SetActive(true);
                     arrowRedirection7.SetActive(true);
                     canShowArrowsRedirection = false;
@@ -1354,11 +1354,11 @@ public class MiniGameManager : MonoBehaviour
                 {
                     vfxRotate1.SetActive(true);
                     vfxRotate2.SetActive(true);
-                    vfxRotate3.SetActive(true);
-                    vfxRotate4.SetActive(true);
-                    vfxRotate5.SetActive(true);
-                    vfxRotate6.SetActive(true);
-                    vfxRotate7.SetActive(true);
+                    //vfxRotate3.SetActive(true);
+                    //vfxRotate4.SetActive(true);
+                    //vfxRotate5.SetActive(true);
+                    //vfxRotate6.SetActive(true);
+                    //vfxRotate7.SetActive(true);
                     canShowVfxRedirection = false;
                 }
 
