@@ -13,8 +13,9 @@ public class ControllerPlayer : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<MiniGameManager4>();
-       
 
+        //Trying to fix error when paused before finish another minigame
+        MouseLook.canLook = true; 
     }
 
     // Update is called once per frame

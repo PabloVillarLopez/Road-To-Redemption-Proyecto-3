@@ -16,7 +16,11 @@ public class SolarLight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public int[] maxSunPercent = new int[4];
     public GameObject[] solarLightPlaces;
     public GameObject contratulationsPanelPhase2;
+    public TextMeshProUGUI congratulationsPanelPhase2Text;
+    public TextMeshProUGUI congratulationsPanelButtonPhase2Text;
     public GameObject mistakePanelPhase2;
+    public TextMeshProUGUI mistakePanelPhase2Text;
+    public TextMeshProUGUI mistakePanelButtonPhase2Text;
     public static bool randomCorroutinCanStart = false;
     public GameObject plaqueMounted;
     public int id;
@@ -143,6 +147,19 @@ public class SolarLight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             minigameManager.PlaySound(2);
             sunSelectedCorrectly = true;
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                congratulationsPanelPhase2Text.text = "Congratulations! You have mounted the solar plaque on the zone that has more solar light. Now it is time to take charge of the cabling.";
+                congratulationsPanelButtonPhase2Text.text = "Advance to the next phase";
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                congratulationsPanelPhase2Text.text = "Enhorabuena! Has montado la placa solar en la zona que más luz solar tiene. Ahora queda encargarse del cableado.";
+                congratulationsPanelButtonPhase2Text.text = "Avanzar a la siguiente fase";
+            }
+
+            
             contratulationsPanelPhase2.SetActive(true);
             plaqueMounted.SetActive(true);
 
@@ -174,6 +191,18 @@ public class SolarLight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         else
         {
             minigameManager.PlaySound(5); //negative feedback sound
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                mistakePanelPhase2Text.text = "Sorry! The zone that you have selected is not the one with the most solar light at this moment.";
+                mistakePanelButtonPhase2Text.text = "Try again";
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                mistakePanelPhase2Text.text = "Lo siento! La zona que has seleccionado no es la que más luz solar tiene en este momento.";
+                mistakePanelButtonPhase2Text.text = "Volver a intentar";
+            }
+
             mistakePanelPhase2.SetActive(true);
         }
     }

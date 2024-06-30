@@ -11321,11 +11321,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940cb90fe1b78b74e829a1ce031baf01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sensitivity: 869.4
+  Sensitivity: 864
   playerBody: {fileID: 793986945130930472}
   orientation: {fileID: 4801005275567454042}
   player: {fileID: 2276754329032671755}
-  smoothing: 0.05
+  smoothing: 0.1
 --- !u!114 &18557890503374074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13224,8 +13224,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6706437026274117212}
   serializedVersion: 4
-  m_Mass: 2.61
-  m_Drag: 0
+  m_Mass: 1
+  m_Drag: 5
   m_AngularDrag: 0.37
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

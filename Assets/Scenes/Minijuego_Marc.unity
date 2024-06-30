@@ -3765,7 +3765,11 @@ MonoBehaviour:
   - {fileID: 1095425584}
   - {fileID: 357050838}
   contratulationsPanelPhase2: {fileID: 5770517657425737579}
+  congratulationsPanelPhase2Text: {fileID: 8325227308870009554}
+  congratulationsPanelButtonPhase2Text: {fileID: 2061919761688374303}
   mistakePanelPhase2: {fileID: 7348556328116581698}
+  mistakePanelPhase2Text: {fileID: 945076584331251808}
+  mistakePanelButtonPhase2Text: {fileID: 5196715817755817931}
   plaqueMounted: {fileID: 919132148659982524}
   id: 2
   spawnPoint1: {fileID: 1892660066}
@@ -11091,7 +11095,11 @@ MonoBehaviour:
   - {fileID: 1095425584}
   - {fileID: 357050838}
   contratulationsPanelPhase2: {fileID: 5770517657425737579}
+  congratulationsPanelPhase2Text: {fileID: 8325227308870009554}
+  congratulationsPanelButtonPhase2Text: {fileID: 2061919761688374303}
   mistakePanelPhase2: {fileID: 7348556328116581698}
+  mistakePanelPhase2Text: {fileID: 945076584331251808}
+  mistakePanelButtonPhase2Text: {fileID: 5196715817755817931}
   plaqueMounted: {fileID: 919132148659982524}
   id: 3
   spawnPoint1: {fileID: 1892660066}
@@ -23947,7 +23955,7 @@ GameObject:
   - component: {fileID: 7866459620329896371}
   m_Layer: 0
   m_Name: 'npc rig '
-  m_TagString: CanDialogue
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24007,7 +24015,7 @@ Transform:
   m_GameObject: {fileID: 191132313553821107}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7065697, z: 0, w: 0.7076435}
-  m_LocalPosition: {x: 1.332, y: 0.189, z: 23.818}
+  m_LocalPosition: {x: 8.63, y: 0.189, z: 10.08}
   m_LocalScale: {x: 14.5, y: 14.5, z: 14.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -30983,7 +30991,11 @@ MonoBehaviour:
   - {fileID: 1095425584}
   - {fileID: 357050838}
   contratulationsPanelPhase2: {fileID: 5770517657425737579}
+  congratulationsPanelPhase2Text: {fileID: 8325227308870009554}
+  congratulationsPanelButtonPhase2Text: {fileID: 2061919761688374303}
   mistakePanelPhase2: {fileID: 7348556328116581698}
+  mistakePanelPhase2Text: {fileID: 945076584331251808}
+  mistakePanelButtonPhase2Text: {fileID: 5196715817755817931}
   plaqueMounted: {fileID: 919132148659982524}
   id: 1
   spawnPoint1: {fileID: 1892660066}
@@ -32050,7 +32062,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -34802,7 +34814,11 @@ MonoBehaviour:
   - {fileID: 1095425584}
   - {fileID: 2562072520203674910}
   contratulationsPanelPhase2: {fileID: 5770517657425737579}
+  congratulationsPanelPhase2Text: {fileID: 8325227308870009554}
+  congratulationsPanelButtonPhase2Text: {fileID: 2061919761688374303}
   mistakePanelPhase2: {fileID: 7348556328116581698}
+  mistakePanelPhase2Text: {fileID: 945076584331251808}
+  mistakePanelButtonPhase2Text: {fileID: 5196715817755817931}
   plaqueMounted: {fileID: 919132148659982524}
   id: 4
   spawnPoint1: {fileID: 1892660066}
@@ -60863,7 +60879,7 @@ Transform:
   m_GameObject: {fileID: 7640680825794722347}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7065697, z: 0, w: 0.7076435}
-  m_LocalPosition: {x: -1.181, y: 0.18, z: 23.7}
+  m_LocalPosition: {x: -19.93, y: 0.18, z: 21.59}
   m_LocalScale: {x: 14.500001, y: 14.500001, z: 14.500001}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -68609,6 +68625,8 @@ MonoBehaviour:
   - {fileID: 6530961635134434592}
   - {fileID: 191132313553821107}
   congratulationsPanel: {fileID: 8685868403328948446}
+  congratulationsPanelText: {fileID: 7425127049993259151}
+  congratulationsButtonText: {fileID: 8777698847510217203}
   pressLeftClickInteractorEnglish: {fileID: 163903645}
   pressLeftClickInteractorSpanish: {fileID: 1445814072}
   interactIndicatorEnglish: {fileID: 8568628585698555872}
@@ -69826,7 +69844,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

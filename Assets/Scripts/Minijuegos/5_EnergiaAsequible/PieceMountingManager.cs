@@ -19,6 +19,8 @@ public class PieceMountingManager : MonoBehaviour
     public GameObject solarPlaqueMounted;
     public GameObject[] pieces;
     public GameObject congratulationsPanel;
+    public TextMeshProUGUI congratulationsPanelText;
+    public TextMeshProUGUI congratulationsButtonText;
     //public TextMeshProUGUI pressLeftClickText;
     public GameObject pressLeftClickInteractorEnglish;
     public GameObject pressLeftClickInteractorSpanish;
@@ -137,6 +139,7 @@ public class PieceMountingManager : MonoBehaviour
     {
         PauseMenuManager.canPause = false;
         middleSight.SetActive(false);
+        player.GetComponent<PlayerController>().walkingSound.Stop();
 
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
@@ -167,6 +170,19 @@ public class PieceMountingManager : MonoBehaviour
             }
 
             solarPlaqueMounted.SetActive(true);
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                congratulationsPanelText.text = "Congratulations! You have mounted the entire solar plaque. It is time to place it on the zone that has more sun light.";
+                congratulationsButtonText.text = "Advance to next phase";
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                congratulationsPanelText.text = "Enhorabuena! Has montado la placa solar entera. Es hora de ponerla en la zona que más luz solar tenga.";
+                congratulationsButtonText.text = "Avanzar a la siguiente fase";
+            }
+            
+            
             congratulationsPanel.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

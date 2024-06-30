@@ -197,6 +197,9 @@ public class TimerController : MonoBehaviour
 
     private void FinishGame()
     {
+        Cursor.lockState = CursorLockMode.None; 
+        Cursor.visible = true;
+
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
         {
             finalMessageEnglish.SetActive(true);

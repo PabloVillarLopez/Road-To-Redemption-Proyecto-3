@@ -13,7 +13,7 @@ public class EnterMinigames : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        LockMinigames();
     }
 
     // Update is called once per frame
@@ -35,7 +35,6 @@ public class EnterMinigames : MonoBehaviour
                 else if (MinigamesCompleted.minigame2Finished)
                 {
                     menuManager.PlaySound(2); //negative feedback
-                    unlockedIcons[0].sprite = lockedIcons[0];
                 }
                 break;
             case 2: //Agua limpia
@@ -47,7 +46,6 @@ public class EnterMinigames : MonoBehaviour
                 else if (MinigamesCompleted.minigame3Finished)
                 {
                     menuManager.PlaySound(2); //negative feedback
-                    unlockedIcons[1].sprite = lockedIcons[1];
                 }
                 break;
             case 3: //Infraestructrua
@@ -59,7 +57,6 @@ public class EnterMinigames : MonoBehaviour
                 else if (MinigamesCompleted.minigame4Finished)
                 {
                     menuManager.PlaySound(2); //negative feedback
-                    unlockedIcons[2].sprite = lockedIcons[2];
                 }
                 break;
             case 4: //Energía asequible
@@ -71,7 +68,6 @@ public class EnterMinigames : MonoBehaviour
                 else if (MinigamesCompleted.minigame5Finished)
                 {
                     menuManager.PlaySound(2); //negative feedback
-                    unlockedIcons[3].sprite = lockedIcons[3];
                 }
                 break;
             case 5: //Vida submarina
@@ -83,7 +79,6 @@ public class EnterMinigames : MonoBehaviour
                 else if (MinigamesCompleted.minigame6Finished)
                 {
                     menuManager.PlaySound(2); //negative feedback
-                    unlockedIcons[4].sprite = lockedIcons[4];
                 }
                 break;
             case 6: //Vida de ecosistemas terrestres
@@ -95,7 +90,6 @@ public class EnterMinigames : MonoBehaviour
                 else if (MinigamesCompleted.minigame7Finished)
                 {
                     menuManager.PlaySound(2); //negative feedback
-                    unlockedIcons[5].sprite = lockedIcons[5];
                 }
                 break;
             case 7: //Acción por el clima
@@ -107,11 +101,47 @@ public class EnterMinigames : MonoBehaviour
                 else if (MinigamesCompleted.minigame8Finished)
                 {
                     menuManager.PlaySound(2); //negative feedback
-                    unlockedIcons[6].sprite = lockedIcons[6];
                 }
                 break;
             default:
                 break;
+        }
+    }
+    private void LockMinigames()
+    {
+        if (MinigamesCompleted.minigame2Finished)
+        {
+            unlockedIcons[0].sprite = lockedIcons[0];
+        }
+
+        if (MinigamesCompleted.minigame3Finished)
+        {
+            unlockedIcons[1].sprite = lockedIcons[1];
+        }
+
+        if (MinigamesCompleted.minigame4Finished)
+        {
+            unlockedIcons[2].sprite = lockedIcons[2];
+        }
+
+        if (MinigamesCompleted.minigame5Finished)
+        {
+            unlockedIcons[3].sprite = lockedIcons[3];
+        }
+
+        if (MinigamesCompleted.minigame6Finished)
+        {
+            unlockedIcons[4].sprite = lockedIcons[4];
+        }
+
+        if (MinigamesCompleted.minigame7Finished)
+        {
+            unlockedIcons[5].sprite = lockedIcons[5];
+        }
+
+        if (MinigamesCompleted.minigame8Finished)
+        {
+            unlockedIcons[6].sprite = lockedIcons[6];
         }
     }
 }

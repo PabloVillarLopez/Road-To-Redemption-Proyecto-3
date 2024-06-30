@@ -12,6 +12,14 @@ public class AnalyzeClue : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public Slider analyzeSlider;
     public GameObject analyzeButton;
     public ObserveObject minigameManager;
+    public GameObject holdButtonIndicatorEnglish;
+    public GameObject holdButtonIndicatorSpanish;
+
+    private void Awake()
+    {
+        holdButtonIndicatorEnglish.SetActive(false);
+        holdButtonIndicatorSpanish.SetActive(false);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -80,6 +88,16 @@ public class AnalyzeClue : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             Debug.Log(cluesAnalyzed);
             analyzeSlider.gameObject.SetActive(false);
             analyzeButton.SetActive(false);
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                holdButtonIndicatorEnglish.SetActive(false);
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                holdButtonIndicatorSpanish.SetActive(false);
+            }
+
             buttonPressed = false;
             timer = 0;
             minigameManager.PlaySound(4);

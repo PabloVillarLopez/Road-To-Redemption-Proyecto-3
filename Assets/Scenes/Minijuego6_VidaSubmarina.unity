@@ -18858,7 +18858,7 @@ GameObject:
   - component: {fileID: 3853524993511737097}
   m_Layer: 0
   m_Name: 'npc rig '
-  m_TagString: CanDialogue
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -32,6 +32,8 @@ public class RotateClue : MonoBehaviour
     public GameObject leftArrow;
     public GameObject rightArrow;
     public ObserveObject minigameManager;
+    public GameObject holdButtonIndicatorEnglish;
+    public GameObject holdButtonIndicatorSpanish;
 
     #region Start
 
@@ -108,6 +110,16 @@ public class RotateClue : MonoBehaviour
             clueIsInCorrectRotation = true;
             angleAddedY = 0;
             analyzeButton.SetActive(true);
+
+            if (LanguageManager.currentLanguage == LanguageManager.Language.English)
+            {
+                holdButtonIndicatorEnglish.SetActive(true);
+            }
+            else if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)
+            {
+                holdButtonIndicatorSpanish.SetActive(true);
+            }
+
             analyzeSlider.SetActive(true);
             leftArrow.SetActive(false);
             rightArrow.SetActive(false);
