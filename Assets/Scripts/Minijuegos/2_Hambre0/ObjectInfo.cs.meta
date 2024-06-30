@@ -3,7 +3,12 @@ guid: f8c393e1bcad5444eb31aa237af457c9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - miniGameManager: {instanceID: 0}
+  - Cultive: {instanceID: 0}
+  - renderer: {instanceID: 0}
+  - mesh: {instanceID: 0}
+  - pista: {fileID: 3194535239669490086, guid: ad5a618e82fd97e4a9bed7ecb32682be, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -16,7 +16,7 @@ public class ObjectInfo : MonoBehaviour
     public GameObject Cultive;
     public new MeshRenderer renderer;
     public MeshFilter mesh;
-
+    public GameObject pista;
 
     public string Tipo;
     private void Awake()
@@ -27,7 +27,7 @@ public class ObjectInfo : MonoBehaviour
 
     void Start()
     {
-         
+        pista = GameObject.Find("pista");
         miniGameManager = GameObject.Find("GameManager").GetComponent<MiniGameManager1>();
 
         switch (id)
@@ -114,47 +114,40 @@ public class ObjectInfo : MonoBehaviour
         {
             float temperature = miniGameManager.temperature;
 
-            // Verificar si la temperatura está fuera del rango
-            if (temperature < minTemp || temperature > maxTemp)
+            // Verificar si temp está fuera del rango
+            if (temp < minTemp || temp > maxTemp)
             {
+
                 // Reducir el tiempo de vida y verificar si llega a cero
                 timeLife -= speedLoseLife * Time.deltaTime;
 
                 if (timeLife <= 0)
                 {
-                    // Asegurarse de que miniGameManager no sea null antes de llamar métodos
-                    if (miniGameManager != null)
-                    {
-                        miniGameManager.checkBadFood();
-                        miniGameManager.badReminders();
-                    }
-
+                    miniGameManager.checkBadFood();
+                    miniGameManager.badReminders();
                     gameObject.SetActive(false);
-
-                    // Asegurarse de que Cultive y su componente CultiveZone no sean null
-                    if (Cultive != null)
-                    {
-                        Cultive.GetComponent<CultiveZone>()?.RemoveChild(gameObject);
-                    }
+                    Cultive.GetComponent<CultiveZone>().RemoveChild(gameObject);
                 }
             }
             else
             {
-                // Incrementar el tiempo para recolectar
                 timeToCollect += speedLoseLife * Time.deltaTime;
+
             }
 
-            // Activar el hijo 1 después de cierto tiempo
             if (timeToCollect >= 5)
             {
-                ActiveChild(1);
-            }
 
-            // Activar el hijo 2 después de cierto tiempo
+                ActiveChild(1);
+
+            }
             if (timeToCollect >= 10)
             {
+
+               //pista= Instantiate(pista, transform.position, Quaternion.identity);
                 ActiveChild(2);
             }
+
         }
 
     }
@@ -162,8 +155,9 @@ public class ObjectInfo : MonoBehaviour
     public void Recollect()
     {
         miniGameManager.checkGoodFood();
-
+        //pista.SetActive(false);
         gameObject.SetActive(false);
+        
     }
  
     private void ActiveChild(int childnumber)

@@ -31,7 +31,7 @@ public class MiniGameManager8 : MonoBehaviour
     private float timeRemaining;
     public Text timerText;
     public bool monitoring;
-    private DialogueScript dialogue;
+    public DialogueScript dialogue;
 
     public GameObject panel;
     public TMPro.TextMeshProUGUI text;
@@ -47,6 +47,7 @@ public class MiniGameManager8 : MonoBehaviour
     public AudioSource audioSourceBackground;
     public Image DialogueByImage;
     private bool isDialogueFinished;
+    public bool finishedGame;
     void Start()
     {
         if (LanguageManager.currentLanguage == LanguageManager.Language.English)
@@ -194,6 +195,7 @@ public class MiniGameManager8 : MonoBehaviour
             player.RevertToPreviousCamera();
             player.monitoring = false;
             monitoring = false;
+            finishedGame = true;
             StopAllCoroutines();
             CancelInvoke("SpawnObject");
             //if (LanguageManager.currentLanguage == LanguageManager.Language.Spanish)

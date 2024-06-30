@@ -211,9 +211,10 @@ public class PlayerControllerCursor : MonoBehaviour
         {
             
             
-                if (hit.collider.CompareTag("CatchAble") && mode == 2)
+                if (hit.collider.CompareTag("CatchAble") && mode == 2 )
                 {
                     GameObject managerObject = GameObject.Find("GameManager");
+                    if (managerObject != null && managerObject.GetComponent<MiniGameManager8>().dialogue.dialogueFinished && managerObject.GetComponent<MiniGameManager8>().dialogue.dialoguePanel.activeSelf == false && managerObject.GetComponent<MiniGameManager8>().finishedGame==false)
                     managerObject.GetComponent<MiniGameManager8>().activeInteract(true);
                     if (Input.GetKeyDown(KeyCode.E))
                     {

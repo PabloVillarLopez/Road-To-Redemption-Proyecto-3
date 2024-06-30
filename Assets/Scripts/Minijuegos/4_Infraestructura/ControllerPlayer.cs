@@ -94,9 +94,7 @@ public class ControllerPlayer : MonoBehaviour
 
                     if (Input.GetKeyDown(KeyCode.E))
                     {
-                        animator = hit.collider.gameObject.GetComponent<Animator>();
 
-                        StartCoroutine(PlayAnimationAfterDelay(animator));
                         gameManager.ChooseAreaToSpawn(hit.point);
                         Debug.Log("Cojo punto de referencia");
                     }

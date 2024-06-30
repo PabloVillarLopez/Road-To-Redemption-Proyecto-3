@@ -86,7 +86,7 @@ public class CultiveZone : MonoBehaviour
             counterList++;
             newFruit.GetComponent<ObjectInfo>().ready = true;
             newFruit.GetComponent<ObjectInfo>().temp= Random.Range(20, 25);
-
+            newFruit.GetComponent<ObjectInfo>().Cultive = gameObject;
              
         }
        if (newFruit != null && newFruit.transform.childCount > 0)

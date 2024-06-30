@@ -95,6 +95,7 @@ public class MiniGameManager7 : MonoBehaviour
     public GameObject objectiveUI;
     public GameObject pistolScript;
 
+    public GameObject clue;
     private void Awake()
     {
         
@@ -115,7 +116,7 @@ public class MiniGameManager7 : MonoBehaviour
         activeInteract(false);
         //StartCoroutine(CheckDialogue());
         StartCoroutine(ShowDialogueAndObjective());
-
+        clue.SetActive(false);
 
 
         foreach (GameObject obj in wallsBad)
@@ -327,6 +328,8 @@ public class MiniGameManager7 : MonoBehaviour
             case 2:
                 currentPhase = 2;
                 reminders(0);
+                clue.SetActive(true);
+
                 pistol.SetActive(false);
                 ManagerPlant();
                 Debug.Log("Starting Phase 2");
@@ -352,7 +355,6 @@ public class MiniGameManager7 : MonoBehaviour
 
                 pistol.SetActive(true);
                 pistolScript.GetComponent<Laser>().Deactivate();
-
                 reminders(1);
                 countProgress = 0;
                 maxScraps = 3;
@@ -396,6 +398,11 @@ public class MiniGameManager7 : MonoBehaviour
     #endregion
 
     #region Progress Update
+    public void ActiveKey()
+    {
+
+
+    }
 
     public void updateProgressText(int progress)
     {
