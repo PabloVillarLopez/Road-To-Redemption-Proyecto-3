@@ -6,30 +6,30 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scripts/Menu/LevelSelector/LevelSelector.unity
+    path: Assets/Scenes_New/LevelSelector.unity
     guid: 0acf32042f0f94e4a953a64a5f379619
   - enabled: 1
-    path: Assets/Scenes/Minijuego1_Paz.unity
+    path: Assets/Scenes_New/Minijuego1_Paz.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scripts/Minijuegos/2_Hambre0/miniJuego1.unity
+    path: Assets/Scenes_New/miniJuego1.unity
     guid: a4cae19252957aa488b629ca772ad599
   - enabled: 1
-    path: Assets/Scenes/Minijuego3_AguaLimpia.unity
+    path: Assets/Scenes_New/Minijuego3_AguaLimpia.unity
     guid: 4132cc60dce9d3d47bdea8ac41e56e50
   - enabled: 1
-    path: Assets/Scripts/Minijuegos/4_Infraestructura/MinujuegoInfraestructura.unity
+    path: Assets/Scenes_New/MinujuegoInfraestructura.unity
     guid: 1a811a5335ec76b4c8dd746ce6285767
   - enabled: 1
-    path: Assets/Scenes/Minijuego_Marc.unity
+    path: Assets/Scenes_New/Minijuego_Marc.unity
     guid: 15d1b55aa1b913b4d84443756feacd6f
   - enabled: 1
-    path: Assets/Scenes/Minijuego6_VidaSubmarina.unity
+    path: Assets/Scenes_New/Minijuego6_VidaSubmarina.unity
     guid: 35a4b5fff3c4da84cb69f28b56694d96
   - enabled: 1
-    path: "Assets/Scripts/Minijuegos/7_VidaDeEcosistemas/Santuario_Da\xF1ado 1.unity"
+    path: "Assets/Scenes_New/Santuario_Da\xF1ado 1.unity"
     guid: 5e3d3a4c008bb1644b142deb4a5e7ccf
   - enabled: 1
-    path: "Assets/Scripts/Minijuegos/8_Acci\xF3nclima/MiniGame_8.unity"
+    path: Assets/Scenes_New/MiniGame_8.unity
     guid: c5f54f403d1ee7f46ba8f1e327d1fc50
   m_configObjects: {}
